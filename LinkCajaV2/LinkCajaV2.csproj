@@ -46,10 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuraciones\Company.cs">
+    <Compile Include="Catalogs\Supplier.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Configuraciones\Company.Designer.cs">
+    <Compile Include="Catalogs\Supplier.Designer.cs">
+      <DependentUpon>Supplier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\Suppliers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\Suppliers.Designer.cs">
+      <DependentUpon>Suppliers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configurations\Company.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configurations\Company.Designer.cs">
       <DependentUpon>Company.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\AppRepository.cs" />
@@ -66,10 +78,17 @@
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\CompanyModel.cs" />
+    <Compile Include="Model\SuppliersModel.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Configuraciones\Company.resx">
+    <EmbeddedResource Include="Catalogs\Supplier.resx">
+      <DependentUpon>Supplier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\Suppliers.resx">
+      <DependentUpon>Suppliers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configurations\Company.resx">
       <DependentUpon>Company.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
@@ -100,5 +119,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

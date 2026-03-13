@@ -31,6 +31,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.configuracionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.empresaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.catalogosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.proveedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -39,7 +41,8 @@
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.configuracionesToolStripMenuItem});
+            this.configuracionesToolStripMenuItem,
+            this.catalogosToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(761, 33);
@@ -57,9 +60,24 @@
             // empresaToolStripMenuItem
             // 
             this.empresaToolStripMenuItem.Name = "empresaToolStripMenuItem";
-            this.empresaToolStripMenuItem.Size = new System.Drawing.Size(182, 34);
+            this.empresaToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.empresaToolStripMenuItem.Text = "Empresa";
             this.empresaToolStripMenuItem.Click += new System.EventHandler(this.empresaToolStripMenuItem_Click);
+            // 
+            // catalogosToolStripMenuItem
+            // 
+            this.catalogosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.proveedoresToolStripMenuItem});
+            this.catalogosToolStripMenuItem.Name = "catalogosToolStripMenuItem";
+            this.catalogosToolStripMenuItem.Size = new System.Drawing.Size(108, 29);
+            this.catalogosToolStripMenuItem.Text = "Catalogos";
+            // 
+            // proveedoresToolStripMenuItem
+            // 
+            this.proveedoresToolStripMenuItem.Name = "proveedoresToolStripMenuItem";
+            this.proveedoresToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.proveedoresToolStripMenuItem.Text = "Proveedores";
+            this.proveedoresToolStripMenuItem.Click += new System.EventHandler(this.proveedoresToolStripMenuItem_Click);
             // 
             // Menu
             // 
@@ -71,7 +89,7 @@
             this.Name = "Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Menu";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Menu_FormClosing);
+             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Menu_FormClosed);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -84,5 +102,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem configuracionesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem empresaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem catalogosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem proveedoresToolStripMenuItem;
     }
 }

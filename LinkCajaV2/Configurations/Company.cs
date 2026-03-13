@@ -22,11 +22,6 @@ namespace LinkCajaV2.Configuraciones
             InitializeComponent();
         }
 
-        private void Empresa_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void btnLogo_Click(object sender, EventArgs e)
         {
             OpenFileDialog selector = new OpenFileDialog();

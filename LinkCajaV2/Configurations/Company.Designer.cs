@@ -201,10 +201,11 @@
             this.Controls.Add(this.lblDireccion);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.lblNombre);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Company";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Empresa";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Empresa_FormClosed);
             this.Load += new System.EventHandler(this.Empresa_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PBLogo)).EndInit();
             this.ResumeLayout(false);

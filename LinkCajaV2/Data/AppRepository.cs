@@ -134,5 +134,47 @@ namespace LinkCajaV2.Data
         }
 
         #endregion
+        #region Suppliers
+        public async Task<List<SuppliersModel>> GetSuppliers(string Nombre)
+        {
+            List<SuppliersModel> list = new List<SuppliersModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetSuppliers", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Name", Nombre));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToSuppliers(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+             
+            }
+            return list;
+        }
+        private SuppliersModel MapToSuppliers(SqlDataReader reader)
+        {
+            return new SuppliersModel()
+            {
+                Id = (int)reader["Id"],
+                Name = (string)reader["Name"],
+                Address = (string)reader["Address"],
+                Phone1 = (string)reader["Phone1"],
+                Phone2 = (string)reader["Phone2"],
+                Email = (string)reader["Email"],
+            };
+        }
+        #endregion
     }
 }

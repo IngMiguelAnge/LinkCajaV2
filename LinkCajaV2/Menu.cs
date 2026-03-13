@@ -1,4 +1,5 @@
-﻿using LinkCajaV2.Configuraciones;
+﻿using LinkCajaV2.Catalogs;
+using LinkCajaV2.Configuraciones;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,16 +19,23 @@ namespace LinkCajaV2
             InitializeComponent();
         }
 
-        private void Menu_FormClosing(object sender, FormClosingEventArgs e)
-        {
-
-        }
 
         private void empresaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Company m = new Company();
             m.Show();
-            this.Hide();
+            //this.Hide();
+        }
+
+        private void proveedoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Suppliers m = new Suppliers();
+            m.Show();
+        }
+
+        private void Menu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
