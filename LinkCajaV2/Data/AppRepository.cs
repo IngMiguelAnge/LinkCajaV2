@@ -63,7 +63,7 @@ namespace LinkCajaV2.Data
         }
         #endregion
         #region ActionsEmpresa
-        public async Task<bool> SaveEmpresa(CompanyModel obj)
+        public async Task<bool> SaveCompany(CompanyModel obj)
         {
             try
             {
@@ -163,6 +163,36 @@ namespace LinkCajaV2.Data
             }
             return list;
         }
+        public async Task<SuppliersModel> GetSuppliersbyId(int Id)
+        {
+            SuppliersModel response = new SuppliersModel();
+            List<SuppliersModel> list = new List<SuppliersModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetSuppliersbyId", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToSuppliers(reader));
+                            }
+                            response = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
         private SuppliersModel MapToSuppliers(SqlDataReader reader)
         {
             return new SuppliersModel()
@@ -174,6 +204,31 @@ namespace LinkCajaV2.Data
                 Phone2 = (string)reader["Phone2"],
                 Email = (string)reader["Email"],
             };
+        }
+        public async Task<bool> SaveSupplier(SuppliersModel obj)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveSupplier", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
+                        cmd.Parameters.Add(new SqlParameter("@Address", obj.Address));
+                        cmd.Parameters.Add(new SqlParameter("@Phone1", obj.Phone1));
+                        cmd.Parameters.Add(new SqlParameter("@Phone2", obj.Phone2));
+                        cmd.Parameters.Add(new SqlParameter("@Email", obj.Email));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
         #endregion
     }

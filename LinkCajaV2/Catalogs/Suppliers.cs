@@ -22,13 +22,12 @@ namespace LinkCajaV2.Catalogs
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             Supplier m = new Supplier();
+            m.Id = 0;
             m.Show();
         }
 
         private void Suppliers_Load(object sender, EventArgs e)
         {
-            //AppRepository obj = new AppRepository();
-            //var Empresa = obj.GetCompany().Result;
         }
 
         private async void btnBuscar_Click(object sender, EventArgs e)
@@ -57,7 +56,7 @@ namespace LinkCajaV2.Catalogs
                     }
                     else
                     {
-                        //AgregarBotones();
+                        AgregarBotones();
                         MessageBox.Show("Carga completa", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
@@ -76,11 +75,28 @@ namespace LinkCajaV2.Catalogs
         private void AgregarBotones()
         {
             // Botón Checket
-            DataGridViewCheckBoxColumn chkSeleccionar = new DataGridViewCheckBoxColumn();
-            chkSeleccionar.Name = "cbSeleccionar";
-            chkSeleccionar.HeaderText = "Copiar a Base";
-            dgvProveedores.Columns.Add(chkSeleccionar);
+            DataGridViewButtonColumn btnEditar = new DataGridViewButtonColumn();
+            btnEditar.Name = "btnEditar";
+            btnEditar.HeaderText = "Acción";
+            btnEditar.Text = "Editar";
+            btnEditar.UseColumnTextForButtonValue = true;
+            dgvProveedores.Columns.Add(btnEditar);
         }
 
+        private void dgvProveedores_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Evitar errores si hacen click en el encabezado
+            if (e.RowIndex < 0) return;
+            var Id = dgvProveedores.Rows[e.RowIndex].Cells["Id"].Value;
+
+            switch (dgvProveedores.Columns[e.ColumnIndex].Name)
+            {
+                case "btnEditar":
+                    Supplier m = new Supplier();
+                    m.Id = Convert.ToInt32(Id);
+                    m.Show();
+                    break;
+            }
+        }
     }
 }

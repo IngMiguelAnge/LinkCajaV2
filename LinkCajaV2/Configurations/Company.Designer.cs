@@ -37,7 +37,6 @@
             this.lblTelefono1 = new System.Windows.Forms.Label();
             this.txtTelefono1 = new System.Windows.Forms.TextBox();
             this.lblTelefono2 = new System.Windows.Forms.Label();
-            this.lblOpcional = new System.Windows.Forms.Label();
             this.txtTelefono2 = new System.Windows.Forms.TextBox();
             this.lblCorreo = new System.Windows.Forms.Label();
             this.txtCorreo = new System.Windows.Forms.TextBox();
@@ -114,20 +113,11 @@
             // lblTelefono2
             // 
             this.lblTelefono2.AutoSize = true;
-            this.lblTelefono2.Location = new System.Drawing.Point(41, 233);
+            this.lblTelefono2.Location = new System.Drawing.Point(37, 239);
             this.lblTelefono2.Name = "lblTelefono2";
             this.lblTelefono2.Size = new System.Drawing.Size(84, 20);
             this.lblTelefono2.TabIndex = 8;
             this.lblTelefono2.Text = "Telefono2:";
-            // 
-            // lblOpcional
-            // 
-            this.lblOpcional.AutoSize = true;
-            this.lblOpcional.Location = new System.Drawing.Point(45, 257);
-            this.lblOpcional.Name = "lblOpcional";
-            this.lblOpcional.Size = new System.Drawing.Size(81, 20);
-            this.lblOpcional.TabIndex = 9;
-            this.lblOpcional.Text = "(Opcional)";
             // 
             // txtTelefono2
             // 
@@ -191,7 +181,6 @@
             this.Controls.Add(this.txtCorreo);
             this.Controls.Add(this.lblCorreo);
             this.Controls.Add(this.txtTelefono2);
-            this.Controls.Add(this.lblOpcional);
             this.Controls.Add(this.lblTelefono2);
             this.Controls.Add(this.txtTelefono1);
             this.Controls.Add(this.lblTelefono1);
@@ -224,7 +213,6 @@
         private System.Windows.Forms.Label lblTelefono1;
         private System.Windows.Forms.TextBox txtTelefono1;
         private System.Windows.Forms.Label lblTelefono2;
-        private System.Windows.Forms.Label lblOpcional;
         private System.Windows.Forms.TextBox txtTelefono2;
         private System.Windows.Forms.Label lblCorreo;
         private System.Windows.Forms.TextBox txtCorreo;

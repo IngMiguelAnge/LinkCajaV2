@@ -55,7 +55,7 @@ namespace LinkCajaV2.Configuraciones
                 Logo = PBLogo.Image != null ? ImageToByteArray() : null
             };
             AppRepository obj = new AppRepository();
-            if(obj.SaveEmpresa(Empresa).Result)
+            if(obj.SaveCompany(Empresa).Result)
                 MessageBox.Show("Guardado satisfactoriamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 MessageBox.Show("Erro al guardar la información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
