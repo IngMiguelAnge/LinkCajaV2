@@ -231,5 +231,103 @@ namespace LinkCajaV2.Data
             }
         }
         #endregion
+        #region Clients
+        public async Task<List<ClientsModel>> GetClients(string Nombre)
+        {
+            List<ClientsModel> list = new List<ClientsModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetClients", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Name", Nombre));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToClients(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+        public async Task<ClientsModel> GetClientsbyId(int Id)
+        {
+            ClientsModel response = new ClientsModel();
+            List<ClientsModel> list = new List<ClientsModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetClientsbyId", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToClients(reader));
+                            }
+                            response = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
+        private ClientsModel MapToClients(SqlDataReader reader)
+        {
+            return new ClientsModel()
+            {
+                Id = (int)reader["Id"],
+                Name = (string)reader["Name"],
+                Address = (string)reader["Address"],
+                Phone1 = (string)reader["Phone1"],
+                Phone2 = (string)reader["Phone2"],
+                Email = (string)reader["Email"],
+            };
+        }
+        public async Task<bool> SaveClient(ClientsModel obj)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveClient", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
+                        cmd.Parameters.Add(new SqlParameter("@Address", obj.Address));
+                        cmd.Parameters.Add(new SqlParameter("@Phone1", obj.Phone1));
+                        cmd.Parameters.Add(new SqlParameter("@Phone2", obj.Phone2));
+                        cmd.Parameters.Add(new SqlParameter("@Email", obj.Email));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        #endregion
     }
 }

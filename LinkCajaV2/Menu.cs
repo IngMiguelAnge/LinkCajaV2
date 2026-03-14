@@ -37,5 +37,11 @@ namespace LinkCajaV2
         {
             Application.Exit();
         }
+
+        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Clients c = new Clients();
+            c.Show();
+        }
     }
 }

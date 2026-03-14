@@ -1,5 +1,4 @@
-﻿using LinkCajaV2.Configuraciones;
-using LinkCajaV2.Data;
+﻿using LinkCajaV2.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,22 +11,18 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Catalogs
 {
-    public partial class Suppliers : Form
+    public partial class Clients : Form
     {
-        public Suppliers()
+        public Clients()
         {
             InitializeComponent();
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            Supplier m = new Supplier();
+            Client m = new Client();
             m.Id = 0;
             m.Show();
-        }
-
-        private void Suppliers_Load(object sender, EventArgs e)
-        {
         }
 
         private async void btnBuscar_Click(object sender, EventArgs e)
@@ -42,16 +37,16 @@ namespace LinkCajaV2.Catalogs
                 progressBar1.Style = ProgressBarStyle.Marquee; // La barra empieza a moverse sola
                 progressBar1.MarqueeAnimationSpeed = 30; // Velocidad de la animación
                 btnBuscar.Enabled = false; // Deshabilitar el botón para evitar múltiples clics
-                dgvProveedores.DataSource = null;
-                dgvProveedores.Columns.Clear();
+                dgvClientes.DataSource = null;
+                dgvClientes.Columns.Clear();
                 try
                 {
                     AppRepository obj = new AppRepository();
-                    var lista = await Task.Run(() => obj.GetSuppliers(txtNombre.Text));
-                    dgvProveedores.DataSource = lista != null && lista.Count > 0 ? lista : null;
+                    var lista = await Task.Run(() => obj.GetClients(txtNombre.Text));
+                    dgvClientes.DataSource = lista != null && lista.Count > 0 ? lista : null;
                     if (lista == null || lista.Count == 0)
                     {
-                        MessageBox.Show("No se encontraron proveedores", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("No se encontraron clientes.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
                     else
@@ -68,10 +63,11 @@ namespace LinkCajaV2.Catalogs
                 {
                     progressBar1.Style = ProgressBarStyle.Blocks;
                     progressBar1.Value = 0;
-                    btnBuscar.Enabled = true; 
+                    btnBuscar.Enabled = true;
                 }
             }
         }
+
         private void AgregarBotones()
         {
             // Botón Checket
@@ -80,19 +76,19 @@ namespace LinkCajaV2.Catalogs
             btnEditar.HeaderText = "Acción";
             btnEditar.Text = "Editar";
             btnEditar.UseColumnTextForButtonValue = true;
-            dgvProveedores.Columns.Add(btnEditar);
+            dgvClientes.Columns.Add(btnEditar);
         }
 
-        private void dgvProveedores_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Evitar errores si hacen click en el encabezado
             if (e.RowIndex < 0) return;
-            var Id = dgvProveedores.Rows[e.RowIndex].Cells["Id"].Value;
+            var Id = dgvClientes.Rows[e.RowIndex].Cells["Id"].Value;
 
-            switch (dgvProveedores.Columns[e.ColumnIndex].Name)
+            switch (dgvClientes.Columns[e.ColumnIndex].Name)
             {
                 case "btnEditar":
-                    Supplier m = new Supplier();
+                    Client m = new Client();
                     m.Id = Convert.ToInt32(Id);
                     m.Show();
                     break;
