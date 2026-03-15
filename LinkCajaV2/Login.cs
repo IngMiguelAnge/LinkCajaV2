@@ -28,7 +28,14 @@ namespace LinkCajaV2
             }
             else
             {
+                if(usuario.Status == false)
+                {
+                    MessageBox.Show("Usuario desabilitado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 Menu m = new Menu();
+                m.IdUsuario = usuario.Id;
                 m.Show();
                 this.Hide();
             }

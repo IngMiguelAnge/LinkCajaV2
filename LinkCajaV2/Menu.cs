@@ -14,12 +14,11 @@ namespace LinkCajaV2
 {
     public partial class Menu : Form
     {
+        public int IdUsuario { get; set; }
         public Menu()
         {
             InitializeComponent();
         }
-
-
         private void empresaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Company m = new Company();
@@ -52,7 +51,17 @@ namespace LinkCajaV2
 
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Users u = new Users();
+            u.Show();
+        }
 
+        private void Menu_Load(object sender, EventArgs e)
+        {
+            if(IdUsuario != 1)
+            {
+                configuracionesToolStripMenuItem.Visible = false;
+                catalogosToolStripMenuItem.Visible = false;
+            }
         }
     }
 }
