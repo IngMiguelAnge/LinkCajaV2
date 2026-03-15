@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Catalogs\Articles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\Articles.Designer.cs">
+      <DependentUpon>Articles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Catalogs\Client.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +76,18 @@
     <Compile Include="Catalogs\Suppliers.Designer.cs">
       <DependentUpon>Suppliers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Catalogs\User.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\User.Designer.cs">
+      <DependentUpon>User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\Users.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\Users.Designer.cs">
+      <DependentUpon>Users.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configurations\Company.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,10 +109,16 @@
     </Compile>
     <Compile Include="Model\ClientsModel.cs" />
     <Compile Include="Model\CompanyModel.cs" />
+    <Compile Include="Model\ListSuppliersModel.cs" />
+    <Compile Include="Model\ListUserModel.cs" />
     <Compile Include="Model\SuppliersModel.cs" />
+    <Compile Include="Model\TypesUsersModel.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Catalogs\Articles.resx">
+      <DependentUpon>Articles.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\Client.resx">
       <DependentUpon>Client.cs</DependentUpon>
     </EmbeddedResource>
@@ -106,6 +130,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\Suppliers.resx">
       <DependentUpon>Suppliers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\User.resx">
+      <DependentUpon>User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\Users.resx">
+      <DependentUpon>Users.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Configurations\Company.resx">
       <DependentUpon>Company.cs</DependentUpon>

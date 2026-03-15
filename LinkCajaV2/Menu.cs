@@ -43,5 +43,16 @@ namespace LinkCajaV2
             Clients c = new Clients();
             c.Show();
         }
+
+        private void articulosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Articles a = new Articles();
+            a.Show();
+        }
+
+        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

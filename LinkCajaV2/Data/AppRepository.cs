@@ -19,6 +19,36 @@ namespace LinkCajaV2.Data
             GC.Collect();
         }
         #region ActionsUsers
+        public async Task<List<ListUserModel>> GetUsers(UserModel user)
+        {
+            List<ListUserModel> list = new List<ListUserModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetUsers", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@User", user.User));
+                        cmd.Parameters.Add(new SqlParameter("@Name", user.Name));
+                        cmd.Parameters.Add(new SqlParameter("@Id_TypeUser", user.Id_TypeUser));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToListUser(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
+
         public async Task<UserModel> GetUserbyNameAndPassword(string User, string Password)
         {
             UserModel response = new UserModel();
@@ -59,6 +89,18 @@ namespace LinkCajaV2.Data
                 Password = (string)reader["Password"],
                 Status = (bool)reader["Status"],
                 Id_TypeUser = Convert.IsDBNull(reader["Id_TypeUser"]) ? 0 : (int)reader["Id_TypeUser"],
+                Name = (string)reader["Name"],
+                Address = (string)reader["Address"],
+            };
+        }
+        private ListUserModel MapToListUser(SqlDataReader reader)
+        {
+            return new ListUserModel()
+            {
+                Id = (int)reader["Id"],
+                User = (string)reader["User"],
+                Name = (string)reader["Name"],
+                TypeUser = (string)reader["TypeUser"],
             };
         }
         #endregion
@@ -135,9 +177,9 @@ namespace LinkCajaV2.Data
 
         #endregion
         #region Suppliers
-        public async Task<List<SuppliersModel>> GetSuppliers(string Nombre)
+        public async Task<List<ListSuppliersModel>> GetSuppliers(string Nombre)
         {
-            List<SuppliersModel> list = new List<SuppliersModel>();
+            List<ListSuppliersModel> list = new List<ListSuppliersModel>();
             try
             {
                 using (SqlConnection sql = new SqlConnection(Connection))
@@ -151,7 +193,7 @@ namespace LinkCajaV2.Data
                         {
                             while (await reader.ReadAsync().ConfigureAwait(false))
                             {
-                                list.Add(MapToSuppliers(reader));
+                                list.Add(MapToListSuppliers(reader));
                             }
                         }
                     }
@@ -202,6 +244,15 @@ namespace LinkCajaV2.Data
                 Address = (string)reader["Address"],
                 Phone1 = (string)reader["Phone1"],
                 Phone2 = (string)reader["Phone2"],
+                Email = (string)reader["Email"],
+            };
+        }
+        private ListSuppliersModel MapToListSuppliers(SqlDataReader reader)
+        {
+            return new ListSuppliersModel()
+            {
+                Id = (int)reader["Id"],
+                Name = (string)reader["Name"],
                 Email = (string)reader["Email"],
             };
         }
@@ -326,6 +377,43 @@ namespace LinkCajaV2.Data
             {
                 return false;
             }
+        }
+        #endregion
+        #region TypesUsers
+        public async Task<List<TypesUsersModel>> GetTypesUsers()
+        {
+            List<TypesUsersModel> list = new List<TypesUsersModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetTypesUsers", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToTypesUsers(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+        private TypesUsersModel MapToTypesUsers(SqlDataReader reader)
+        {
+            return new TypesUsersModel()
+            {
+                Id = (int)reader["Id"],
+                Name = (string)reader["Name"],
+            };
         }
 
         #endregion
