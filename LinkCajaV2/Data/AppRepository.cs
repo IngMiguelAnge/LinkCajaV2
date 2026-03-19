@@ -485,6 +485,46 @@ namespace LinkCajaV2.Data
 
         #endregion
         #region Articles
+        public async Task<ArticleModel> GetArticlebyId(int Id)
+        {
+            ArticleModel response = new ArticleModel();
+            List<ArticleModel> list = new List<ArticleModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetArticlebyId", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToArticle(reader));
+                            }
+                            response = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response = null;
+            }
+            return response;
+        }
+        private ArticleModel MapToArticle(SqlDataReader reader)
+        {
+            return new ArticleModel()
+            {
+                Name = (string)reader["Name"],
+                Description = (string)reader["Description"],
+                Image = Convert.IsDBNull(reader["Image"]) ? null : (byte[])reader["Image"],
+            };
+        }
+
         public async Task<bool> SaveArticle(ArticleModel obj)
         {
             try
@@ -544,8 +584,8 @@ namespace LinkCajaV2.Data
             {
                 Id = (int)reader["Id"],
                 Name = (string)reader["Name"],
-                Available_Quantity = (decimal)reader["Available_Quantity"],
-                Price = (string)reader["Price"],
+                //Available_Quantity = (decimal)reader["Available_Quantity"],
+                //Price = (string)reader["Price"],
             };
         }
         #endregion

@@ -63,5 +63,28 @@ namespace LinkCajaV2.Catalogs
             }
 
         }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            Article m = new Article();
+            m.Id = 0;
+            m.Show();
+        }
+
+        private void dgvArticulos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Evitar errores si hacen click en el encabezado
+            if (e.RowIndex < 0) return;
+            var Id = dgvArticulos.Rows[e.RowIndex].Cells["Id"].Value;
+
+            switch (dgvArticulos.Columns[e.ColumnIndex].Name)
+            {
+                case "btnEditar":
+                    Article m = new Article();
+                    m.Id = Convert.ToInt32(Id);
+                    m.Show();
+                    break;
+            }
+        }
     }
 }

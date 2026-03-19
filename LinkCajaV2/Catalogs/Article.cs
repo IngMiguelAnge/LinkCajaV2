@@ -45,7 +45,10 @@ namespace LinkCajaV2.Catalogs
             };
             AppRepository obj = new AppRepository();
             if (obj.SaveArticle(Articulo).Result)
-                MessageBox.Show("Guardado satisfactoriamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            {
+                MessageBox.Show("Articulo guardado correctamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
             else
                 MessageBox.Show("Erro al guardar la información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -65,7 +68,18 @@ namespace LinkCajaV2.Catalogs
         private void Article_Load(object sender, EventArgs e)
         {
             if (Id == 0) return;
-
+            AppRepository obj = new AppRepository();
+            var Article = obj.GetArticlebyId(Id).Result;
+            txtNombre.Text = Article.Name;
+            txtDescripcion.Text = Article.Description;
+            if (Article.Image != null)
+            {
+                using (MemoryStream ms = new MemoryStream(Article.Image))
+                {
+                    PBProducto.Image = Image.FromStream(ms);
+                    PBProducto.SizeMode = PictureBoxSizeMode.Zoom;
+                }
+            }
         }
     }
 }
