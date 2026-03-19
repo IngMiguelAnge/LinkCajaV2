@@ -28,7 +28,7 @@ namespace LinkCajaV2.Catalogs
             ListType.Insert(0, new TypesUsersModel { Id = 0, Name = "Seleccione" });
 
             // Configuramos el ComboBox
-            CBTipo.DisplayMember = "Nombre"; // Lo que el usuario VE
+            CBTipo.DisplayMember = "Name"; // Lo que el usuario VE
             CBTipo.ValueMember = "Id";      // El dato que procesas por DETRÁS
             CBTipo.DataSource = ListType;
             CBTipo.SelectedIndex = 0;
@@ -44,44 +44,47 @@ namespace LinkCajaV2.Catalogs
                 {
                     return;
                 }
-                progressBar1.Style = ProgressBarStyle.Marquee; // La barra empieza a moverse sola
-                progressBar1.MarqueeAnimationSpeed = 30; // Velocidad de la animación
-                BtnBuscar.Enabled = false; // Deshabilitar el botón para evitar múltiples clics
-                dgvUsuarios.DataSource = null;
-                dgvUsuarios.Columns.Clear();
-                try
+            }
+            progressBar1.Style = ProgressBarStyle.Marquee; // La barra empieza a moverse sola
+            progressBar1.MarqueeAnimationSpeed = 30; // Velocidad de la animación
+            BtnBuscar.Enabled = false;
+            BtnNuevo.Enabled = false; 
+            dgvUsuarios.DataSource = null;
+            dgvUsuarios.Columns.Clear();
+            try
+            {
+                AppRepository obj = new AppRepository();
+                UserModel user = new UserModel
                 {
-                    AppRepository obj = new AppRepository();
-                    UserModel user = new UserModel
-                    {
-                        User = txtUsuario.Text.Trim(),
-                        Name = txtNombre.Text.Trim(),
-                        Id_TypeUser = CBTipo.SelectedIndex > 0 ? (int)CBTipo.SelectedValue : 0
-                    };
-                    var lista = await Task.Run(() => obj.GetUsers(user));
-                    dgvUsuarios.DataSource = lista != null && lista.Count > 0 ? lista : null;
-                    if (lista == null || lista.Count == 0)
-                    {
-                        MessageBox.Show("No se encontraron clientes.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-                    else
-                    {
-                        AgregarBotones();
-                        MessageBox.Show("Carga completa", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    User = txtUsuario.Text.Trim(),
+                    Name = txtNombre.Text.Trim(),
+                    IdTypeUser = CBTipo.SelectedIndex > 0 ? (int)CBTipo.SelectedValue : 0
+                };
+                var lista = await Task.Run(() => obj.GetUsers(user));
+                dgvUsuarios.DataSource = lista != null && lista.Count > 0 ? lista : null;
+                if (lista == null || lista.Count == 0)
+                {
+                    MessageBox.Show("No se encontraron usuarios.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    progressBar1.Style = ProgressBarStyle.Blocks;
-                    progressBar1.Value = 0;
-                    BtnBuscar.Enabled = true;
+                    AgregarBotones();
+                    MessageBox.Show("Carga completa", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                progressBar1.Style = ProgressBarStyle.Blocks;
+                progressBar1.Value = 0;
+                BtnBuscar.Enabled = true;
+                BtnNuevo.Enabled = true;
+            }
+
         }
         private void AgregarBotones()
         {
@@ -108,6 +111,13 @@ namespace LinkCajaV2.Catalogs
                     m.Show();
                     break;
             }
+        }
+
+        private void BtnNuevo_Click(object sender, EventArgs e)
+        {
+            User m = new User();
+            m.Id = 0;
+            m.Show();
         }
     }
 }

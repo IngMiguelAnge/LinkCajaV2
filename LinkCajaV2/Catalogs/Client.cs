@@ -22,8 +22,9 @@ namespace LinkCajaV2.Catalogs
 
         private void Client_Load(object sender, EventArgs e)
         {
-            AppRepository obj = new AppRepository();
-            var Client = obj.GetClientsbyId(Id).Result;
+            if (Id == 0) return;
+            AppRepository obj = new AppRepository();         
+            var Client = obj.GetClientsbyId(Id).Result;         
             txtNombre.Text = Client.Name;
             txtDireccion.Text = Client.Address;
             txtTelefono1.Text = Client.Phone1;

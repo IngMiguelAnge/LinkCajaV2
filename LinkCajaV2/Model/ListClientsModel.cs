@@ -1,6 +1,6 @@
 ﻿namespace LinkCajaV2.Model
 {
-    public class ListSuppliersModel
+    public class ListClientsModel
     {
         public int Id { get; set; }
         public string Nombre { get; set; }

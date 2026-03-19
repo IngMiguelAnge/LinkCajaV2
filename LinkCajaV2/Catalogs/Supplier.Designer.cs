@@ -59,7 +59,7 @@
             // 
             // txtDireccion
             // 
-            this.txtDireccion.Location = new System.Drawing.Point(446, 33);
+            this.txtDireccion.Location = new System.Drawing.Point(477, 33);
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(246, 26);
             this.txtDireccion.TabIndex = 3;
@@ -91,7 +91,7 @@
             // 
             // txtTelefono2
             // 
-            this.txtTelefono2.Location = new System.Drawing.Point(456, 90);
+            this.txtTelefono2.Location = new System.Drawing.Point(482, 90);
             this.txtTelefono2.Name = "txtTelefono2";
             this.txtTelefono2.Size = new System.Drawing.Size(236, 26);
             this.txtTelefono2.TabIndex = 7;

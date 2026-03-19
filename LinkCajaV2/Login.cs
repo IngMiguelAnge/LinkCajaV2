@@ -36,6 +36,7 @@ namespace LinkCajaV2
 
                 Menu m = new Menu();
                 m.IdUsuario = usuario.Id;
+                m.IdTypeUser = usuario.IdTypeUser;
                 m.Show();
                 this.Hide();
             }

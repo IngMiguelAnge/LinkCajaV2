@@ -15,6 +15,7 @@ namespace LinkCajaV2
     public partial class Menu : Form
     {
         public int IdUsuario { get; set; }
+        public int IdTypeUser { get; set; }
         public Menu()
         {
             InitializeComponent();
@@ -57,7 +58,7 @@ namespace LinkCajaV2
 
         private void Menu_Load(object sender, EventArgs e)
         {
-            if(IdUsuario != 1)
+            if(IdTypeUser != 1)
             {
                 configuracionesToolStripMenuItem.Visible = false;
                 catalogosToolStripMenuItem.Visible = false;

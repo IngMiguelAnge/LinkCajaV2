@@ -39,38 +39,41 @@ namespace LinkCajaV2.Catalogs
                 {
                     return;
                 }
-                progressBar1.Style = ProgressBarStyle.Marquee; // La barra empieza a moverse sola
-                progressBar1.MarqueeAnimationSpeed = 30; // Velocidad de la animación
-                btnBuscar.Enabled = false; // Deshabilitar el botón para evitar múltiples clics
-                dgvProveedores.DataSource = null;
-                dgvProveedores.Columns.Clear();
-                try
+            }
+            progressBar1.Style = ProgressBarStyle.Marquee; // La barra empieza a moverse sola
+            progressBar1.MarqueeAnimationSpeed = 30; // Velocidad de la animación
+            btnBuscar.Enabled = false; 
+            btnNuevo.Enabled = false;
+            dgvProveedores.DataSource = null;
+            dgvProveedores.Columns.Clear();
+            try
+            {
+                AppRepository obj = new AppRepository();
+                var lista = await Task.Run(() => obj.GetSuppliers(txtNombre.Text));
+                dgvProveedores.DataSource = lista != null && lista.Count > 0 ? lista : null;
+                if (lista == null || lista.Count == 0)
                 {
-                    AppRepository obj = new AppRepository();
-                    var lista = await Task.Run(() => obj.GetSuppliers(txtNombre.Text));
-                    dgvProveedores.DataSource = lista != null && lista.Count > 0 ? lista : null;
-                    if (lista == null || lista.Count == 0)
-                    {
-                        MessageBox.Show("No se encontraron proveedores", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-                    else
-                    {
-                        AgregarBotones();
-                        MessageBox.Show("Carga completa", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    MessageBox.Show("No se encontraron proveedores", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    progressBar1.Style = ProgressBarStyle.Blocks;
-                    progressBar1.Value = 0;
-                    btnBuscar.Enabled = true; 
+                    AgregarBotones();
+                    MessageBox.Show("Carga completa", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                progressBar1.Style = ProgressBarStyle.Blocks;
+                progressBar1.Value = 0;
+                btnBuscar.Enabled = true;
+                btnNuevo.Enabled = true;
+            }
+
         }
         private void AgregarBotones()
         {

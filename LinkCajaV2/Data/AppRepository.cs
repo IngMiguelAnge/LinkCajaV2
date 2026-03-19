@@ -19,6 +19,32 @@ namespace LinkCajaV2.Data
             GC.Collect();
         }
         #region ActionsUsers
+        public async Task<bool> SaveUser(UserModel obj)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveUser", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
+                        cmd.Parameters.Add(new SqlParameter("@Address", obj.Address));
+                        cmd.Parameters.Add(new SqlParameter("@User", obj.User));
+                        cmd.Parameters.Add(new SqlParameter("@Password", obj.Password));
+                        cmd.Parameters.Add(new SqlParameter("@Status", obj.Status));
+                        cmd.Parameters.Add(new SqlParameter("@IdTypeUser", obj.IdTypeUser));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public async Task<List<ListUserModel>> GetUsers(UserModel user)
         {
             List<ListUserModel> list = new List<ListUserModel>();
@@ -31,7 +57,7 @@ namespace LinkCajaV2.Data
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@User", user.User));
                         cmd.Parameters.Add(new SqlParameter("@Name", user.Name));
-                        cmd.Parameters.Add(new SqlParameter("@Id_TypeUser", user.Id_TypeUser));
+                        cmd.Parameters.Add(new SqlParameter("@IdTypeUser", user.IdTypeUser));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
@@ -48,7 +74,6 @@ namespace LinkCajaV2.Data
             }
             return list;
         }
-
         public async Task<UserModel> GetUserbyNameAndPassword(string User, string Password)
         {
             UserModel response = new UserModel();
@@ -88,7 +113,7 @@ namespace LinkCajaV2.Data
                 User = (string)reader["User"],
                 Password = (string)reader["Password"],
                 Status = (bool)reader["Status"],
-                Id_TypeUser = Convert.IsDBNull(reader["Id_TypeUser"]) ? 0 : (int)reader["Id_TypeUser"],
+                IdTypeUser = Convert.IsDBNull(reader["IdTypeUser"]) ? 0 : (int)reader["IdTypeUser"],
                 Name = (string)reader["Name"],
                 Address = (string)reader["Address"],
             };
@@ -98,11 +123,43 @@ namespace LinkCajaV2.Data
             return new ListUserModel()
             {
                 Id = (int)reader["Id"],
-                User = (string)reader["User"],
-                Name = (string)reader["Name"],
-                TypeUser = (string)reader["TypeUser"],
+                Nombre = (string)reader["Name"],
+                Usuario = (string)reader["User"],
+                Tipo = (string)reader["TypeUser"],
+                Estatus = (string)reader["Status"],
             };
         }
+        public async Task<UserModel> GetUserbyId(int Id)
+        {
+            UserModel response = new UserModel();
+            List<UserModel> list = new List<UserModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetUserbyId", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToUser(reader));
+                            }
+                            response = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
+
         #endregion
         #region ActionsEmpresa
         public async Task<bool> SaveCompany(CompanyModel obj)
@@ -252,7 +309,7 @@ namespace LinkCajaV2.Data
             return new ListSuppliersModel()
             {
                 Id = (int)reader["Id"],
-                Name = (string)reader["Name"],
+                Nombre = (string)reader["Name"],
                 Email = (string)reader["Email"],
             };
         }
@@ -265,6 +322,7 @@ namespace LinkCajaV2.Data
                     using (SqlCommand cmd = new SqlCommand("SaveSupplier", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", obj.Id));
                         cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
                         cmd.Parameters.Add(new SqlParameter("@Address", obj.Address));
                         cmd.Parameters.Add(new SqlParameter("@Phone1", obj.Phone1));
@@ -283,9 +341,9 @@ namespace LinkCajaV2.Data
         }
         #endregion
         #region Clients
-        public async Task<List<ClientsModel>> GetClients(string Nombre)
+        public async Task<List<ListClientsModel>> GetClients(string Nombre)
         {
-            List<ClientsModel> list = new List<ClientsModel>();
+            List<ListClientsModel> list = new List<ListClientsModel>();
             try
             {
                 using (SqlConnection sql = new SqlConnection(Connection))
@@ -299,7 +357,7 @@ namespace LinkCajaV2.Data
                         {
                             while (await reader.ReadAsync().ConfigureAwait(false))
                             {
-                                list.Add(MapToClients(reader));
+                                list.Add(MapToListClients(reader));
                             }
                         }
                     }
@@ -350,6 +408,15 @@ namespace LinkCajaV2.Data
                 Address = (string)reader["Address"],
                 Phone1 = (string)reader["Phone1"],
                 Phone2 = (string)reader["Phone2"],
+                Email = (string)reader["Email"],
+            };
+        }
+        private ListClientsModel MapToListClients(SqlDataReader reader)
+        {
+            return new ListClientsModel()
+            {
+                Id = (int)reader["Id"],
+                Nombre = (string)reader["Name"],
                 Email = (string)reader["Email"],
             };
         }
@@ -416,6 +483,71 @@ namespace LinkCajaV2.Data
             };
         }
 
+        #endregion
+        #region Articles
+        public async Task<bool> SaveArticle(ArticleModel obj)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveArticle", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", obj.Id));
+                        cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
+                        cmd.Parameters.Add(new SqlParameter("@Description", obj.Description));
+                        cmd.Parameters.Add(new SqlParameter("@Image", obj.Image));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<List<ListArticlesModel>> GetArticles(string Nombre, string Descripcion)
+        {
+            List<ListArticlesModel> list = new List<ListArticlesModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetArticles", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Name", Nombre));
+                        cmd.Parameters.Add(new SqlParameter("@Description", Descripcion));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToListArticles(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+        private ListArticlesModel MapToListArticles(SqlDataReader reader)
+        {
+            return new ListArticlesModel()
+            {
+                Id = (int)reader["Id"],
+                Name = (string)reader["Name"],
+                Available_Quantity = (decimal)reader["Available_Quantity"],
+                Price = (string)reader["Price"],
+            };
+        }
         #endregion
     }
 }

@@ -22,6 +22,8 @@ namespace LinkCajaV2.Catalogs
 
         private void Supplier_Load(object sender, EventArgs e)
         {
+            if (Id == 0) return;
+
             AppRepository obj = new AppRepository();
             var Supplier = obj.GetSuppliersbyId(Id).Result;
             txtNombre.Text = Supplier.Name;
@@ -33,7 +35,7 @@ namespace LinkCajaV2.Catalogs
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtDireccion.Text) ||
+            if (string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtDireccion.Text) ||
                 string.IsNullOrEmpty(txtTelefono1.Text) || string.IsNullOrEmpty(txtEmail.Text))
             {
                 MessageBox.Show("Datos incompletos revise la información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

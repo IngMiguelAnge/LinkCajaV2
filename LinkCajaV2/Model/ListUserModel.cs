@@ -3,9 +3,9 @@
     public class ListUserModel
     {
         public int Id { get; set; }
-        public bool Status { get; set; }
-        public string Name { get; set; }
-        public string User { get; set; }
-        public string TypeUser { get; set; }
+        public string Nombre { get; set; }
+        public string Usuario { get; set; }
+        public string Tipo { get; set; }
+        public string Estatus { get; set; }
     }
 }
