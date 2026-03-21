@@ -77,7 +77,6 @@ namespace LinkCajaV2.Catalogs
             DataGridViewButtonColumn btnEditar = new DataGridViewButtonColumn();
             btnEditar.Name = "btnEditar";
             btnEditar.HeaderText = "Acción";
-            btnEditar.HeaderText = "Acción";
             btnEditar.Text = "Editar";
             btnEditar.UseColumnTextForButtonValue = true;
             dgvClientes.Columns.Add(btnEditar);

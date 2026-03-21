@@ -522,9 +522,14 @@ namespace LinkCajaV2.Data
                 Name = (string)reader["Name"],
                 Description = (string)reader["Description"],
                 Image = Convert.IsDBNull(reader["Image"]) ? null : (byte[])reader["Image"],
+                Code = (string)reader["Code"],
+                Stock = Convert.IsDBNull(reader["Stock"]) ? 0 : (decimal)reader["Stock"],
+                IdPresentation = Convert.IsDBNull(reader["IdPresentation"]) ? 0 : (int)reader["IdPresentation"],
+                Price = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
+                SuggestedStock = Convert.IsDBNull(reader["SuggestedStock"]) ? 0 : (decimal)reader["SuggestedStock"],
+                SuggestedPresentation = Convert.IsDBNull(reader["SuggestedPresentation"]) ? 0 : (int)reader["SuggestedPresentation"],
             };
         }
-
         public async Task<bool> SaveArticle(ArticleModel obj)
         {
             try
@@ -583,11 +588,50 @@ namespace LinkCajaV2.Data
             return new ListArticlesModel()
             {
                 Id = (int)reader["Id"],
-                Name = (string)reader["Name"],
-                //Available_Quantity = (decimal)reader["Available_Quantity"],
-                //Price = (string)reader["Price"],
+                Codigo = (string)reader["Code"],
+                Articulo = (string)reader["Name"],
+                Existencias = Convert.IsDBNull(reader["Stock"]) ? 0 : (decimal)reader["Stock"],
+                Presentacion = (string)reader["Presentation"],
+                Precio = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
             };
         }
+        #endregion
+        #region Presentation
+        public async Task<List<ListPresentationsModel>> GetPresentations()
+        {
+            List<ListPresentationsModel> list = new List<ListPresentationsModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetPresentations", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToListPresentations(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
+        private ListPresentationsModel MapToListPresentations(SqlDataReader reader)
+        {
+            return new ListPresentationsModel()
+            {
+                Id = (int)reader["Id"],
+                Name = (string)reader["Name"],
+            };
+        }
+
         #endregion
     }
 }

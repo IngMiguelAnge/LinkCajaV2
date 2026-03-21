@@ -40,12 +40,12 @@ namespace LinkCajaV2.Catalogs
                     dgvArticulos.DataSource = lista != null && lista.Count > 0 ? lista : null;
                     if (lista == null || lista.Count == 0)
                     {
-                        MessageBox.Show("No se encontraron clientes.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("No se encontraron articulos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
                     else
                     {
-                        //AgregarBotones();
+                        AgregarBotones();
                         MessageBox.Show("Carga completa", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
@@ -86,5 +86,15 @@ namespace LinkCajaV2.Catalogs
                     break;
             }
         }
+        private void AgregarBotones()
+        {
+            DataGridViewButtonColumn btnEditar = new DataGridViewButtonColumn();
+            btnEditar.Name = "btnEditar";
+            btnEditar.HeaderText = "Acción";
+            btnEditar.Text = "Editar";
+            btnEditar.UseColumnTextForButtonValue = true;
+            dgvArticulos.Columns.Add(btnEditar);
+        }
+
     }
 }
