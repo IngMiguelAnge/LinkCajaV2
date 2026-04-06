@@ -48,7 +48,13 @@ namespace LinkCajaV2.Catalogs
                 Id = Id,
                 Name = txtNombre.Text,
                 Description = txtDescripcion.Text,
-                Image = PBProducto.Image != null ? ImageToByteArray() : null
+                Image = PBProducto.Image != null ? ImageToByteArray() : null,
+                Code = txtCodigo.Text,
+                Stock = nudExistencias.Value,
+                IdPresentation = (int)cbPresentacion.SelectedValue,
+                Price = nudPrecio.Value,
+                SuggestedStock = nudCada.Value,
+                SuggestedPresentation = (int)cbPresentacionS.SelectedValue
             };
             AppRepository obj = new AppRepository();
             if (obj.SaveArticle(Articulo).Result)
@@ -62,13 +68,19 @@ namespace LinkCajaV2.Catalogs
         }
         public byte[] ImageToByteArray()
         {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                // Guardamos la imagen del PictureBox en el MemoryStream
-                PBProducto.Image.Save(ms, PBProducto.Image.RawFormat);
+            if (PBProducto.Image == null) return null;
 
-                // Retornamos el arreglo de bytes
-                return ms.ToArray();
+            // Creamos una copia de la imagen para evitar bloqueos de GDI+
+            using (Bitmap tempImage = new Bitmap(PBProducto.Image))
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    // Forzamos el guardado en un formato específico (ej. Png o Jpeg)
+                    // Esto es mucho más seguro que usar RawFormat
+                    tempImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+
+                    return ms.ToArray();
+                }
             }
         }
 

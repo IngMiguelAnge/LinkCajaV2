@@ -543,6 +543,13 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
                         cmd.Parameters.Add(new SqlParameter("@Description", obj.Description));
                         cmd.Parameters.Add(new SqlParameter("@Image", obj.Image));
+                        cmd.Parameters.Add(new SqlParameter("@Code", obj.Code));
+                        cmd.Parameters.Add(new SqlParameter("@Stock", obj.Stock));
+                        cmd.Parameters.Add(new SqlParameter("@IdPresentation", obj.IdPresentation));
+                        cmd.Parameters.Add(new SqlParameter("@Price", obj.Price));
+                        cmd.Parameters.Add(new SqlParameter("@SuggestedStock", obj.SuggestedStock));
+                        cmd.Parameters.Add(new SqlParameter("@SuggestedPresentation", obj.SuggestedPresentation));
+
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;
@@ -590,7 +597,7 @@ namespace LinkCajaV2.Data
                 Id = (int)reader["Id"],
                 Codigo = (string)reader["Code"],
                 Articulo = (string)reader["Name"],
-                Existencias = Convert.IsDBNull(reader["Stock"]) ? 0 : (decimal)reader["Stock"],
+                Existencias = (string)reader["Stock"],
                 Presentacion = (string)reader["Presentation"],
                 Precio = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
             };

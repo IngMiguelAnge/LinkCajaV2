@@ -160,6 +160,7 @@
             // 
             // nudPrecio
             // 
+            this.nudPrecio.DecimalPlaces = 2;
             this.nudPrecio.Location = new System.Drawing.Point(36, 339);
             this.nudPrecio.Name = "nudPrecio";
             this.nudPrecio.Size = new System.Drawing.Size(120, 26);
