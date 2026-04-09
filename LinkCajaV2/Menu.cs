@@ -1,5 +1,6 @@
 ﻿using LinkCajaV2.Catalogs;
 using LinkCajaV2.Configuraciones;
+using LinkCajaV2.Sales;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -63,6 +64,12 @@ namespace LinkCajaV2
                 configuracionesToolStripMenuItem.Visible = false;
                 catalogosToolStripMenuItem.Visible = false;
             }
+        }
+
+        private void ventaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Venta s = new Venta();
+            s.Show();
         }
     }
 }

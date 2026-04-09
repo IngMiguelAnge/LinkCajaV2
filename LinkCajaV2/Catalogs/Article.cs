@@ -1,6 +1,7 @@
 ﻿using LinkCajaV2.Data;
 using LinkCajaV2.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -43,6 +44,14 @@ namespace LinkCajaV2.Catalogs
                 MessageBox.Show("Datos incompletos revise la información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            AppRepository obj = new AppRepository();
+
+            var exist = obj.GetArticleByCode(txtCodigo.Text);
+            if (exist != null && exist.Id != Id)
+            {
+                MessageBox.Show("Ya se encuentra el codigo en uso", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             ArticleModel Articulo = new ArticleModel()
             {
                 Id = Id,
@@ -56,7 +65,6 @@ namespace LinkCajaV2.Catalogs
                 SuggestedStock = nudCada.Value,
                 SuggestedPresentation = (int)cbPresentacionS.SelectedValue
             };
-            AppRepository obj = new AppRepository();
             if (obj.SaveArticle(Articulo).Result)
             {
                 MessageBox.Show("Articulo guardado correctamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -126,7 +126,7 @@ namespace LinkCajaV2.Data
             }
             return response;
         }
-        public async Task<UserModel> GetUserSearchbyUser(string User)
+        public async Task<UserModel> GetUserbyUser(string User)
         {
             UserModel response = new UserModel();
             List<UserModel> list = new List<UserModel>();
@@ -134,7 +134,7 @@ namespace LinkCajaV2.Data
             {
                 using (SqlConnection sql = new SqlConnection(Connection))
                 {
-                    using (SqlCommand cmd = new SqlCommand("GetUserSearchbyUser", sql))
+                    using (SqlCommand cmd = new SqlCommand("GetUserbyUser", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@User", User));
@@ -536,6 +536,37 @@ namespace LinkCajaV2.Data
 
         #endregion
         #region Articles
+        public async Task<ArticleModel> GetArticleByCode(string Code)
+        {
+            ArticleModel response = new ArticleModel();
+            List<ArticleModel> list = new List<ArticleModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetArticleByCode", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Code", Code));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToArticle(reader));
+                            }
+                            response = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response = null;
+            }
+            return response;
+        }
+
         public async Task<ArticleModel> GetArticlebyId(int Id)
         {
             ArticleModel response = new ArticleModel();
