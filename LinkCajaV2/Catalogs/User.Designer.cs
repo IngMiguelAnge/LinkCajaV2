@@ -111,7 +111,7 @@
             this.CBTipo.FormattingEnabled = true;
             this.CBTipo.Location = new System.Drawing.Point(153, 220);
             this.CBTipo.Name = "CBTipo";
-            this.CBTipo.Size = new System.Drawing.Size(121, 28);
+            this.CBTipo.Size = new System.Drawing.Size(254, 28);
             this.CBTipo.TabIndex = 8;
             // 
             // lblTipo

@@ -52,6 +52,12 @@ namespace LinkCajaV2.Catalogs
                 return;
             }
             AppRepository obj = new AppRepository();
+            var exist = obj.GetUserSearchbyUser(txtUsuario.Text).Result;
+            if (exist != null && exist.Id != Id)
+            {
+                MessageBox.Show("El usuario ya existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             UserModel Users = new UserModel
             {
                 Id = Id,

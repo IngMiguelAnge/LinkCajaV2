@@ -64,13 +64,19 @@ namespace LinkCajaV2.Configuraciones
 
         public byte[] ImageToByteArray()
         {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                // Guardamos la imagen del PictureBox en el MemoryStream
-                PBLogo.Image.Save(ms, PBLogo.Image.RawFormat);
+            if (PBLogo.Image == null) return null;
 
-                // Retornamos el arreglo de bytes
-                return ms.ToArray();
+            // Creamos una copia de la imagen para evitar bloqueos de GDI+
+            using (Bitmap tempImage = new Bitmap(PBLogo.Image))
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    // Forzamos el guardado en un formato específico (ej. Png o Jpeg)
+                    // Esto es mucho más seguro que usar RawFormat
+                    tempImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+
+                    return ms.ToArray();
+                }
             }
         }
 

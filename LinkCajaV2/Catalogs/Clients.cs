@@ -25,7 +25,7 @@ namespace LinkCajaV2.Catalogs
             m.Show();
         }
 
-        private async void btnBuscar_Click(object sender, EventArgs e)
+        private void btnBuscar_Click(object sender, EventArgs e)
         {
             if (txtNombre.Text.Trim() == "")
             {
@@ -35,6 +35,10 @@ namespace LinkCajaV2.Catalogs
                     return;
                 }
             }
+            BuscarClientes();
+        }
+        public async void BuscarClientes()
+        {
             progressBar1.Style = ProgressBarStyle.Marquee; // La barra empieza a moverse sola
             progressBar1.MarqueeAnimationSpeed = 30; // Velocidad de la animación
             btnBuscar.Enabled = false; // Deshabilitar el botón para evitar múltiples clics
@@ -68,9 +72,7 @@ namespace LinkCajaV2.Catalogs
                 btnBuscar.Enabled = true;
                 btnNuevo.Enabled = true;
             }
-
         }
-
         private void AgregarBotones()
         {
             // Botón Checket
@@ -93,7 +95,8 @@ namespace LinkCajaV2.Catalogs
                 case "btnEditar":
                     Client m = new Client();
                     m.Id = Convert.ToInt32(Id);
-                    m.Show();
+                    m.ShowDialog();
+                    BuscarClientes();
                     break;
             }
         }

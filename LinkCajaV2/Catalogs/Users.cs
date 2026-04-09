@@ -34,7 +34,7 @@ namespace LinkCajaV2.Catalogs
             CBTipo.SelectedIndex = 0;
         }
 
-        private async void BtnBuscar_Click(object sender, EventArgs e)
+        private void BtnBuscar_Click(object sender, EventArgs e)
         {
             if (txtUsuario.Text.Trim() == "" || txtNombre.Text.Trim() == "" ||
                 CBTipo.SelectedIndex == 0)
@@ -45,10 +45,14 @@ namespace LinkCajaV2.Catalogs
                     return;
                 }
             }
+            BuscarUsuarios();
+        }
+        private async void BuscarUsuarios() 
+        {
             progressBar1.Style = ProgressBarStyle.Marquee; // La barra empieza a moverse sola
             progressBar1.MarqueeAnimationSpeed = 30; // Velocidad de la animación
             BtnBuscar.Enabled = false;
-            BtnNuevo.Enabled = false; 
+            BtnNuevo.Enabled = false;
             dgvUsuarios.DataSource = null;
             dgvUsuarios.Columns.Clear();
             try
@@ -95,9 +99,15 @@ namespace LinkCajaV2.Catalogs
             btnEditar.Text = "Editar";
             btnEditar.UseColumnTextForButtonValue = true;
             dgvUsuarios.Columns.Add(btnEditar);
+            DataGridViewButtonColumn btnCambiar = new DataGridViewButtonColumn();
+            btnCambiar.Name = "btnCambiar";
+            btnCambiar.HeaderText = "Acción";
+            btnCambiar.Text = "Cambiar";
+            btnCambiar.UseColumnTextForButtonValue = true;
+            dgvUsuarios.Columns.Add(btnCambiar);
         }
 
-        private void dgvUsuarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void dgvUsuarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Evitar errores si hacen click en el encabezado
             if (e.RowIndex < 0) return;
@@ -108,7 +118,13 @@ namespace LinkCajaV2.Catalogs
                 case "btnEditar":
                     User m = new User();
                     m.Id = Convert.ToInt32(Id);
-                    m.Show();
+                    m.ShowDialog();
+                    BuscarUsuarios();
+                    break;
+                case "btnCambiar":
+                    AppRepository obj = new AppRepository();
+                    await obj.ChangeStatusUser(Convert.ToInt32(Id));
+                    BuscarUsuarios();
                     break;
             }
         }
