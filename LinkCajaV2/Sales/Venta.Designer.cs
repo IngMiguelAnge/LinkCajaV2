@@ -30,36 +30,233 @@
         {
             this.lblCodigo = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.lblCantidad = new System.Windows.Forms.Label();
+            this.NUDCantidad = new System.Windows.Forms.NumericUpDown();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dgvArticulos = new System.Windows.Forms.DataGridView();
+            this.PBProducto = new System.Windows.Forms.PictureBox();
+            this.lblTotal = new System.Windows.Forms.Label();
+            this.btnPagar = new System.Windows.Forms.Button();
+            this.btnNuevo = new System.Windows.Forms.Button();
+            this.btnVerTickets = new System.Windows.Forms.Button();
+            this.lblUsuario = new System.Windows.Forms.Label();
+            this.lblCopias = new System.Windows.Forms.Label();
+            this.NUDCopias = new System.Windows.Forms.NumericUpDown();
+            this.PBLogo = new System.Windows.Forms.PictureBox();
+            this.lblNombreEmpresa = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDCantidad)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBProducto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDCopias)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // lblCodigo
             // 
             this.lblCodigo.AutoSize = true;
-            this.lblCodigo.Location = new System.Drawing.Point(22, 19);
+            this.lblCodigo.Location = new System.Drawing.Point(342, 71);
             this.lblCodigo.Name = "lblCodigo";
             this.lblCodigo.Size = new System.Drawing.Size(63, 20);
-            this.lblCodigo.TabIndex = 0;
+            this.lblCodigo.TabIndex = 2;
             this.lblCodigo.Text = "Código:";
             // 
             // txtCodigo
             // 
-            this.txtCodigo.Location = new System.Drawing.Point(91, 13);
+            this.txtCodigo.Location = new System.Drawing.Point(335, 106);
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Size = new System.Drawing.Size(357, 26);
-            this.txtCodigo.TabIndex = 1;
+            this.txtCodigo.TabIndex = 3;
             this.txtCodigo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodigo_KeyDown);
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscar.Location = new System.Drawing.Point(727, 96);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(54, 36);
+            this.btnBuscar.TabIndex = 4;
+            this.btnBuscar.Text = "+";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // lblCantidad
+            // 
+            this.lblCantidad.AutoSize = true;
+            this.lblCantidad.Location = new System.Drawing.Point(187, 71);
+            this.lblCantidad.Name = "lblCantidad";
+            this.lblCantidad.Size = new System.Drawing.Size(73, 20);
+            this.lblCantidad.TabIndex = 1;
+            this.lblCantidad.Text = "Cantidad";
+            // 
+            // NUDCantidad
+            // 
+            this.NUDCantidad.Location = new System.Drawing.Point(191, 107);
+            this.NUDCantidad.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.NUDCantidad.Name = "NUDCantidad";
+            this.NUDCantidad.Size = new System.Drawing.Size(120, 26);
+            this.NUDCantidad.TabIndex = 0;
+            this.NUDCantidad.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.dgvArticulos);
+            this.groupBox1.Location = new System.Drawing.Point(188, 166);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(501, 343);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Articulos:";
+            // 
+            // dgvArticulos
+            // 
+            this.dgvArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvArticulos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvArticulos.Location = new System.Drawing.Point(3, 22);
+            this.dgvArticulos.Name = "dgvArticulos";
+            this.dgvArticulos.RowHeadersWidth = 62;
+            this.dgvArticulos.RowTemplate.Height = 28;
+            this.dgvArticulos.Size = new System.Drawing.Size(495, 318);
+            this.dgvArticulos.TabIndex = 6;
+            // 
+            // PBProducto
+            // 
+            this.PBProducto.Location = new System.Drawing.Point(724, 188);
+            this.PBProducto.Name = "PBProducto";
+            this.PBProducto.Size = new System.Drawing.Size(320, 211);
+            this.PBProducto.TabIndex = 16;
+            this.PBProducto.TabStop = false;
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotal.Location = new System.Drawing.Point(726, 427);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(133, 37);
+            this.lblTotal.TabIndex = 17;
+            this.lblTotal.Text = "Total: $";
+            // 
+            // btnPagar
+            // 
+            this.btnPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPagar.Location = new System.Drawing.Point(733, 467);
+            this.btnPagar.Name = "btnPagar";
+            this.btnPagar.Size = new System.Drawing.Size(311, 38);
+            this.btnPagar.TabIndex = 18;
+            this.btnPagar.Text = "PAGAR";
+            this.btnPagar.UseVisualStyleBackColor = true;
+            // 
+            // btnNuevo
+            // 
+            this.btnNuevo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNuevo.Location = new System.Drawing.Point(12, 71);
+            this.btnNuevo.Name = "btnNuevo";
+            this.btnNuevo.Size = new System.Drawing.Size(138, 67);
+            this.btnNuevo.TabIndex = 19;
+            this.btnNuevo.Text = "Nuevo";
+            this.btnNuevo.UseVisualStyleBackColor = true;
+            // 
+            // btnVerTickets
+            // 
+            this.btnVerTickets.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVerTickets.Location = new System.Drawing.Point(12, 142);
+            this.btnVerTickets.Name = "btnVerTickets";
+            this.btnVerTickets.Size = new System.Drawing.Size(138, 67);
+            this.btnVerTickets.TabIndex = 21;
+            this.btnVerTickets.Text = "Ver Tickets";
+            this.btnVerTickets.UseVisualStyleBackColor = true;
+            // 
+            // lblUsuario
+            // 
+            this.lblUsuario.AutoSize = true;
+            this.lblUsuario.Location = new System.Drawing.Point(483, 9);
+            this.lblUsuario.Name = "lblUsuario";
+            this.lblUsuario.Size = new System.Drawing.Size(197, 20);
+            this.lblUsuario.TabIndex = 22;
+            this.lblUsuario.Text = "Bien venido: Administrador";
+            // 
+            // lblCopias
+            // 
+            this.lblCopias.AutoSize = true;
+            this.lblCopias.Location = new System.Drawing.Point(718, 540);
+            this.lblCopias.Name = "lblCopias";
+            this.lblCopias.Size = new System.Drawing.Size(141, 20);
+            this.lblCopias.TabIndex = 23;
+            this.lblCopias.Text = "Número de copias:";
+            // 
+            // NUDCopias
+            // 
+            this.NUDCopias.Location = new System.Drawing.Point(882, 534);
+            this.NUDCopias.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.NUDCopias.Name = "NUDCopias";
+            this.NUDCopias.Size = new System.Drawing.Size(89, 26);
+            this.NUDCopias.TabIndex = 24;
+            // 
+            // PBLogo
+            // 
+            this.PBLogo.Location = new System.Drawing.Point(859, 52);
+            this.PBLogo.Name = "PBLogo";
+            this.PBLogo.Size = new System.Drawing.Size(185, 130);
+            this.PBLogo.TabIndex = 25;
+            this.PBLogo.TabStop = false;
+            // 
+            // lblNombreEmpresa
+            // 
+            this.lblNombreEmpresa.AutoSize = true;
+            this.lblNombreEmpresa.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreEmpresa.Location = new System.Drawing.Point(32, 9);
+            this.lblNombreEmpresa.Name = "lblNombreEmpresa";
+            this.lblNombreEmpresa.Size = new System.Drawing.Size(198, 26);
+            this.lblNombreEmpresa.TabIndex = 26;
+            this.lblNombreEmpresa.Text = "Nombre Empresa";
             // 
             // Venta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1056, 617);
+            this.Controls.Add(this.lblNombreEmpresa);
+            this.Controls.Add(this.PBLogo);
+            this.Controls.Add(this.NUDCopias);
+            this.Controls.Add(this.lblCopias);
+            this.Controls.Add(this.lblUsuario);
+            this.Controls.Add(this.btnVerTickets);
+            this.Controls.Add(this.btnNuevo);
+            this.Controls.Add(this.btnPagar);
+            this.Controls.Add(this.lblTotal);
+            this.Controls.Add(this.PBProducto);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.NUDCantidad);
+            this.Controls.Add(this.lblCantidad);
+            this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.txtCodigo);
             this.Controls.Add(this.lblCodigo);
+            this.MaximizeBox = false;
             this.Name = "Venta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Venta";
             this.Load += new System.EventHandler(this.Venta_Load);
+            this.Shown += new System.EventHandler(this.Venta_Shown);
+            ((System.ComponentModel.ISupportInitialize)(this.NUDCantidad)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBProducto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDCopias)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -69,5 +266,20 @@
 
         private System.Windows.Forms.Label lblCodigo;
         private System.Windows.Forms.TextBox txtCodigo;
+        private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Label lblCantidad;
+        private System.Windows.Forms.NumericUpDown NUDCantidad;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DataGridView dgvArticulos;
+        private System.Windows.Forms.PictureBox PBProducto;
+        private System.Windows.Forms.Label lblTotal;
+        private System.Windows.Forms.Button btnPagar;
+        private System.Windows.Forms.Button btnNuevo;
+        private System.Windows.Forms.Button btnVerTickets;
+        private System.Windows.Forms.Label lblUsuario;
+        private System.Windows.Forms.Label lblCopias;
+        private System.Windows.Forms.NumericUpDown NUDCopias;
+        private System.Windows.Forms.PictureBox PBLogo;
+        private System.Windows.Forms.Label lblNombreEmpresa;
     }
 }

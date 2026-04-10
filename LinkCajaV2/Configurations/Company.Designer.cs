@@ -144,7 +144,7 @@
             // 
             // btnLogo
             // 
-            this.btnLogo.Location = new System.Drawing.Point(511, 211);
+            this.btnLogo.Location = new System.Drawing.Point(582, 177);
             this.btnLogo.Name = "btnLogo";
             this.btnLogo.Size = new System.Drawing.Size(88, 42);
             this.btnLogo.TabIndex = 13;
@@ -154,9 +154,9 @@
             // 
             // PBLogo
             // 
-            this.PBLogo.Location = new System.Drawing.Point(511, 30);
+            this.PBLogo.Location = new System.Drawing.Point(538, 30);
             this.PBLogo.Name = "PBLogo";
-            this.PBLogo.Size = new System.Drawing.Size(212, 155);
+            this.PBLogo.Size = new System.Drawing.Size(185, 130);
             this.PBLogo.TabIndex = 14;
             this.PBLogo.TabStop = false;
             // 

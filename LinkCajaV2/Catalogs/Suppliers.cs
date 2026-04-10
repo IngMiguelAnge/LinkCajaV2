@@ -23,7 +23,8 @@ namespace LinkCajaV2.Catalogs
         {
             Supplier m = new Supplier();
             m.Id = 0;
-            m.Show();
+            m.ShowDialog();
+            BuscarProveedores();
         }
         public async void BuscarProveedores()
         {

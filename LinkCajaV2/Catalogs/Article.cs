@@ -144,7 +144,9 @@ namespace LinkCajaV2.Catalogs
                         ListPresentation.Insert(2, new ListPresentationsModel { Id = 2, Name = "gr" });
                         nudExistencias.DecimalPlaces = 3;
                         nudExistencias.Increment = 0.001M;
+                        nudExistencias.Maximum = 10000;
                         nudCada.DecimalPlaces = 3;
+                        nudCada.Maximum = 1000000;
                         nudCada.Increment = 0.001M;
                         break;
                     case "LT":
@@ -153,14 +155,18 @@ namespace LinkCajaV2.Catalogs
                         ListPresentation.Insert(2, new ListPresentationsModel { Id = 4, Name = "ml" });
                         nudExistencias.DecimalPlaces = 3;
                         nudExistencias.Increment = 0.001M;
+                        nudExistencias.Maximum = 10000;
                         nudCada.DecimalPlaces = 3;
+                        nudCada.Maximum = 1000000;
                         nudCada.Increment = 0.001M;
                         break;
                     default:
                         ListPresentation.Insert(1, new ListPresentationsModel { Id = Id, Name = cbPresentacion.Text });
                         nudExistencias.DecimalPlaces = 0;
                         nudExistencias.Increment = 1M;
+                        nudExistencias.Maximum = 1000000;
                         nudCada.DecimalPlaces = 0;
+                        nudCada.Maximum = 1000000;
                         nudCada.Increment = 1M;
                         break;
                 }

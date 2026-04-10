@@ -63,9 +63,9 @@
             this.lblEmail.AutoSize = true;
             this.lblEmail.Location = new System.Drawing.Point(27, 127);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(58, 20);
+            this.lblEmail.Size = new System.Drawing.Size(52, 20);
             this.lblEmail.TabIndex = 19;
-            this.lblEmail.Text = "*Email:";
+            this.lblEmail.Text = "Email:";
             // 
             // txtTelefono2
             // 
@@ -148,6 +148,7 @@
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.lblNombre);
             this.Name = "Client";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cliente";
             this.Load += new System.EventHandler(this.Client_Load);
             this.ResumeLayout(false);

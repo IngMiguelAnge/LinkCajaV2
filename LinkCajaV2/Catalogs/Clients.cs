@@ -22,7 +22,8 @@ namespace LinkCajaV2.Catalogs
         {
             Client m = new Client();
             m.Id = 0;
-            m.Show();
+            m.ShowDialog();
+            BuscarClientes();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)

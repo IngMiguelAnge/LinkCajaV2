@@ -643,7 +643,7 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
-        public async Task<List<ListArticlesModel>> GetArticles(string Nombre, string Descripcion)
+        public async Task<List<ListArticlesModel>> GetArticles(string Code,string Nombre, string Descripcion)
         {
             List<ListArticlesModel> list = new List<ListArticlesModel>();
             try
@@ -653,6 +653,7 @@ namespace LinkCajaV2.Data
                     using (SqlCommand cmd = new SqlCommand("GetArticles", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Code", Code));
                         cmd.Parameters.Add(new SqlParameter("@Name", Nombre));
                         cmd.Parameters.Add(new SqlParameter("@Description", Descripcion));
                         await sql.OpenAsync().ConfigureAwait(false);

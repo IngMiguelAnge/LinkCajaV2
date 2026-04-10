@@ -133,7 +133,8 @@ namespace LinkCajaV2.Catalogs
         {
             User m = new User();
             m.Id = 0;
-            m.Show();
+            m.ShowDialog();
+            BuscarUsuarios();
         }
     }
 }

@@ -127,6 +127,11 @@
             // nudExistencias
             // 
             this.nudExistencias.Location = new System.Drawing.Point(201, 243);
+            this.nudExistencias.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.nudExistencias.Name = "nudExistencias";
             this.nudExistencias.Size = new System.Drawing.Size(120, 26);
             this.nudExistencias.TabIndex = 10;
@@ -162,6 +167,11 @@
             // 
             this.nudPrecio.DecimalPlaces = 2;
             this.nudPrecio.Location = new System.Drawing.Point(36, 339);
+            this.nudPrecio.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.nudPrecio.Name = "nudPrecio";
             this.nudPrecio.Size = new System.Drawing.Size(120, 26);
             this.nudPrecio.TabIndex = 12;
@@ -220,6 +230,11 @@
             // nudCada
             // 
             this.nudCada.Location = new System.Drawing.Point(201, 339);
+            this.nudCada.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.nudCada.Name = "nudCada";
             this.nudCada.Size = new System.Drawing.Size(120, 26);
             this.nudCada.TabIndex = 14;

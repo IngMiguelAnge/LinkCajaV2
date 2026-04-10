@@ -37,6 +37,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvArticulos = new System.Windows.Forms.DataGridView();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.lblCodigo = new System.Windows.Forms.Label();
+            this.txtCodigo = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             this.SuspendLayout();
@@ -44,41 +46,41 @@
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(42, 61);
+            this.lblNombre.Location = new System.Drawing.Point(293, 67);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(69, 20);
-            this.lblNombre.TabIndex = 0;
+            this.lblNombre.TabIndex = 5;
             this.lblNombre.Text = "Nombre:";
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(111, 58);
+            this.txtNombre.Location = new System.Drawing.Point(362, 64);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(168, 26);
-            this.txtNombre.TabIndex = 1;
+            this.txtNombre.TabIndex = 6;
             // 
             // lblDescripcion
             // 
             this.lblDescripcion.AutoSize = true;
-            this.lblDescripcion.Location = new System.Drawing.Point(310, 58);
+            this.lblDescripcion.Location = new System.Drawing.Point(561, 67);
             this.lblDescripcion.Name = "lblDescripcion";
             this.lblDescripcion.Size = new System.Drawing.Size(96, 20);
-            this.lblDescripcion.TabIndex = 2;
+            this.lblDescripcion.TabIndex = 7;
             this.lblDescripcion.Text = "Descripción:";
             // 
             // txtDescripcion
             // 
-            this.txtDescripcion.Location = new System.Drawing.Point(412, 55);
+            this.txtDescripcion.Location = new System.Drawing.Point(663, 64);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(215, 26);
-            this.txtDescripcion.TabIndex = 3;
+            this.txtDescripcion.TabIndex = 8;
             // 
             // btnNuevo
             // 
             this.btnNuevo.Location = new System.Drawing.Point(27, 12);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(78, 33);
-            this.btnNuevo.TabIndex = 4;
+            this.btnNuevo.TabIndex = 0;
             this.btnNuevo.Text = "Nuevo";
             this.btnNuevo.UseVisualStyleBackColor = true;
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
@@ -88,7 +90,7 @@
             this.BtnBuscar.Location = new System.Drawing.Point(314, 12);
             this.BtnBuscar.Name = "BtnBuscar";
             this.BtnBuscar.Size = new System.Drawing.Size(84, 35);
-            this.BtnBuscar.TabIndex = 5;
+            this.BtnBuscar.TabIndex = 1;
             this.BtnBuscar.Text = "Buscar";
             this.BtnBuscar.UseVisualStyleBackColor = true;
             this.BtnBuscar.Click += new System.EventHandler(this.BtnBuscar_Click);
@@ -102,7 +104,7 @@
             this.groupBox1.Location = new System.Drawing.Point(27, 105);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1211, 459);
-            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Articulos";
             // 
@@ -115,7 +117,7 @@
             this.dgvArticulos.RowHeadersWidth = 62;
             this.dgvArticulos.RowTemplate.Height = 28;
             this.dgvArticulos.Size = new System.Drawing.Size(1205, 434);
-            this.dgvArticulos.TabIndex = 7;
+            this.dgvArticulos.TabIndex = 9;
             this.dgvArticulos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvArticulos_CellContentClick);
             // 
             // progressBar1
@@ -123,13 +125,31 @@
             this.progressBar1.Location = new System.Drawing.Point(458, 24);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(100, 23);
-            this.progressBar1.TabIndex = 12;
+            this.progressBar1.TabIndex = 2;
+            // 
+            // lblCodigo
+            // 
+            this.lblCodigo.AutoSize = true;
+            this.lblCodigo.Location = new System.Drawing.Point(26, 67);
+            this.lblCodigo.Name = "lblCodigo";
+            this.lblCodigo.Size = new System.Drawing.Size(63, 20);
+            this.lblCodigo.TabIndex = 3;
+            this.lblCodigo.Text = "Codigo:";
+            // 
+            // txtCodigo
+            // 
+            this.txtCodigo.Location = new System.Drawing.Point(108, 61);
+            this.txtCodigo.Name = "txtCodigo";
+            this.txtCodigo.Size = new System.Drawing.Size(179, 26);
+            this.txtCodigo.TabIndex = 4;
             // 
             // Articles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1271, 576);
+            this.Controls.Add(this.txtCodigo);
+            this.Controls.Add(this.lblCodigo);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.BtnBuscar);
@@ -142,6 +162,7 @@
             this.Name = "Articles";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Articulos";
+            this.Load += new System.EventHandler(this.Articles_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).EndInit();
             this.ResumeLayout(false);
@@ -160,5 +181,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dgvArticulos;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label lblCodigo;
+        private System.Windows.Forms.TextBox txtCodigo;
     }
 }

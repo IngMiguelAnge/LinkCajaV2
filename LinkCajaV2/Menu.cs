@@ -17,6 +17,7 @@ namespace LinkCajaV2
     {
         public int IdUsuario { get; set; }
         public int IdTypeUser { get; set; }
+        public string NameUser { get; set; }
         public Menu()
         {
             InitializeComponent();
@@ -69,6 +70,8 @@ namespace LinkCajaV2
         private void ventaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Venta s = new Venta();
+            s.IdUsuario = IdUsuario;
+            s.NameUser = NameUser;
             s.Show();
         }
     }
