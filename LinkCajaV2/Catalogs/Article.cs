@@ -46,7 +46,7 @@ namespace LinkCajaV2.Catalogs
             }
             AppRepository obj = new AppRepository();
 
-            var exist = obj.GetArticleByCode(txtCodigo.Text);
+            var exist = obj.GetArticleByCode(txtCodigo.Text).Result;
             if (exist != null && exist.Id != Id)
             {
                 MessageBox.Show("Ya se encuentra el codigo en uso", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

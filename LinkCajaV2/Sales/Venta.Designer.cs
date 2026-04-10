@@ -45,12 +45,14 @@
             this.NUDCopias = new System.Windows.Forms.NumericUpDown();
             this.PBLogo = new System.Windows.Forms.PictureBox();
             this.lblNombreEmpresa = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.NUDCantidad)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBProducto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDCopias)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBLogo)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblCodigo
@@ -109,10 +111,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.dgvArticulos);
             this.groupBox1.Location = new System.Drawing.Point(188, 166);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(501, 343);
+            this.groupBox1.Size = new System.Drawing.Size(753, 423);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Articulos:";
@@ -125,12 +130,12 @@
             this.dgvArticulos.Name = "dgvArticulos";
             this.dgvArticulos.RowHeadersWidth = 62;
             this.dgvArticulos.RowTemplate.Height = 28;
-            this.dgvArticulos.Size = new System.Drawing.Size(495, 318);
+            this.dgvArticulos.Size = new System.Drawing.Size(747, 398);
             this.dgvArticulos.TabIndex = 6;
             // 
             // PBProducto
             // 
-            this.PBProducto.Location = new System.Drawing.Point(724, 188);
+            this.PBProducto.Location = new System.Drawing.Point(14, 161);
             this.PBProducto.Name = "PBProducto";
             this.PBProducto.Size = new System.Drawing.Size(320, 211);
             this.PBProducto.TabIndex = 16;
@@ -140,7 +145,7 @@
             // 
             this.lblTotal.AutoSize = true;
             this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotal.Location = new System.Drawing.Point(726, 427);
+            this.lblTotal.Location = new System.Drawing.Point(17, 394);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(133, 37);
             this.lblTotal.TabIndex = 17;
@@ -148,10 +153,10 @@
             // 
             // btnPagar
             // 
-            this.btnPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPagar.Location = new System.Drawing.Point(733, 467);
+            this.btnPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPagar.Location = new System.Drawing.Point(15, 435);
             this.btnPagar.Name = "btnPagar";
-            this.btnPagar.Size = new System.Drawing.Size(311, 38);
+            this.btnPagar.Size = new System.Drawing.Size(311, 65);
             this.btnPagar.TabIndex = 18;
             this.btnPagar.Text = "PAGAR";
             this.btnPagar.UseVisualStyleBackColor = true;
@@ -165,6 +170,7 @@
             this.btnNuevo.TabIndex = 19;
             this.btnNuevo.Text = "Nuevo";
             this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
             // btnVerTickets
             // 
@@ -188,7 +194,7 @@
             // lblCopias
             // 
             this.lblCopias.AutoSize = true;
-            this.lblCopias.Location = new System.Drawing.Point(718, 540);
+            this.lblCopias.Location = new System.Drawing.Point(20, 521);
             this.lblCopias.Name = "lblCopias";
             this.lblCopias.Size = new System.Drawing.Size(141, 20);
             this.lblCopias.TabIndex = 23;
@@ -196,7 +202,7 @@
             // 
             // NUDCopias
             // 
-            this.NUDCopias.Location = new System.Drawing.Point(882, 534);
+            this.NUDCopias.Location = new System.Drawing.Point(185, 515);
             this.NUDCopias.Maximum = new decimal(new int[] {
             10,
             0,
@@ -208,7 +214,7 @@
             // 
             // PBLogo
             // 
-            this.PBLogo.Location = new System.Drawing.Point(859, 52);
+            this.PBLogo.Location = new System.Drawing.Point(143, 25);
             this.PBLogo.Name = "PBLogo";
             this.PBLogo.Size = new System.Drawing.Size(185, 130);
             this.PBLogo.TabIndex = 25;
@@ -224,21 +230,31 @@
             this.lblNombreEmpresa.TabIndex = 26;
             this.lblNombreEmpresa.Text = "Nombre Empresa";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.PBLogo);
+            this.groupBox2.Controls.Add(this.PBProducto);
+            this.groupBox2.Controls.Add(this.NUDCopias);
+            this.groupBox2.Controls.Add(this.lblTotal);
+            this.groupBox2.Controls.Add(this.lblCopias);
+            this.groupBox2.Controls.Add(this.btnPagar);
+            this.groupBox2.Location = new System.Drawing.Point(956, 33);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(334, 556);
+            this.groupBox2.TabIndex = 27;
+            this.groupBox2.TabStop = false;
+            // 
             // Venta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1056, 617);
+            this.ClientSize = new System.Drawing.Size(1302, 617);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.lblNombreEmpresa);
-            this.Controls.Add(this.PBLogo);
-            this.Controls.Add(this.NUDCopias);
-            this.Controls.Add(this.lblCopias);
             this.Controls.Add(this.lblUsuario);
             this.Controls.Add(this.btnVerTickets);
             this.Controls.Add(this.btnNuevo);
-            this.Controls.Add(this.btnPagar);
-            this.Controls.Add(this.lblTotal);
-            this.Controls.Add(this.PBProducto);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.NUDCantidad);
             this.Controls.Add(this.lblCantidad);
@@ -249,6 +265,7 @@
             this.Name = "Venta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Venta";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Venta_Load);
             this.Shown += new System.EventHandler(this.Venta_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.NUDCantidad)).EndInit();
@@ -257,6 +274,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.PBProducto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDCopias)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBLogo)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -281,5 +300,6 @@
         private System.Windows.Forms.NumericUpDown NUDCopias;
         private System.Windows.Forms.PictureBox PBLogo;
         private System.Windows.Forms.Label lblNombreEmpresa;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }
