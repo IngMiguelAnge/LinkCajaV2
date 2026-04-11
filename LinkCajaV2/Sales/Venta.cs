@@ -77,30 +77,37 @@ namespace LinkCajaV2.Sales
             {
                 CrearGridView();
             }
+            var Presentacion = obj.GetPresentationbyId(Articulo.IdPresentation).Result;
+            //if(Presentacion.Decimals == 3)
+            //dgvArticulos.Columns["Cantidad"].DefaultCellStyle.Format = "0.000";
+            //else
+            //dgvArticulos.Columns["Cantidad"].DefaultCellStyle.Format = "0";
             bool existe = false;
             decimal Total = 0;
             foreach (DataGridViewRow fila in dgvArticulos.Rows)
             {
-                if (fila.Cells["Codigo"].Value.ToString() == txtCodigo.Text)
+                if (fila.Cells["Codigo"].Value.ToString() == Articulo.Code)
                 {
                     int cantidadActual = Convert.ToInt32(fila.Cells["Cantidad"].Value);
                     fila.Cells["Cantidad"].Value = cantidadActual + (int)NUDCantidad.Value;
                     string[] partes = fila.Cells["Precio"].Value.ToString().Split('$');
                     decimal costounitario = Convert.ToDecimal(partes[1]);
-                    fila.Cells["Total"].Value = "$" + (costounitario * (cantidadActual + (int)NUDCantidad.Value)).ToString();
+                    fila.Cells["Total"].Value = "$" + (costounitario * (cantidadActual + (int)NUDCantidad.Value)).ToString("N2");
                     fila.DefaultCellStyle.BackColor = System.Drawing.Color.LightGreen;
                     existe = true;
-                    //break;
                 }
                 Total = Total + Convert.ToDecimal(fila.Cells["Total"].Value.ToString().Replace("$", ""));
             }
 
             if (!existe)
             {
-                dgvArticulos.Rows.Add(Articulo.Code,
+                int rowIndex = dgvArticulos.Rows.Add(Articulo.Code,
                 Articulo.Description, (int)NUDCantidad.Value, "$" + Articulo.Price.ToString(), "$" + Articulo.Price.ToString());
                 dgvArticulos.Rows[dgvArticulos.Rows.Count - 1].DefaultCellStyle.BackColor = System.Drawing.Color.LightGreen;
-
+                if (Presentacion.Decimals == 3)
+                    dgvArticulos.Rows[rowIndex].Cells["Cantidad"].Style.Format = "0.000";
+                else
+                    dgvArticulos.Rows[rowIndex].Cells["Cantidad"].Style.Format = "0";
                 Total = Total + Convert.ToDecimal((int)NUDCantidad.Value * Articulo.Price);
             }
 
@@ -182,6 +189,134 @@ namespace LinkCajaV2.Sales
             };
             dgvArticulos.Columns.Add(btnEliminar);
             dgvArticulos.AllowUserToAddRows = false;
+        }
+
+        private void dgvArticulos_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (dgvArticulos.Columns[e.ColumnIndex].Name == "Cantidad")
+            {               
+                string formato = dgvArticulos.Columns["Cantidad"].DefaultCellStyle.Format;
+                if (formato == "0") // Modo Piezas
+                {
+                    if (e.FormattedValue.ToString().Contains("."))
+                    {
+                        MessageBox.Show("Este artículo no permite decimales.");
+                        e.Cancel = true;
+                    }
+                }
+                string valor = e.FormattedValue.ToString();
+                // Intentamos convertir a decimal. Si falla, cancelamos la salida de la celda.
+                if (!decimal.TryParse(valor, out decimal resultado) && !string.IsNullOrEmpty(valor))
+                {
+                    MessageBox.Show("Por favor, ingresa una cantidad valida", "Error de formato");
+                    e.Cancel = true; // No deja que el usuario se mueva de celda hasta que corrija
+                }
+            }
+        }
+
+        private void dgvArticulos_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || dgvArticulos.Columns[e.ColumnIndex].Name != "Cantidad") return;
+
+            DataGridViewRow fila = dgvArticulos.Rows[e.RowIndex];
+            string valorIngresado = fila.Cells["Cantidad"].Value?.ToString() ?? "0";
+            if (valorIngresado.StartsWith("."))
+            {
+                valorIngresado = "0" + valorIngresado;
+                // Suspendemos eventos temporalmente para que no se cicle al cambiar el valor
+                dgvArticulos.CellValueChanged -= dgvArticulos_CellValueChanged;
+                fila.Cells["Cantidad"].Value = valorIngresado;
+                dgvArticulos.CellValueChanged += dgvArticulos_CellValueChanged;
+            }
+
+            if (decimal.TryParse(valorIngresado, out decimal cantidad))
+            {
+                string[] partes = fila.Cells["Precio"].Value.ToString().Split('$');
+                decimal precio = Convert.ToDecimal(partes[1]);
+                decimal subtotal = cantidad * precio;
+                fila.Cells["Total"].Value = subtotal.ToString("N2"); // Formato con 2 decimales
+            }
+
+            decimal Total = 0;
+            foreach (DataGridViewRow filas in dgvArticulos.Rows)
+            {
+                Total = Total + Convert.ToDecimal(filas.Cells["Total"].Value.ToString().Replace("$", ""));
+            }
+            lblTotal.Text = "Total: $" + Total.ToString();
+        }
+
+        private void dgvArticulos_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.ColumnIndex == dgvArticulos.Columns["Cantidad"].Index && e.RowIndex >= 0)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                // Dibujamos un borde gris oscuro simulando un TextBox
+                using (System.Drawing.Pen p = new System.Drawing.Pen(System.Drawing.Color.Gray, 1))
+                {
+                    Rectangle rect = e.CellBounds;
+                    rect.Width -= 2;
+                    rect.Height -= 2;
+                    e.Graphics.DrawRectangle(p, rect);
+                }
+
+                e.Handled = true;
+            }
+        }
+
+        private void dgvArticulos_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (dgvArticulos.CurrentCell.ColumnIndex == dgvArticulos.Columns["Cantidad"].Index)
+            {
+                TextBox txt = e.Control as TextBox;
+                if (txt != null)
+                {
+                    txt.KeyPress -= Cantidad_KeyPress;
+                    txt.KeyPress += Cantidad_KeyPress;
+                }
+            }
+        }
+        private void Cantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+
+            // Obtenemos el formato actual de la columna para saber si permitimos puntos
+            string formato = dgvArticulos.Columns["Cantidad"].DefaultCellStyle.Format;
+
+            // 1. Si el formato es "0" (Piezas), BLOQUEAMOS el punto decimal completamente
+            if (formato == "0")
+            {
+                if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+                {
+                    e.Handled = true;
+                    return;
+                }
+            }
+            // 2. Si el formato permite decimales ("0.000")
+            else
+            {
+                if (char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar))
+                {
+                    // Controlar que no meta más de 3 decimales
+                    if (txt.Text.Contains(".") && !char.IsControl(e.KeyChar))
+                    {
+                        string[] partes = txt.Text.Split('.');
+                        if (partes[1].Length >= 3 && txt.SelectionLength == 0)
+                        {
+                            e.Handled = true;
+                        }
+                    }
+                }
+                else if (e.KeyChar == '.')
+                {
+                    // Solo un punto permitido
+                    e.Handled = txt.Text.Contains(".");
+                }
+                else
+                {
+                    e.Handled = true;
+                }
+            }
         }
     }
 }

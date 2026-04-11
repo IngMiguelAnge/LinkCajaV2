@@ -721,7 +721,44 @@ namespace LinkCajaV2.Data
                 Name = (string)reader["Name"],
             };
         }
-
+        public async Task<PresentationModel> GetPresentationbyId(int id)
+        {
+            List<PresentationModel> list = new List<PresentationModel>();
+            PresentationModel response = new PresentationModel();   
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetPresentationbyId", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", id));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToPresentations(reader));
+                            }
+                            response = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return response;
+        }
+        private PresentationModel MapToPresentations(SqlDataReader reader)
+        {
+            return new PresentationModel()
+            {
+                Id = (int)reader["Id"],
+                Name = (string)reader["Name"],
+                Decimals = (int)reader["Decimals"]
+            };
+        }
         #endregion
     }
 }
