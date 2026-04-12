@@ -48,6 +48,8 @@
             this.lblCodigo = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.nudCada = new System.Windows.Forms.NumericUpDown();
+            this.lblCostoGramo = new System.Windows.Forms.Label();
+            this.txtGramo = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.PBProducto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudExistencias)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
@@ -175,6 +177,7 @@
             this.nudPrecio.Name = "nudPrecio";
             this.nudPrecio.Size = new System.Drawing.Size(120, 26);
             this.nudPrecio.TabIndex = 12;
+            this.nudPrecio.KeyUp += new System.Windows.Forms.KeyEventHandler(this.nudPrecio_KeyUp);
             // 
             // lblPor
             // 
@@ -238,12 +241,34 @@
             this.nudCada.Name = "nudCada";
             this.nudCada.Size = new System.Drawing.Size(120, 26);
             this.nudCada.TabIndex = 14;
+            this.nudCada.KeyUp += new System.Windows.Forms.KeyEventHandler(this.nudCada_KeyUp);
+            // 
+            // lblCostoGramo
+            // 
+            this.lblCostoGramo.AutoSize = true;
+            this.lblCostoGramo.Location = new System.Drawing.Point(520, 313);
+            this.lblCostoGramo.Name = "lblCostoGramo";
+            this.lblCostoGramo.Size = new System.Drawing.Size(131, 20);
+            this.lblCostoGramo.TabIndex = 19;
+            this.lblCostoGramo.Text = "Costo por gramo:";
+            this.lblCostoGramo.Visible = false;
+            // 
+            // txtGramo
+            // 
+            this.txtGramo.Enabled = false;
+            this.txtGramo.Location = new System.Drawing.Point(524, 341);
+            this.txtGramo.Name = "txtGramo";
+            this.txtGramo.Size = new System.Drawing.Size(127, 26);
+            this.txtGramo.TabIndex = 20;
+            this.txtGramo.Visible = false;
             // 
             // Article
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(822, 449);
+            this.Controls.Add(this.txtGramo);
+            this.Controls.Add(this.lblCostoGramo);
             this.Controls.Add(this.nudCada);
             this.Controls.Add(this.txtCodigo);
             this.Controls.Add(this.lblCodigo);
@@ -301,5 +326,7 @@
         private System.Windows.Forms.Label lblCodigo;
         private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.NumericUpDown nudCada;
+        private System.Windows.Forms.Label lblCostoGramo;
+        private System.Windows.Forms.TextBox txtGramo;
     }
 }

@@ -601,6 +601,7 @@ namespace LinkCajaV2.Data
         {
             return new ArticleModel()
             {
+                Id= (int)reader["Id"],
                 Name = (string)reader["Name"],
                 Description = (string)reader["Description"],
                 Image = Convert.IsDBNull(reader["Image"]) ? null : (byte[])reader["Image"],

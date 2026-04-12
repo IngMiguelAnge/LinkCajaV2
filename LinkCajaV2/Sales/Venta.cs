@@ -1,6 +1,8 @@
 ﻿using LinkCajaV2.Catalogs;
 using LinkCajaV2.Data;
+using LinkCajaV2.Items;
 using LinkCajaV2.Model;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,8 +33,8 @@ namespace LinkCajaV2.Sales
         {
             string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sounds", "beep.wav");
             lectorSonido = new SoundPlayer(ruta);
-            lblUsuario.Text = "Bien venido "+ NameUser;
-            
+            lblUsuario.Text = "Bien venido " + NameUser;
+
             AppRepository obj = new AppRepository();
             var Empresa = obj.GetCompany().Result;
             if (Empresa != null)
@@ -54,17 +56,30 @@ namespace LinkCajaV2.Sales
             if (e.KeyCode == Keys.Enter)
             {
                 lectorSonido.Play(); // Reproducción instantánea sin lag
-                e.SuppressKeyPress = true;               
-                AgregarArticulo(0,txtCodigo.Text);
+                e.SuppressKeyPress = true;
+                AgregarArticulo(0, txtCodigo.Text);
                 txtCodigo.Clear();
             }
         }
 
-        public void AgregarArticulo(int id,string codigo)
+        public string CalcularPrecioPorGramo(decimal Precio, decimal Cada)
+        {
+            if (Cada > 0)
+            {
+                //Precio / (Kilos * 1000)
+                decimal resultado = Precio / (Cada * 1000);
+                return resultado.ToString("N4"); // N4 es mejor para gramos
+            }
+            else
+            {
+                return "0.00";
+            }
+        }
+        public void AgregarArticulo(int id, string codigo)
         {
             AppRepository obj = new AppRepository();
             ArticleModel Articulo = new ArticleModel();
-            if(codigo != string.Empty)
+            if (codigo != string.Empty)
                 Articulo = obj.GetArticleByCode(codigo).Result;
             else
                 Articulo = obj.GetArticlebyId(id).Result;
@@ -78,21 +93,29 @@ namespace LinkCajaV2.Sales
                 CrearGridView();
             }
             var Presentacion = obj.GetPresentationbyId(Articulo.IdPresentation).Result;
-            //if(Presentacion.Decimals == 3)
-            //dgvArticulos.Columns["Cantidad"].DefaultCellStyle.Format = "0.000";
-            //else
-            //dgvArticulos.Columns["Cantidad"].DefaultCellStyle.Format = "0";
+            decimal Cantidad = (int)NUDCantidad.Value;
+            string PrecioUnitario = Articulo.Price.ToString();
+            if (Presentacion.Decimals > 0)
+            {
+                Decimals d = new Decimals();
+                d.ShowDialog();
+                Cantidad = d.Kilos;
+                PrecioUnitario = CalcularPrecioPorGramo(Articulo.Price, Articulo.SuggestedStock);
+            }
             bool existe = false;
             decimal Total = 0;
             foreach (DataGridViewRow fila in dgvArticulos.Rows)
             {
                 if (fila.Cells["Codigo"].Value.ToString() == Articulo.Code)
                 {
-                    int cantidadActual = Convert.ToInt32(fila.Cells["Cantidad"].Value);
-                    fila.Cells["Cantidad"].Value = cantidadActual + (int)NUDCantidad.Value;
+                    decimal cantidadActual = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
+                    fila.Cells["Cantidad"].Value = cantidadActual + Cantidad;
                     string[] partes = fila.Cells["Precio"].Value.ToString().Split('$');
                     decimal costounitario = Convert.ToDecimal(partes[1]);
-                    fila.Cells["Total"].Value = "$" + (costounitario * (cantidadActual + (int)NUDCantidad.Value)).ToString("N2");
+                    if (Presentacion.Decimals == 3)
+                        fila.Cells["Total"].Value = "$" + (costounitario * ((cantidadActual + Cantidad)*1000)).ToString("N2");
+                    else
+                        fila.Cells["Total"].Value = "$" + (costounitario * (cantidadActual + Cantidad)).ToString("N2");
                     fila.DefaultCellStyle.BackColor = System.Drawing.Color.LightGreen;
                     existe = true;
                 }
@@ -101,14 +124,26 @@ namespace LinkCajaV2.Sales
 
             if (!existe)
             {
+                decimal totalFila = 0;
+                if (Presentacion.Decimals == 3)
+                    totalFila = (Convert.ToDecimal(Cantidad) * 1000) * Convert.ToDecimal(PrecioUnitario);
+                else
+                    totalFila = Convert.ToDecimal(Cantidad) * Convert.ToDecimal(PrecioUnitario);
                 int rowIndex = dgvArticulos.Rows.Add(Articulo.Code,
-                Articulo.Description, (int)NUDCantidad.Value, "$" + Articulo.Price.ToString(), "$" + Articulo.Price.ToString());
+                Articulo.Description, Cantidad, "$" + PrecioUnitario, "$" + (totalFila).ToString("N2"));
                 dgvArticulos.Rows[dgvArticulos.Rows.Count - 1].DefaultCellStyle.BackColor = System.Drawing.Color.LightGreen;
                 if (Presentacion.Decimals == 3)
-                    dgvArticulos.Rows[rowIndex].Cells["Cantidad"].Style.Format = "0.000";
+                {
+                    Total = Total + totalFila;
+                    dgvArticulos.Rows[rowIndex].Cells["Cantidad"].Style.Format = "N3";
+                }
                 else
-                    dgvArticulos.Rows[rowIndex].Cells["Cantidad"].Style.Format = "0";
-                Total = Total + Convert.ToDecimal((int)NUDCantidad.Value * Articulo.Price);
+                {
+                    dgvArticulos.Rows[rowIndex].Cells["Cantidad"].Style.Format = "N0";
+                    Total = Total +
+                        Math.Round(Convert.ToDecimal(Cantidad * Convert.ToDecimal(PrecioUnitario)), 2);
+                }
+
             }
 
             if (Articulo.Image != null)
@@ -119,7 +154,7 @@ namespace LinkCajaV2.Sales
                     PBProducto.SizeMode = PictureBoxSizeMode.Zoom;
                 }
             }
-            lblTotal.Text = "Total: $" + Total.ToString();
+            lblTotal.Text = "Total: $" + Total.ToString("N2");
         }
         private void btnBuscar_Click(object sender, EventArgs e)
         {
@@ -130,7 +165,7 @@ namespace LinkCajaV2.Sales
                 AgregarArticulo(article.IdSeleccionado, string.Empty);
                 txtCodigo.Clear();
             }
-    
+
         }
 
         private void Venta_Shown(object sender, EventArgs e)
@@ -142,7 +177,8 @@ namespace LinkCajaV2.Sales
         {
             CrearGridView();
         }
-        public void CrearGridView() {
+        public void CrearGridView()
+        {
             dgvArticulos.Columns.Clear();
             dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -194,7 +230,7 @@ namespace LinkCajaV2.Sales
         private void dgvArticulos_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             if (dgvArticulos.Columns[e.ColumnIndex].Name == "Cantidad")
-            {               
+            {
                 string formato = dgvArticulos.Columns["Cantidad"].DefaultCellStyle.Format;
                 if (formato == "0") // Modo Piezas
                 {

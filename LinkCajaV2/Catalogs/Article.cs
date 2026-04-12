@@ -20,6 +20,8 @@ namespace LinkCajaV2.Catalogs
         public Article()
         {
             InitializeComponent();
+            nudPrecio.TextChanged += (s, e) => CalcularPrecioPorGramo();
+            nudCada.TextChanged += (s, e) => CalcularPrecioPorGramo();
         }
 
         private void btnImagen_Click(object sender, EventArgs e)
@@ -117,57 +119,72 @@ namespace LinkCajaV2.Catalogs
                 }
             }
             txtCodigo.Text = Article.Code;
+            //CambiarPresentacion();
             cbPresentacion.SelectedValue = Article.IdPresentation;
+            cbPresentacionS.SelectedValue = Article.SuggestedPresentation;
             nudExistencias.Value = Article.Stock;
             nudPrecio.Value = Article.Price;
             nudCada.Value = Article.SuggestedStock;
-            CambiarPresentacion2();
-            cbPresentacionS.SelectedValue = Article.SuggestedPresentation;
+            if (Article.IdPresentation < 3)
+            {
+                lblCostoGramo.Visible = true;
+                txtGramo.Visible = true;
+                CalcularPrecioPorGramo();
+            }
+            else
+            {
+                lblCostoGramo.Visible = false;
+                txtGramo.Visible = false;
+            }
         }
 
         private void cbPresentacion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CambiarPresentacion2();
+            CambiarPresentacion();
         }
-        public void CambiarPresentacion2()
+        public void CambiarPresentacion()
         {
             List<ListPresentationsModel> ListPresentation = new List<ListPresentationsModel>();
             ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione" });
             if (cbPresentacion.SelectedIndex > 0)
             {
-                var Id = (int)cbPresentacion.SelectedValue;
                 switch (cbPresentacion.Text.ToUpper())
                 {
                     case "KG":
-                    case "GR":
                         ListPresentation.Insert(1, new ListPresentationsModel { Id = 1, Name = "Kg" });
-                        ListPresentation.Insert(2, new ListPresentationsModel { Id = 2, Name = "gr" });
                         nudExistencias.DecimalPlaces = 3;
-                        nudExistencias.Increment = 0.001M;
+                        nudExistencias.Increment = 0.010M;
                         nudExistencias.Maximum = 10000;
+                        nudExistencias.Value = 0.000M;
                         nudCada.DecimalPlaces = 3;
                         nudCada.Maximum = 1000000;
-                        nudCada.Increment = 0.001M;
+                        nudCada.Increment = 0.010M;
+                        nudCada.Value = 0.000M;
+                        nudCada.Enabled = true;
                         break;
                     case "LT":
-                    case "ML":
-                        ListPresentation.Insert(1, new ListPresentationsModel { Id = 3, Name = "Lt" });
-                        ListPresentation.Insert(2, new ListPresentationsModel { Id = 4, Name = "ml" });
+                        ListPresentation.Insert(1, new ListPresentationsModel { Id = 2, Name = "Lt" });
                         nudExistencias.DecimalPlaces = 3;
-                        nudExistencias.Increment = 0.001M;
+                        nudExistencias.Increment = 0.010M;
                         nudExistencias.Maximum = 10000;
+                        nudExistencias.Value = 0.000M;
                         nudCada.DecimalPlaces = 3;
                         nudCada.Maximum = 1000000;
-                        nudCada.Increment = 0.001M;
+                        nudCada.Increment = 0.010M;
+                        nudCada.Value = 0.000M;
+                        nudCada.Enabled = true;
                         break;
                     default:
                         ListPresentation.Insert(1, new ListPresentationsModel { Id = Id, Name = cbPresentacion.Text });
                         nudExistencias.DecimalPlaces = 0;
                         nudExistencias.Increment = 1M;
                         nudExistencias.Maximum = 1000000;
+                        nudExistencias.Value = 0.000M;
                         nudCada.DecimalPlaces = 0;
                         nudCada.Maximum = 1000000;
                         nudCada.Increment = 1M;
+                        nudCada.Value = 1;
+                        nudCada.Enabled = false;
                         break;
                 }
             }
@@ -176,6 +193,93 @@ namespace LinkCajaV2.Catalogs
             cbPresentacionS.ValueMember = "Id";
             cbPresentacionS.DataSource = ListPresentation;
             cbPresentacionS.SelectedIndex = 0;
+        }
+
+
+        private void nudPrecio_KeyUp(object sender, KeyEventArgs e)
+        {
+            DomainUpDown dud = sender as DomainUpDown;
+            if (dud == null) return;
+
+            // Buscamos el TextBox interno de forma segura
+            TextBox tb = null;
+            foreach (Control c in dud.Controls)
+            {
+                if (c is TextBox)
+                {
+                    tb = (TextBox)c;
+                    break;
+                }
+            }
+
+            if (tb != null)
+            {
+                // Guardamos posición
+                int cursorPosition = tb.SelectionStart;
+
+                // Tu lógica de cálculo
+                CalcularPrecioPorGramo();
+
+                // Restauramos posición
+                tb.SelectionStart = cursorPosition;
+            }
+            else
+            {
+                // Si no encontró el TextBox (raro, pero puede pasar), solo calcula
+                CalcularPrecioPorGramo();
+            }
+        }
+        public void CalcularPrecioPorGramo()
+        {
+            string txtP = nudPrecio.Text.Replace("$", "").Trim();
+            string txtC = nudCada.Text.Trim();
+
+            decimal.TryParse(txtP, out decimal vPrecio);
+            decimal.TryParse(txtC, out decimal vCada);
+
+            if (vCada > 0)
+            {
+                //Precio / (Kilos * 1000)
+                decimal resultado = vPrecio / (vCada * 1000);
+                txtGramo.Text = resultado.ToString("N4"); // N4 es mejor para gramos
+            }
+            else
+            {
+                txtGramo.Text = "0.00";
+            }
+        }
+        private void nudCada_KeyUp(object sender, KeyEventArgs e)
+        {
+            DomainUpDown dud = sender as DomainUpDown;
+            if (dud == null) return;
+
+            // Buscamos el TextBox interno de forma segura
+            TextBox tb = null;
+            foreach (Control c in dud.Controls)
+            {
+                if (c is TextBox)
+                {
+                    tb = (TextBox)c;
+                    break;
+                }
+            }
+
+            if (tb != null)
+            {
+                // Guardamos posición
+                int cursorPosition = tb.SelectionStart;
+
+                // Tu lógica de cálculo
+                CalcularPrecioPorGramo();
+
+                // Restauramos posición
+                tb.SelectionStart = cursorPosition;
+            }
+            else
+            {
+                // Si no encontró el TextBox (raro, pero puede pasar), solo calcula
+                CalcularPrecioPorGramo();
+            }
         }
     }
 }

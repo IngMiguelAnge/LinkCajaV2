@@ -102,6 +102,12 @@
       <DependentUpon>Company.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\AppRepository.cs" />
+    <Compile Include="Items\Decimals.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Items\Decimals.Designer.cs">
+      <DependentUpon>Decimals.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +166,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Configurations\Company.resx">
       <DependentUpon>Company.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Items\Decimals.resx">
+      <DependentUpon>Decimals.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
