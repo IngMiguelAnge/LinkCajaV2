@@ -16,6 +16,7 @@ namespace LinkCajaV2.Catalogs
 {
     public partial class Article : Form
     {
+        private bool isLoaded = false;
         public int Id { get; set; }
         public Article()
         {
@@ -40,8 +41,8 @@ namespace LinkCajaV2.Catalogs
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtCodigo.Text) || string.IsNullOrEmpty(txtDescripcion.Text) ||
-                string.IsNullOrEmpty(txtNombre.Text) || (int)cbPresentacion.SelectedValue == 0 ||
-                (int)cbPresentacionS.SelectedValue == 0)
+                string.IsNullOrEmpty(txtNombre.Text) || (int)cbPresentacion.SelectedValue == 0
+               )
             {
                 MessageBox.Show("Datos incompletos revise la información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -65,7 +66,6 @@ namespace LinkCajaV2.Catalogs
                 IdPresentation = (int)cbPresentacion.SelectedValue,
                 Price = nudPrecio.Value,
                 SuggestedStock = nudCada.Value,
-                SuggestedPresentation = (int)cbPresentacionS.SelectedValue
             };
             if (obj.SaveArticle(Articulo).Result)
             {
@@ -100,13 +100,17 @@ namespace LinkCajaV2.Catalogs
             var ListPresentation = obj.GetPresentations().Result;
             // Insertamos un objeto "fantasma" al inicio para el placeholder
             ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione" });
-
+            cbPresentacion.Items.Clear();
             // Configuramos el ComboBox
             cbPresentacion.DisplayMember = "Name";
             cbPresentacion.ValueMember = "Id";
             cbPresentacion.DataSource = ListPresentation;
             cbPresentacion.SelectedIndex = 0;
-            if (Id == 0) return;
+            if (Id == 0)
+            {
+                isLoaded = true;
+                return;
+            } 
             var Article = obj.GetArticlebyId(Id).Result;
             txtNombre.Text = Article.Name;
             txtDescripcion.Text = Article.Description;
@@ -119,12 +123,11 @@ namespace LinkCajaV2.Catalogs
                 }
             }
             txtCodigo.Text = Article.Code;
-            //CambiarPresentacion();
             cbPresentacion.SelectedValue = Article.IdPresentation;
-            cbPresentacionS.SelectedValue = Article.SuggestedPresentation;
             nudExistencias.Value = Article.Stock;
             nudPrecio.Value = Article.Price;
             nudCada.Value = Article.SuggestedStock;
+            CambiarPresentacion();
             if (Article.IdPresentation < 3)
             {
                 lblCostoGramo.Visible = true;
@@ -136,10 +139,12 @@ namespace LinkCajaV2.Catalogs
                 lblCostoGramo.Visible = false;
                 txtGramo.Visible = false;
             }
+            isLoaded = true;
         }
 
         private void cbPresentacion_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!isLoaded) return;
             CambiarPresentacion();
         }
         public void CambiarPresentacion()
@@ -155,44 +160,51 @@ namespace LinkCajaV2.Catalogs
                         nudExistencias.DecimalPlaces = 3;
                         nudExistencias.Increment = 0.010M;
                         nudExistencias.Maximum = 10000;
-                        nudExistencias.Value = 0.000M;
                         nudCada.DecimalPlaces = 3;
                         nudCada.Maximum = 1000000;
                         nudCada.Increment = 0.010M;
-                        nudCada.Value = 0.000M;
                         nudCada.Enabled = true;
+                        lblMedida.Text = "Kg";
+                        if (isLoaded)
+                        {
+                            nudExistencias.Value = 0.000M;
+                            nudCada.Value = 0.000M;
+                        }
                         break;
                     case "LT":
                         ListPresentation.Insert(1, new ListPresentationsModel { Id = 2, Name = "Lt" });
                         nudExistencias.DecimalPlaces = 3;
                         nudExistencias.Increment = 0.010M;
                         nudExistencias.Maximum = 10000;
-                        nudExistencias.Value = 0.000M;
                         nudCada.DecimalPlaces = 3;
                         nudCada.Maximum = 1000000;
                         nudCada.Increment = 0.010M;
-                        nudCada.Value = 0.000M;
                         nudCada.Enabled = true;
+                        lblMedida.Text = "Lt";
+                        if (isLoaded)
+                        {
+                            nudExistencias.Value = 0.000M;
+                            nudCada.Value = 0.000M;
+                        }
                         break;
                     default:
                         ListPresentation.Insert(1, new ListPresentationsModel { Id = Id, Name = cbPresentacion.Text });
                         nudExistencias.DecimalPlaces = 0;
                         nudExistencias.Increment = 1M;
                         nudExistencias.Maximum = 1000000;
-                        nudExistencias.Value = 0.000M;
                         nudCada.DecimalPlaces = 0;
                         nudCada.Maximum = 1000000;
                         nudCada.Increment = 1M;
-                        nudCada.Value = 1;
                         nudCada.Enabled = false;
+                        lblMedida.Text = cbPresentacion.Text;
+                        if (isLoaded)
+                        {
+                            nudExistencias.Value = 0;
+                            nudCada.Value = 1;
+                        }
                         break;
                 }
             }
-
-            cbPresentacionS.DisplayMember = "Name";
-            cbPresentacionS.ValueMember = "Id";
-            cbPresentacionS.DataSource = ListPresentation;
-            cbPresentacionS.SelectedIndex = 0;
         }
 
 

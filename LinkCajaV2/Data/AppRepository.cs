@@ -610,7 +610,6 @@ namespace LinkCajaV2.Data
                 IdPresentation = Convert.IsDBNull(reader["IdPresentation"]) ? 0 : (int)reader["IdPresentation"],
                 Price = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
                 SuggestedStock = Convert.IsDBNull(reader["SuggestedStock"]) ? 0 : (decimal)reader["SuggestedStock"],
-                SuggestedPresentation = Convert.IsDBNull(reader["SuggestedPresentation"]) ? 0 : (int)reader["SuggestedPresentation"],
             };
         }
         public async Task<bool> SaveArticle(ArticleModel obj)
@@ -631,8 +630,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@IdPresentation", obj.IdPresentation));
                         cmd.Parameters.Add(new SqlParameter("@Price", obj.Price));
                         cmd.Parameters.Add(new SqlParameter("@SuggestedStock", obj.SuggestedStock));
-                        cmd.Parameters.Add(new SqlParameter("@SuggestedPresentation", obj.SuggestedPresentation));
-
+                    
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;
@@ -682,8 +680,8 @@ namespace LinkCajaV2.Data
                 Codigo = (string)reader["Code"],
                 Articulo = (string)reader["Name"],
                 Existencias = (string)reader["Stock"],
-                Presentacion = (string)reader["Presentation"],
                 Precio = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
+                PorCada = (string)reader["PorCada"],
             };
         }
         #endregion

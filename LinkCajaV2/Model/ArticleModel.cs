@@ -11,6 +11,5 @@
         public int IdPresentation { get; set; }
         public decimal Price { get; set; }
         public decimal SuggestedStock { get; set; }
-        public int SuggestedPresentation { get; set; }
     }
 }

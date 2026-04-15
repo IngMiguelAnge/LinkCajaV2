@@ -42,14 +42,12 @@
             this.lblPrecio = new System.Windows.Forms.Label();
             this.nudPrecio = new System.Windows.Forms.NumericUpDown();
             this.lblPor = new System.Windows.Forms.Label();
-            this.lblPresentacionS = new System.Windows.Forms.Label();
-            this.lblSugerida = new System.Windows.Forms.Label();
-            this.cbPresentacionS = new System.Windows.Forms.ComboBox();
             this.lblCodigo = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.nudCada = new System.Windows.Forms.NumericUpDown();
             this.lblCostoGramo = new System.Windows.Forms.Label();
             this.txtGramo = new System.Windows.Forms.TextBox();
+            this.lblMedida = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PBProducto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudExistencias)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
@@ -188,32 +186,6 @@
             this.lblPor.TabIndex = 13;
             this.lblPor.Text = "Por cada";
             // 
-            // lblPresentacionS
-            // 
-            this.lblPresentacionS.AutoSize = true;
-            this.lblPresentacionS.Location = new System.Drawing.Point(365, 282);
-            this.lblPresentacionS.Name = "lblPresentacionS";
-            this.lblPresentacionS.Size = new System.Drawing.Size(102, 20);
-            this.lblPresentacionS.TabIndex = 15;
-            this.lblPresentacionS.Text = "Presentación";
-            // 
-            // lblSugerida
-            // 
-            this.lblSugerida.AutoSize = true;
-            this.lblSugerida.Location = new System.Drawing.Point(377, 303);
-            this.lblSugerida.Name = "lblSugerida";
-            this.lblSugerida.Size = new System.Drawing.Size(73, 20);
-            this.lblSugerida.TabIndex = 16;
-            this.lblSugerida.Text = "Sugerida";
-            // 
-            // cbPresentacionS
-            // 
-            this.cbPresentacionS.FormattingEnabled = true;
-            this.cbPresentacionS.Location = new System.Drawing.Point(369, 339);
-            this.cbPresentacionS.Name = "cbPresentacionS";
-            this.cbPresentacionS.Size = new System.Drawing.Size(121, 28);
-            this.cbPresentacionS.TabIndex = 17;
-            // 
             // lblCodigo
             // 
             this.lblCodigo.AutoSize = true;
@@ -246,7 +218,7 @@
             // lblCostoGramo
             // 
             this.lblCostoGramo.AutoSize = true;
-            this.lblCostoGramo.Location = new System.Drawing.Point(520, 313);
+            this.lblCostoGramo.Location = new System.Drawing.Point(407, 310);
             this.lblCostoGramo.Name = "lblCostoGramo";
             this.lblCostoGramo.Size = new System.Drawing.Size(131, 20);
             this.lblCostoGramo.TabIndex = 19;
@@ -256,25 +228,32 @@
             // txtGramo
             // 
             this.txtGramo.Enabled = false;
-            this.txtGramo.Location = new System.Drawing.Point(524, 341);
+            this.txtGramo.Location = new System.Drawing.Point(411, 338);
             this.txtGramo.Name = "txtGramo";
             this.txtGramo.Size = new System.Drawing.Size(127, 26);
             this.txtGramo.TabIndex = 20;
             this.txtGramo.Visible = false;
+            // 
+            // lblMedida
+            // 
+            this.lblMedida.AutoSize = true;
+            this.lblMedida.Location = new System.Drawing.Point(348, 345);
+            this.lblMedida.Name = "lblMedida";
+            this.lblMedida.Size = new System.Drawing.Size(29, 20);
+            this.lblMedida.TabIndex = 21;
+            this.lblMedida.Text = "----";
             // 
             // Article
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(822, 449);
+            this.Controls.Add(this.lblMedida);
             this.Controls.Add(this.txtGramo);
             this.Controls.Add(this.lblCostoGramo);
             this.Controls.Add(this.nudCada);
             this.Controls.Add(this.txtCodigo);
             this.Controls.Add(this.lblCodigo);
-            this.Controls.Add(this.cbPresentacionS);
-            this.Controls.Add(this.lblSugerida);
-            this.Controls.Add(this.lblPresentacionS);
             this.Controls.Add(this.lblPor);
             this.Controls.Add(this.nudPrecio);
             this.Controls.Add(this.lblPrecio);
@@ -320,13 +299,11 @@
         private System.Windows.Forms.Label lblPrecio;
         private System.Windows.Forms.NumericUpDown nudPrecio;
         private System.Windows.Forms.Label lblPor;
-        private System.Windows.Forms.Label lblPresentacionS;
-        private System.Windows.Forms.Label lblSugerida;
-        private System.Windows.Forms.ComboBox cbPresentacionS;
         private System.Windows.Forms.Label lblCodigo;
         private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.NumericUpDown nudCada;
         private System.Windows.Forms.Label lblCostoGramo;
         private System.Windows.Forms.TextBox txtGramo;
+        private System.Windows.Forms.Label lblMedida;
     }
 }
