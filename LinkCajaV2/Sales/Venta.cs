@@ -217,7 +217,7 @@ namespace LinkCajaV2.Sales
             });
             DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn
             {
-                Name = "Accion",
+                Name = "Quitar",
                 HeaderText = "Acción",
                 Text = "Quitar",
                 UseColumnTextForButtonValue = true, // Para que todos los botones digan "Quitar"
@@ -352,6 +352,18 @@ namespace LinkCajaV2.Sales
                 {
                     e.Handled = true;
                 }
+            }
+        }
+
+        private void dgvArticulos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Evitar errores si hacen click en el encabezado
+            if (e.RowIndex < 0) return;
+            switch (dgvArticulos.Columns[e.ColumnIndex].Name)
+            {
+                case "Quitar":
+                    dgvArticulos.Rows.RemoveAt(e.RowIndex);
+                    break;
             }
         }
     }
