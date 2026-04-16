@@ -31,11 +31,18 @@ namespace LinkCajaV2.Sales
 
         private void Venta_Load(object sender, EventArgs e)
         {
+            AppRepository obj = new AppRepository();
+            KeysModel ListKeys = obj.GetKeysActive().Result;
+            if(ListKeys == null)
+            {
+                MessageBox.Show("No se encontraron licencia activa. Contacta al soporte.", "Licencia no encontrada", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            }
             string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sounds", "beep.wav");
             lectorSonido = new SoundPlayer(ruta);
             lblUsuario.Text = "Bien venido " + NameUser;
-
-            AppRepository obj = new AppRepository();
+      
             var Empresa = obj.GetCompany().Result;
             if (Empresa != null)
             {

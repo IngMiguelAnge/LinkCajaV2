@@ -503,6 +503,97 @@ namespace LinkCajaV2.Data
             }
         }
         #endregion
+        #region Keys
+        public async Task<bool> SaveKey(KeysModel obj)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveKeys", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
+                        cmd.Parameters.Add(new SqlParameter("@Key", obj.Key));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<List<KeysModel>> GetKeys()
+        {
+            List<KeysModel> list = new List<KeysModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetKeys", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToKeys(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+        public async Task<KeysModel> GetKeysActive()
+        {
+            KeysModel obj = new KeysModel();
+            List<KeysModel> list = new List<KeysModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetKeys", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToKeys(reader));
+                            }
+                            obj = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return obj;
+        }
+        private KeysModel MapToKeys(SqlDataReader reader)
+        {
+            return new KeysModel()
+            {
+                Id = (int)reader["Id"],
+                Name = (string)reader["Name"],
+                Key = (string)reader["Key"],
+            };
+        }
+
+        #endregion
         #region TypesUsers
         public async Task<List<TypesUsersModel>> GetTypesUsers()
         {
@@ -572,7 +663,6 @@ namespace LinkCajaV2.Data
             }
             return response;
         }
-
         public async Task<ArticleModel> GetArticlebyId(int Id)
         {
             ArticleModel response = new ArticleModel();

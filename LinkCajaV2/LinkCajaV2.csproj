@@ -59,6 +59,12 @@
     <Compile Include="Catalogs\Articles.Designer.cs">
       <DependentUpon>Articles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Catalogs\Boxs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\Boxs.Designer.cs">
+      <DependentUpon>Boxs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Catalogs\Client.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,11 +108,24 @@
       <DependentUpon>Company.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\AppRepository.cs" />
+    <Compile Include="Data\EncrypDesencryp.cs" />
     <Compile Include="Items\Decimals.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Items\Decimals.Designer.cs">
       <DependentUpon>Decimals.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Items\Instalador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Items\Instalador.Designer.cs">
+      <DependentUpon>Instalador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Items\Licenses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Items\Licenses.Designer.cs">
+      <DependentUpon>Licenses.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -123,6 +142,7 @@
     <Compile Include="Model\ArticleModel.cs" />
     <Compile Include="Model\ClientsModel.cs" />
     <Compile Include="Model\CompanyModel.cs" />
+    <Compile Include="Model\KeysModel.cs" />
     <Compile Include="Model\ListArticlesModel.cs" />
     <Compile Include="Model\ListClientsModel.cs" />
     <Compile Include="Model\ListPresentationsModel.cs" />
@@ -145,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\Articles.resx">
       <DependentUpon>Articles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\Boxs.resx">
+      <DependentUpon>Boxs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\Client.resx">
       <DependentUpon>Client.cs</DependentUpon>
@@ -169,6 +192,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Items\Decimals.resx">
       <DependentUpon>Decimals.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Items\Instalador.resx">
+      <DependentUpon>Instalador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Items\Licenses.resx">
+      <DependentUpon>Licenses.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

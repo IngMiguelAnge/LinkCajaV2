@@ -1,5 +1,6 @@
 ﻿using LinkCajaV2.Catalogs;
 using LinkCajaV2.Configuraciones;
+using LinkCajaV2.Items;
 using LinkCajaV2.Sales;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,12 @@ namespace LinkCajaV2
             s.IdUsuario = IdUsuario;
             s.NameUser = NameUser;
             s.Show();
+        }
+
+        private void licenciaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Licenses l = new Licenses();
+            l.Show();
         }
     }
 }
