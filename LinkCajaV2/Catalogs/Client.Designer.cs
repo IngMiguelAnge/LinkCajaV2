@@ -54,6 +54,7 @@
             // txtEmail
             // 
             this.txtEmail.Location = new System.Drawing.Point(117, 121);
+            this.txtEmail.MaxLength = 50;
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(246, 26);
             this.txtEmail.TabIndex = 20;
@@ -70,6 +71,7 @@
             // txtTelefono2
             // 
             this.txtTelefono2.Location = new System.Drawing.Point(453, 69);
+            this.txtTelefono2.MaxLength = 50;
             this.txtTelefono2.Name = "txtTelefono2";
             this.txtTelefono2.Size = new System.Drawing.Size(236, 26);
             this.txtTelefono2.TabIndex = 18;
@@ -86,6 +88,7 @@
             // txtTelefono1
             // 
             this.txtTelefono1.Location = new System.Drawing.Point(117, 69);
+            this.txtTelefono1.MaxLength = 50;
             this.txtTelefono1.Name = "txtTelefono1";
             this.txtTelefono1.Size = new System.Drawing.Size(221, 26);
             this.txtTelefono1.TabIndex = 16;
@@ -102,6 +105,7 @@
             // txtDireccion
             // 
             this.txtDireccion.Location = new System.Drawing.Point(443, 12);
+            this.txtDireccion.MaxLength = 50;
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(246, 26);
             this.txtDireccion.TabIndex = 14;
@@ -118,6 +122,7 @@
             // txtNombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(102, 12);
+            this.txtNombre.MaxLength = 50;
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(246, 26);
             this.txtNombre.TabIndex = 12;

@@ -37,8 +37,9 @@ namespace LinkCajaV2.Configuraciones
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if(txtNombre.Text.Trim() == string.Empty || txtEncargado.Text.Trim() == string.Empty
-                || txtDireccion.Text.Trim() == string.Empty || txtCorreo.Text.Trim() == string.Empty
+            if(txtNombre.Text.Trim() == string.Empty || txtDireccion.Text.Trim() == string.Empty
+                || txtEncargado.Text.Trim() == string.Empty || NUDCP.Value <=4
+                || txtRFC.Text.Trim() == string.Empty || txtCorreo.Text.Trim() == string.Empty
                 || txtTelefono1.Text.Trim() == string.Empty)
             {
                 MessageBox.Show("Faltan llenar campos obligatorios", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -48,6 +49,9 @@ namespace LinkCajaV2.Configuraciones
             {
                 Name = txtNombre.Text,
                 Address = txtDireccion.Text,
+                CP = (int)NUDCP.Value,
+                RFC = txtRFC.Text,  
+                Regimen = txtRegimen.Text,
                 Manager = txtEncargado.Text,
                 Phone1 = txtTelefono1.Text,
                 Phone2 = txtTelefono2.Text,
@@ -88,6 +92,9 @@ namespace LinkCajaV2.Configuraciones
             {
                 txtNombre.Text = Empresa.Name;
                 txtDireccion.Text = Empresa.Address;
+                NUDCP.Value = Empresa.CP;
+                txtRFC.Text = Empresa.RFC;
+                txtRegimen.Text = Empresa.Regimen;
                 txtEncargado.Text = Empresa.Manager;
                 txtTelefono1.Text = Empresa.Phone1;
                 txtTelefono2.Text = Empresa.Phone2;

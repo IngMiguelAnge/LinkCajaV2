@@ -366,5 +366,10 @@ namespace LinkCajaV2.Sales
                     break;
             }
         }
+
+        private void btnPagar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

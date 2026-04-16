@@ -224,6 +224,9 @@ namespace LinkCajaV2.Data
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
                         cmd.Parameters.Add(new SqlParameter("@Address", obj.Address));
+                        cmd.Parameters.Add(new SqlParameter("@CP", obj.CP));
+                        cmd.Parameters.Add(new SqlParameter("@RFC", obj.RFC));
+                        cmd.Parameters.Add(new SqlParameter("@Regimen", obj.Regimen));
                         cmd.Parameters.Add(new SqlParameter("@Manager", obj.Manager));
                         cmd.Parameters.Add(new SqlParameter("@Phone1", obj.Phone1));
                         cmd.Parameters.Add(new SqlParameter("@Phone2", obj.Phone2));
@@ -275,6 +278,9 @@ namespace LinkCajaV2.Data
             {
                 Name = (string)reader["Name"],
                 Address = (string)reader["Address"],
+                CP = Convert.IsDBNull(reader["CP"]) ? 0 : (int)reader["CP"],
+                RFC = (string)reader["RFC"],
+                Regimen = (string)reader["Regimen"],
                 Phone1 = (string)reader["Phone1"],
                 Phone2 = (string)reader["Phone2"],
                 Email = (string)reader["Email"],
@@ -642,7 +648,7 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
-        public async Task<List<ListArticlesModel>> GetArticles(string Code,string Nombre, string Descripcion)
+        public async Task<List<ListArticlesModel>> GetArticles(string Code,string Nombre)
         {
             List<ListArticlesModel> list = new List<ListArticlesModel>();
             try
@@ -654,7 +660,6 @@ namespace LinkCajaV2.Data
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Code", Code));
                         cmd.Parameters.Add(new SqlParameter("@Name", Nombre));
-                        cmd.Parameters.Add(new SqlParameter("@Description", Descripcion));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {

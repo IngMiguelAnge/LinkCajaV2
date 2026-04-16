@@ -53,6 +53,7 @@
             // txtNombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(153, 37);
+            this.txtNombre.MaxLength = 50;
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(326, 26);
             this.txtNombre.TabIndex = 1;
@@ -69,6 +70,7 @@
             // txtDireccion
             // 
             this.txtDireccion.Location = new System.Drawing.Point(153, 82);
+            this.txtDireccion.MaxLength = 50;
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(382, 26);
             this.txtDireccion.TabIndex = 3;
@@ -85,6 +87,7 @@
             // txtUsuario
             // 
             this.txtUsuario.Location = new System.Drawing.Point(153, 130);
+            this.txtUsuario.MaxLength = 50;
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(219, 26);
             this.txtUsuario.TabIndex = 5;
@@ -101,6 +104,7 @@
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(153, 174);
+            this.txtPassword.MaxLength = 50;
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(219, 26);
@@ -137,7 +141,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(546, 336);
+            this.ClientSize = new System.Drawing.Size(599, 336);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.lblTipo);
             this.Controls.Add(this.CBTipo);

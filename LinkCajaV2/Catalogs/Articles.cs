@@ -23,8 +23,7 @@ namespace LinkCajaV2.Catalogs
 
         private void BtnBuscar_Click(object sender, EventArgs e)
         {
-            if (txtNombre.Text.Trim() == "" && txtCodigo.Text.Trim() == ""
-                && txtDescripcion.Text.Trim() == "")
+            if (txtNombre.Text.Trim() == "" && txtCodigo.Text.Trim() == "")
             {
                 DialogResult resultado = MessageBox.Show("Ha dejado el campo vacio, esto buscara a todos los articulos pero puede demorar ¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (resultado == DialogResult.No)
@@ -44,7 +43,7 @@ namespace LinkCajaV2.Catalogs
             try
             {
                 AppRepository obj = new AppRepository();
-                var lista = await Task.Run(() => obj.GetArticles(txtCodigo.Text, txtNombre.Text, txtDescripcion.Text));
+                var lista = await Task.Run(() => obj.GetArticles(txtCodigo.Text, txtNombre.Text));
                 dgvArticulos.DataSource = lista != null && lista.Count > 0 ? lista : null;
                 if (lista == null || lista.Count == 0)
                 {

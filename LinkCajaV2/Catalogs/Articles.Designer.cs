@@ -30,8 +30,6 @@
         {
             this.lblNombre = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
-            this.lblDescripcion = new System.Windows.Forms.Label();
-            this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.BtnBuscar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -58,22 +56,6 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(168, 26);
             this.txtNombre.TabIndex = 6;
-            // 
-            // lblDescripcion
-            // 
-            this.lblDescripcion.AutoSize = true;
-            this.lblDescripcion.Location = new System.Drawing.Point(561, 67);
-            this.lblDescripcion.Name = "lblDescripcion";
-            this.lblDescripcion.Size = new System.Drawing.Size(96, 20);
-            this.lblDescripcion.TabIndex = 7;
-            this.lblDescripcion.Text = "Descripción:";
-            // 
-            // txtDescripcion
-            // 
-            this.txtDescripcion.Location = new System.Drawing.Point(663, 64);
-            this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(215, 26);
-            this.txtDescripcion.TabIndex = 8;
             // 
             // btnNuevo
             // 
@@ -154,8 +136,6 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.BtnBuscar);
             this.Controls.Add(this.btnNuevo);
-            this.Controls.Add(this.txtDescripcion);
-            this.Controls.Add(this.lblDescripcion);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.lblNombre);
             this.MinimizeBox = false;
@@ -174,8 +154,6 @@
 
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.TextBox txtNombre;
-        private System.Windows.Forms.Label lblDescripcion;
-        private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.Button BtnBuscar;
         private System.Windows.Forms.GroupBox groupBox1;
