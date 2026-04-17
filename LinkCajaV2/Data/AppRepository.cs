@@ -1,4 +1,5 @@
-﻿using LinkCajaV2.Model;
+﻿using LinkCajaV2.Catalogs;
+using LinkCajaV2.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -18,6 +19,182 @@ namespace LinkCajaV2.Data
         {
             GC.Collect();
         }
+        #region ActionsBox
+        public async Task<List<ListBoxModel>> GetBoxsActives()
+        {
+            List<ListBoxModel> list = new List<ListBoxModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetBoxsActives", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToListBox(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
+        public async Task<List<ListBoxModel>> GetBoxs(string Name)
+        {
+            List<ListBoxModel> list = new List<ListBoxModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetBoxs", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Name", Name));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToListBox(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
+        public async Task<BoxModel> GetBoxsbyHardwareID(string HardwareID)
+        {
+            BoxModel response = new BoxModel();
+            List<BoxModel> list = new List<BoxModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetBoxsbyHardwareID", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@HardwareID", HardwareID));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToBox(reader));
+                            }
+                            response = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return response;
+        }
+        public async Task<BoxModel> GetBoxsbyId(int Id)
+        {
+            BoxModel response = new BoxModel();
+            List<BoxModel> list = new List<BoxModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetBoxsbyId", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToBox(reader));
+                            }
+                            response = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return response;
+        }
+        private BoxModel MapToBox(SqlDataReader reader)
+        {
+            return new BoxModel()
+            {
+                Id = (int)reader["Id"],
+                Name = (string)reader["Name"],
+                HardwareID = (string)reader["HardwareID"],
+                Estatus = (string)reader["Estatus"],
+            };
+        }
+        private ListBoxModel MapToListBox(SqlDataReader reader)
+        {
+            return new ListBoxModel()
+            {
+                Id = (int)reader["Id"],
+                Nombre = (string)reader["Name"],
+                Estatus = (string)reader["Estatus"],
+            };
+        }
+        public async Task<bool> SaveBox(BoxModel obj)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveBox", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
+                        cmd.Parameters.Add(new SqlParameter("@HardwareID", obj.HardwareID));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<bool> UpdateStatusBox(int Id)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("UpdateStatusBox", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        #endregion
         #region ActionsUsers
         public async Task<bool> SaveUser(UserModel obj)
         {
@@ -45,13 +222,13 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
-        public async Task<bool> ChangeStatusUser(int Id)
+        public async Task<bool> UpdateStatusUser(int Id)
         {
             try
             {
                 using (SqlConnection sql = new SqlConnection(Connection))
                 {
-                    using (SqlCommand cmd = new SqlCommand("ChangeStatusUser", sql))
+                    using (SqlCommand cmd = new SqlCommand("UpdateStatusUser", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Id", Id));
@@ -315,7 +492,7 @@ namespace LinkCajaV2.Data
             }
             catch (Exception ex)
             {
-             
+
             }
             return list;
         }
@@ -697,7 +874,7 @@ namespace LinkCajaV2.Data
         {
             return new ArticleModel()
             {
-                Id= (int)reader["Id"],
+                Id = (int)reader["Id"],
                 Name = (string)reader["Name"],
                 Description = (string)reader["Description"],
                 Image = Convert.IsDBNull(reader["Image"]) ? null : (byte[])reader["Image"],
@@ -726,7 +903,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@IdPresentation", obj.IdPresentation));
                         cmd.Parameters.Add(new SqlParameter("@Price", obj.Price));
                         cmd.Parameters.Add(new SqlParameter("@SuggestedStock", obj.SuggestedStock));
-                    
+
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;
@@ -738,7 +915,7 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
-        public async Task<List<ListArticlesModel>> GetArticles(string Code,string Nombre)
+        public async Task<List<ListArticlesModel>> GetArticles(string Code, string Nombre)
         {
             List<ListArticlesModel> list = new List<ListArticlesModel>();
             try
@@ -818,7 +995,7 @@ namespace LinkCajaV2.Data
         public async Task<PresentationModel> GetPresentationbyId(int id)
         {
             List<PresentationModel> list = new List<PresentationModel>();
-            PresentationModel response = new PresentationModel();   
+            PresentationModel response = new PresentationModel();
             try
             {
                 using (SqlConnection sql = new SqlConnection(Connection))

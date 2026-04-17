@@ -117,7 +117,7 @@ namespace LinkCajaV2.Catalogs
                     break;
                 case "btnCambiar":
                     AppRepository obj = new AppRepository();
-                    await obj.ChangeStatusUser(Convert.ToInt32(Id));
+                    await obj.UpdateStatusUser(Convert.ToInt32(Id));
                     BuscarUsuarios();
                     break;
             }

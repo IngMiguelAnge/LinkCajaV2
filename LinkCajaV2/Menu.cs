@@ -81,5 +81,11 @@ namespace LinkCajaV2
             Licenses l = new Licenses();
             l.Show();
         }
+
+        private void cajasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Boxs b = new Boxs();
+            b.Show();
+        }
     }
 }

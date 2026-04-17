@@ -36,6 +36,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,10 +60,16 @@
     <Compile Include="Catalogs\Articles.Designer.cs">
       <DependentUpon>Articles.cs</DependentUpon>
     </Compile>
-    <Compile Include="Catalogs\Boxs.cs">
+    <Compile Include="Configurations\Box.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Catalogs\Boxs.Designer.cs">
+    <Compile Include="Configurations\Box.Designer.cs">
+      <DependentUpon>Box.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configurations\Boxs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configurations\Boxs.Designer.cs">
       <DependentUpon>Boxs.cs</DependentUpon>
     </Compile>
     <Compile Include="Catalogs\Client.cs">
@@ -140,10 +147,12 @@
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\ArticleModel.cs" />
+    <Compile Include="Model\BoxModel.cs" />
     <Compile Include="Model\ClientsModel.cs" />
     <Compile Include="Model\CompanyModel.cs" />
     <Compile Include="Model\KeysModel.cs" />
     <Compile Include="Model\ListArticlesModel.cs" />
+    <Compile Include="Model\ListBoxModel.cs" />
     <Compile Include="Model\ListClientsModel.cs" />
     <Compile Include="Model\ListPresentationsModel.cs" />
     <Compile Include="Model\ListSuppliersModel.cs" />
@@ -166,7 +175,10 @@
     <EmbeddedResource Include="Catalogs\Articles.resx">
       <DependentUpon>Articles.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Catalogs\Boxs.resx">
+    <EmbeddedResource Include="Configurations\Box.resx">
+      <DependentUpon>Box.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configurations\Boxs.resx">
       <DependentUpon>Boxs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\Client.resx">
