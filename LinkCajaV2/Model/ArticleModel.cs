@@ -11,5 +11,6 @@
         public int IdPresentation { get; set; }
         public decimal Price { get; set; }
         public decimal SuggestedStock { get; set; }
+        public bool Status { get; set; }
     }
 }

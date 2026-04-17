@@ -37,7 +37,10 @@ namespace LinkCajaV2.Catalogs
             try
             {
                 AppRepository obj = new AppRepository();
-                var lista = await Task.Run(() => obj.GetArticles(txtCodigo.Text, txtNombre.Text));
+                var lista = await Task.Run(() => IsVenta==false?             
+                obj.GetArticles(txtCodigo.Text, txtNombre.Text):
+                obj.GetArticlesActives(txtCodigo.Text, txtNombre.Text)
+                );
                 dgvArticulos.DataSource = lista != null && lista.Count > 0 ? lista : null;
                 if (lista == null || lista.Count == 0)
                 {
@@ -71,7 +74,7 @@ namespace LinkCajaV2.Catalogs
             BuscarArticulos();
         }
 
-        private void dgvArticulos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void dgvArticulos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Evitar errores si hacen click en el encabezado
             if (e.RowIndex < 0) return;
@@ -89,6 +92,11 @@ namespace LinkCajaV2.Catalogs
                     this.IdSeleccionado = Convert.ToInt32(Id);
                     // 2. Indicamos que la operación fue exitosa
                     this.DialogResult = DialogResult.OK;
+                    break;
+                case "btnCambiar":
+                    AppRepository obj = new AppRepository();
+                    await obj.UpdateStatusArticle(Convert.ToInt32(Id));
+                    BuscarArticulos();
                     break;
             }
         }
@@ -110,6 +118,12 @@ namespace LinkCajaV2.Catalogs
             btnEditar.Text = "Editar";
             btnEditar.UseColumnTextForButtonValue = true;
             dgvArticulos.Columns.Add(btnEditar);
+            DataGridViewButtonColumn btnCambiar = new DataGridViewButtonColumn();
+            btnCambiar.Name = "btnCambiar";
+            btnCambiar.HeaderText = "Acción";
+            btnCambiar.Text = "Cambiar Estatus";
+            btnCambiar.UseColumnTextForButtonValue = true;
+            dgvArticulos.Columns.Add(btnCambiar);
         }
 
         private void Articles_Load(object sender, EventArgs e)

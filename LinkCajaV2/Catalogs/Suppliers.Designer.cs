@@ -57,7 +57,7 @@
             this.groupBox1.Controls.Add(this.dgvProveedores);
             this.groupBox1.Location = new System.Drawing.Point(32, 100);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(735, 338);
+            this.groupBox1.Size = new System.Drawing.Size(921, 348);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Proveedores";
@@ -70,7 +70,7 @@
             this.dgvProveedores.Name = "dgvProveedores";
             this.dgvProveedores.RowHeadersWidth = 62;
             this.dgvProveedores.RowTemplate.Height = 28;
-            this.dgvProveedores.Size = new System.Drawing.Size(729, 313);
+            this.dgvProveedores.Size = new System.Drawing.Size(915, 323);
             this.dgvProveedores.TabIndex = 2;
             this.dgvProveedores.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProveedores_CellContentClick);
             // 
@@ -111,7 +111,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(986, 460);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.lblNombre);

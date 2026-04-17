@@ -86,13 +86,16 @@ namespace LinkCajaV2.Sales
         {
             AppRepository obj = new AppRepository();
             ArticleModel Articulo = new ArticleModel();
-            if (codigo != string.Empty)
-                Articulo = obj.GetArticleByCode(codigo).Result;
-            else
-                Articulo = obj.GetArticlebyId(id).Result;
+            Articulo = obj.GetArticleByIdorCode(id,codigo).Result;
+            
             if (Articulo == null)
             {
                 MessageBox.Show("Codigo no valido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if(Articulo.Status == false)
+            {
+                MessageBox.Show("El articulo no esta activo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (dgvArticulos.Rows.Count == 0)

@@ -77,9 +77,15 @@ namespace LinkCajaV2.Catalogs
             btnEditar.Text = "Editar";
             btnEditar.UseColumnTextForButtonValue = true;
             dgvProveedores.Columns.Add(btnEditar);
+            DataGridViewButtonColumn btnCambiar = new DataGridViewButtonColumn();
+            btnCambiar.Name = "btnCambiar";
+            btnCambiar.HeaderText = "Acción";
+            btnCambiar.Text = "Cambiar Estatus";
+            btnCambiar.UseColumnTextForButtonValue = true;
+            dgvProveedores.Columns.Add(btnCambiar);
         }
 
-        private void dgvProveedores_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void dgvProveedores_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Evitar errores si hacen click en el encabezado
             if (e.RowIndex < 0) return;
@@ -91,6 +97,11 @@ namespace LinkCajaV2.Catalogs
                     Supplier m = new Supplier();
                     m.Id = Convert.ToInt32(Id);
                     m.ShowDialog();
+                    BuscarProveedores();
+                    break;
+                case "btnCambiar":
+                    AppRepository obj = new AppRepository();
+                    await obj.UpdateStatusSupplier(Convert.ToInt32(Id));
                     BuscarProveedores();
                     break;
             }

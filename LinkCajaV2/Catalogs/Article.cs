@@ -43,7 +43,7 @@ namespace LinkCajaV2.Catalogs
             }
             AppRepository obj = new AppRepository();
 
-            var exist = obj.GetArticleByCode(txtCodigo.Text).Result;
+            var exist = obj.GetArticleByIdorCode(0,txtCodigo.Text).Result;
             if (exist != null && exist.Id != Id)
             {
                 MessageBox.Show("Ya se encuentra el codigo en uso", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -105,7 +105,7 @@ namespace LinkCajaV2.Catalogs
                 isLoaded = true;
                 return;
             } 
-            var Article = obj.GetArticlebyId(Id).Result;
+            var Article = obj.GetArticleByIdorCode(Id,string.Empty).Result;
             txtNombre.Text = Article.Name;
             txtDescripcion.Text = Article.Description;
             if (Article.Image != null)

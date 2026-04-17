@@ -116,7 +116,7 @@ namespace LinkCajaV2.Catalogs
             DataGridViewButtonColumn btnCambiar = new DataGridViewButtonColumn();
             btnCambiar.Name = "btnCambiar";
             btnCambiar.HeaderText = "Acción";
-            btnCambiar.Text = "Cambio Estado";
+            btnCambiar.Text = "Cambio Estatus";
             btnCambiar.UseColumnTextForButtonValue = true;
             dgvCajas.Columns.Add(btnCambiar);
         }

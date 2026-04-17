@@ -468,6 +468,27 @@ namespace LinkCajaV2.Data
 
         #endregion
         #region Suppliers
+        public async Task<bool> UpdateStatusSupplier(int Id)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("UpdateStatusSupplier", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public async Task<List<ListSuppliersModel>> GetSuppliers(string Nombre)
         {
             List<ListSuppliersModel> list = new List<ListSuppliersModel>();
@@ -545,6 +566,7 @@ namespace LinkCajaV2.Data
                 Id = (int)reader["Id"],
                 Nombre = (string)reader["Name"],
                 Email = (string)reader["Email"],
+                Estatus = (string)reader["Status"],
             };
         }
         public async Task<bool> SaveSupplier(SuppliersModel obj)
@@ -575,6 +597,27 @@ namespace LinkCajaV2.Data
         }
         #endregion
         #region Clients
+        public async Task<bool> UpdateStatusClient(int Id)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("UpdateStatusClient", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public async Task<List<ListClientsModel>> GetClients(string Nombre)
         {
             List<ListClientsModel> list = new List<ListClientsModel>();
@@ -652,6 +695,7 @@ namespace LinkCajaV2.Data
                 Id = (int)reader["Id"],
                 Nombre = (string)reader["Name"],
                 Email = (string)reader["Email"],
+                Estatus = (string)reader["Status"],
             };
         }
         public async Task<bool> SaveClient(ClientsModel obj)
@@ -810,37 +854,28 @@ namespace LinkCajaV2.Data
 
         #endregion
         #region Articles
-        public async Task<ArticleModel> GetArticleByCode(string Code)
+        public async Task<bool> UpdateStatusArticle(int Id)
         {
-            ArticleModel response = new ArticleModel();
-            List<ArticleModel> list = new List<ArticleModel>();
             try
             {
                 using (SqlConnection sql = new SqlConnection(Connection))
                 {
-                    using (SqlCommand cmd = new SqlCommand("GetArticleByCode", sql))
+                    using (SqlCommand cmd = new SqlCommand("UpdateStatusArticle", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        cmd.Parameters.Add(new SqlParameter("@Code", Code));
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
                         await sql.OpenAsync().ConfigureAwait(false);
-                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
-                        {
-                            while (await reader.ReadAsync().ConfigureAwait(false))
-                            {
-                                list.Add(MapToArticle(reader));
-                            }
-                            response = list.Count() > 0 ? list[0] : null;
-                        }
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
                     }
                 }
             }
             catch (Exception ex)
             {
-                response = null;
+                return false;
             }
-            return response;
         }
-        public async Task<ArticleModel> GetArticlebyId(int Id)
+        public async Task<ArticleModel> GetArticleByIdorCode(int Id, string Code)
         {
             ArticleModel response = new ArticleModel();
             List<ArticleModel> list = new List<ArticleModel>();
@@ -848,10 +883,11 @@ namespace LinkCajaV2.Data
             {
                 using (SqlConnection sql = new SqlConnection(Connection))
                 {
-                    using (SqlCommand cmd = new SqlCommand("GetArticlebyId", sql))
+                    using (SqlCommand cmd = new SqlCommand("GetArticleByIdorCode", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        cmd.Parameters.Add(new SqlParameter("@Code", Code));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
@@ -883,6 +919,7 @@ namespace LinkCajaV2.Data
                 IdPresentation = Convert.IsDBNull(reader["IdPresentation"]) ? 0 : (int)reader["IdPresentation"],
                 Price = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
                 SuggestedStock = Convert.IsDBNull(reader["SuggestedStock"]) ? 0 : (decimal)reader["SuggestedStock"],
+                Status = (bool)reader["Status"],
             };
         }
         public async Task<bool> SaveArticle(ArticleModel obj)
@@ -944,6 +981,35 @@ namespace LinkCajaV2.Data
             }
             return list;
         }
+        public async Task<List<ListArticlesModel>> GetArticlesActives(string Code, string Nombre)
+        {
+            List<ListArticlesModel> list = new List<ListArticlesModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetArticlesActives", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Code", Code));
+                        cmd.Parameters.Add(new SqlParameter("@Name", Nombre));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToListArticles(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
         private ListArticlesModel MapToListArticles(SqlDataReader reader)
         {
             return new ListArticlesModel()
@@ -954,6 +1020,7 @@ namespace LinkCajaV2.Data
                 Existencias = (string)reader["Stock"],
                 Precio = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
                 PorCada = (string)reader["PorCada"],
+                Estatus = (string)reader["Status"],
             };
         }
         #endregion

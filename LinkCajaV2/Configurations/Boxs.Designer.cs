@@ -90,7 +90,7 @@
             this.groupBox1.Controls.Add(this.dgvCajas);
             this.groupBox1.Location = new System.Drawing.Point(28, 71);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(735, 358);
+            this.groupBox1.Size = new System.Drawing.Size(925, 441);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cajas";
@@ -103,7 +103,7 @@
             this.dgvCajas.Name = "dgvCajas";
             this.dgvCajas.RowHeadersWidth = 62;
             this.dgvCajas.RowTemplate.Height = 28;
-            this.dgvCajas.Size = new System.Drawing.Size(729, 333);
+            this.dgvCajas.Size = new System.Drawing.Size(919, 416);
             this.dgvCajas.TabIndex = 2;
             this.dgvCajas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCajas_CellContentClick);
             // 
@@ -111,7 +111,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(790, 441);
+            this.ClientSize = new System.Drawing.Size(980, 524);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnBuscar);

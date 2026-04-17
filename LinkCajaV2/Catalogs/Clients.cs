@@ -70,16 +70,21 @@ namespace LinkCajaV2.Catalogs
         }
         private void AgregarBotones()
         {
-            // Botón Checket
             DataGridViewButtonColumn btnEditar = new DataGridViewButtonColumn();
             btnEditar.Name = "btnEditar";
             btnEditar.HeaderText = "Acción";
             btnEditar.Text = "Editar";
             btnEditar.UseColumnTextForButtonValue = true;
             dgvClientes.Columns.Add(btnEditar);
+            DataGridViewButtonColumn btnCambiar = new DataGridViewButtonColumn();
+            btnCambiar.Name = "btnCambiar";
+            btnCambiar.HeaderText = "Acción";
+            btnCambiar.Text = "Cambiar Estatus";
+            btnCambiar.UseColumnTextForButtonValue = true;
+            dgvClientes.Columns.Add(btnCambiar);
         }
 
-        private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Evitar errores si hacen click en el encabezado
             if (e.RowIndex < 0) return;
@@ -91,6 +96,11 @@ namespace LinkCajaV2.Catalogs
                     Client m = new Client();
                     m.Id = Convert.ToInt32(Id);
                     m.ShowDialog();
+                    BuscarClientes();
+                    break;
+                case "btnCambiar":
+                    AppRepository obj = new AppRepository();
+                    await obj.UpdateStatusClient(Convert.ToInt32(Id));
                     BuscarClientes();
                     break;
             }
