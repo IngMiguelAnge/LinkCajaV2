@@ -2,8 +2,10 @@
 using LinkCajaV2.Model;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace LinkCajaV2.Catalogs
@@ -93,7 +95,7 @@ namespace LinkCajaV2.Catalogs
             AppRepository obj = new AppRepository();
             var ListPresentation = obj.GetPresentations().Result;
             // Insertamos un objeto "fantasma" al inicio para el placeholder
-            ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione" });
+            ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione", Decimals = 0 });
             cbPresentacion.Items.Clear();
             // Configuramos el ComboBox
             cbPresentacion.DisplayMember = "Name";
@@ -122,10 +124,11 @@ namespace LinkCajaV2.Catalogs
             nudPrecio.Value = Article.Price;
             nudCada.Value = Article.SuggestedStock;
             CambiarPresentacion();
-            if (Article.IdPresentation < 3)
+            if (ListPresentation.Where(l=> l.Id==Article.IdPresentation).FirstOrDefault()?.Decimals >1)
             {
                 lblCostoGramo.Visible = true;
                 txtGramo.Visible = true;
+                lblCostoGramo.Text = "El costo por " + ListPresentation.Where(l=> l.Id==Article.IdPresentation).FirstOrDefault()?.Name.ToLower();
                 CalcularPrecioPorGramo();
             }
             else
@@ -143,14 +146,20 @@ namespace LinkCajaV2.Catalogs
         }
         public void CambiarPresentacion()
         {
-            List<ListPresentationsModel> ListPresentation = new List<ListPresentationsModel>();
-            ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione" });
             if (cbPresentacion.SelectedIndex > 0)
             {
-                switch (cbPresentacion.Text.ToUpper())
+                if (cbPresentacion.SelectedItem is ListPresentationsModel row)
                 {
-                    case "KG":
-                        ListPresentation.Insert(1, new ListPresentationsModel { Id = 1, Name = "Kg" });
+                    string texto = row.Name.ToUpper();
+
+                    lblMedida.Text = texto == "KG" ? "Kg" :
+                                     texto == "LT" ? "Lt" :
+                                     texto == "MTS" ? "Mts" : row.Name;
+
+                    int decimals = row.Decimals;
+
+                    if (decimals == 3)
+                    {
                         nudExistencias.DecimalPlaces = 3;
                         nudExistencias.Increment = 0.010M;
                         nudExistencias.Maximum = 10000;
@@ -158,31 +167,15 @@ namespace LinkCajaV2.Catalogs
                         nudCada.Maximum = 1000000;
                         nudCada.Increment = 0.010M;
                         nudCada.Enabled = true;
-                        lblMedida.Text = "Kg";
+
                         if (isLoaded)
                         {
                             nudExistencias.Value = 0.000M;
                             nudCada.Value = 0.000M;
                         }
-                        break;
-                    case "LT":
-                        ListPresentation.Insert(1, new ListPresentationsModel { Id = 2, Name = "Lt" });
-                        nudExistencias.DecimalPlaces = 3;
-                        nudExistencias.Increment = 0.010M;
-                        nudExistencias.Maximum = 10000;
-                        nudCada.DecimalPlaces = 3;
-                        nudCada.Maximum = 1000000;
-                        nudCada.Increment = 0.010M;
-                        nudCada.Enabled = true;
-                        lblMedida.Text = "Lt";
-                        if (isLoaded)
-                        {
-                            nudExistencias.Value = 0.000M;
-                            nudCada.Value = 0.000M;
-                        }
-                        break;
-                    default:
-                        ListPresentation.Insert(1, new ListPresentationsModel { Id = Id, Name = cbPresentacion.Text });
+                    }
+                    else
+                    {
                         nudExistencias.DecimalPlaces = 0;
                         nudExistencias.Increment = 1M;
                         nudExistencias.Maximum = 1000000;
@@ -190,13 +183,25 @@ namespace LinkCajaV2.Catalogs
                         nudCada.Maximum = 1000000;
                         nudCada.Increment = 1M;
                         nudCada.Enabled = false;
-                        lblMedida.Text = cbPresentacion.Text;
+
                         if (isLoaded)
                         {
                             nudExistencias.Value = 0;
                             nudCada.Value = 1;
                         }
-                        break;
+                    }
+                    if (decimals > 1)
+                    {
+                        lblCostoGramo.Visible = true;
+                        txtGramo.Visible = true;
+                        lblCostoGramo.Text = "El costo por " + row.Name;
+                        CalcularPrecioPorGramo();
+                    }
+                    else
+                    {
+                        lblCostoGramo.Visible = false;
+                        txtGramo.Visible = false;
+                    }
                 }
             }
         }
@@ -220,19 +225,13 @@ namespace LinkCajaV2.Catalogs
 
             if (tb != null)
             {
-                // Guardamos posición
                 int cursorPosition = tb.SelectionStart;
-
-                // Tu lógica de cálculo
                 CalcularPrecioPorGramo();
-
-                // Restauramos posición
                 tb.SelectionStart = cursorPosition;
             }
             else
             {
-                // Si no encontró el TextBox (raro, pero puede pasar), solo calcula
-                CalcularPrecioPorGramo();
+                 CalcularPrecioPorGramo();
             }
         }
         public void CalcularPrecioPorGramo()
@@ -272,18 +271,12 @@ namespace LinkCajaV2.Catalogs
 
             if (tb != null)
             {
-                // Guardamos posición
-                int cursorPosition = tb.SelectionStart;
-
-                // Tu lógica de cálculo
+                 int cursorPosition = tb.SelectionStart;
                 CalcularPrecioPorGramo();
-
-                // Restauramos posición
                 tb.SelectionStart = cursorPosition;
             }
             else
             {
-                // Si no encontró el TextBox (raro, pero puede pasar), solo calcula
                 CalcularPrecioPorGramo();
             }
         }

@@ -50,6 +50,7 @@ namespace LinkCajaV2
         private void articulosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Articles a = new Articles();
+            a.IsVenta = false;
             a.Show();
         }
 
@@ -86,6 +87,12 @@ namespace LinkCajaV2
         {
             Boxs b = new Boxs();
             b.Show();
+        }
+
+        private void recetasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Recipes r = new Recipes();
+            r.Show();
         }
     }
 }

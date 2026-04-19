@@ -1,8 +1,6 @@
-﻿using LinkCajaV2.Catalogs;
-using LinkCajaV2.Data;
+﻿using LinkCajaV2.Data;
 using LinkCajaV2.Items;
 using LinkCajaV2.Model;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,90 +12,63 @@ using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Media;
-using static System.Net.WebRequestMethods;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
-namespace LinkCajaV2.Sales
+
+namespace LinkCajaV2.Catalogs
 {
-    public partial class Venta : Form
+    public partial class Recipe : Form
     {
         private SoundPlayer lectorSonido;
-        public int IdUsuario { get; set; }
-        public string NameUser { get; set; }
-        public Venta()
+        public Recipe()
         {
             InitializeComponent();
         }
 
-        private void Venta_Load(object sender, EventArgs e)
+        private void btnImagen_Click(object sender, EventArgs e)
         {
-            AppRepository obj = new AppRepository();
-            KeysModel ListKeys = obj.GetKeysActive().Result;
-            if(ListKeys == null)
+            OpenFileDialog selector = new OpenFileDialog();
+            selector.Filter = "Imagenes|*.jpg;*.jpeg;*.png;*.bmp";
+
+            if (selector.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show("No se encontraron licencia activa. Contacta al soporte.", "Licencia no encontrada", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-                return;
+                PBProducto.Image = Image.FromFile(selector.FileName);
+                // Ajustamos la imagen al tamaño del PictureBox
+                PBProducto.SizeMode = PictureBoxSizeMode.Zoom;
             }
-            string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sounds", "beep.wav");
-            lectorSonido = new SoundPlayer(ruta);
-            lblUsuario.Text = "Bien venido " + NameUser;
-      
-            var Empresa = obj.GetCompany().Result;
-            if (Empresa != null)
+        }
+        public byte[] ImageToByteArray()
+        {
+            if (PBProducto.Image == null) return null;
+
+            // Creamos una copia de la imagen para evitar bloqueos de GDI+
+            using (Bitmap tempImage = new Bitmap(PBProducto.Image))
             {
-                lblNombreEmpresa.Text = Empresa.Name;
-                if (Empresa.Logo != null)
+                using (MemoryStream ms = new MemoryStream())
                 {
-                    using (MemoryStream ms = new MemoryStream(Empresa.Logo))
-                    {
-                        PBLogo.Image = Image.FromStream(ms);
-                        PBLogo.SizeMode = PictureBoxSizeMode.Zoom;
-                    }
+                    // Forzamos el guardado en un formato específico (ej. Png o Jpeg)
+                    // Esto es mucho más seguro que usar RawFormat
+                    tempImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+
+                    return ms.ToArray();
                 }
             }
         }
-
-        private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
+        private void Recipe_Load(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                lectorSonido.Play(); // Reproducción instantánea sin lag
-                e.SuppressKeyPress = true;
-                AgregarArticulo(0, txtCodigo.Text);
-                txtCodigo.Clear();
-            }
+
         }
 
-        public string CalcularPrecioPorGramo(decimal Precio, decimal Cada)
-        {
-            if (Cada > 0)
-            {
-                //Precio / (Kilos * 1000)
-                decimal resultado = Precio / (Cada * 1000);
-                return resultado.ToString("N4"); // N4 es mejor para gramos
-            }
-            else
-            {
-                return "0.00";
-            }
-        }
         public void AgregarArticulo(int id, string codigo)
         {
             AppRepository obj = new AppRepository();
             ArticleModel Articulo = new ArticleModel();
-            Articulo = obj.GetArticleByIdorCode(id,codigo).Result;
-            
+            Articulo = obj.GetArticleByIdorCode(id, codigo).Result;
+
             if (Articulo == null)
             {
                 MessageBox.Show("Codigo no valido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if(Articulo.Status == false)
-            {
-                MessageBox.Show("El articulo no esta activo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+           
             if (dgvArticulos.Rows.Count == 0)
             {
                 CrearGridView();
@@ -123,7 +94,7 @@ namespace LinkCajaV2.Sales
                     string[] partes = fila.Cells["Precio"].Value.ToString().Split('$');
                     decimal costounitario = Convert.ToDecimal(partes[1]);
                     if (Presentacion.Decimals == 3)
-                        fila.Cells["Total"].Value = "$" + (costounitario * ((cantidadActual + Cantidad)*1000)).ToString("N2");
+                        fila.Cells["Total"].Value = "$" + (costounitario * ((cantidadActual + Cantidad) * 1000)).ToString("N2");
                     else
                         fila.Cells["Total"].Value = "$" + (costounitario * (cantidadActual + Cantidad)).ToString("N2");
                     fila.DefaultCellStyle.BackColor = System.Drawing.Color.LightGreen;
@@ -164,28 +135,21 @@ namespace LinkCajaV2.Sales
                     PBProducto.SizeMode = PictureBoxSizeMode.Zoom;
                 }
             }
-            lblTotal.Text = "Total: $" + Total.ToString("N2");
+            lblTotal.Text = "Se recomienda venderlo en $" + Total.ToString("N2");
         }
-        private void btnBuscar_Click(object sender, EventArgs e)
+
+        public string CalcularPrecioPorGramo(decimal Precio, decimal Cada)
         {
-            Articles article = new Articles();
-            article.IsVenta = true;
-            if (article.ShowDialog() == DialogResult.OK)
+            if (Cada > 0)
             {
-                AgregarArticulo(article.IdSeleccionado, string.Empty);
-                txtCodigo.Clear();
+                //Precio / (Kilos * 1000)
+                decimal resultado = Precio / (Cada * 1000);
+                return resultado.ToString("N4"); // N4 es mejor para gramos
             }
-
-        }
-
-        private void Venta_Shown(object sender, EventArgs e)
-        {
-            txtCodigo.Focus();
-        }
-
-        private void btnNuevo_Click(object sender, EventArgs e)
-        {
-            CrearGridView();
+            else
+            {
+                return "0.00";
+            }
         }
         public void CrearGridView()
         {
@@ -237,26 +201,25 @@ namespace LinkCajaV2.Sales
             dgvArticulos.AllowUserToAddRows = false;
         }
 
-        private void dgvArticulos_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
         {
-            if (dgvArticulos.Columns[e.ColumnIndex].Name == "Cantidad")
+            if (e.KeyCode == Keys.Enter)
             {
-                string formato = dgvArticulos.Columns["Cantidad"].DefaultCellStyle.Format;
-                if (formato == "0") // Modo Piezas
-                {
-                    if (e.FormattedValue.ToString().Contains("."))
-                    {
-                        MessageBox.Show("Este artículo no permite decimales.");
-                        e.Cancel = true;
-                    }
-                }
-                string valor = e.FormattedValue.ToString();
-                // Intentamos convertir a decimal. Si falla, cancelamos la salida de la celda.
-                if (!decimal.TryParse(valor, out decimal resultado) && !string.IsNullOrEmpty(valor))
-                {
-                    MessageBox.Show("Por favor, ingresa una cantidad valida", "Error de formato");
-                    e.Cancel = true; // No deja que el usuario se mueva de celda hasta que corrija
-                }
+                lectorSonido.Play(); // Reproducción instantánea sin lag
+                e.SuppressKeyPress = true;
+                AgregarArticulo(0, txtCodigo.Text);
+                txtCodigo.Clear();
+            }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            Articles article = new Articles();
+            article.IsVenta = true;
+            if (article.ShowDialog() == DialogResult.OK)
+            {
+                AgregarArticulo(article.IdSeleccionado, string.Empty);
+                txtCodigo.Clear();
             }
         }
 
@@ -288,25 +251,8 @@ namespace LinkCajaV2.Sales
             {
                 Total = Total + Convert.ToDecimal(filas.Cells["Total"].Value.ToString().Replace("$", ""));
             }
-            lblTotal.Text = "Total: $" + Total.ToString("N2");
-        }
-        private void dgvArticulos_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            if (e.ColumnIndex == dgvArticulos.Columns["Cantidad"].Index && e.RowIndex >= 0)
-            {
-                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+            lblTotal.Text = "Se recomienda venderlo en $" + Total.ToString("N2");
 
-                // Dibujamos un borde gris oscuro simulando un TextBox
-                using (System.Drawing.Pen p = new System.Drawing.Pen(System.Drawing.Color.Gray, 1))
-                {
-                    Rectangle rect = e.CellBounds;
-                    rect.Width -= 2;
-                    rect.Height -= 2;
-                    e.Graphics.DrawRectangle(p, rect);
-                }
-
-                e.Handled = true;
-            }
         }
 
         private void dgvArticulos_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -364,9 +310,50 @@ namespace LinkCajaV2.Sales
             }
         }
 
+        private void dgvArticulos_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (dgvArticulos.Columns[e.ColumnIndex].Name == "Cantidad")
+            {
+                string formato = dgvArticulos.Columns["Cantidad"].DefaultCellStyle.Format;
+                if (formato == "0") // Modo Piezas
+                {
+                    if (e.FormattedValue.ToString().Contains("."))
+                    {
+                        MessageBox.Show("Este artículo no permite decimales.");
+                        e.Cancel = true;
+                    }
+                }
+                string valor = e.FormattedValue.ToString();
+                // Intentamos convertir a decimal. Si falla, cancelamos la salida de la celda.
+                if (!decimal.TryParse(valor, out decimal resultado) && !string.IsNullOrEmpty(valor))
+                {
+                    MessageBox.Show("Por favor, ingresa una cantidad valida", "Error de formato");
+                    e.Cancel = true; // No deja que el usuario se mueva de celda hasta que corrija
+                }
+            }
+        }
+
+        private void dgvArticulos_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.ColumnIndex == dgvArticulos.Columns["Cantidad"].Index && e.RowIndex >= 0)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                // Dibujamos un borde gris oscuro simulando un TextBox
+                using (System.Drawing.Pen p = new System.Drawing.Pen(System.Drawing.Color.Gray, 1))
+                {
+                    Rectangle rect = e.CellBounds;
+                    rect.Width -= 2;
+                    rect.Height -= 2;
+                    e.Graphics.DrawRectangle(p, rect);
+                }
+
+                e.Handled = true;
+            }
+        }
+
         private void dgvArticulos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Evitar errores si hacen click en el encabezado
             if (e.RowIndex < 0) return;
             switch (dgvArticulos.Columns[e.ColumnIndex].Name)
             {
@@ -374,11 +361,6 @@ namespace LinkCajaV2.Sales
                     dgvArticulos.Rows.RemoveAt(e.RowIndex);
                     break;
             }
-        }
-
-        private void btnPagar_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

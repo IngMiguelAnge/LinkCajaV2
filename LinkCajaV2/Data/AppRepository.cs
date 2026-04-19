@@ -1057,6 +1057,7 @@ namespace LinkCajaV2.Data
             {
                 Id = (int)reader["Id"],
                 Name = (string)reader["Name"],
+                Decimals = (int)reader["Decimals"],
             };
         }
         public async Task<PresentationModel> GetPresentationbyId(int id)

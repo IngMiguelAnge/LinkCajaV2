@@ -31,6 +31,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.configuracionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.empresaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cajasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.catalogosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.proveedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,7 +39,7 @@
             this.articulosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ventaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.licenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cajasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recetasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,7 +54,7 @@
             this.licenciaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(761, 33);
+            this.menuStrip1.Size = new System.Drawing.Size(761, 36);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -69,9 +70,16 @@
             // empresaToolStripMenuItem
             // 
             this.empresaToolStripMenuItem.Name = "empresaToolStripMenuItem";
-            this.empresaToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.empresaToolStripMenuItem.Size = new System.Drawing.Size(182, 34);
             this.empresaToolStripMenuItem.Text = "Empresa";
             this.empresaToolStripMenuItem.Click += new System.EventHandler(this.empresaToolStripMenuItem_Click);
+            // 
+            // cajasToolStripMenuItem
+            // 
+            this.cajasToolStripMenuItem.Name = "cajasToolStripMenuItem";
+            this.cajasToolStripMenuItem.Size = new System.Drawing.Size(182, 34);
+            this.cajasToolStripMenuItem.Text = "Cajas";
+            this.cajasToolStripMenuItem.Click += new System.EventHandler(this.cajasToolStripMenuItem_Click);
             // 
             // catalogosToolStripMenuItem
             // 
@@ -79,9 +87,10 @@
             this.usuariosToolStripMenuItem,
             this.proveedoresToolStripMenuItem,
             this.clientesToolStripMenuItem,
-            this.articulosToolStripMenuItem});
+            this.articulosToolStripMenuItem,
+            this.recetasToolStripMenuItem});
             this.catalogosToolStripMenuItem.Name = "catalogosToolStripMenuItem";
-            this.catalogosToolStripMenuItem.Size = new System.Drawing.Size(108, 29);
+            this.catalogosToolStripMenuItem.Size = new System.Drawing.Size(108, 32);
             this.catalogosToolStripMenuItem.Text = "Catalogos";
             // 
             // usuariosToolStripMenuItem
@@ -126,12 +135,12 @@
             this.licenciaToolStripMenuItem.Text = "Licencia";
             this.licenciaToolStripMenuItem.Click += new System.EventHandler(this.licenciaToolStripMenuItem_Click);
             // 
-            // cajasToolStripMenuItem
+            // recetasToolStripMenuItem
             // 
-            this.cajasToolStripMenuItem.Name = "cajasToolStripMenuItem";
-            this.cajasToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.cajasToolStripMenuItem.Text = "Cajas";
-            this.cajasToolStripMenuItem.Click += new System.EventHandler(this.cajasToolStripMenuItem_Click);
+            this.recetasToolStripMenuItem.Name = "recetasToolStripMenuItem";
+            this.recetasToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.recetasToolStripMenuItem.Text = "Recetas";
+            this.recetasToolStripMenuItem.Click += new System.EventHandler(this.recetasToolStripMenuItem_Click);
             // 
             // Menu
             // 
@@ -165,5 +174,6 @@
         private System.Windows.Forms.ToolStripMenuItem ventaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem licenciaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cajasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem recetasToolStripMenuItem;
     }
 }

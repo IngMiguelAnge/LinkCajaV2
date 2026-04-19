@@ -60,6 +60,18 @@
     <Compile Include="Catalogs\Articles.Designer.cs">
       <DependentUpon>Articles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Catalogs\Recipe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\Recipe.Designer.cs">
+      <DependentUpon>Recipe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\Recipes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\Recipes.Designer.cs">
+      <DependentUpon>Recipes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configurations\Box.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +186,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\Articles.resx">
       <DependentUpon>Articles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\Recipe.resx">
+      <DependentUpon>Recipe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\Recipes.resx">
+      <DependentUpon>Recipes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Configurations\Box.resx">
       <DependentUpon>Box.cs</DependentUpon>
