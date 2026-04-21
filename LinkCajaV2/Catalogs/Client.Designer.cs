@@ -70,7 +70,7 @@
             // 
             // txtTelefono2
             // 
-            this.txtTelefono2.Location = new System.Drawing.Point(453, 69);
+            this.txtTelefono2.Location = new System.Drawing.Point(459, 69);
             this.txtTelefono2.MaxLength = 50;
             this.txtTelefono2.Name = "txtTelefono2";
             this.txtTelefono2.Size = new System.Drawing.Size(236, 26);
@@ -104,7 +104,7 @@
             // 
             // txtDireccion
             // 
-            this.txtDireccion.Location = new System.Drawing.Point(443, 12);
+            this.txtDireccion.Location = new System.Drawing.Point(459, 12);
             this.txtDireccion.MaxLength = 50;
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(246, 26);
@@ -140,7 +140,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(707, 213);
+            this.ClientSize = new System.Drawing.Size(783, 213);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.lblEmail);

@@ -23,58 +23,20 @@ namespace LinkCajaV2
         {
             InitializeComponent();
         }
-        private void empresaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Company m = new Company();
-            m.Show();
-            //this.Hide();
-        }
 
-        private void proveedoresToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Suppliers m = new Suppliers();
-            m.Show();
-        }
 
         private void Menu_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
 
-        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Clients c = new Clients();
-            c.Show();
-        }
-
-        private void articulosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Articles a = new Articles();
-            a.IsVenta = false;
-            a.Show();
-        }
-
-        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Users u = new Users();
-            u.Show();
-        }
-
         private void Menu_Load(object sender, EventArgs e)
         {
             if(IdTypeUser != 1)
             {
-                configuracionesToolStripMenuItem.Visible = false;
-                catalogosToolStripMenuItem.Visible = false;
+                GBConfiguraciones.Visible = false;
+                gbCatalogos.Visible = false;
             }
-        }
-
-        private void ventaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Venta s = new Venta();
-            s.IdUsuario = IdUsuario;
-            s.NameUser = NameUser;
-            s.Show();
         }
 
         private void licenciaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -83,16 +45,56 @@ namespace LinkCajaV2
             l.Show();
         }
 
-        private void cajasToolStripMenuItem_Click(object sender, EventArgs e)
+        private void btnEmpresa_Click(object sender, EventArgs e)
+        {
+            Company m = new Company();
+            m.Show();
+            //this.Hide();
+        }
+
+        private void BtnCajas_Click(object sender, EventArgs e)
         {
             Boxs b = new Boxs();
             b.Show();
         }
 
-        private void recetasToolStripMenuItem_Click(object sender, EventArgs e)
+        private void btnUsuarios_Click(object sender, EventArgs e)
+        {
+            Users u = new Users();
+            u.Show();
+        }
+
+        private void btnProveedores_Click(object sender, EventArgs e)
+        {
+            Suppliers m = new Suppliers();
+            m.Show();
+        }
+
+        private void btnClientes_Click(object sender, EventArgs e)
+        {
+            Clients c = new Clients();
+            c.Show();
+        }
+
+        private void BtnArticulos_Click(object sender, EventArgs e)
+        {
+            Articles a = new Articles();
+            a.IsVenta = false;
+            a.Show();
+        }
+
+        private void BtnRecetas_Click(object sender, EventArgs e)
         {
             Recipes r = new Recipes();
             r.Show();
+        }
+
+        private void BtnVenta_Click(object sender, EventArgs e)
+        {
+            Venta s = new Venta();
+            s.IdUsuario = IdUsuario;
+            s.NameUser = NameUser;
+            s.Show();
         }
     }
 }
