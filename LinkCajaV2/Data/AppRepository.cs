@@ -19,6 +19,55 @@ namespace LinkCajaV2.Data
         {
             GC.Collect();
         }
+        #region ActionsRecipes
+        public async Task<RecipeModel> GetRecipeByIdorCode(int Id, string Code)
+        {
+            RecipeModel response = new RecipeModel();
+            List<RecipeModel> list = new List<RecipeModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetRecipeByIdorCode", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        cmd.Parameters.Add(new SqlParameter("@Code", Code));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToRecipe(reader));
+                            }
+                            response = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response = null;
+            }
+            return response;
+        }
+        private RecipeModel MapToRecipe(SqlDataReader reader)
+        {
+            return new RecipeModel()
+            {
+                Id = (int)reader["Id"],
+                Name = (string)reader["Name"],
+                Description = (string)reader["Description"],
+                Image = Convert.IsDBNull(reader["Image"]) ? null : (byte[])reader["Image"],
+                Code = (string)reader["Code"],
+                Stock = Convert.IsDBNull(reader["Stock"]) ? 0 : (decimal)reader["Stock"],
+                IdPresentation = Convert.IsDBNull(reader["IdPresentation"]) ? 0 : (int)reader["IdPresentation"],
+                Price = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
+                SuggestedStock = Convert.IsDBNull(reader["SuggestedStock"]) ? 0 : (decimal)reader["SuggestedStock"],
+                Status = (bool)reader["Status"],
+            };
+        }
+        #endregion
         #region ActionsBox
         public async Task<List<ListBoxModel>> GetBoxsActives()
         {
@@ -952,7 +1001,7 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
-        public async Task<List<ListArticlesModel>> GetArticles(string Code, string Nombre)
+        public async Task<List<ListArticlesModel>> GetArticles(string Code, string Nombre, bool IsReceta)
         {
             List<ListArticlesModel> list = new List<ListArticlesModel>();
             try
@@ -964,6 +1013,7 @@ namespace LinkCajaV2.Data
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Code", Code));
                         cmd.Parameters.Add(new SqlParameter("@Name", Nombre));
+                        cmd.Parameters.Add(new SqlParameter("@IsReceta", IsReceta));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {

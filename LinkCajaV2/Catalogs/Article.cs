@@ -89,7 +89,6 @@ namespace LinkCajaV2.Catalogs
                 }
             }
         }
-
         private void Article_Load(object sender, EventArgs e)
         {
             AppRepository obj = new AppRepository();
@@ -127,18 +126,15 @@ namespace LinkCajaV2.Catalogs
             if (ListPresentation.Where(l=> l.Id==Article.IdPresentation).FirstOrDefault()?.Decimals >1)
             {
                 lblCostoGramo.Visible = true;
-                txtGramo.Visible = true;
                 lblCostoGramo.Text = "El costo por " + ListPresentation.Where(l=> l.Id==Article.IdPresentation).FirstOrDefault()?.Name.ToLower();
                 CalcularPrecioPorGramo();
             }
             else
             {
                 lblCostoGramo.Visible = false;
-                txtGramo.Visible = false;
             }
             isLoaded = true;
         }
-
         private void cbPresentacion_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!isLoaded) return;
@@ -193,20 +189,16 @@ namespace LinkCajaV2.Catalogs
                     if (decimals > 1)
                     {
                         lblCostoGramo.Visible = true;
-                        txtGramo.Visible = true;
                         lblCostoGramo.Text = "El costo por " + row.Name;
                         CalcularPrecioPorGramo();
                     }
                     else
                     {
                         lblCostoGramo.Visible = false;
-                        txtGramo.Visible = false;
                     }
                 }
             }
         }
-
-
         private void nudPrecio_KeyUp(object sender, KeyEventArgs e)
         {
             DomainUpDown dud = sender as DomainUpDown;
@@ -246,11 +238,11 @@ namespace LinkCajaV2.Catalogs
             {
                 //Precio / (Kilos * 1000)
                 decimal resultado = vPrecio / (vCada * 1000);
-                txtGramo.Text = resultado.ToString("N4"); // N4 es mejor para gramos
+                lblCostoGramo.Text += " $" + resultado.ToString("N4"); // N4 es mejor para gramos
             }
             else
             {
-                txtGramo.Text = "0.00";
+                lblCostoGramo.Text += " $" + "0.00";
             }
         }
         private void nudCada_KeyUp(object sender, KeyEventArgs e)

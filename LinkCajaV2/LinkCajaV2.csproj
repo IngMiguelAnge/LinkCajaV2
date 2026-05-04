@@ -170,6 +170,7 @@
     <Compile Include="Model\ListSuppliersModel.cs" />
     <Compile Include="Model\ListUserModel.cs" />
     <Compile Include="Model\PresentationModel.cs" />
+    <Compile Include="Model\RecipeModel.cs" />
     <Compile Include="Model\SuppliersModel.cs" />
     <Compile Include="Model\TypesUsersModel.cs" />
     <Compile Include="Model\UserModel.cs" />

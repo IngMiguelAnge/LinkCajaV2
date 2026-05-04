@@ -46,7 +46,6 @@
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.nudCada = new System.Windows.Forms.NumericUpDown();
             this.lblCostoGramo = new System.Windows.Forms.Label();
-            this.txtGramo = new System.Windows.Forms.TextBox();
             this.lblMedida = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PBProducto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudExistencias)).BeginInit();
@@ -220,21 +219,12 @@
             // lblCostoGramo
             // 
             this.lblCostoGramo.AutoSize = true;
-            this.lblCostoGramo.Location = new System.Drawing.Point(407, 310);
+            this.lblCostoGramo.Location = new System.Drawing.Point(401, 341);
             this.lblCostoGramo.Name = "lblCostoGramo";
             this.lblCostoGramo.Size = new System.Drawing.Size(131, 20);
             this.lblCostoGramo.TabIndex = 19;
             this.lblCostoGramo.Text = "Costo por gramo:";
             this.lblCostoGramo.Visible = false;
-            // 
-            // txtGramo
-            // 
-            this.txtGramo.Enabled = false;
-            this.txtGramo.Location = new System.Drawing.Point(411, 338);
-            this.txtGramo.Name = "txtGramo";
-            this.txtGramo.Size = new System.Drawing.Size(127, 26);
-            this.txtGramo.TabIndex = 20;
-            this.txtGramo.Visible = false;
             // 
             // lblMedida
             // 
@@ -251,7 +241,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(822, 449);
             this.Controls.Add(this.lblMedida);
-            this.Controls.Add(this.txtGramo);
             this.Controls.Add(this.lblCostoGramo);
             this.Controls.Add(this.nudCada);
             this.Controls.Add(this.txtCodigo);
@@ -305,7 +294,6 @@
         private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.NumericUpDown nudCada;
         private System.Windows.Forms.Label lblCostoGramo;
-        private System.Windows.Forms.TextBox txtGramo;
         private System.Windows.Forms.Label lblMedida;
     }
 }

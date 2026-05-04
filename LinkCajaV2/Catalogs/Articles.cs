@@ -9,6 +9,7 @@ namespace LinkCajaV2.Catalogs
     {
         public int Id { get; set; }
         public bool IsVenta { get; set; } = false;
+        public bool IsReceta { get; set; } = false;
         public int IdSeleccionado { get; set; }
         public Articles()
         {
@@ -37,8 +38,8 @@ namespace LinkCajaV2.Catalogs
             try
             {
                 AppRepository obj = new AppRepository();
-                var lista = await Task.Run(() => IsVenta==false?             
-                obj.GetArticles(txtCodigo.Text, txtNombre.Text):
+                var lista = await Task.Run(() => IsVenta==false && IsReceta==false?             
+                obj.GetArticles(txtCodigo.Text, txtNombre.Text, IsReceta) :
                 obj.GetArticlesActives(txtCodigo.Text, txtNombre.Text)
                 );
                 dgvArticulos.DataSource = lista != null && lista.Count > 0 ? lista : null;
@@ -102,7 +103,7 @@ namespace LinkCajaV2.Catalogs
         }
         private void AgregarBotones()
         {
-            if (IsVenta)
+            if (IsVenta || IsReceta)
             {
                 DataGridViewButtonColumn btnAsignar = new DataGridViewButtonColumn();
                 btnAsignar.Name = "btnAsignar";
@@ -128,7 +129,7 @@ namespace LinkCajaV2.Catalogs
 
         private void Articles_Load(object sender, EventArgs e)
         {
-            if (IsVenta)
+            if (IsVenta || IsReceta)
             {
                 btnNuevo.Visible = false;
             }
