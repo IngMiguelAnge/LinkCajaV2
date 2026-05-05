@@ -140,7 +140,7 @@ namespace LinkCajaV2.Sales
                 else
                     totalFila = Convert.ToDecimal(Cantidad) * Convert.ToDecimal(PrecioUnitario);
                 int rowIndex = dgvArticulos.Rows.Add(Articulo.Code,
-                Articulo.Name, Cantidad, "$" + PrecioUnitario, "$" + (totalFila).ToString("N2"));
+                Articulo.Name, Cantidad, Articulo.Presentation, "$" + PrecioUnitario, "$" + (totalFila).ToString("N2"));
                 dgvArticulos.Rows[dgvArticulos.Rows.Count - 1].DefaultCellStyle.BackColor = System.Drawing.Color.LightGreen;
                 if (Presentacion.Decimals == 3)
                 {
@@ -208,6 +208,13 @@ namespace LinkCajaV2.Sales
             {
                 Name = "Cantidad",
                 HeaderText = "Cantidad",
+                ReadOnly = false, // Aquí permites la edición
+                Width = 80
+            });
+            dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Presentacion",
+                HeaderText = "Presentación",
                 ReadOnly = false, // Aquí permites la edición
                 Width = 80
             });
@@ -377,6 +384,11 @@ namespace LinkCajaV2.Sales
         }
 
         private void btnPagar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnVerTickets_Click(object sender, EventArgs e)
         {
 
         }

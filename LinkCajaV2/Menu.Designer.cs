@@ -34,11 +34,11 @@
             this.BtnCajas = new System.Windows.Forms.Button();
             this.GBConfiguraciones = new System.Windows.Forms.GroupBox();
             this.gbCatalogos = new System.Windows.Forms.GroupBox();
+            this.BtnRecetas = new System.Windows.Forms.Button();
+            this.BtnArticulos = new System.Windows.Forms.Button();
+            this.btnClientes = new System.Windows.Forms.Button();
             this.btnProveedores = new System.Windows.Forms.Button();
             this.btnUsuarios = new System.Windows.Forms.Button();
-            this.btnClientes = new System.Windows.Forms.Button();
-            this.BtnArticulos = new System.Windows.Forms.Button();
-            this.BtnRecetas = new System.Windows.Forms.Button();
             this.BtnVenta = new System.Windows.Forms.Button();
             this.lblMostrador = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
@@ -105,16 +105,46 @@
             this.gbCatalogos.Controls.Add(this.btnUsuarios);
             this.gbCatalogos.Location = new System.Drawing.Point(32, 215);
             this.gbCatalogos.Name = "gbCatalogos";
-            this.gbCatalogos.Size = new System.Drawing.Size(590, 100);
+            this.gbCatalogos.Size = new System.Drawing.Size(660, 100);
             this.gbCatalogos.TabIndex = 4;
             this.gbCatalogos.TabStop = false;
             this.gbCatalogos.Text = "Catalogos";
+            // 
+            // BtnRecetas
+            // 
+            this.BtnRecetas.Location = new System.Drawing.Point(536, 26);
+            this.BtnRecetas.Name = "BtnRecetas";
+            this.BtnRecetas.Size = new System.Drawing.Size(93, 74);
+            this.BtnRecetas.TabIndex = 4;
+            this.BtnRecetas.Text = "Recetas";
+            this.BtnRecetas.UseVisualStyleBackColor = true;
+            this.BtnRecetas.Click += new System.EventHandler(this.BtnRecetas_Click);
+            // 
+            // BtnArticulos
+            // 
+            this.BtnArticulos.Location = new System.Drawing.Point(417, 25);
+            this.BtnArticulos.Name = "BtnArticulos";
+            this.BtnArticulos.Size = new System.Drawing.Size(88, 75);
+            this.BtnArticulos.TabIndex = 3;
+            this.BtnArticulos.Text = "Articulos";
+            this.BtnArticulos.UseVisualStyleBackColor = true;
+            this.BtnArticulos.Click += new System.EventHandler(this.BtnArticulos_Click);
+            // 
+            // btnClientes
+            // 
+            this.btnClientes.Location = new System.Drawing.Point(304, 25);
+            this.btnClientes.Name = "btnClientes";
+            this.btnClientes.Size = new System.Drawing.Size(94, 75);
+            this.btnClientes.TabIndex = 2;
+            this.btnClientes.Text = "Clientes";
+            this.btnClientes.UseVisualStyleBackColor = true;
+            this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
             // btnProveedores
             // 
             this.btnProveedores.Location = new System.Drawing.Point(116, 25);
             this.btnProveedores.Name = "btnProveedores";
-            this.btnProveedores.Size = new System.Drawing.Size(108, 75);
+            this.btnProveedores.Size = new System.Drawing.Size(130, 75);
             this.btnProveedores.TabIndex = 1;
             this.btnProveedores.Text = "Proveedores";
             this.btnProveedores.UseVisualStyleBackColor = true;
@@ -129,36 +159,6 @@
             this.btnUsuarios.Text = "Usuarios";
             this.btnUsuarios.UseVisualStyleBackColor = true;
             this.btnUsuarios.Click += new System.EventHandler(this.btnUsuarios_Click);
-            // 
-            // btnClientes
-            // 
-            this.btnClientes.Location = new System.Drawing.Point(244, 25);
-            this.btnClientes.Name = "btnClientes";
-            this.btnClientes.Size = new System.Drawing.Size(94, 75);
-            this.btnClientes.TabIndex = 2;
-            this.btnClientes.Text = "Clientes";
-            this.btnClientes.UseVisualStyleBackColor = true;
-            this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
-            // 
-            // BtnArticulos
-            // 
-            this.BtnArticulos.Location = new System.Drawing.Point(357, 25);
-            this.BtnArticulos.Name = "BtnArticulos";
-            this.BtnArticulos.Size = new System.Drawing.Size(88, 75);
-            this.BtnArticulos.TabIndex = 3;
-            this.BtnArticulos.Text = "Articulos";
-            this.BtnArticulos.UseVisualStyleBackColor = true;
-            this.BtnArticulos.Click += new System.EventHandler(this.BtnArticulos_Click);
-            // 
-            // BtnRecetas
-            // 
-            this.BtnRecetas.Location = new System.Drawing.Point(476, 26);
-            this.BtnRecetas.Name = "BtnRecetas";
-            this.BtnRecetas.Size = new System.Drawing.Size(93, 74);
-            this.BtnRecetas.TabIndex = 4;
-            this.BtnRecetas.Text = "Recetas";
-            this.BtnRecetas.UseVisualStyleBackColor = true;
-            this.BtnRecetas.Click += new System.EventHandler(this.BtnRecetas_Click);
             // 
             // BtnVenta
             // 

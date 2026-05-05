@@ -19,6 +19,94 @@ namespace LinkCajaV2.Data
         {
             GC.Collect();
         }
+        #region Items
+        public async Task<bool> UpdateAllStatusItems(int IdRecipe)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("UpdateAllStatusItems", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@IdRecipe", IdRecipe));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<bool> SaveItem(ItemModel item)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveItem", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@IdRecipe", item.IdRecipe));
+                        cmd.Parameters.Add(new SqlParameter("@IdArticle", item.IdArticle));
+                        cmd.Parameters.Add(new SqlParameter("@Use_Stock", item.Use_Stock));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<List<ItemsRecipeModel>> GetItemsRecipe(int IdRecipe)
+        {
+            List<ItemsRecipeModel> list = new List<ItemsRecipeModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetItemsRecipe", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@IdRecipe", IdRecipe));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToItemsRecipe(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
+        private ItemsRecipeModel MapToItemsRecipe(SqlDataReader reader)
+        {
+            return new ItemsRecipeModel()
+            {
+                IdArticle = (int)reader["IdArticle"],
+                Code = (string)reader["Code"],
+                Name = (string)reader["Name"],
+                Stock = (decimal)reader["Stock"],
+                Presentation = (string)reader["Presentation"],
+                Price = (decimal)reader["Price"],
+                Total = (decimal)reader["Total"],
+                Decimals = (int)reader["Decimals"],
+                Image = Convert.IsDBNull(reader["Image"]) ? null : (byte[])reader["Image"],
+            };
+        }
+        #endregion
         #region ActionsRecipes
         public async Task<RecipeModel> GetRecipeByIdorCode(int Id, string Code)
         {
@@ -67,7 +155,43 @@ namespace LinkCajaV2.Data
                 Status = (bool)reader["Status"],
             };
         }
-        #endregion
+        public async Task<int> SaveRecipe(RecipeModel obj)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveRecipe", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", obj.Id));
+                        cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
+                        cmd.Parameters.Add(new SqlParameter("@Description", obj.Description));
+                        cmd.Parameters.Add(new SqlParameter("@Image", obj.Image));
+                        cmd.Parameters.Add(new SqlParameter("@Code", obj.Code));
+                        cmd.Parameters.Add(new SqlParameter("@Stock", obj.Stock));
+                        cmd.Parameters.Add(new SqlParameter("@IdPresentation", obj.IdPresentation));
+                        cmd.Parameters.Add(new SqlParameter("@Price", obj.Price));
+                        cmd.Parameters.Add(new SqlParameter("@SuggestedStock", obj.SuggestedStock));
+                        SqlParameter outputParam = new SqlParameter("@VResp", System.Data.SqlDbType.Int)
+                        {
+                            Direction = System.Data.ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outputParam);
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        int idGenerado = (outputParam.Value != DBNull.Value) ? Convert.ToInt32(outputParam.Value) : 0;
+
+                        return idGenerado;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+         #endregion
         #region ActionsBox
         public async Task<List<ListBoxModel>> GetBoxsActives()
         {
@@ -242,7 +366,6 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
-
         #endregion
         #region ActionsUsers
         public async Task<bool> SaveUser(UserModel obj)
@@ -796,7 +919,6 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
-
         public async Task<List<KeysModel>> GetKeys()
         {
             List<KeysModel> list = new List<KeysModel>();
@@ -900,7 +1022,6 @@ namespace LinkCajaV2.Data
                 Name = (string)reader["Name"],
             };
         }
-
         #endregion
         #region Articles
         public async Task<bool> UpdateStatusArticle(int Id)
@@ -966,6 +1087,7 @@ namespace LinkCajaV2.Data
                 Code = (string)reader["Code"],
                 Stock = Convert.IsDBNull(reader["Stock"]) ? 0 : (decimal)reader["Stock"],
                 IdPresentation = Convert.IsDBNull(reader["IdPresentation"]) ? 0 : (int)reader["IdPresentation"],
+                Presentation = Convert.IsDBNull(reader["Image"]) ? string.Empty : (string)reader["Presentation"],
                 Price = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
                 SuggestedStock = Convert.IsDBNull(reader["SuggestedStock"]) ? 0 : (decimal)reader["SuggestedStock"],
                 Status = (bool)reader["Status"],

@@ -37,7 +37,8 @@ namespace LinkCajaV2.Catalogs
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtCodigo.Text) || string.IsNullOrEmpty(txtDescripcion.Text) ||
-                string.IsNullOrEmpty(txtNombre.Text) || (int)cbPresentacion.SelectedValue == 0
+                string.IsNullOrEmpty(txtNombre.Text) || (int)cbPresentacion.SelectedValue == 0 ||
+                nudPrecio.Value <= 0 || nudCada.Value <= 0
                )
             {
                 MessageBox.Show("Datos incompletos revise la información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -126,7 +127,6 @@ namespace LinkCajaV2.Catalogs
             if (ListPresentation.Where(l=> l.Id==Article.IdPresentation).FirstOrDefault()?.Decimals >1)
             {
                 lblCostoGramo.Visible = true;
-                lblCostoGramo.Text = "El costo por " + ListPresentation.Where(l=> l.Id==Article.IdPresentation).FirstOrDefault()?.Name.ToLower();
                 CalcularPrecioPorGramo();
             }
             else
@@ -146,11 +146,7 @@ namespace LinkCajaV2.Catalogs
             {
                 if (cbPresentacion.SelectedItem is ListPresentationsModel row)
                 {
-                    string texto = row.Name.ToUpper();
-
-                    lblMedida.Text = texto == "KG" ? "Kg" :
-                                     texto == "LT" ? "Lt" :
-                                     texto == "MTS" ? "Mts" : row.Name;
+                     lblMedida.Text = row.Name;
 
                     int decimals = row.Decimals;
 
@@ -189,7 +185,6 @@ namespace LinkCajaV2.Catalogs
                     if (decimals > 1)
                     {
                         lblCostoGramo.Visible = true;
-                        lblCostoGramo.Text = "El costo por " + row.Name;
                         CalcularPrecioPorGramo();
                     }
                     else
@@ -228,11 +223,16 @@ namespace LinkCajaV2.Catalogs
         }
         public void CalcularPrecioPorGramo()
         {
+            string submedida = lblMedida.Text == "Kg" ? "gramo" :
+                             lblMedida.Text == "L" ? "mililitro" :
+                             lblMedida.Text == "M" ? "centimetro" : lblMedida.Text;
+            lblCostoGramo.Text = "El costo por " + submedida + " es";
             string txtP = nudPrecio.Text.Replace("$", "").Trim();
             string txtC = nudCada.Text.Trim();
 
             decimal.TryParse(txtP, out decimal vPrecio);
             decimal.TryParse(txtC, out decimal vCada);
+            
 
             if (vCada > 0)
             {
@@ -242,7 +242,7 @@ namespace LinkCajaV2.Catalogs
             }
             else
             {
-                lblCostoGramo.Text += " $" + "0.00";
+                lblCostoGramo.Text += " $0.00";
             }
         }
         private void nudCada_KeyUp(object sender, KeyEventArgs e)
@@ -272,5 +272,6 @@ namespace LinkCajaV2.Catalogs
                 CalcularPrecioPorGramo();
             }
         }
+
     }
 }

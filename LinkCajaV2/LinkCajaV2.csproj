@@ -162,6 +162,8 @@
     <Compile Include="Model\BoxModel.cs" />
     <Compile Include="Model\ClientsModel.cs" />
     <Compile Include="Model\CompanyModel.cs" />
+    <Compile Include="Model\ItemModel.cs" />
+    <Compile Include="Model\ItemsRecipeModel.cs" />
     <Compile Include="Model\KeysModel.cs" />
     <Compile Include="Model\ListArticlesModel.cs" />
     <Compile Include="Model\ListBoxModel.cs" />

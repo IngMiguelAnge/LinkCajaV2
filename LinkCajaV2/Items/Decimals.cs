@@ -18,6 +18,7 @@ namespace LinkCajaV2.Items
             {
                 e.SuppressKeyPress = true;
                 Kilos = NUDKilos.Value;
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
         }
@@ -25,6 +26,7 @@ namespace LinkCajaV2.Items
         private void BtnConfirmar_Click(object sender, EventArgs e)
         {
             Kilos = NUDKilos.Value;
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 

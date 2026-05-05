@@ -56,6 +56,9 @@
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.lblCodigoReceta = new System.Windows.Forms.Label();
             this.lblMensaje1 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.PBSeleccion = new System.Windows.Forms.PictureBox();
+            this.lblSeleccionado = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PBProducto)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
@@ -63,6 +66,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudCada)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudExistencias)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PBSeleccion)).BeginInit();
             this.SuspendLayout();
             // 
             // txtDescripcion
@@ -128,10 +133,12 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.dgvArticulos);
             this.groupBox1.Location = new System.Drawing.Point(34, 336);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(899, 305);
+            this.groupBox1.Size = new System.Drawing.Size(946, 332);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Articulos necesarios";
@@ -144,8 +151,9 @@
             this.dgvArticulos.Name = "dgvArticulos";
             this.dgvArticulos.RowHeadersWidth = 62;
             this.dgvArticulos.RowTemplate.Height = 28;
-            this.dgvArticulos.Size = new System.Drawing.Size(893, 280);
+            this.dgvArticulos.Size = new System.Drawing.Size(940, 307);
             this.dgvArticulos.TabIndex = 14;
+            this.dgvArticulos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvArticulos_CellClick);
             this.dgvArticulos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvArticulos_CellContentClick);
             this.dgvArticulos.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvArticulos_CellPainting);
             this.dgvArticulos.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvArticulos_CellValidating);
@@ -154,7 +162,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(37, 921);
+            this.btnGuardar.Location = new System.Drawing.Point(33, 313);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(109, 44);
             this.btnGuardar.TabIndex = 27;
@@ -220,7 +228,7 @@
             // 
             this.lblTotal.AutoSize = true;
             this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotal.Location = new System.Drawing.Point(29, 644);
+            this.lblTotal.Location = new System.Drawing.Point(25, 36);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(405, 29);
             this.lblTotal.TabIndex = 15;
@@ -229,7 +237,7 @@
             // lblMedida
             // 
             this.lblMedida.AutoSize = true;
-            this.lblMedida.Location = new System.Drawing.Point(348, 832);
+            this.lblMedida.Location = new System.Drawing.Point(344, 224);
             this.lblMedida.Name = "lblMedida";
             this.lblMedida.Size = new System.Drawing.Size(29, 20);
             this.lblMedida.TabIndex = 25;
@@ -238,7 +246,7 @@
             // lblCostoGramo
             // 
             this.lblCostoGramo.AutoSize = true;
-            this.lblCostoGramo.Location = new System.Drawing.Point(30, 868);
+            this.lblCostoGramo.Location = new System.Drawing.Point(26, 260);
             this.lblCostoGramo.Name = "lblCostoGramo";
             this.lblCostoGramo.Size = new System.Drawing.Size(131, 20);
             this.lblCostoGramo.TabIndex = 22;
@@ -247,7 +255,7 @@
             // 
             // nudCada
             // 
-            this.nudCada.Location = new System.Drawing.Point(217, 826);
+            this.nudCada.Location = new System.Drawing.Point(213, 218);
             this.nudCada.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -261,7 +269,7 @@
             // lblPor
             // 
             this.lblPor.AutoSize = true;
-            this.lblPor.Location = new System.Drawing.Point(30, 828);
+            this.lblPor.Location = new System.Drawing.Point(26, 220);
             this.lblPor.Name = "lblPor";
             this.lblPor.Size = new System.Drawing.Size(167, 20);
             this.lblPor.TabIndex = 21;
@@ -270,7 +278,7 @@
             // nudPrecio
             // 
             this.nudPrecio.DecimalPlaces = 2;
-            this.nudPrecio.Location = new System.Drawing.Point(352, 782);
+            this.nudPrecio.Location = new System.Drawing.Point(348, 174);
             this.nudPrecio.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -284,7 +292,7 @@
             // lblPrecio
             // 
             this.lblPrecio.AutoSize = true;
-            this.lblPrecio.Location = new System.Drawing.Point(33, 788);
+            this.lblPrecio.Location = new System.Drawing.Point(29, 180);
             this.lblPrecio.Name = "lblPrecio";
             this.lblPrecio.Size = new System.Drawing.Size(304, 20);
             this.lblPrecio.TabIndex = 20;
@@ -293,7 +301,7 @@
             // cbPresentacion
             // 
             this.cbPresentacion.FormattingEnabled = true;
-            this.cbPresentacion.Location = new System.Drawing.Point(479, 692);
+            this.cbPresentacion.Location = new System.Drawing.Point(475, 84);
             this.cbPresentacion.Name = "cbPresentacion";
             this.cbPresentacion.Size = new System.Drawing.Size(121, 28);
             this.cbPresentacion.TabIndex = 18;
@@ -301,7 +309,7 @@
             // 
             // nudExistencias
             // 
-            this.nudExistencias.Location = new System.Drawing.Point(388, 745);
+            this.nudExistencias.Location = new System.Drawing.Point(384, 137);
             this.nudExistencias.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -314,7 +322,7 @@
             // lblExistencias
             // 
             this.lblExistencias.AutoSize = true;
-            this.lblExistencias.Location = new System.Drawing.Point(33, 747);
+            this.lblExistencias.Location = new System.Drawing.Point(29, 139);
             this.lblExistencias.Name = "lblExistencias";
             this.lblExistencias.Size = new System.Drawing.Size(329, 20);
             this.lblExistencias.TabIndex = 17;
@@ -333,43 +341,72 @@
             this.lblCodigoReceta.AutoSize = true;
             this.lblCodigoReceta.Location = new System.Drawing.Point(34, 178);
             this.lblCodigoReceta.Name = "lblCodigoReceta";
-            this.lblCodigoReceta.Size = new System.Drawing.Size(171, 20);
+            this.lblCodigoReceta.Size = new System.Drawing.Size(178, 20);
             this.lblCodigoReceta.TabIndex = 4;
-            this.lblCodigoReceta.Text = "*Codigo de receta: rec-";
+            this.lblCodigoReceta.Text = "*Codigo de receta: Rec-";
             // 
             // lblMensaje1
             // 
             this.lblMensaje1.AutoSize = true;
-            this.lblMensaje1.Location = new System.Drawing.Point(34, 700);
+            this.lblMensaje1.Location = new System.Drawing.Point(30, 92);
             this.lblMensaje1.Name = "lblMensaje1";
             this.lblMensaje1.Size = new System.Drawing.Size(439, 20);
             this.lblMensaje1.TabIndex = 28;
             this.lblMensaje1.Text = "Al crear esta receta el articulo generado se presentara como:";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.lblSeleccionado);
+            this.groupBox2.Controls.Add(this.PBSeleccion);
+            this.groupBox2.Controls.Add(this.lblTotal);
+            this.groupBox2.Controls.Add(this.lblMensaje1);
+            this.groupBox2.Controls.Add(this.btnGuardar);
+            this.groupBox2.Controls.Add(this.lblExistencias);
+            this.groupBox2.Controls.Add(this.nudExistencias);
+            this.groupBox2.Controls.Add(this.lblMedida);
+            this.groupBox2.Controls.Add(this.cbPresentacion);
+            this.groupBox2.Controls.Add(this.lblCostoGramo);
+            this.groupBox2.Controls.Add(this.lblPrecio);
+            this.groupBox2.Controls.Add(this.nudCada);
+            this.groupBox2.Controls.Add(this.nudPrecio);
+            this.groupBox2.Controls.Add(this.lblPor);
+            this.groupBox2.Location = new System.Drawing.Point(37, 671);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(943, 378);
+            this.groupBox2.TabIndex = 29;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "groupBox2";
+            // 
+            // PBSeleccion
+            // 
+            this.PBSeleccion.Location = new System.Drawing.Point(617, 69);
+            this.PBSeleccion.Name = "PBSeleccion";
+            this.PBSeleccion.Size = new System.Drawing.Size(320, 211);
+            this.PBSeleccion.TabIndex = 30;
+            this.PBSeleccion.TabStop = false;
+            // 
+            // lblSeleccionado
+            // 
+            this.lblSeleccionado.AutoSize = true;
+            this.lblSeleccionado.Location = new System.Drawing.Point(623, 43);
+            this.lblSeleccionado.Name = "lblSeleccionado";
+            this.lblSeleccionado.Size = new System.Drawing.Size(162, 20);
+            this.lblSeleccionado.TabIndex = 31;
+            this.lblSeleccionado.Text = "Articulo Seleccionado";
+            // 
             // Recipe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(964, 979);
-            this.Controls.Add(this.lblMensaje1);
+            this.ClientSize = new System.Drawing.Size(1011, 1006);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.txtCodigo);
             this.Controls.Add(this.lblCodigoReceta);
-            this.Controls.Add(this.lblMedida);
-            this.Controls.Add(this.lblCostoGramo);
-            this.Controls.Add(this.nudCada);
-            this.Controls.Add(this.lblPor);
-            this.Controls.Add(this.nudPrecio);
-            this.Controls.Add(this.lblPrecio);
-            this.Controls.Add(this.cbPresentacion);
-            this.Controls.Add(this.nudExistencias);
-            this.Controls.Add(this.lblExistencias);
-            this.Controls.Add(this.lblTotal);
             this.Controls.Add(this.NUDCantidad);
             this.Controls.Add(this.lblCantidad);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.txtCodigoBusqueda);
             this.Controls.Add(this.lblCodigo);
-            this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblAgregar);
             this.Controls.Add(this.PBProducto);
@@ -382,6 +419,7 @@
             this.Name = "Recipe";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Receta";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Recipe_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PBProducto)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -390,6 +428,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudCada)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudExistencias)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PBSeleccion)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -424,5 +465,8 @@
         private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.Label lblCodigoReceta;
         private System.Windows.Forms.Label lblMensaje1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label lblSeleccionado;
+        private System.Windows.Forms.PictureBox PBSeleccion;
     }
 }
