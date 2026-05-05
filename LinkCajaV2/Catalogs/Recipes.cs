@@ -22,5 +22,10 @@ namespace LinkCajaV2.Catalogs
             Recipe recipe = new Recipe();
             recipe.ShowDialog();
         }
+
+        private void BtnBuscar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
