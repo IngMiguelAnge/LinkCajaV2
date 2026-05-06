@@ -57,8 +57,8 @@
             this.lblCodigoReceta = new System.Windows.Forms.Label();
             this.lblMensaje1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.PBSeleccion = new System.Windows.Forms.PictureBox();
             this.lblSeleccionado = new System.Windows.Forms.Label();
+            this.PBSeleccion = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.PBProducto)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
@@ -375,15 +375,6 @@
             this.groupBox2.Size = new System.Drawing.Size(943, 378);
             this.groupBox2.TabIndex = 29;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
-            // 
-            // PBSeleccion
-            // 
-            this.PBSeleccion.Location = new System.Drawing.Point(617, 69);
-            this.PBSeleccion.Name = "PBSeleccion";
-            this.PBSeleccion.Size = new System.Drawing.Size(320, 211);
-            this.PBSeleccion.TabIndex = 30;
-            this.PBSeleccion.TabStop = false;
             // 
             // lblSeleccionado
             // 
@@ -393,6 +384,14 @@
             this.lblSeleccionado.Size = new System.Drawing.Size(162, 20);
             this.lblSeleccionado.TabIndex = 31;
             this.lblSeleccionado.Text = "Articulo Seleccionado";
+            // 
+            // PBSeleccion
+            // 
+            this.PBSeleccion.Location = new System.Drawing.Point(617, 69);
+            this.PBSeleccion.Name = "PBSeleccion";
+            this.PBSeleccion.Size = new System.Drawing.Size(320, 211);
+            this.PBSeleccion.TabIndex = 30;
+            this.PBSeleccion.TabStop = false;
             // 
             // Recipe
             // 

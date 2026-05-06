@@ -38,7 +38,7 @@ namespace LinkCajaV2.Catalogs
             try
             {
                 AppRepository obj = new AppRepository();
-                var lista = await Task.Run(() => IsVenta==false && IsReceta==false?             
+                var lista = await Task.Run(() => IsVenta==false?             
                 obj.GetArticles(txtCodigo.Text, txtNombre.Text, IsReceta) :
                 obj.GetArticlesActives(txtCodigo.Text, txtNombre.Text)
                 );
@@ -99,6 +99,19 @@ namespace LinkCajaV2.Catalogs
                     await obj.UpdateStatusArticle(Convert.ToInt32(Id));
                     BuscarArticulos();
                     break;
+                case "btnStock":
+                    Stock s = new Stock();
+                    s.Id = Convert.ToInt32(Id);
+                    s.Nombre = dgvArticulos.Rows[e.RowIndex].Cells["Articulo"].Value.ToString();
+                    s.ShowDialog();
+                    BuscarArticulos();
+                    break;
+                case "btnProveedores":
+                    PricesSuppliers pr = new PricesSuppliers();
+                    pr.Id = Convert.ToInt32(Id);
+                    pr.ShowDialog();
+                    BuscarArticulos();
+                    break;
             }
         }
         private void AgregarBotones()
@@ -125,6 +138,18 @@ namespace LinkCajaV2.Catalogs
             btnCambiar.Text = "Cambiar Estatus";
             btnCambiar.UseColumnTextForButtonValue = true;
             dgvArticulos.Columns.Add(btnCambiar);
+            DataGridViewButtonColumn btnProveedores = new DataGridViewButtonColumn();
+            btnProveedores.Name = "btnProveedores";
+            btnProveedores.HeaderText = "Acción";
+            btnProveedores.Text = "Proveedores";
+            btnProveedores.UseColumnTextForButtonValue = true;
+            dgvArticulos.Columns.Add(btnProveedores);
+            DataGridViewButtonColumn btnStock = new DataGridViewButtonColumn();
+            btnStock.Name = "btnStock";
+            btnStock.HeaderText = "Acción";
+            btnStock.Text = "Stock";
+            btnStock.UseColumnTextForButtonValue = true;
+            dgvArticulos.Columns.Add(btnStock);
         }
 
         private void Articles_Load(object sender, EventArgs e)

@@ -85,8 +85,8 @@ namespace LinkCajaV2.Sales
         public void AgregarArticulo(int id, string codigo)
         {
             AppRepository obj = new AppRepository();
-            ArticleModel Articulo = new ArticleModel();
-            Articulo = obj.GetArticleByIdorCode(id,codigo).Result;
+            AllArticleModel Articulo = new AllArticleModel();
+            Articulo = obj.GetArticleActive(id,codigo).Result;
             
             if (Articulo == null)
             {

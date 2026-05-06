@@ -52,7 +52,7 @@
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(362, 64);
+            this.txtNombre.Location = new System.Drawing.Point(368, 61);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(168, 26);
             this.txtNombre.TabIndex = 6;
@@ -116,7 +116,7 @@
             this.lblCodigo.Name = "lblCodigo";
             this.lblCodigo.Size = new System.Drawing.Size(63, 20);
             this.lblCodigo.TabIndex = 3;
-            this.lblCodigo.Text = "Codigo:";
+            this.lblCodigo.Text = "Código:";
             // 
             // txtCodigo
             // 
@@ -138,10 +138,12 @@
             this.Controls.Add(this.btnNuevo);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.lblNombre);
+            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Articles";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Articulos";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Articles_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).EndInit();

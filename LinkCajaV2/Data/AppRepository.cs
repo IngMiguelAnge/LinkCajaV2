@@ -19,6 +19,83 @@ namespace LinkCajaV2.Data
         {
             GC.Collect();
         }
+        #region PricesSuppliers
+        public async Task<HighPriceModel> GetHighPrice(int IdArticle)
+        {
+            HighPriceModel Result = new HighPriceModel();
+            List<HighPriceModel> list = new List<HighPriceModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetHighPrice", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@IdArticle", IdArticle));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToHighPrice(reader));
+                            }
+                            Result = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Result= null;
+            }
+            return Result;
+        }
+        private HighPriceModel MapToHighPrice(SqlDataReader reader)
+        {
+            return new HighPriceModel()
+            {
+                Price = (decimal)reader["Price"],
+                Presentation = (string)reader["Presentation"],
+            };
+        }
+        public async Task<List<ListPricesSuppliersModel>> GetPricesSuppliersActives(int IdArticle)
+        {
+            List<ListPricesSuppliersModel> list = new List<ListPricesSuppliersModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetPricesSuppliersActives", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@IdArticle", IdArticle));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToListPricesSuppliers(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+        private ListPricesSuppliersModel MapToListPricesSuppliers(SqlDataReader reader)
+        {
+            return new ListPricesSuppliersModel()
+            {
+                Id = (int)reader["Id"],
+                Name = (string)reader["Name"],
+                PriceUnit = (decimal)reader["PriceUnit"],
+            };
+        }
+        #endregion
         #region Items
         public async Task<bool> UpdateAllStatusItems(int IdRecipe)
         {
@@ -689,6 +766,33 @@ namespace LinkCajaV2.Data
             }
             return list;
         }
+        public async Task<List<ListSuppliersActivesModel>> GetSuppliersActives()
+        {
+            List<ListSuppliersActivesModel> list = new List<ListSuppliersActivesModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetSuppliersActives", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToListSuppliersActives(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
         public async Task<SuppliersModel> GetSuppliersbyId(int Id)
         {
             SuppliersModel response = new SuppliersModel();
@@ -739,6 +843,14 @@ namespace LinkCajaV2.Data
                 Nombre = (string)reader["Name"],
                 Email = (string)reader["Email"],
                 Estatus = (string)reader["Status"],
+            };
+        }
+        private ListSuppliersActivesModel MapToListSuppliersActives(SqlDataReader reader)
+        {
+            return new ListSuppliersActivesModel()
+            {
+                Id = (int)reader["Id"],
+                Name = (string)reader["Name"],
             };
         }
         public async Task<bool> SaveSupplier(SuppliersModel obj)
@@ -1023,6 +1135,77 @@ namespace LinkCajaV2.Data
             };
         }
         #endregion
+        #region Stock
+        public async Task<bool> SaveStock(StockModel obj)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveStock", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", obj.Id));
+                        cmd.Parameters.Add(new SqlParameter("@Stock", obj.Stock));
+                        cmd.Parameters.Add(new SqlParameter("@IdPresentation", obj.IdPresentation));
+                        cmd.Parameters.Add(new SqlParameter("@Price", obj.Price));
+                        cmd.Parameters.Add(new SqlParameter("@SuggestedStock", obj.SuggestedStock));
+
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<StockModel> GetStock(int Id)
+        {
+            StockModel response = new StockModel();
+            List<StockModel> list = new List<StockModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetStock", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToStock(reader));
+                            }
+                            response = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response = null;
+            }
+            return response;
+        }
+        private StockModel MapToStock(SqlDataReader reader)
+        {
+            return new StockModel()
+            {
+                Id = (int)reader["Id"],
+                Stock = Convert.IsDBNull(reader["Stock"]) ? 0 : (decimal)reader["Stock"],
+                IdPresentation = Convert.IsDBNull(reader["IdPresentation"]) ? 0 : (int)reader["IdPresentation"],
+                Presentation = Convert.IsDBNull(reader["Image"]) ? string.Empty : (string)reader["Presentation"],
+                Price = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
+                SuggestedStock = Convert.IsDBNull(reader["SuggestedStock"]) ? 0 : (decimal)reader["SuggestedStock"],
+                Margen = Convert.IsDBNull(reader["Margen"]) ? 0 : (decimal)reader["Margen"],
+            };
+        }
+        #endregion
         #region Articles
         public async Task<bool> UpdateStatusArticle(int Id)
         {
@@ -1045,7 +1228,7 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
-        public async Task<ArticleModel> GetArticleByIdorCode(int Id, string Code)
+        public async Task<ArticleModel> GetArticle(int Id, string Code)
         {
             ArticleModel response = new ArticleModel();
             List<ArticleModel> list = new List<ArticleModel>();
@@ -1053,7 +1236,7 @@ namespace LinkCajaV2.Data
             {
                 using (SqlConnection sql = new SqlConnection(Connection))
                 {
-                    using (SqlCommand cmd = new SqlCommand("GetArticleByIdorCode", sql))
+                    using (SqlCommand cmd = new SqlCommand("GetArticle", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Id", Id));
@@ -1085,11 +1268,6 @@ namespace LinkCajaV2.Data
                 Description = (string)reader["Description"],
                 Image = Convert.IsDBNull(reader["Image"]) ? null : (byte[])reader["Image"],
                 Code = (string)reader["Code"],
-                Stock = Convert.IsDBNull(reader["Stock"]) ? 0 : (decimal)reader["Stock"],
-                IdPresentation = Convert.IsDBNull(reader["IdPresentation"]) ? 0 : (int)reader["IdPresentation"],
-                Presentation = Convert.IsDBNull(reader["Image"]) ? string.Empty : (string)reader["Presentation"],
-                Price = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
-                SuggestedStock = Convert.IsDBNull(reader["SuggestedStock"]) ? 0 : (decimal)reader["SuggestedStock"],
                 Status = (bool)reader["Status"],
             };
         }
@@ -1107,10 +1285,6 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Description", obj.Description));
                         cmd.Parameters.Add(new SqlParameter("@Image", obj.Image));
                         cmd.Parameters.Add(new SqlParameter("@Code", obj.Code));
-                        cmd.Parameters.Add(new SqlParameter("@Stock", obj.Stock));
-                        cmd.Parameters.Add(new SqlParameter("@IdPresentation", obj.IdPresentation));
-                        cmd.Parameters.Add(new SqlParameter("@Price", obj.Price));
-                        cmd.Parameters.Add(new SqlParameter("@SuggestedStock", obj.SuggestedStock));
 
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
@@ -1181,6 +1355,54 @@ namespace LinkCajaV2.Data
 
             }
             return list;
+        }
+        public async Task<AllArticleModel> GetArticleActive(int Id, string Code)
+        {
+            AllArticleModel response = new AllArticleModel();
+            List<AllArticleModel> list = new List<AllArticleModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetArticleActive", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Code", Code));
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToAllArticle(reader));
+                            }
+                            response = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
+        private AllArticleModel MapToAllArticle(SqlDataReader reader)
+        {
+            return new AllArticleModel()
+            {
+                Id = (int)reader["Id"],
+                Code = (string)reader["Code"],
+                Name = (string)reader["Name"],
+                Description = (string)reader["Description"],
+                Image = Convert.IsDBNull(reader["Image"]) ? null : (byte[])reader["Image"],
+                Status = (bool)reader["Status"],
+                Stock = Convert.IsDBNull(reader["Stock"]) ? 0 : (decimal)reader["Stock"],
+                IdPresentation = Convert.IsDBNull(reader["IdPresentation"]) ? 0 : (int)reader["IdPresentation"],
+                Presentation = Convert.IsDBNull(reader["Presentation"]) ? string.Empty : (string)reader["Presentation"],
+                Price = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
+                SuggestedStock = Convert.IsDBNull(reader["SuggestedStock"]) ? 0 : (decimal)reader["SuggestedStock"],
+            };
         }
         private ListArticlesModel MapToListArticles(SqlDataReader reader)
         {

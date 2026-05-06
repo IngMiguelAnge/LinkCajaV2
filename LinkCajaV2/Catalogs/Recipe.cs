@@ -1,4 +1,5 @@
-﻿using LinkCajaV2.Data;
+﻿using ImageMagick;
+using LinkCajaV2.Data;
 using LinkCajaV2.Items;
 using LinkCajaV2.Model;
 using System;
@@ -31,9 +32,40 @@ namespace LinkCajaV2.Catalogs
 
             if (selector.ShowDialog() == DialogResult.OK)
             {
-                PBProducto.Image = Image.FromFile(selector.FileName);
-                // Ajustamos la imagen al tamaño del PictureBox
-                PBProducto.SizeMode = PictureBoxSizeMode.Zoom;
+                try
+                {
+                    // 1. Usamos MagickImage para leer el archivo (aunque sea WebP con extensión .jpg)
+                    using (MagickImage image = new MagickImage(selector.FileName))
+                    {
+                        // 2. Definimos explícitamente el formato a Bmp para asegurar compatibilidad
+                        image.Format = MagickFormat.Bmp;
+
+                        // 3. Obtenemos los bytes de la imagen convertida
+                        byte[] bytes = image.ToByteArray();
+
+                        using (MemoryStream ms = new MemoryStream(bytes))
+                        {
+                            // 4. CREAR UN NUEVO BITMAP: Esto es vital. 
+                            // Al hacer 'new Bitmap(ms)', el PictureBox ya no depende del stream.
+                            Bitmap bmp = new Bitmap(ms);
+
+                            // 5. Limpieza de memoria de la imagen anterior
+                            if (PBProducto.Image != null)
+                            {
+                                PBProducto.Image.Dispose();
+                            }
+
+                            // 6. Asignamos la nueva imagen y refrescamos
+                            PBProducto.Image = bmp;
+                            PBProducto.SizeMode = PictureBoxSizeMode.Zoom;
+                            PBProducto.Refresh(); // Forzamos al control a redibujarse
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error visualizando la imagen: " + ex.Message);
+                }
             }
         }
         public byte[] ImageToByteArray()
@@ -115,7 +147,7 @@ namespace LinkCajaV2.Catalogs
         {
             AppRepository obj = new AppRepository();
             // Usamos await para no congelar la pantalla
-            var Articulo = await obj.GetArticleByIdorCode(id, codigo);
+            var Articulo = await obj.GetArticleActive(id, codigo);
 
             if (Articulo == null)
             {

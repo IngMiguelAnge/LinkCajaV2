@@ -12,6 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Magick.NET-Q8-AnyCPU, Version=14.13.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magick.NET-Q8-AnyCPU.14.13.0\lib\netstandard20\Magick.NET-Q8-AnyCPU.dll</HintPath>
+    </Reference>
+    <Reference Include="Magick.NET.Core, Version=14.13.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magick.NET.Core.14.13.0\lib\netstandard20\Magick.NET.Core.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,6 +68,12 @@
     <Compile Include="Catalogs\Articles.Designer.cs">
       <DependentUpon>Articles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Catalogs\PricesSuppliers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\PricesSuppliers.Designer.cs">
+      <DependentUpon>PricesSuppliers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Catalogs\Recipe.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +85,12 @@
     </Compile>
     <Compile Include="Catalogs\Recipes.Designer.cs">
       <DependentUpon>Recipes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\Stock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\Stock.Designer.cs">
+      <DependentUpon>Stock.cs</DependentUpon>
     </Compile>
     <Compile Include="Configurations\Box.cs">
       <SubType>Form</SubType>
@@ -158,10 +178,12 @@
     <Compile Include="Menu.Designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\AllArticleModel.cs" />
     <Compile Include="Model\ArticleModel.cs" />
     <Compile Include="Model\BoxModel.cs" />
     <Compile Include="Model\ClientsModel.cs" />
     <Compile Include="Model\CompanyModel.cs" />
+    <Compile Include="Model\HighPriceModel.cs" />
     <Compile Include="Model\ItemModel.cs" />
     <Compile Include="Model\ItemsRecipeModel.cs" />
     <Compile Include="Model\KeysModel.cs" />
@@ -169,10 +191,14 @@
     <Compile Include="Model\ListBoxModel.cs" />
     <Compile Include="Model\ListClientsModel.cs" />
     <Compile Include="Model\ListPresentationsModel.cs" />
+    <Compile Include="Model\ListPricesSuppliersModel.cs" />
+    <Compile Include="Model\ListSuppliersActivesModel.cs" />
     <Compile Include="Model\ListSuppliersModel.cs" />
     <Compile Include="Model\ListUserModel.cs" />
     <Compile Include="Model\PresentationModel.cs" />
+    <Compile Include="Model\PricesSuppliersModel.cs" />
     <Compile Include="Model\RecipeModel.cs" />
+    <Compile Include="Model\StockModel.cs" />
     <Compile Include="Model\SuppliersModel.cs" />
     <Compile Include="Model\TypesUsersModel.cs" />
     <Compile Include="Model\UserModel.cs" />
@@ -190,11 +216,17 @@
     <EmbeddedResource Include="Catalogs\Articles.resx">
       <DependentUpon>Articles.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\PricesSuppliers.resx">
+      <DependentUpon>PricesSuppliers.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\Recipe.resx">
       <DependentUpon>Recipe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\Recipes.resx">
       <DependentUpon>Recipes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\Stock.resx">
+      <DependentUpon>Stock.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Configurations\Box.resx">
       <DependentUpon>Box.cs</DependentUpon>
@@ -250,6 +282,7 @@
     <EmbeddedResource Include="Sales\Venta.resx">
       <DependentUpon>Venta.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -267,4 +300,11 @@
     <Content Include="Sounds\beep.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Magick.NET-Q8-AnyCPU.14.13.0\build\netstandard20\Magick.NET-Q8-AnyCPU.targets" Condition="Exists('..\packages\Magick.NET-Q8-AnyCPU.14.13.0\build\netstandard20\Magick.NET-Q8-AnyCPU.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Magick.NET-Q8-AnyCPU.14.13.0\build\netstandard20\Magick.NET-Q8-AnyCPU.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Magick.NET-Q8-AnyCPU.14.13.0\build\netstandard20\Magick.NET-Q8-AnyCPU.targets'))" />
+  </Target>
 </Project>

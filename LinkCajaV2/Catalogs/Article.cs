@@ -1,4 +1,5 @@
-﻿using LinkCajaV2.Data;
+﻿using ImageMagick;
+using LinkCajaV2.Data;
 using LinkCajaV2.Model;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,10 @@ namespace LinkCajaV2.Catalogs
 {
     public partial class Article : Form
     {
-        private bool isLoaded = false;
         public int Id { get; set; }
         public Article()
         {
             InitializeComponent();
-            nudPrecio.TextChanged += (s, e) => CalcularPrecioPorGramo();
-            nudCada.TextChanged += (s, e) => CalcularPrecioPorGramo();
         }
 
         private void btnImagen_Click(object sender, EventArgs e)
@@ -28,25 +26,54 @@ namespace LinkCajaV2.Catalogs
 
             if (selector.ShowDialog() == DialogResult.OK)
             {
-                PBProducto.Image = Image.FromFile(selector.FileName);
-                // Ajustamos la imagen al tamaño del PictureBox
-                PBProducto.SizeMode = PictureBoxSizeMode.Zoom;
+                try
+                {
+                    // 1. Usamos MagickImage para leer el archivo (aunque sea WebP con extensión .jpg)
+                    using (MagickImage image = new MagickImage(selector.FileName))
+                    {
+                        // 2. Definimos explícitamente el formato a Bmp para asegurar compatibilidad
+                        image.Format = MagickFormat.Bmp;
+
+                        // 3. Obtenemos los bytes de la imagen convertida
+                        byte[] bytes = image.ToByteArray();
+
+                        using (MemoryStream ms = new MemoryStream(bytes))
+                        {
+                            // 4. CREAR UN NUEVO BITMAP: Esto es vital. 
+                            // Al hacer 'new Bitmap(ms)', el PictureBox ya no depende del stream.
+                            Bitmap bmp = new Bitmap(ms);
+
+                            // 5. Limpieza de memoria de la imagen anterior
+                            if (PBProducto.Image != null)
+                            {
+                                PBProducto.Image.Dispose();
+                            }
+
+                            // 6. Asignamos la nueva imagen y refrescamos
+                            PBProducto.Image = bmp;
+                            PBProducto.SizeMode = PictureBoxSizeMode.Zoom;
+                            PBProducto.Refresh(); // Forzamos al control a redibujarse
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error visualizando la imagen: " + ex.Message);
+                }
             }
         }
 
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtCodigo.Text) || string.IsNullOrEmpty(txtDescripcion.Text) ||
-                string.IsNullOrEmpty(txtNombre.Text) || (int)cbPresentacion.SelectedValue == 0 ||
-                nudPrecio.Value <= 0 || nudCada.Value <= 0
-               )
+                string.IsNullOrEmpty(txtNombre.Text))
             {
                 MessageBox.Show("Datos incompletos revise la información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             AppRepository obj = new AppRepository();
 
-            var exist = obj.GetArticleByIdorCode(0,txtCodigo.Text).Result;
+            var exist = obj.GetArticle(0,txtCodigo.Text).Result;
             if (exist != null && exist.Id != Id)
             {
                 MessageBox.Show("Ya se encuentra el codigo en uso", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -59,10 +86,6 @@ namespace LinkCajaV2.Catalogs
                 Description = txtDescripcion.Text,
                 Image = PBProducto.Image != null ? ImageToByteArray() : null,
                 Code = txtCodigo.Text,
-                Stock = nudExistencias.Value,
-                IdPresentation = (int)cbPresentacion.SelectedValue,
-                Price = nudPrecio.Value,
-                SuggestedStock = nudCada.Value,
             };
             if (obj.SaveArticle(Articulo).Result)
             {
@@ -71,7 +94,6 @@ namespace LinkCajaV2.Catalogs
             }
             else
                 MessageBox.Show("Erro al guardar la información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
         }
         public byte[] ImageToByteArray()
         {
@@ -93,21 +115,8 @@ namespace LinkCajaV2.Catalogs
         private void Article_Load(object sender, EventArgs e)
         {
             AppRepository obj = new AppRepository();
-            var ListPresentation = obj.GetPresentations().Result;
-            // Insertamos un objeto "fantasma" al inicio para el placeholder
-            ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione", Decimals = 0 });
-            cbPresentacion.Items.Clear();
-            // Configuramos el ComboBox
-            cbPresentacion.DisplayMember = "Name";
-            cbPresentacion.ValueMember = "Id";
-            cbPresentacion.DataSource = ListPresentation;
-            cbPresentacion.SelectedIndex = 0;
-            if (Id == 0)
-            {
-                isLoaded = true;
-                return;
-            } 
-            var Article = obj.GetArticleByIdorCode(Id,string.Empty).Result;
+            if (Id == 0) return; 
+            var Article = obj.GetArticle(Id,string.Empty).Result;
             txtNombre.Text = Article.Name;
             txtDescripcion.Text = Article.Description;
             if (Article.Image != null)
@@ -119,159 +128,6 @@ namespace LinkCajaV2.Catalogs
                 }
             }
             txtCodigo.Text = Article.Code;
-            cbPresentacion.SelectedValue = Article.IdPresentation;
-            nudExistencias.Value = Article.Stock;
-            nudPrecio.Value = Article.Price;
-            nudCada.Value = Article.SuggestedStock;
-            CambiarPresentacion();
-            if (ListPresentation.Where(l=> l.Id==Article.IdPresentation).FirstOrDefault()?.Decimals >1)
-            {
-                lblCostoGramo.Visible = true;
-                CalcularPrecioPorGramo();
-            }
-            else
-            {
-                lblCostoGramo.Visible = false;
-            }
-            isLoaded = true;
-        }
-        private void cbPresentacion_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!isLoaded) return;
-            CambiarPresentacion();
-        }
-        public void CambiarPresentacion()
-        {
-            if (cbPresentacion.SelectedIndex > 0)
-            {
-                if (cbPresentacion.SelectedItem is ListPresentationsModel row)
-                {
-                     lblMedida.Text = row.Name;
-
-                    int decimals = row.Decimals;
-
-                    if (decimals == 3)
-                    {
-                        nudExistencias.DecimalPlaces = 3;
-                        nudExistencias.Increment = 0.010M;
-                        nudExistencias.Maximum = 10000;
-                        nudCada.DecimalPlaces = 3;
-                        nudCada.Maximum = 1000000;
-                        nudCada.Increment = 0.010M;
-                        nudCada.Enabled = true;
-
-                        if (isLoaded)
-                        {
-                            nudExistencias.Value = 0.000M;
-                            nudCada.Value = 0.000M;
-                        }
-                    }
-                    else
-                    {
-                        nudExistencias.DecimalPlaces = 0;
-                        nudExistencias.Increment = 1M;
-                        nudExistencias.Maximum = 1000000;
-                        nudCada.DecimalPlaces = 0;
-                        nudCada.Maximum = 1000000;
-                        nudCada.Increment = 1M;
-                        nudCada.Enabled = false;
-
-                        if (isLoaded)
-                        {
-                            nudExistencias.Value = 0;
-                            nudCada.Value = 1;
-                        }
-                    }
-                    if (decimals > 1)
-                    {
-                        lblCostoGramo.Visible = true;
-                        CalcularPrecioPorGramo();
-                    }
-                    else
-                    {
-                        lblCostoGramo.Visible = false;
-                    }
-                }
-            }
-        }
-        private void nudPrecio_KeyUp(object sender, KeyEventArgs e)
-        {
-            DomainUpDown dud = sender as DomainUpDown;
-            if (dud == null) return;
-
-            // Buscamos el TextBox interno de forma segura
-            TextBox tb = null;
-            foreach (Control c in dud.Controls)
-            {
-                if (c is TextBox)
-                {
-                    tb = (TextBox)c;
-                    break;
-                }
-            }
-
-            if (tb != null)
-            {
-                int cursorPosition = tb.SelectionStart;
-                CalcularPrecioPorGramo();
-                tb.SelectionStart = cursorPosition;
-            }
-            else
-            {
-                 CalcularPrecioPorGramo();
-            }
-        }
-        public void CalcularPrecioPorGramo()
-        {
-            string submedida = lblMedida.Text == "Kg" ? "gramo" :
-                             lblMedida.Text == "L" ? "mililitro" :
-                             lblMedida.Text == "M" ? "centimetro" : lblMedida.Text;
-            lblCostoGramo.Text = "El costo por " + submedida + " es";
-            string txtP = nudPrecio.Text.Replace("$", "").Trim();
-            string txtC = nudCada.Text.Trim();
-
-            decimal.TryParse(txtP, out decimal vPrecio);
-            decimal.TryParse(txtC, out decimal vCada);
-            
-
-            if (vCada > 0)
-            {
-                //Precio / (Kilos * 1000)
-                decimal resultado = vPrecio / (vCada * 1000);
-                lblCostoGramo.Text += " $" + resultado.ToString("N4"); // N4 es mejor para gramos
-            }
-            else
-            {
-                lblCostoGramo.Text += " $0.00";
-            }
-        }
-        private void nudCada_KeyUp(object sender, KeyEventArgs e)
-        {
-            DomainUpDown dud = sender as DomainUpDown;
-            if (dud == null) return;
-
-            // Buscamos el TextBox interno de forma segura
-            TextBox tb = null;
-            foreach (Control c in dud.Controls)
-            {
-                if (c is TextBox)
-                {
-                    tb = (TextBox)c;
-                    break;
-                }
-            }
-
-            if (tb != null)
-            {
-                 int cursorPosition = tb.SelectionStart;
-                CalcularPrecioPorGramo();
-                tb.SelectionStart = cursorPosition;
-            }
-            else
-            {
-                CalcularPrecioPorGramo();
-            }
-        }
-
+        }      
     }
 }
