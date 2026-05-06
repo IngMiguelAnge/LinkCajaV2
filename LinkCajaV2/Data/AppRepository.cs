@@ -101,6 +101,7 @@ namespace LinkCajaV2.Data
             return new HighPriceModel()
             {
                 Price = (decimal)reader["Price"],
+                IdPresentation = (int)reader["IdPresentation"],
                 Presentation = (string)reader["Presentation"],
             };
         }
@@ -1499,6 +1500,7 @@ namespace LinkCajaV2.Data
             {
                 Id = (int)reader["Id"],
                 Name = (string)reader["Name"],
+                Presentation = Convert.IsDBNull(reader["Presentation"]) ? string.Empty : (string)reader["Presentation"],
                 Decimals = (int)reader["Decimals"],
             };
         }

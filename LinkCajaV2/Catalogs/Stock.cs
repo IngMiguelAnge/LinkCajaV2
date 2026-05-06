@@ -14,7 +14,7 @@ namespace LinkCajaV2.Catalogs
 {
     public partial class Stock : Form
     {
-        public int Id { get; set; }
+        public int IdArticle { get; set; }
         public string Nombre { get; set; }
         private bool isLoaded = false;
         private decimal MyCostoMax = 0;
@@ -28,7 +28,7 @@ namespace LinkCajaV2.Catalogs
         private void cbPresentacion_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!isLoaded) return;
-            CambiarPresentacion();
+            //CambiarPresentacion();
         }
         public void CambiarPresentacion()
         {
@@ -36,8 +36,11 @@ namespace LinkCajaV2.Catalogs
             {
                 if (cbPresentacion.SelectedItem is ListPresentationsModel row)
                 {
-                    lblMedida.Text = row.Name;
-
+                    lblMedida.Text = row.Presentation;
+                    string submedida = row.Presentation == "Kg" ? "gramo" :
+                 row.Presentation == "L" ? "mililitro" :
+                 row.Presentation == "M" ? "centimetro" : row.Name;
+                    lblCostoGramo.Text = "El costo por " + submedida + " es";
                     int decimals = row.Decimals;
 
                     if (decimals == 3)
@@ -114,10 +117,6 @@ namespace LinkCajaV2.Catalogs
         }
         public void CalcularPrecioPorGramo()
         {
-            string submedida = lblMedida.Text == "Kg" ? "gramo" :
-                             lblMedida.Text == "L" ? "mililitro" :
-                             lblMedida.Text == "M" ? "centimetro" : lblMedida.Text;
-            lblCostoGramo.Text = "El costo por " + submedida + " es";
             string txtP = nudPrecio.Text.Replace("$", "").Trim();
             string txtC = nudCada.Text.Trim();
 
@@ -175,7 +174,7 @@ namespace LinkCajaV2.Catalogs
             }
             StockModel Stock = new StockModel()
             {
-                Id = Id,
+                Id = IdArticle,
                 Stock = nudExistencias.Value,
                 IdPresentation = (int)cbPresentacion.SelectedValue,
                 Price = nudPrecio.Value,
@@ -196,7 +195,7 @@ namespace LinkCajaV2.Catalogs
         {
             lblNombre.Text = "Stock de " + Nombre;
             AppRepository obj = new AppRepository();
-            var CostoMax = obj.GetHighPrice(Id).Result;
+            var CostoMax = obj.GetHighPrice(IdArticle).Result;
             if(CostoMax == null)
             {
                 MessageBox.Show("No se han encontrado proveedores con precios registrados, por favor registre al menos un proveedor para configurar el stock.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -205,40 +204,46 @@ namespace LinkCajaV2.Catalogs
             }
             MyCostoMax = CostoMax.Price;
             decimal precioMax = MyCostoMax/((100-0)/100);
-            lblRecomendacion.Text = "Se recomienda vender en: $" + precioMax.ToString("N2");
+            lblRecomendacion.Text = "Se recomienda vender en:";
+            lblRecomendacion3.Text = "$" + precioMax.ToString("N2");
             lblRecomendacion2.Text = "por cada " + CostoMax.Presentation.Substring(0, CostoMax.Presentation.Length - 1);
             nudPrecio.Value = Convert.ToDecimal(precioMax.ToString("N2"));
             var ListPresentation = obj.GetPresentations().Result;
             // Insertamos un objeto "fantasma" al inicio para el placeholder
-            ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione", Decimals = 0 });
+            ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione",Presentation=string.Empty, Decimals = 0 });
             cbPresentacion.Items.Clear();
             // Configuramos el ComboBox
             cbPresentacion.DisplayMember = "Name";
             cbPresentacion.ValueMember = "Id";
             cbPresentacion.DataSource = ListPresentation;
             cbPresentacion.SelectedIndex = 0;
-            if (Id == 0)
-            {
-                isLoaded = true;
-                return;
-            }
-            var Article = obj.GetStock(Id).Result;
-            cbPresentacion.SelectedValue = Article.IdPresentation;
-            nudExistencias.Value = Article.Stock;
-            nudPrecio.Value = Article.Price;
-            nudCada.Value = Article.SuggestedStock;
-            precioMax = MyCostoMax/ ((100 - Article.Margen) / 100);
-            lblRecomendacion.Text += "Se recomienda vender en: $" + precioMax.ToString("N2");
+            
+            var Article = obj.GetStock(IdArticle).Result;
+            cbPresentacion.SelectedValue = CostoMax.IdPresentation;
             CambiarPresentacion();
-            if (ListPresentation.Where(l => l.Id == Article.IdPresentation).FirstOrDefault()?.Decimals > 1)
+            if (ListPresentation.Where(l => l.Id == CostoMax.IdPresentation).FirstOrDefault()?.Decimals > 1)
             {
                 lblCostoGramo.Visible = true;
-                CalcularPrecioPorGramo();
+                //CalcularPrecioPorGramo();
             }
             else
             {
                 lblCostoGramo.Visible = false;
             }
+            if (IdArticle == 0 || Article == null)
+            {
+                 isLoaded = true;  
+                return;
+            }
+            //cbPresentacion.SelectedValue = Article.IdPresentation;
+            nudExistencias.Value = Article.Stock;
+            nudPrecio.Value = Article.Price;
+            nudCada.Value = Article.SuggestedStock;
+            precioMax = MyCostoMax/ ((100 - Article.Margen) / 100);
+            lblRecomendacion.Text = "Se recomienda vender en:";
+            lblRecomendacion3.Text = "$" + precioMax.ToString("N2");
+            //CambiarPresentacion();
+            
             isLoaded = true;
         }
 

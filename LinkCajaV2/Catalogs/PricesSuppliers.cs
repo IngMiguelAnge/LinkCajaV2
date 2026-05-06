@@ -63,7 +63,7 @@ namespace LinkCajaV2.Catalogs
             AppRepository obj = new AppRepository();
             var ListPresentation = obj.GetPresentations().Result;
             // Insertamos un objeto "fantasma" al inicio para el placeholder
-            ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione", Decimals = 0 });
+            ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione", Presentation=string.Empty, Decimals = 0 });
             cbPresentacion.Items.Clear();
             // Configuramos el ComboBox
             cbPresentacion.DisplayMember = "Name";

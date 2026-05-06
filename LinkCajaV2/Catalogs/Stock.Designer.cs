@@ -45,6 +45,7 @@
             this.nudMargen = new System.Windows.Forms.NumericUpDown();
             this.Porcentaje = new System.Windows.Forms.Label();
             this.lblRecomendacion2 = new System.Windows.Forms.Label();
+            this.lblRecomendacion3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudCada)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudExistencias)).BeginInit();
@@ -54,7 +55,7 @@
             // lblMedida
             // 
             this.lblMedida.AutoSize = true;
-            this.lblMedida.Location = new System.Drawing.Point(342, 305);
+            this.lblMedida.Location = new System.Drawing.Point(348, 329);
             this.lblMedida.Name = "lblMedida";
             this.lblMedida.Size = new System.Drawing.Size(29, 20);
             this.lblMedida.TabIndex = 12;
@@ -63,7 +64,7 @@
             // lblCostoGramo
             // 
             this.lblCostoGramo.AutoSize = true;
-            this.lblCostoGramo.Location = new System.Drawing.Point(26, 358);
+            this.lblCostoGramo.Location = new System.Drawing.Point(32, 382);
             this.lblCostoGramo.Name = "lblCostoGramo";
             this.lblCostoGramo.Size = new System.Drawing.Size(131, 20);
             this.lblCostoGramo.TabIndex = 13;
@@ -72,7 +73,7 @@
             // 
             // nudCada
             // 
-            this.nudCada.Location = new System.Drawing.Point(195, 299);
+            this.nudCada.Location = new System.Drawing.Point(201, 323);
             this.nudCada.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -86,7 +87,7 @@
             // lblPor
             // 
             this.lblPor.AutoSize = true;
-            this.lblPor.Location = new System.Drawing.Point(200, 263);
+            this.lblPor.Location = new System.Drawing.Point(206, 287);
             this.lblPor.Name = "lblPor";
             this.lblPor.Size = new System.Drawing.Size(72, 20);
             this.lblPor.TabIndex = 10;
@@ -95,7 +96,7 @@
             // nudPrecio
             // 
             this.nudPrecio.DecimalPlaces = 2;
-            this.nudPrecio.Location = new System.Drawing.Point(30, 299);
+            this.nudPrecio.Location = new System.Drawing.Point(36, 323);
             this.nudPrecio.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -109,7 +110,7 @@
             // lblPrecio
             // 
             this.lblPrecio.AutoSize = true;
-            this.lblPrecio.Location = new System.Drawing.Point(26, 263);
+            this.lblPrecio.Location = new System.Drawing.Point(32, 287);
             this.lblPrecio.Name = "lblPrecio";
             this.lblPrecio.Size = new System.Drawing.Size(57, 20);
             this.lblPrecio.TabIndex = 8;
@@ -117,6 +118,7 @@
             // 
             // cbPresentacion
             // 
+            this.cbPresentacion.Enabled = false;
             this.cbPresentacion.FormattingEnabled = true;
             this.cbPresentacion.Location = new System.Drawing.Point(36, 93);
             this.cbPresentacion.Name = "cbPresentacion";
@@ -156,7 +158,7 @@
             // 
             // BtnGuardar
             // 
-            this.BtnGuardar.Location = new System.Drawing.Point(30, 400);
+            this.BtnGuardar.Location = new System.Drawing.Point(36, 424);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(108, 35);
             this.BtnGuardar.TabIndex = 14;
@@ -213,17 +215,28 @@
             // 
             this.lblRecomendacion2.AutoSize = true;
             this.lblRecomendacion2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRecomendacion2.Location = new System.Drawing.Point(31, 216);
+            this.lblRecomendacion2.Location = new System.Drawing.Point(31, 245);
             this.lblRecomendacion2.Name = "lblRecomendacion2";
             this.lblRecomendacion2.Size = new System.Drawing.Size(164, 25);
             this.lblRecomendacion2.TabIndex = 16;
             this.lblRecomendacion2.Text = "Se recomienda:";
             // 
+            // lblRecomendacion3
+            // 
+            this.lblRecomendacion3.AutoSize = true;
+            this.lblRecomendacion3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRecomendacion3.Location = new System.Drawing.Point(31, 210);
+            this.lblRecomendacion3.Name = "lblRecomendacion3";
+            this.lblRecomendacion3.Size = new System.Drawing.Size(164, 25);
+            this.lblRecomendacion3.TabIndex = 17;
+            this.lblRecomendacion3.Text = "Se recomienda:";
+            // 
             // Stock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(393, 447);
+            this.ClientSize = new System.Drawing.Size(414, 475);
+            this.Controls.Add(this.lblRecomendacion3);
             this.Controls.Add(this.lblRecomendacion2);
             this.Controls.Add(this.Porcentaje);
             this.Controls.Add(this.nudMargen);
@@ -275,5 +288,6 @@
         private System.Windows.Forms.NumericUpDown nudMargen;
         private System.Windows.Forms.Label Porcentaje;
         private System.Windows.Forms.Label lblRecomendacion2;
+        private System.Windows.Forms.Label lblRecomendacion3;
     }
 }

@@ -101,7 +101,7 @@ namespace LinkCajaV2.Catalogs
                     break;
                 case "btnStock":
                     Stock s = new Stock();
-                    s.Id = Convert.ToInt32(Id);
+                    s.IdArticle = Convert.ToInt32(Id);
                     s.Nombre = dgvArticulos.Rows[e.RowIndex].Cells["Articulo"].Value.ToString();
                     s.ShowDialog();
                     BuscarArticulos();
