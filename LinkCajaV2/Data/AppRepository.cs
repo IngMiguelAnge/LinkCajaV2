@@ -91,6 +91,7 @@ namespace LinkCajaV2.Data
             return new ListPricesSuppliersModel()
             {
                 Id = (int)reader["Id"],
+                IdSupplier = (int)reader["IdSupplier"],
                 Name = (string)reader["Name"],
                 PriceUnit = (decimal)reader["PriceUnit"],
             };

@@ -38,6 +38,7 @@
             this.lblNota = new System.Windows.Forms.Label();
             this.gbProveedores = new System.Windows.Forms.GroupBox();
             this.dgvProveedores = new System.Windows.Forms.DataGridView();
+            this.btnGuardar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
             this.gbProveedores.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProveedores)).BeginInit();
@@ -144,11 +145,21 @@
             this.dgvProveedores.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProveedores_CellValueChanged);
             this.dgvProveedores.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvProveedores_EditingControlShowing);
             // 
+            // btnGuardar
+            // 
+            this.btnGuardar.Location = new System.Drawing.Point(34, 512);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(100, 43);
+            this.btnGuardar.TabIndex = 14;
+            this.btnGuardar.Text = "Guardar";
+            this.btnGuardar.UseVisualStyleBackColor = true;
+            // 
             // PricesSuppliers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(563, 518);
+            this.ClientSize = new System.Drawing.Size(563, 577);
+            this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.gbProveedores);
             this.Controls.Add(this.lblNota);
             this.Controls.Add(this.btnAgregar);
@@ -182,5 +193,6 @@
         private System.Windows.Forms.Label lblNota;
         private System.Windows.Forms.GroupBox gbProveedores;
         private System.Windows.Forms.DataGridView dgvProveedores;
+        private System.Windows.Forms.Button btnGuardar;
     }
 }

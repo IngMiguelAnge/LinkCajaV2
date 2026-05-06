@@ -22,7 +22,40 @@ namespace LinkCajaV2.Catalogs
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            if((int)cbPresentacion.SelectedValue == 0 || (int)cbProveedores.SelectedValue == 0
+                || nudPrecio.Value == 0)
+            {
+                MessageBox.Show("Datos incompletos revise la información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            cbPresentacion.Enabled = false;
+            // Obtenemos la lista que ya está conectada al Grid
+            var bindingList = (BindingList<ListPricesSuppliersModel>)dgvProveedores.DataSource;
 
+            // Si la lista no existe (porque es el primer artículo), la inicializamos
+            if (bindingList == null)
+            {
+                bindingList = new BindingList<ListPricesSuppliersModel>();
+                dgvProveedores.DataSource = bindingList;
+            }
+            var Existente = bindingList.FirstOrDefault(x => x.IdSupplier == (int)cbProveedores.SelectedValue);
+
+            if (Existente != null)
+            {
+                Existente.PriceUnit = nudPrecio.Value;
+                dgvProveedores.Refresh(); 
+            }
+            else
+            {
+                // Si es nuevo, lo agregamos a la lista
+                bindingList.Add(new ListPricesSuppliersModel
+                {
+                    Id = 0,
+                    IdSupplier = (int)cbProveedores.SelectedValue,
+                    Name = cbProveedores.Text,
+                    PriceUnit = nudPrecio.Value
+                });
+            }
         }
 
         private async void PricesSuppliers_Load(object sender, EventArgs e)
@@ -48,11 +81,13 @@ namespace LinkCajaV2.Catalogs
             CrearGridView();
             var lista = await Task.Run(() => obj.GetPricesSuppliersActives(Id));
 
-            if (lista != null)
+            if (lista != null && lista.Count > 0)
             {
                 // Usamos BindingList para que sea fácil agregar/quitar después
                 var bindingList = new BindingList<ListPricesSuppliersModel>(lista);
                 dgvProveedores.DataSource = bindingList;
+                cbPresentacion.SelectedValue = 5;
+                cbPresentacion.Enabled = false;
             }
         }
         public void CrearGridView()
@@ -214,14 +249,12 @@ namespace LinkCajaV2.Catalogs
             switch (dgvProveedores.Columns[e.ColumnIndex].Name)
             {
                 case "Quitar":
-                    // 2. Obtener la lista que está enlazada al Grid
                     var bindingList = (BindingList<ListPricesSuppliersModel>)dgvProveedores.DataSource;
 
-                    if (bindingList != null)
-                    {
-                        // 3. Borrar el objeto de la lista (el Grid se actualiza solo)
+                    if (bindingList != null && bindingList.Count > 0)
                         bindingList.RemoveAt(e.RowIndex);
-                    }
+                    if (bindingList.Count == 0)
+                        cbPresentacion.Enabled = true;
                     break;
             }
         }
