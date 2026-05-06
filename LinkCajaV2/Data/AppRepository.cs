@@ -20,6 +20,52 @@ namespace LinkCajaV2.Data
             GC.Collect();
         }
         #region PricesSuppliers
+        public async Task<bool> UpdateAllStatusPrices(int IdArticle)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("UpdateAllStatusPrices", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@IdArticle", IdArticle));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<bool> SavePricesSuppliers(PricesSuppliersModel item)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SavePricesSuppliers", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", item.Id));
+                        cmd.Parameters.Add(new SqlParameter("@IdSupplier", item.IdSupplier));
+                        cmd.Parameters.Add(new SqlParameter("@IdArticle", item.IdArticle));
+                        cmd.Parameters.Add(new SqlParameter("@PriceUnit", item.PriceUnit));
+                        cmd.Parameters.Add(new SqlParameter("@IdPresentation", item.IdPresentation));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public async Task<HighPriceModel> GetHighPrice(int IdArticle)
         {
             HighPriceModel Result = new HighPriceModel();
@@ -94,6 +140,7 @@ namespace LinkCajaV2.Data
                 IdSupplier = (int)reader["IdSupplier"],
                 Name = (string)reader["Name"],
                 PriceUnit = (decimal)reader["PriceUnit"],
+                IdPresentation = (int)reader["IdPresentation"]
             };
         }
         #endregion

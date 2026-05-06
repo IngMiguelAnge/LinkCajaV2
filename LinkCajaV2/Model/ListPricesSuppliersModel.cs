@@ -6,5 +6,6 @@
         public int IdSupplier { get; set; }
         public string Name { get; set; }
         public decimal PriceUnit { get; set; }
+        public int IdPresentation { get; set; }
     }
 }

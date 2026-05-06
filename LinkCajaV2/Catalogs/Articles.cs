@@ -108,7 +108,7 @@ namespace LinkCajaV2.Catalogs
                     break;
                 case "btnProveedores":
                     PricesSuppliers pr = new PricesSuppliers();
-                    pr.Id = Convert.ToInt32(Id);
+                    pr.IdArticle = Convert.ToInt32(Id);
                     pr.ShowDialog();
                     BuscarArticulos();
                     break;

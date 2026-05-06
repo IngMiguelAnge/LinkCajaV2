@@ -14,7 +14,7 @@ namespace LinkCajaV2.Catalogs
 {
     public partial class PricesSuppliers : Form
     {
-        public int Id { get; set; }
+        public int IdArticle { get; set; }
         public PricesSuppliers()
         {
             InitializeComponent();
@@ -79,14 +79,14 @@ namespace LinkCajaV2.Catalogs
             cbProveedores.DataSource = ListProveedores;
             cbProveedores.SelectedIndex = 0;
             CrearGridView();
-            var lista = await Task.Run(() => obj.GetPricesSuppliersActives(Id));
+            var lista = await Task.Run(() => obj.GetPricesSuppliersActives(IdArticle));
 
             if (lista != null && lista.Count > 0)
             {
                 // Usamos BindingList para que sea fácil agregar/quitar después
                 var bindingList = new BindingList<ListPricesSuppliersModel>(lista);
                 dgvProveedores.DataSource = bindingList;
-                cbPresentacion.SelectedValue = 5;
+                cbPresentacion.SelectedValue = lista.FirstOrDefault().IdPresentation;
                 cbPresentacion.Enabled = false;
             }
         }
@@ -99,6 +99,15 @@ namespace LinkCajaV2.Catalogs
                 Name = "Id",
                 HeaderText = "Id",
                 DataPropertyName = "Id",
+                ReadOnly = true,
+                Visible = false,
+                Width = 100
+            });
+            dgvProveedores.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "IdSupplier",
+                HeaderText = "IdSupplier",
+                DataPropertyName = "IdSupplier",
                 ReadOnly = true,
                 Visible = false,
                 Width = 100
@@ -257,6 +266,33 @@ namespace LinkCajaV2.Catalogs
                         cbPresentacion.Enabled = true;
                     break;
             }
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            if(dgvProveedores.Rows.Count == 0)
+            {
+                MessageBox.Show("No hay proveedores para guardar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            AppRepository obj = new AppRepository();
+            var r = obj.UpdateAllStatusPrices(IdArticle).Result;
+            foreach (DataGridViewRow fila in dgvProveedores.Rows)
+            {
+                PricesSuppliersModel item = new PricesSuppliersModel()
+                {
+                    Id = Convert.ToInt32(fila.Cells["Id"].Value.ToString()),
+                    IdSupplier = Convert.ToInt32(fila.Cells["IdSupplier"].Value.ToString()),
+                    IdArticle = IdArticle, 
+                    PriceUnit = Convert.ToDecimal(fila.Cells["Costo"].Value),
+                    IdPresentation = (int)cbPresentacion.SelectedValue,
+                    Status = true
+                };
+          
+                obj.SavePricesSuppliers(item).Wait();
+            }
+            MessageBox.Show("Articulo guardado correctamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
         }
     }
 }
