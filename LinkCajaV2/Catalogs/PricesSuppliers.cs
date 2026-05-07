@@ -15,6 +15,7 @@ namespace LinkCajaV2.Catalogs
     public partial class PricesSuppliers : Form
     {
         public int IdArticle { get; set; }
+        private bool hayarticulos = false;
         public PricesSuppliers()
         {
             InitializeComponent();
@@ -88,6 +89,13 @@ namespace LinkCajaV2.Catalogs
                 dgvProveedores.DataSource = bindingList;
                 cbPresentacion.SelectedValue = lista.FirstOrDefault().IdPresentation;
                 cbPresentacion.Enabled = false;
+            }
+            var Article = obj.GetStock(IdArticle).Result;
+            if (Article != null) {
+                hayarticulos = true;
+                cbPresentacion.Enabled = false;
+                cbPresentacion.SelectedValue = Article.IdPresentation;
+                MessageBox.Show("Este articulo ya cuenta con un stock no se puede cambiar la presentación", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         public void CrearGridView()
@@ -262,7 +270,7 @@ namespace LinkCajaV2.Catalogs
 
                     if (bindingList != null && bindingList.Count > 0)
                         bindingList.RemoveAt(e.RowIndex);
-                    if (bindingList.Count == 0)
+                    if (bindingList.Count == 0 && hayarticulos == false)
                         cbPresentacion.Enabled = true;
                     break;
             }
