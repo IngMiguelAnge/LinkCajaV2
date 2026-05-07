@@ -196,6 +196,7 @@
             // 
             // nudMargen
             // 
+            this.nudMargen.DecimalPlaces = 2;
             this.nudMargen.Location = new System.Drawing.Point(201, 142);
             this.nudMargen.Name = "nudMargen";
             this.nudMargen.Size = new System.Drawing.Size(120, 26);
