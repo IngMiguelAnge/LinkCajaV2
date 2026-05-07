@@ -46,6 +46,7 @@
             this.Porcentaje = new System.Windows.Forms.Label();
             this.lblRecomendacion2 = new System.Windows.Forms.Label();
             this.lblRecomendacion3 = new System.Windows.Forms.Label();
+            this.lblPrecioGramo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudCada)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudExistencias)).BeginInit();
@@ -124,7 +125,6 @@
             this.cbPresentacion.Name = "cbPresentacion";
             this.cbPresentacion.Size = new System.Drawing.Size(121, 28);
             this.cbPresentacion.TabIndex = 2;
-            this.cbPresentacion.SelectedIndexChanged += new System.EventHandler(this.cbPresentacion_SelectedIndexChanged);
             // 
             // lblPresentacion
             // 
@@ -158,7 +158,7 @@
             // 
             // BtnGuardar
             // 
-            this.BtnGuardar.Location = new System.Drawing.Point(36, 424);
+            this.BtnGuardar.Location = new System.Drawing.Point(36, 449);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(108, 35);
             this.BtnGuardar.TabIndex = 14;
@@ -200,6 +200,7 @@
             this.nudMargen.Name = "nudMargen";
             this.nudMargen.Size = new System.Drawing.Size(120, 26);
             this.nudMargen.TabIndex = 6;
+            this.nudMargen.ValueChanged += new System.EventHandler(this.nudMargen_ValueChanged);
             this.nudMargen.KeyUp += new System.Windows.Forms.KeyEventHandler(this.nudMargen_KeyUp);
             // 
             // Porcentaje
@@ -231,11 +232,22 @@
             this.lblRecomendacion3.TabIndex = 17;
             this.lblRecomendacion3.Text = "Se recomienda:";
             // 
+            // lblPrecioGramo
+            // 
+            this.lblPrecioGramo.AutoSize = true;
+            this.lblPrecioGramo.Location = new System.Drawing.Point(36, 406);
+            this.lblPrecioGramo.Name = "lblPrecioGramo";
+            this.lblPrecioGramo.Size = new System.Drawing.Size(18, 20);
+            this.lblPrecioGramo.TabIndex = 18;
+            this.lblPrecioGramo.Text = "$";
+            this.lblPrecioGramo.Visible = false;
+            // 
             // Stock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(414, 475);
+            this.ClientSize = new System.Drawing.Size(414, 496);
+            this.Controls.Add(this.lblPrecioGramo);
             this.Controls.Add(this.lblRecomendacion3);
             this.Controls.Add(this.lblRecomendacion2);
             this.Controls.Add(this.Porcentaje);
@@ -289,5 +301,6 @@
         private System.Windows.Forms.Label Porcentaje;
         private System.Windows.Forms.Label lblRecomendacion2;
         private System.Windows.Forms.Label lblRecomendacion3;
+        private System.Windows.Forms.Label lblPrecioGramo;
     }
 }

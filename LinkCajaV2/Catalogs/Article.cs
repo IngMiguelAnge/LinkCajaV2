@@ -22,7 +22,7 @@ namespace LinkCajaV2.Catalogs
         private void btnImagen_Click(object sender, EventArgs e)
         {
             OpenFileDialog selector = new OpenFileDialog();
-            selector.Filter = "Imagenes|*.jpg;*.jpeg;*.png;*.bmp";
+            selector.Filter = "Imagenes|*.jpg;*.jpeg;*.png;*.bmp;*.webp";
 
             if (selector.ShowDialog() == DialogResult.OK)
             {

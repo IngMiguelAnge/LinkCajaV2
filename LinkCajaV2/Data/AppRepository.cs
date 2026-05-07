@@ -1199,7 +1199,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@IdPresentation", obj.IdPresentation));
                         cmd.Parameters.Add(new SqlParameter("@Price", obj.Price));
                         cmd.Parameters.Add(new SqlParameter("@SuggestedStock", obj.SuggestedStock));
-
+                        cmd.Parameters.Add(new SqlParameter("@Margen", obj.Margen));
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;
@@ -1248,7 +1248,7 @@ namespace LinkCajaV2.Data
                 Id = (int)reader["Id"],
                 Stock = Convert.IsDBNull(reader["Stock"]) ? 0 : (decimal)reader["Stock"],
                 IdPresentation = Convert.IsDBNull(reader["IdPresentation"]) ? 0 : (int)reader["IdPresentation"],
-                Presentation = Convert.IsDBNull(reader["Image"]) ? string.Empty : (string)reader["Presentation"],
+                Presentation = Convert.IsDBNull(reader["Presentation"]) ? string.Empty : (string)reader["Presentation"],
                 Price = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
                 SuggestedStock = Convert.IsDBNull(reader["SuggestedStock"]) ? 0 : (decimal)reader["SuggestedStock"],
                 Margen = Convert.IsDBNull(reader["Margen"]) ? 0 : (decimal)reader["Margen"],

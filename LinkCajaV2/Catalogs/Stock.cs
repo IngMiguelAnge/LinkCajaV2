@@ -25,11 +25,6 @@ namespace LinkCajaV2.Catalogs
             nudCada.TextChanged += (s, e) => CalcularPrecioPorGramo();
         }
 
-        private void cbPresentacion_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!isLoaded) return;
-            //CambiarPresentacion();
-        }
         public void CambiarPresentacion()
         {
             if (cbPresentacion.SelectedIndex > 0)
@@ -40,7 +35,7 @@ namespace LinkCajaV2.Catalogs
                     string submedida = row.Presentation == "Kg" ? "gramo" :
                  row.Presentation == "L" ? "mililitro" :
                  row.Presentation == "M" ? "centimetro" : row.Name;
-                    lblCostoGramo.Text = "El costo por " + submedida + " es";
+                    lblCostoGramo.Text = "El costo por " + submedida + " es:";
                     int decimals = row.Decimals;
 
                     if (decimals == 3)
@@ -68,16 +63,13 @@ namespace LinkCajaV2.Catalogs
                         nudCada.Maximum = 1000000;
                         nudCada.Increment = 1M;
                         nudCada.Enabled = false;
-
-                        if (isLoaded)
-                        {
-                            nudExistencias.Value = 0;
-                            nudCada.Value = 1;
-                        }
+                        nudExistencias.Value = 0;
+                        nudCada.Value = 1;
                     }
                     if (decimals > 1)
                     {
                         lblCostoGramo.Visible = true;
+                        lblPrecioGramo.Visible = true;
                         CalcularPrecioPorGramo();
                     }
                     else
@@ -128,11 +120,11 @@ namespace LinkCajaV2.Catalogs
             {
                 //Precio / (Kilos * 1000)
                 decimal resultado = vPrecio / (vCada * 1000);
-                lblCostoGramo.Text += " $" + resultado.ToString("N4"); // N4 es mejor para gramos
+                lblPrecioGramo.Text = "$" + resultado.ToString("N4"); // N4 es mejor para gramos
             }
             else
             {
-                lblCostoGramo.Text += " $0.00";
+                lblPrecioGramo.Text = "$0.00";
             }
         }
 
@@ -179,6 +171,7 @@ namespace LinkCajaV2.Catalogs
                 IdPresentation = (int)cbPresentacion.SelectedValue,
                 Price = nudPrecio.Value,
                 SuggestedStock = nudCada.Value,
+                Margen = nudMargen.Value
             };
             AppRepository obj = new AppRepository();
             if (obj.SaveStock(Stock).Result)
@@ -196,35 +189,34 @@ namespace LinkCajaV2.Catalogs
             lblNombre.Text = "Stock de " + Nombre;
             AppRepository obj = new AppRepository();
             var CostoMax = obj.GetHighPrice(IdArticle).Result;
-            if(CostoMax == null)
+            if (CostoMax == null)
             {
                 MessageBox.Show("No se han encontrado proveedores con precios registrados, por favor registre al menos un proveedor para configurar el stock.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
                 return;
             }
             MyCostoMax = CostoMax.Price;
-            decimal precioMax = MyCostoMax/((100-0)/100);
+            decimal precioMax = MyCostoMax / ((100 - 0) / 100);
             lblRecomendacion.Text = "Se recomienda vender en:";
             lblRecomendacion3.Text = "$" + precioMax.ToString("N2");
             lblRecomendacion2.Text = "por cada " + CostoMax.Presentation.Substring(0, CostoMax.Presentation.Length - 1);
             nudPrecio.Value = Convert.ToDecimal(precioMax.ToString("N2"));
             var ListPresentation = obj.GetPresentations().Result;
             // Insertamos un objeto "fantasma" al inicio para el placeholder
-            ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione",Presentation=string.Empty, Decimals = 0 });
+            ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione", Presentation = string.Empty, Decimals = 0 });
             cbPresentacion.Items.Clear();
             // Configuramos el ComboBox
             cbPresentacion.DisplayMember = "Name";
             cbPresentacion.ValueMember = "Id";
             cbPresentacion.DataSource = ListPresentation;
             cbPresentacion.SelectedIndex = 0;
-            
+
             var Article = obj.GetStock(IdArticle).Result;
             cbPresentacion.SelectedValue = CostoMax.IdPresentation;
             CambiarPresentacion();
             if (ListPresentation.Where(l => l.Id == CostoMax.IdPresentation).FirstOrDefault()?.Decimals > 1)
             {
                 lblCostoGramo.Visible = true;
-                //CalcularPrecioPorGramo();
             }
             else
             {
@@ -232,26 +224,40 @@ namespace LinkCajaV2.Catalogs
             }
             if (IdArticle == 0 || Article == null)
             {
-                 isLoaded = true;  
+                isLoaded = true;
                 return;
             }
-            //cbPresentacion.SelectedValue = Article.IdPresentation;
+            nudMargen.Value = Article.Margen;
             nudExistencias.Value = Article.Stock;
             nudPrecio.Value = Article.Price;
             nudCada.Value = Article.SuggestedStock;
-            precioMax = MyCostoMax/ ((100 - Article.Margen) / 100);
-            lblRecomendacion.Text = "Se recomienda vender en:";
-            lblRecomendacion3.Text = "$" + precioMax.ToString("N2");
-            //CambiarPresentacion();
-            
             isLoaded = true;
         }
 
         private void nudMargen_KeyUp(object sender, KeyEventArgs e)
         {
             decimal precioMax = MyCostoMax / ((100 - nudMargen.Value) / 100);
-            lblRecomendacion.Text = "Se recomienda vender en: $" + precioMax.ToString("N2");
+            lblRecomendacion3.Text = "$" + precioMax.ToString("N2");
             nudPrecio.Value = Convert.ToDecimal(precioMax.ToString("N2"));
+        }
+
+        private void nudMargen_ValueChanged(object sender, EventArgs e)
+        {
+            decimal precioMax = MyCostoMax / ((100 - nudMargen.Value) / 100);
+            lblRecomendacion3.Text = "$" + precioMax.ToString("N2");
+            nudPrecio.Value = Convert.ToDecimal(precioMax.ToString("N2"));
+        }
+        public void CalcularMargen()
+        {
+            if (MyCostoMax > 0 && nudPrecio.Value > 0)
+            {
+                decimal margenCalculado = ((nudPrecio.Value - MyCostoMax) / nudPrecio.Value) * 100;
+                nudMargen.Value = Math.Round(margenCalculado, 2);
+            }
+            else
+            {
+                nudMargen.Value = 0;
+            }
         }
     }
 }
