@@ -112,12 +112,14 @@
             // 
             // BtnRecetas
             // 
+            this.BtnRecetas.Enabled = false;
             this.BtnRecetas.Location = new System.Drawing.Point(536, 26);
             this.BtnRecetas.Name = "BtnRecetas";
             this.BtnRecetas.Size = new System.Drawing.Size(93, 74);
             this.BtnRecetas.TabIndex = 4;
             this.BtnRecetas.Text = "Recetas";
             this.BtnRecetas.UseVisualStyleBackColor = true;
+            this.BtnRecetas.Visible = false;
             this.BtnRecetas.Click += new System.EventHandler(this.BtnRecetas_Click);
             // 
             // BtnArticulos

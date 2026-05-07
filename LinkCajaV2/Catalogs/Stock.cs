@@ -236,6 +236,10 @@ namespace LinkCajaV2.Catalogs
 
         private void nudMargen_KeyUp(object sender, KeyEventArgs e)
         {
+            if (nudMargen.Value >= 100)
+            {
+                nudMargen.Value = 99.99M;
+            }
             decimal precioMax = MyCostoMax / ((100 - nudMargen.Value) / 100);
             lblRecomendacion3.Text = "$" + precioMax.ToString("N2");
             nudPrecio.Value = Convert.ToDecimal(precioMax.ToString("N2"));
@@ -243,6 +247,10 @@ namespace LinkCajaV2.Catalogs
 
         private void nudMargen_ValueChanged(object sender, EventArgs e)
         {
+            if(nudMargen.Value >= 100)
+            {
+                nudMargen.Value = 99.99M;
+            }
             decimal precioMax = MyCostoMax / ((100 - nudMargen.Value) / 100);
             lblRecomendacion3.Text = "$" + precioMax.ToString("N2");
             nudPrecio.Value = Convert.ToDecimal(precioMax.ToString("N2"));

@@ -99,7 +99,7 @@
             this.nudPrecio.DecimalPlaces = 2;
             this.nudPrecio.Location = new System.Drawing.Point(36, 323);
             this.nudPrecio.Maximum = new decimal(new int[] {
-            10000,
+            10000000,
             0,
             0,
             0});
