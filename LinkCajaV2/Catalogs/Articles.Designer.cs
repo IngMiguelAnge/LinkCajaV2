@@ -37,6 +37,8 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblCodigo = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
+            this.btnImprimir = new System.Windows.Forms.Button();
+            this.BtnImpresion2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             this.SuspendLayout();
@@ -125,11 +127,35 @@
             this.txtCodigo.Size = new System.Drawing.Size(179, 26);
             this.txtCodigo.TabIndex = 4;
             // 
+            // btnImprimir
+            // 
+            this.btnImprimir.Enabled = false;
+            this.btnImprimir.Location = new System.Drawing.Point(588, 53);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(101, 46);
+            this.btnImprimir.TabIndex = 11;
+            this.btnImprimir.Text = "Imprimir precios";
+            this.btnImprimir.UseVisualStyleBackColor = true;
+            this.btnImprimir.Visible = false;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            // 
+            // BtnImpresion2
+            // 
+            this.BtnImpresion2.Location = new System.Drawing.Point(746, 53);
+            this.BtnImpresion2.Name = "BtnImpresion2";
+            this.BtnImpresion2.Size = new System.Drawing.Size(102, 46);
+            this.BtnImpresion2.TabIndex = 12;
+            this.BtnImpresion2.Text = "Imprimir";
+            this.BtnImpresion2.UseVisualStyleBackColor = true;
+            this.BtnImpresion2.Click += new System.EventHandler(this.BtnImpresion2_Click);
+            // 
             // Articles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1271, 576);
+            this.Controls.Add(this.BtnImpresion2);
+            this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.txtCodigo);
             this.Controls.Add(this.lblCodigo);
             this.Controls.Add(this.progressBar1);
@@ -163,5 +189,7 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label lblCodigo;
         private System.Windows.Forms.TextBox txtCodigo;
+        private System.Windows.Forms.Button btnImprimir;
+        private System.Windows.Forms.Button BtnImpresion2;
     }
 }

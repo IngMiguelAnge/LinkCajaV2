@@ -1,5 +1,11 @@
 ﻿using LinkCajaV2.Data;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -157,7 +163,186 @@ namespace LinkCajaV2.Catalogs
             if (IsVenta || IsReceta)
             {
                 btnNuevo.Visible = false;
+                btnImprimir.Visible = false;
             }
+        }
+
+        private async void btnImprimir_Click(object sender, EventArgs e)
+        {
+            AppRepository obj = new AppRepository();
+            var lista = await Task.Run(() => 
+              obj.GetArticles(txtCodigo.Text, txtNombre.Text, IsReceta)
+              );
+            try
+            {
+                QuestPDF.Settings.License = LicenseType.Community;
+
+                // 1. Definimos una ruta clara (en la carpeta del programa)
+                string nombreArchivo = "Lista de precios.pdf";
+                string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory + "\\Impresiones", nombreArchivo);
+
+                // 2. Crear el documento
+                var documento = Document.Create(container => {
+                    container.Page(page => {
+                        page.Size(PageSizes.A4);
+                        page.Margin(1, Unit.Centimetre);
+                        page.PageColor(Colors.White);
+
+                        page.Content().Table(table => {
+                            table.ColumnsDefinition(columns => {
+                                columns.RelativeColumn(); //Ancho fijo ConstantColumn(80) o relativo RelativeColumn()
+                                columns.RelativeColumn();
+                                columns.RelativeColumn();
+                                columns.RelativeColumn();
+                            });
+
+                            table.Header(header => {
+                                header.Cell().Element(CellStyle).Text("Código");
+                                header.Cell().Element(CellStyle).Text("Nombre");
+                                header.Cell().Element(CellStyle).Text("Por cada");
+                                header.Cell().Element(CellStyle).Text("Precio");
+                            });
+
+                            foreach (var item in lista)
+                            {
+                                table.Cell().Element(ContentStyle).Text(item.Codigo);
+                                table.Cell().Element(ContentStyle).Text(item.Articulo);
+                                table.Cell().Element(ContentStyle).Text(item.PorCada);
+                                table.Cell().Element(PriceCellStyle).Text(item.Precio.ToString("C"));
+
+                            }
+                        });
+                    });
+                });
+
+                // 3. ¡IMPORTANTE! Guardar el archivo
+                documento.GeneratePdf(rutaCompleta);
+
+                // 4. Mostrar mensaje de éxito y abrir archivo
+                //MessageBox.Show("PDF Generado con éxito en: " + rutaCompleta);
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(rutaCompleta) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                // Esto te dirá si el error es por permisos, si el archivo está abierto, etc.
+                MessageBox.Show("Error al crear PDF: " + ex.Message);
+            }
+        }
+
+        // 2. Métodos privados fuera del método anterior pero dentro de la misma clase
+        private IContainer CellStyle(IContainer container)
+        {
+            return container.DefaultTextStyle(x => x.SemiBold())
+                            .PaddingVertical(5)
+                            .BorderBottom(1)
+                            .BorderColor(Colors.Black);
+        }
+
+        private IContainer ContentStyle(IContainer container)
+        {
+            return container.PaddingVertical(5)
+                            .BorderBottom(0.5f)
+                            .BorderColor(Colors.Grey.Lighten2);
+        }
+        private IContainer PriceCellStyle(IContainer container)
+        {
+            return container
+                .Border(0.5f)                    // Dibuja el recuadro
+                .BorderColor(Colors.Grey.Medium) // Color de la línea
+                .PaddingHorizontal(5)            // Margen interno para que el texto no toque la línea
+                .AlignRight()                    // Alinea el número a la derecha
+                .AlignMiddle();                  // Centra verticalmente
+        }
+
+        private async void BtnImpresion2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // 1. Obtener la lista de artículos (usando tu lógica actual)
+                AppRepository obj = new AppRepository();
+                var lista = await System.Threading.Tasks.Task.Run(() => 
+                    obj.GetArticles(txtCodigo.Text, txtNombre.Text, IsReceta) 
+                );
+
+                if (lista == null || lista.Count == 0)
+                {
+                    MessageBox.Show("No hay artículos para mostrar en el PDF.");
+                    return;
+                }
+
+                // 2. Configurar licencia y ruta
+                QuestPDF.Settings.License = LicenseType.Community;
+                string nombreArchivo = "Lista de precios.pdf";
+                string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory + "\\Impresiones", nombreArchivo);
+
+                // 3. Crear el documento
+                Document.Create(container =>
+                {
+                    container.Page(page =>
+                    {
+                        page.Size(PageSizes.A4);
+                        page.Margin(1, Unit.Centimetre);
+                        page.PageColor(Colors.White);
+
+                        // Cabecera del documento
+                        page.Header().Row(row =>
+                        {
+                            row.RelativeItem().Column(col =>
+                            {
+                                col.Item().Text("CATÁLOGO DE PRODUCTOS").FontSize(16).SemiBold().FontColor(Colors.Blue.Medium);
+                                col.Item().Text("Generado el: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+                            });
+                        });
+
+                        // Contenido en Cuadrícula (Fluye de izquierda a derecha)
+                        page.Content().PaddingVertical(10).Inlined(inlined =>
+                        {
+                            inlined.Spacing(8); // Espacio entre recuadros
+                            inlined.AlignCenter(); // Centra la cuadrícula en la hoja
+
+                            foreach (var item in lista)
+                            {
+                                inlined.Item().Element(c => DibujarCuadroArticulo(c, item.Articulo, item.Precio));
+                            }
+                        });
+
+                        // Pie de página
+                        page.Footer().AlignCenter().Text(x =>
+                        {
+                            x.Span("Página ");
+                            x.CurrentPageNumber();
+                        });
+                    });
+                })
+                .GeneratePdf(rutaCompleta);
+
+                // 4. Abrir el archivo automáticamente
+                //MessageBox.Show("PDF generado con éxito.");
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(rutaCompleta) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar el PDF: " + ex.Message);
+            }
+        }
+        private void DibujarCuadroArticulo(IContainer container, string nombre, decimal precio)
+        {
+            container
+                .Width(130) // Ajusta este valor para tener más o menos cuadros por fila
+                .Border(0.5f)
+                .BorderColor(Colors.Grey.Medium)
+                .Padding(5)
+                .Column(col =>
+                {
+                    // Nombre del artículo (arriba)
+                    col.Item().Height(35).AlignCenter().Text(nombre).FontSize(9).SemiBold();
+
+                    // Línea divisoria
+                    col.Item().PaddingVertical(2).LineHorizontal(0.5f).LineColor(Colors.Grey.Lighten2);
+
+                    // Precio (abajo dentro del mismo cuadro)
+                    col.Item().AlignCenter().Text(precio.ToString("C2")).FontSize(12).FontColor(Colors.Green.Medium);
+                });
         }
     }
 }
