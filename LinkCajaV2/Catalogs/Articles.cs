@@ -316,8 +316,8 @@ namespace LinkCajaV2.Catalogs
                         {
                             row.RelativeItem().Column(col =>
                             {
-                                col.Item().Text("CATÁLOGO DE PRODUCTOS").FontSize(16).SemiBold().FontColor(Colors.Blue.Medium);
-                                col.Item().Text("Generado el: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+                                col.Item().Text("CATÁLOGO DE PRECIOS").FontSize(16).SemiBold().FontColor(Colors.Black);
+                                col.Item().Text("Generado el: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm")).FontSize(16).SemiBold().FontColor(Colors.Black);
                             });
                         });
 
@@ -357,7 +357,7 @@ namespace LinkCajaV2.Catalogs
             container
                 .Width(130) // Ajusta este valor para tener más o menos cuadros por fila
                 .Border(0.5f)
-                .BorderColor(Colors.Grey.Medium)
+                .BorderColor(Colors.Black)
                 .Padding(5)
                 .Column(col =>
                 {
@@ -365,7 +365,9 @@ namespace LinkCajaV2.Catalogs
                     col.Item().Height(35).AlignCenter().Text(nombre).FontSize(9).SemiBold();
 
                     // Línea divisoria
-                    col.Item().PaddingVertical(2).LineHorizontal(0.5f).LineColor(Colors.Grey.Lighten2);
+                    decimal h = 0.5M;
+                    float g = (float)h;
+                    col.Item().PaddingVertical(2).LineHorizontal(g).LineColor(Colors.Grey.Lighten2);
 
                     // Precio (abajo dentro del mismo cuadro)
                     col.Item().AlignCenter().Text(precio.ToString("C2")).FontSize(12).FontColor(Colors.Green.Medium);

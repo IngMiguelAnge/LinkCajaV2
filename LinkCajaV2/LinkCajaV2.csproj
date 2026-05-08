@@ -153,6 +153,12 @@
     <Compile Include="Configurations\Company.Designer.cs">
       <DependentUpon>Company.cs</DependentUpon>
     </Compile>
+    <Compile Include="Configurations\Impressions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configurations\Impressions.Designer.cs">
+      <DependentUpon>Impressions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\AppRepository.cs" />
     <Compile Include="Data\EncrypDesencryp.cs" />
     <Compile Include="Items\Decimals.cs">
@@ -261,6 +267,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Configurations\Company.resx">
       <DependentUpon>Company.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configurations\Impressions.resx">
+      <DependentUpon>Impressions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Items\Decimals.resx">
       <DependentUpon>Decimals.cs</DependentUpon>

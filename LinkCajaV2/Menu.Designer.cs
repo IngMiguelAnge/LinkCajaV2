@@ -41,6 +41,7 @@
             this.btnUsuarios = new System.Windows.Forms.Button();
             this.BtnVenta = new System.Windows.Forms.Button();
             this.lblMostrador = new System.Windows.Forms.Label();
+            this.btnImpresiones = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.GBConfiguraciones.SuspendLayout();
             this.gbCatalogos.SuspendLayout();
@@ -87,11 +88,12 @@
             // 
             // GBConfiguraciones
             // 
+            this.GBConfiguraciones.Controls.Add(this.btnImpresiones);
             this.GBConfiguraciones.Controls.Add(this.btnEmpresa);
             this.GBConfiguraciones.Controls.Add(this.BtnCajas);
             this.GBConfiguraciones.Location = new System.Drawing.Point(12, 62);
             this.GBConfiguraciones.Name = "GBConfiguraciones";
-            this.GBConfiguraciones.Size = new System.Drawing.Size(320, 138);
+            this.GBConfiguraciones.Size = new System.Drawing.Size(460, 138);
             this.GBConfiguraciones.TabIndex = 3;
             this.GBConfiguraciones.TabStop = false;
             this.GBConfiguraciones.Text = "Configuraciones";
@@ -181,6 +183,16 @@
             this.lblMostrador.TabIndex = 6;
             this.lblMostrador.Text = "Mostrador";
             // 
+            // btnImpresiones
+            // 
+            this.btnImpresiones.Location = new System.Drawing.Point(306, 35);
+            this.btnImpresiones.Name = "btnImpresiones";
+            this.btnImpresiones.Size = new System.Drawing.Size(130, 84);
+            this.btnImpresiones.TabIndex = 3;
+            this.btnImpresiones.Text = "Impresiones";
+            this.btnImpresiones.UseVisualStyleBackColor = true;
+            this.btnImpresiones.Click += new System.EventHandler(this.btnImpresiones_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -221,5 +233,6 @@
         private System.Windows.Forms.Button BtnRecetas;
         private System.Windows.Forms.Button BtnVenta;
         private System.Windows.Forms.Label lblMostrador;
+        private System.Windows.Forms.Button btnImpresiones;
     }
 }

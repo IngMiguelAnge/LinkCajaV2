@@ -1,5 +1,6 @@
 ﻿using LinkCajaV2.Catalogs;
 using LinkCajaV2.Configuraciones;
+using LinkCajaV2.Configurations;
 using LinkCajaV2.Items;
 using LinkCajaV2.Sales;
 using System;
@@ -94,6 +95,12 @@ namespace LinkCajaV2
             Venta s = new Venta();
             s.IdUsuario = IdUsuario;
             s.NameUser = NameUser;
+            s.Show();
+        }
+
+        private void btnImpresiones_Click(object sender, EventArgs e)
+        {
+            Impressions s = new Impressions();
             s.Show();
         }
     }
