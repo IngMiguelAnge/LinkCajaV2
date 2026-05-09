@@ -196,6 +196,7 @@
     <Compile Include="Model\BoxModel.cs" />
     <Compile Include="Model\ClientsModel.cs" />
     <Compile Include="Model\CompanyModel.cs" />
+    <Compile Include="Model\ConfigBoxModel.cs" />
     <Compile Include="Model\HighPriceModel.cs" />
     <Compile Include="Model\ItemModel.cs" />
     <Compile Include="Model\ItemsRecipeModel.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Model\ListArticlesModel.cs" />
     <Compile Include="Model\ListBoxModel.cs" />
     <Compile Include="Model\ListClientsModel.cs" />
+    <Compile Include="Model\ListConfigImpressionsModel.cs" />
     <Compile Include="Model\ListPresentationsModel.cs" />
     <Compile Include="Model\ListPricesSuppliersModel.cs" />
     <Compile Include="Model\ListSuppliersActivesModel.cs" />

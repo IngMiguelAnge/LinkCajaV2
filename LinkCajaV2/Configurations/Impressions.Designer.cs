@@ -34,8 +34,8 @@
             this.CBPagina = new System.Windows.Forms.ComboBox();
             this.lblSizeLetra = new System.Windows.Forms.Label();
             this.NUDSizeLetra = new System.Windows.Forms.NumericUpDown();
-            this.lblGrosorLetra = new System.Windows.Forms.Label();
-            this.CBGrosor = new System.Windows.Forms.ComboBox();
+            this.lblEstiloLetra = new System.Windows.Forms.Label();
+            this.CBEstilo = new System.Windows.Forms.ComboBox();
             this.lblColorLetra = new System.Windows.Forms.Label();
             this.CBColorLetra = new System.Windows.Forms.ComboBox();
             this.lblModificar = new System.Windows.Forms.Label();
@@ -49,9 +49,18 @@
             this.CBColorLinea = new System.Windows.Forms.ComboBox();
             this.lblColorLinea = new System.Windows.Forms.Label();
             this.BtnGuardar = new System.Windows.Forms.Button();
+            this.lblAlturalinea = new System.Windows.Forms.Label();
+            this.NUDHightLine = new System.Windows.Forms.NumericUpDown();
+            this.lblAMilimetros = new System.Windows.Forms.Label();
+            this.NUDAMilimetros = new System.Windows.Forms.NumericUpDown();
+            this.lblAMilemetros = new System.Windows.Forms.Label();
+            this.NUDALMilimetros = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.NUDSizeLetra)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDEspacio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDAncho)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDHightLine)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDAMilimetros)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDALMilimetros)).BeginInit();
             this.SuspendLayout();
             // 
             // lblImpresiones
@@ -85,6 +94,9 @@
             // CBPagina
             // 
             this.CBPagina.FormattingEnabled = true;
+            this.CBPagina.Items.AddRange(new object[] {
+            "A4",
+            "mm"});
             this.CBPagina.Location = new System.Drawing.Point(236, 55);
             this.CBPagina.Name = "CBPagina";
             this.CBPagina.Size = new System.Drawing.Size(121, 28);
@@ -93,7 +105,7 @@
             // lblSizeLetra
             // 
             this.lblSizeLetra.AutoSize = true;
-            this.lblSizeLetra.Location = new System.Drawing.Point(37, 94);
+            this.lblSizeLetra.Location = new System.Drawing.Point(37, 255);
             this.lblSizeLetra.Name = "lblSizeLetra";
             this.lblSizeLetra.Size = new System.Drawing.Size(128, 20);
             this.lblSizeLetra.TabIndex = 5;
@@ -101,7 +113,7 @@
             // 
             // NUDSizeLetra
             // 
-            this.NUDSizeLetra.Location = new System.Drawing.Point(41, 117);
+            this.NUDSizeLetra.Location = new System.Drawing.Point(41, 278);
             this.NUDSizeLetra.Maximum = new decimal(new int[] {
             50,
             0,
@@ -111,32 +123,32 @@
             this.NUDSizeLetra.Size = new System.Drawing.Size(124, 26);
             this.NUDSizeLetra.TabIndex = 6;
             // 
-            // lblGrosorLetra
+            // lblEstiloLetra
             // 
-            this.lblGrosorLetra.AutoSize = true;
-            this.lblGrosorLetra.Location = new System.Drawing.Point(206, 94);
-            this.lblGrosorLetra.Name = "lblGrosorLetra";
-            this.lblGrosorLetra.Size = new System.Drawing.Size(119, 20);
-            this.lblGrosorLetra.TabIndex = 7;
-            this.lblGrosorLetra.Text = "Grosor de letra:";
+            this.lblEstiloLetra.AutoSize = true;
+            this.lblEstiloLetra.Location = new System.Drawing.Point(232, 253);
+            this.lblEstiloLetra.Name = "lblEstiloLetra";
+            this.lblEstiloLetra.Size = new System.Drawing.Size(109, 20);
+            this.lblEstiloLetra.TabIndex = 7;
+            this.lblEstiloLetra.Text = "Estilo de letra:";
             // 
-            // CBGrosor
+            // CBEstilo
             // 
-            this.CBGrosor.FormattingEnabled = true;
-            this.CBGrosor.Items.AddRange(new object[] {
+            this.CBEstilo.FormattingEnabled = true;
+            this.CBEstilo.Items.AddRange(new object[] {
             "Normal",
             "Medium",
             "SemiBold",
             "Bold"});
-            this.CBGrosor.Location = new System.Drawing.Point(210, 117);
-            this.CBGrosor.Name = "CBGrosor";
-            this.CBGrosor.Size = new System.Drawing.Size(121, 28);
-            this.CBGrosor.TabIndex = 8;
+            this.CBEstilo.Location = new System.Drawing.Point(236, 276);
+            this.CBEstilo.Name = "CBEstilo";
+            this.CBEstilo.Size = new System.Drawing.Size(121, 28);
+            this.CBEstilo.TabIndex = 8;
             // 
             // lblColorLetra
             // 
             this.lblColorLetra.AutoSize = true;
-            this.lblColorLetra.Location = new System.Drawing.Point(349, 94);
+            this.lblColorLetra.Location = new System.Drawing.Point(388, 253);
             this.lblColorLetra.Name = "lblColorLetra";
             this.lblColorLetra.Size = new System.Drawing.Size(107, 20);
             this.lblColorLetra.TabIndex = 9;
@@ -150,7 +162,7 @@
             "Rojo",
             "Azul",
             "Verde"});
-            this.CBColorLetra.Location = new System.Drawing.Point(353, 117);
+            this.CBColorLetra.Location = new System.Drawing.Point(392, 276);
             this.CBColorLetra.Name = "CBColorLetra";
             this.CBColorLetra.Size = new System.Drawing.Size(121, 28);
             this.CBColorLetra.TabIndex = 10;
@@ -158,7 +170,7 @@
             // lblModificar
             // 
             this.lblModificar.AutoSize = true;
-            this.lblModificar.Location = new System.Drawing.Point(389, 23);
+            this.lblModificar.Location = new System.Drawing.Point(43, 180);
             this.lblModificar.Name = "lblModificar";
             this.lblModificar.Size = new System.Drawing.Size(77, 20);
             this.lblModificar.TabIndex = 11;
@@ -173,7 +185,7 @@
             "Articulos",
             "Precios",
             "Recuadro"});
-            this.CBModificar.Location = new System.Drawing.Point(393, 55);
+            this.CBModificar.Location = new System.Drawing.Point(41, 203);
             this.CBModificar.Name = "CBModificar";
             this.CBModificar.Size = new System.Drawing.Size(121, 28);
             this.CBModificar.TabIndex = 12;
@@ -181,7 +193,7 @@
             // lblEspacio
             // 
             this.lblEspacio.AutoSize = true;
-            this.lblEspacio.Location = new System.Drawing.Point(37, 169);
+            this.lblEspacio.Location = new System.Drawing.Point(37, 330);
             this.lblEspacio.Name = "lblEspacio";
             this.lblEspacio.Size = new System.Drawing.Size(186, 20);
             this.lblEspacio.TabIndex = 13;
@@ -189,7 +201,7 @@
             // 
             // NUDEspacio
             // 
-            this.NUDEspacio.Location = new System.Drawing.Point(41, 202);
+            this.NUDEspacio.Location = new System.Drawing.Point(41, 363);
             this.NUDEspacio.Maximum = new decimal(new int[] {
             50,
             0,
@@ -202,7 +214,7 @@
             // lblAlineacion
             // 
             this.lblAlineacion.AutoSize = true;
-            this.lblAlineacion.Location = new System.Drawing.Point(244, 169);
+            this.lblAlineacion.Location = new System.Drawing.Point(232, 330);
             this.lblAlineacion.Name = "lblAlineacion";
             this.lblAlineacion.Size = new System.Drawing.Size(86, 20);
             this.lblAlineacion.TabIndex = 15;
@@ -215,7 +227,7 @@
             "Izquierda",
             "Centro",
             "Derecha"});
-            this.CBAlineacion.Location = new System.Drawing.Point(236, 193);
+            this.CBAlineacion.Location = new System.Drawing.Point(236, 354);
             this.CBAlineacion.Name = "CBAlineacion";
             this.CBAlineacion.Size = new System.Drawing.Size(121, 28);
             this.CBAlineacion.TabIndex = 16;
@@ -223,7 +235,7 @@
             // lblAncho
             // 
             this.lblAncho.AutoSize = true;
-            this.lblAncho.Location = new System.Drawing.Point(389, 169);
+            this.lblAncho.Location = new System.Drawing.Point(389, 330);
             this.lblAncho.Name = "lblAncho";
             this.lblAncho.Size = new System.Drawing.Size(148, 20);
             this.lblAncho.TabIndex = 17;
@@ -231,7 +243,7 @@
             // 
             // NUDAncho
             // 
-            this.NUDAncho.Location = new System.Drawing.Point(393, 194);
+            this.NUDAncho.Location = new System.Drawing.Point(393, 355);
             this.NUDAncho.Maximum = new decimal(new int[] {
             300,
             0,
@@ -248,8 +260,9 @@
             "Negro",
             "Rojo",
             "Azul",
-            "Verde"});
-            this.CBColorLinea.Location = new System.Drawing.Point(41, 263);
+            "Verde",
+            "Gris"});
+            this.CBColorLinea.Location = new System.Drawing.Point(236, 426);
             this.CBColorLinea.Name = "CBColorLinea";
             this.CBColorLinea.Size = new System.Drawing.Size(121, 28);
             this.CBColorLinea.TabIndex = 20;
@@ -257,7 +270,7 @@
             // lblColorLinea
             // 
             this.lblColorLinea.AutoSize = true;
-            this.lblColorLinea.Location = new System.Drawing.Point(37, 240);
+            this.lblColorLinea.Location = new System.Drawing.Point(232, 403);
             this.lblColorLinea.Name = "lblColorLinea";
             this.lblColorLinea.Size = new System.Drawing.Size(109, 20);
             this.lblColorLinea.TabIndex = 19;
@@ -265,18 +278,88 @@
             // 
             // BtnGuardar
             // 
-            this.BtnGuardar.Location = new System.Drawing.Point(41, 307);
+            this.BtnGuardar.Location = new System.Drawing.Point(41, 468);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(79, 42);
             this.BtnGuardar.TabIndex = 21;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = true;
             // 
+            // lblAlturalinea
+            // 
+            this.lblAlturalinea.AutoSize = true;
+            this.lblAlturalinea.Location = new System.Drawing.Point(40, 403);
+            this.lblAlturalinea.Name = "lblAlturalinea";
+            this.lblAlturalinea.Size = new System.Drawing.Size(114, 20);
+            this.lblAlturalinea.TabIndex = 22;
+            this.lblAlturalinea.Text = "Altura de linea:";
+            // 
+            // NUDHightLine
+            // 
+            this.NUDHightLine.DecimalPlaces = 2;
+            this.NUDHightLine.Location = new System.Drawing.Point(45, 428);
+            this.NUDHightLine.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.NUDHightLine.Name = "NUDHightLine";
+            this.NUDHightLine.Size = new System.Drawing.Size(120, 26);
+            this.NUDHightLine.TabIndex = 23;
+            // 
+            // lblAMilimetros
+            // 
+            this.lblAMilimetros.AutoSize = true;
+            this.lblAMilimetros.Location = new System.Drawing.Point(43, 98);
+            this.lblAMilimetros.Name = "lblAMilimetros";
+            this.lblAMilimetros.Size = new System.Drawing.Size(55, 20);
+            this.lblAMilimetros.TabIndex = 24;
+            this.lblAMilimetros.Text = "Ancho";
+            // 
+            // NUDAMilimetros
+            // 
+            this.NUDAMilimetros.Location = new System.Drawing.Point(44, 139);
+            this.NUDAMilimetros.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.NUDAMilimetros.Name = "NUDAMilimetros";
+            this.NUDAMilimetros.Size = new System.Drawing.Size(120, 26);
+            this.NUDAMilimetros.TabIndex = 25;
+            // 
+            // lblAMilemetros
+            // 
+            this.lblAMilemetros.AutoSize = true;
+            this.lblAMilemetros.Location = new System.Drawing.Point(232, 98);
+            this.lblAMilemetros.Name = "lblAMilemetros";
+            this.lblAMilemetros.Size = new System.Drawing.Size(37, 20);
+            this.lblAMilemetros.TabIndex = 26;
+            this.lblAMilemetros.Text = "Alto";
+            // 
+            // NUDALMilimetros
+            // 
+            this.NUDALMilimetros.Location = new System.Drawing.Point(236, 139);
+            this.NUDALMilimetros.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.NUDALMilimetros.Name = "NUDALMilimetros";
+            this.NUDALMilimetros.Size = new System.Drawing.Size(120, 26);
+            this.NUDALMilimetros.TabIndex = 27;
+            // 
             // Impressions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(549, 357);
+            this.ClientSize = new System.Drawing.Size(662, 532);
+            this.Controls.Add(this.NUDALMilimetros);
+            this.Controls.Add(this.lblAMilemetros);
+            this.Controls.Add(this.NUDAMilimetros);
+            this.Controls.Add(this.lblAMilimetros);
+            this.Controls.Add(this.NUDHightLine);
+            this.Controls.Add(this.lblAlturalinea);
             this.Controls.Add(this.BtnGuardar);
             this.Controls.Add(this.CBColorLinea);
             this.Controls.Add(this.lblColorLinea);
@@ -290,8 +373,8 @@
             this.Controls.Add(this.lblModificar);
             this.Controls.Add(this.CBColorLetra);
             this.Controls.Add(this.lblColorLetra);
-            this.Controls.Add(this.CBGrosor);
-            this.Controls.Add(this.lblGrosorLetra);
+            this.Controls.Add(this.CBEstilo);
+            this.Controls.Add(this.lblEstiloLetra);
             this.Controls.Add(this.NUDSizeLetra);
             this.Controls.Add(this.lblSizeLetra);
             this.Controls.Add(this.CBPagina);
@@ -304,6 +387,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.NUDSizeLetra)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDEspacio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDAncho)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDHightLine)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDAMilimetros)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDALMilimetros)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -317,8 +403,8 @@
         private System.Windows.Forms.ComboBox CBPagina;
         private System.Windows.Forms.Label lblSizeLetra;
         private System.Windows.Forms.NumericUpDown NUDSizeLetra;
-        private System.Windows.Forms.Label lblGrosorLetra;
-        private System.Windows.Forms.ComboBox CBGrosor;
+        private System.Windows.Forms.Label lblEstiloLetra;
+        private System.Windows.Forms.ComboBox CBEstilo;
         private System.Windows.Forms.Label lblColorLetra;
         private System.Windows.Forms.ComboBox CBColorLetra;
         private System.Windows.Forms.Label lblModificar;
@@ -332,5 +418,11 @@
         private System.Windows.Forms.ComboBox CBColorLinea;
         private System.Windows.Forms.Label lblColorLinea;
         private System.Windows.Forms.Button BtnGuardar;
+        private System.Windows.Forms.Label lblAlturalinea;
+        private System.Windows.Forms.NumericUpDown NUDHightLine;
+        private System.Windows.Forms.Label lblAMilimetros;
+        private System.Windows.Forms.NumericUpDown NUDAMilimetros;
+        private System.Windows.Forms.Label lblAMilemetros;
+        private System.Windows.Forms.NumericUpDown NUDALMilimetros;
     }
 }

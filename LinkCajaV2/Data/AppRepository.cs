@@ -19,6 +19,87 @@ namespace LinkCajaV2.Data
         {
             GC.Collect();
         }
+        #region ConfigImpressions
+        public async Task<List<ListConfigImpressionsModel>> GetConfigImpressions()
+        {
+            List<ListConfigImpressionsModel> list = new List<ListConfigImpressionsModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetConfigImpressions", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToConfigImpressions(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
+        private ListConfigImpressionsModel MapToConfigImpressions(SqlDataReader reader)
+        {
+            return new ListConfigImpressionsModel()
+            {
+                Name = (string)reader["Name"],
+                FontSize = (int)reader["FontSize"],
+                FontStyle = (string)reader["FontStyle"],
+                FontColor = (string)reader["FontColor"],
+            };
+        }
+        public async Task<ConfigBoxModel> GetConfigBox()
+        {
+            ConfigBoxModel Result = new ConfigBoxModel();
+            List<ConfigBoxModel> list = new List<ConfigBoxModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetConfigBox", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToConfigBox(reader));
+                            }
+                            Result = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Result = null;
+            }
+            return Result;
+        }
+        private ConfigBoxModel MapToConfigBox(SqlDataReader reader)
+        {
+            return new ConfigBoxModel()
+            {
+                Page = (string)reader["Page"],
+                Spacing = (int)reader["Spacing"],
+                Align = (string)reader["Align"],
+                Width = (int)reader["Width"],
+                HightLine = (decimal)reader["HightLine"],
+                ColorLine = (string)reader["ColorLine"],
+                WidthPage = Convert.IsDBNull(reader["WidthPage"]) ? (decimal?)null : (decimal)reader["WidthPage"],
+                HitghtPage = Convert.IsDBNull(reader["HitghtPage"]) ? (decimal?)null : (decimal)reader["HitghtPage"],
+            };
+        }
+        #endregion
         #region PricesSuppliers
         public async Task<bool> UpdateAllStatusPrices(int IdArticle)
         {

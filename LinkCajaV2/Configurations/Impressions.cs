@@ -16,5 +16,6 @@ namespace LinkCajaV2.Configurations
         {
             InitializeComponent();
         }
+
     }
 }
