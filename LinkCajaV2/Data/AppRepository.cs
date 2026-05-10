@@ -95,8 +95,8 @@ namespace LinkCajaV2.Data
                 Width = (int)reader["Width"],
                 HightLine = (decimal)reader["HightLine"],
                 ColorLine = (string)reader["ColorLine"],
-                WidthPage = Convert.IsDBNull(reader["WidthPage"]) ? (decimal?)null : (decimal)reader["WidthPage"],
-                HitghtPage = Convert.IsDBNull(reader["HitghtPage"]) ? (decimal?)null : (decimal)reader["HitghtPage"],
+                WidthPage = (decimal)reader["WidthPage"],
+                HightPage = (decimal)reader["HightPage"],
             };
         }
         #endregion

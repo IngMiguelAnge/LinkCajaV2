@@ -46,6 +46,7 @@
             // 
             // cbPresentacion
             // 
+            this.cbPresentacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbPresentacion.FormattingEnabled = true;
             this.cbPresentacion.Location = new System.Drawing.Point(252, 38);
             this.cbPresentacion.Name = "cbPresentacion";
@@ -85,6 +86,7 @@
             // 
             // cbProveedores
             // 
+            this.cbProveedores.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProveedores.FormattingEnabled = true;
             this.cbProveedores.Location = new System.Drawing.Point(252, 118);
             this.cbProveedores.Name = "cbProveedores";

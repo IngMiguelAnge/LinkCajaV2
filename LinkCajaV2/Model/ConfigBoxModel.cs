@@ -8,7 +8,7 @@
         public int Width { get; set; }
         public decimal HightLine { get; set; }
         public string ColorLine { get; set; }
-        public decimal? WidthPage { get; set; }
-        public decimal? HitghtPage { get; set; }
+        public decimal WidthPage { get; set; }
+        public decimal HightPage { get; set; }
     }
 }

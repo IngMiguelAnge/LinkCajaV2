@@ -210,6 +210,7 @@
     <Compile Include="Model\ListSuppliersActivesModel.cs" />
     <Compile Include="Model\ListSuppliersModel.cs" />
     <Compile Include="Model\ListUserModel.cs" />
+    <Compile Include="Model\OpcionComboModel.cs" />
     <Compile Include="Model\PresentationModel.cs" />
     <Compile Include="Model\PricesSuppliersModel.cs" />
     <Compile Include="Model\RecipeModel.cs" />

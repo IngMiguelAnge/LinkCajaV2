@@ -119,6 +119,7 @@
             // 
             // cbPresentacion
             // 
+            this.cbPresentacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbPresentacion.Enabled = false;
             this.cbPresentacion.FormattingEnabled = true;
             this.cbPresentacion.Location = new System.Drawing.Point(36, 93);

@@ -33,7 +33,7 @@ namespace LinkCajaV2.Items
         {
             Instalador i = new Instalador();
             i.ShowDialog();
-            if(i.NameLicense != string.Empty)
+            if(i.NameLicense != null && i.NameLicense != string.Empty)
             {
                 string complement = i.Box == "10000" ? "Cajas sin limite" : i.Box + " caja(s)";
                 lblMensaje1.Text = "Licencia activa: " + i.NameLicense + " para " + complement;

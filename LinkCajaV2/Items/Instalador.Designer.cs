@@ -73,6 +73,7 @@
             // 
             // cbLicencias
             // 
+            this.cbLicencias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLicencias.Enabled = false;
             this.cbLicencias.FormattingEnabled = true;
             this.cbLicencias.Location = new System.Drawing.Point(28, 149);

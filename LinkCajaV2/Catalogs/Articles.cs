@@ -321,7 +321,7 @@ namespace LinkCajaV2.Catalogs
                         else
                         {
                             const float MM = 2.8346f;
-                            page.Size((float)ConfigBox.WidthPage * MM, (float)ConfigBox.HitghtPage * MM);//88mm X 250mm
+                            page.Size((float)ConfigBox.WidthPage * MM, (float)ConfigBox.HightPage * MM);//88mm X 250mm
                             page.Margin(2f * MM);
                         }                                              
 
