@@ -153,5 +153,22 @@ namespace LinkCajaV2.Configurations
                 GBLinea.Visible = false;
             }
         }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            List<ImprimirPreciosModel> articulos = new List<ImprimirPreciosModel>();
+            articulos.Add(new ImprimirPreciosModel() { Articulo = "Coca Cola", Precio = 15.50m });
+            articulos.Add(new ImprimirPreciosModel() { Articulo = "Pepsi", Precio = 14.00m });
+            articulos.Add(new ImprimirPreciosModel() { Articulo = "Fanta", Precio = 13.75m });
+            articulos.Add(new ImprimirPreciosModel() { Articulo = "Sprite", Precio = 12.25m });
+            articulos.Add(new ImprimirPreciosModel() { Articulo = "Agua", Precio = 10.00m });
+            articulos.Add(new ImprimirPreciosModel() { Articulo = "Jugo", Precio = 18.00m });
+            articulos.Add(new ImprimirPreciosModel() { Articulo = "Cerveza", Precio = 20.00m });
+            articulos.Add(new ImprimirPreciosModel() { Articulo = "Vino", Precio = 50.00m });
+            articulos.Add(new ImprimirPreciosModel() { Articulo = "Whisky", Precio = 100.00m });
+            articulos.Add(new ImprimirPreciosModel() { Articulo = "Ron", Precio = 80.00m });
+            ImpressionsGeneral im = new ImpressionsGeneral();
+            im.ImpresionPrecios(articulos);
+        }
     }
 }

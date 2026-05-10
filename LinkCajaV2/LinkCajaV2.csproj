@@ -161,6 +161,7 @@
     </Compile>
     <Compile Include="Data\AppRepository.cs" />
     <Compile Include="Data\EncrypDesencryp.cs" />
+    <Compile Include="Data\ImpressionsGeneral.cs" />
     <Compile Include="Items\Decimals.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,6 +199,7 @@
     <Compile Include="Model\CompanyModel.cs" />
     <Compile Include="Model\ConfigBoxModel.cs" />
     <Compile Include="Model\HighPriceModel.cs" />
+    <Compile Include="Model\ImprimirPreciosModel.cs" />
     <Compile Include="Model\ItemModel.cs" />
     <Compile Include="Model\ItemsRecipeModel.cs" />
     <Compile Include="Model\KeysModel.cs" />

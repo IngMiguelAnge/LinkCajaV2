@@ -59,6 +59,7 @@
             this.GBLetras = new System.Windows.Forms.GroupBox();
             this.GBCuadros = new System.Windows.Forms.GroupBox();
             this.GBLinea = new System.Windows.Forms.GroupBox();
+            this.btnImprimir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.NUDSizeLetra)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDEspacio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDAncho)).BeginInit();
@@ -396,11 +397,22 @@
             this.GBLinea.Text = "Estilo de linea";
             this.GBLinea.Visible = false;
             // 
+            // btnImprimir
+            // 
+            this.btnImprimir.Location = new System.Drawing.Point(179, 601);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(94, 42);
+            this.btnImprimir.TabIndex = 32;
+            this.btnImprimir.Text = "Imprimir";
+            this.btnImprimir.UseVisualStyleBackColor = true;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            // 
             // Impressions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(635, 656);
+            this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.GBLinea);
             this.Controls.Add(this.GBCuadros);
             this.Controls.Add(this.GBLetras);
@@ -468,5 +480,6 @@
         private System.Windows.Forms.GroupBox GBLetras;
         private System.Windows.Forms.GroupBox GBCuadros;
         private System.Windows.Forms.GroupBox GBLinea;
+        private System.Windows.Forms.Button btnImprimir;
     }
 }
