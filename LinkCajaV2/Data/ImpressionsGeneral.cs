@@ -14,9 +14,9 @@ namespace LinkCajaV2.Data
 {
     public class ImpressionsGeneral
     {
-        ConfigBoxModel ConfigBox;
+        ConfigPageModel ConfigBox;
         List<ListConfigImpressionsModel> ConfigImpressions;
-        public void ImpresionPrecios(List<ImprimirPreciosModel> ListArticulos) {
+        public void ImpresionPrecios(List<PrinterPricesModel> ListArticulos) {
             try
             {
                 AppRepository obj = new AppRepository();

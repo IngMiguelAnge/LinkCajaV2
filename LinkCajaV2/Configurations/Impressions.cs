@@ -20,7 +20,8 @@ namespace LinkCajaV2.Configurations
         {
             InitializeComponent();
         }
-        public void Iniciar() {
+        public void Iniciar()
+        {
             CBPagina.Items.Add("Seleccione");
             CBPagina.Items.Add("A4");
             CBPagina.Items.Add("mm");
@@ -60,11 +61,11 @@ namespace LinkCajaV2.Configurations
             listaDirecciones.Add(new OpcionComboModel() { Texto = "Centro", Valor = "AlignCenter" });
             listaDirecciones.Add(new OpcionComboModel() { Texto = "Derecha", Valor = "AlignRight" });
 
-      
+
             CBAlineacion.DisplayMember = "Texto";
             CBAlineacion.ValueMember = "Valor";
             CBAlineacion.DataSource = listaDirecciones;
-            CBAlineacion.SelectedIndex = 0;       
+            CBAlineacion.SelectedIndex = 0;
 
             CBColorLinea.DisplayMember = "Texto";
             CBColorLinea.ValueMember = "Valor";
@@ -75,7 +76,7 @@ namespace LinkCajaV2.Configurations
         {
             CBImpresiones.Items.Add("Seleccione");
             CBImpresiones.Items.Add("Lista de precios");
-            CBImpresiones.SelectedIndex = 0;           
+            CBImpresiones.SelectedIndex = 0;
         }
 
         private void CBPagina_SelectedIndexChanged(object sender, EventArgs e)
@@ -83,16 +84,16 @@ namespace LinkCajaV2.Configurations
             GBMPagina.Visible = false;
             if (CBPagina.Text == "mm")
             {
-              GBMPagina.Visible = true;
+                GBMPagina.Visible = true;
             }
         }
 
         private void CBModificar_SelectedIndexChanged(object sender, EventArgs e)
-        {        
+        {
             GBCuadros.Visible = false;
             GBLetras.Visible = false;
             GBLinea.Visible = false;
-            int Fontsize = 16;          
+            int Fontsize = 16;
             string Color = "Black";
             string FontStyle = "SemiBold";
 
@@ -135,7 +136,7 @@ namespace LinkCajaV2.Configurations
             {
                 Iniciar();
                 AppRepository obj = new AppRepository();
-                ConfigBoxModel ConfigBox = obj.GetConfigBox().Result;
+                ConfigPageModel ConfigBox = obj.GetConfigBox().Result;
                 CBColorLinea.SelectedValue = ConfigBox.ColorLine;
                 CBAlineacion.SelectedValue = ConfigBox.Align;
                 NUDEspacio.Value = ConfigBox.Spacing;
@@ -156,19 +157,71 @@ namespace LinkCajaV2.Configurations
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            List<ImprimirPreciosModel> articulos = new List<ImprimirPreciosModel>();
-            articulos.Add(new ImprimirPreciosModel() { Articulo = "Coca Cola", Precio = 15.50m });
-            articulos.Add(new ImprimirPreciosModel() { Articulo = "Pepsi", Precio = 14.00m });
-            articulos.Add(new ImprimirPreciosModel() { Articulo = "Fanta", Precio = 13.75m });
-            articulos.Add(new ImprimirPreciosModel() { Articulo = "Sprite", Precio = 12.25m });
-            articulos.Add(new ImprimirPreciosModel() { Articulo = "Agua", Precio = 10.00m });
-            articulos.Add(new ImprimirPreciosModel() { Articulo = "Jugo", Precio = 18.00m });
-            articulos.Add(new ImprimirPreciosModel() { Articulo = "Cerveza", Precio = 20.00m });
-            articulos.Add(new ImprimirPreciosModel() { Articulo = "Vino", Precio = 50.00m });
-            articulos.Add(new ImprimirPreciosModel() { Articulo = "Whisky", Precio = 100.00m });
-            articulos.Add(new ImprimirPreciosModel() { Articulo = "Ron", Precio = 80.00m });
+            List<PrinterPricesModel> articulos = new List<PrinterPricesModel>();
+            articulos.Add(new PrinterPricesModel() { Articulo = "Coca Cola", Precio = 15.50m });
+            articulos.Add(new PrinterPricesModel() { Articulo = "Pepsi", Precio = 14.00m });
+            articulos.Add(new PrinterPricesModel() { Articulo = "Fanta", Precio = 13.75m });
+            articulos.Add(new PrinterPricesModel() { Articulo = "Sprite", Precio = 12.25m });
+            articulos.Add(new PrinterPricesModel() { Articulo = "Agua", Precio = 10.00m });
+            articulos.Add(new PrinterPricesModel() { Articulo = "Jugo", Precio = 18.00m });
+            articulos.Add(new PrinterPricesModel() { Articulo = "Cerveza", Precio = 20.00m });
+            articulos.Add(new PrinterPricesModel() { Articulo = "Vino", Precio = 50.00m });
+            articulos.Add(new PrinterPricesModel() { Articulo = "Whisky", Precio = 100.00m });
+            articulos.Add(new PrinterPricesModel() { Articulo = "Ron", Precio = 80.00m });
             ImpressionsGeneral im = new ImpressionsGeneral();
             im.ImpresionPrecios(articulos);
+        }
+
+        private async void BtnGuardar_Click(object sender, EventArgs e)
+        {
+            if (CBImpresiones.Text == "Seleccione")
+            {
+                MessageBox.Show("Seleccione una impresión", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (CBPagina.Text == "Seleccione")
+            {
+                MessageBox.Show("Seleccione un tamaño de página", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (CBPagina.Text == "mm")
+            {
+                if (NUDALMilimetros.Value <= 0 || NUDAMilimetros.Value <= 0)
+                {
+                    MessageBox.Show("Ingrese un valor válido para el tamaño de página en milímetros", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+            }
+            ImpressionsModel objImpresion = new ImpressionsModel()
+            {
+                Name = CBImpresiones.Text,
+                Page = CBPagina.Text,
+                WidthPage = CBPagina.Text == "mm" ? NUDAMilimetros.Value : 0,
+                HightPage = CBPagina.Text == "mm" ? NUDALMilimetros.Value : 0
+            };
+            AppRepository obj = new AppRepository();
+            if (obj.SaveImpressions(objImpresion).Result == false)
+            {
+                MessageBox.Show("Error al guardar la configuración de página", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            switch(CBModificar.Text)
+            {
+                case "Recuadro":
+                 ConfigBoxModel objBox = new ConfigBoxModel()
+                        {
+                        Name = "BoxPrecios",
+                        Spacing = Convert.ToInt32(NUDEspacio.Value),
+                        Align = CBAlineacion.SelectedValue.ToString(),
+                        Width = Convert.ToInt32(NUDAncho.Value),
+                        HightLine = NUDHightLine.Value,
+                        ColorLine = CBColorLinea.SelectedValue.ToString()
+                    };
+                    await obj.SaveConfigBox(objBox);
+                    break;
+               
+            }
         }
     }
 }

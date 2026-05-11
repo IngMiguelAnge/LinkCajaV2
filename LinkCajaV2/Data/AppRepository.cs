@@ -20,6 +20,56 @@ namespace LinkCajaV2.Data
             GC.Collect();
         }
         #region ConfigImpressions
+        public async Task<bool> SaveConfigBox(ConfigBoxModel obj)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveConfigBox", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
+                        cmd.Parameters.Add(new SqlParameter("@Spacing", obj.Spacing));
+                        cmd.Parameters.Add(new SqlParameter("@Align", obj.Align));
+                        cmd.Parameters.Add(new SqlParameter("@Width", obj.Width));
+                        cmd.Parameters.Add(new SqlParameter("@HightLine", obj.HightLine));
+                        cmd.Parameters.Add(new SqlParameter("@ColorLine", obj.ColorLine));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<bool> SaveImpressions(ImpressionsModel obj)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveImpressions", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
+                        cmd.Parameters.Add(new SqlParameter("@Page", obj.Page));
+                        cmd.Parameters.Add(new SqlParameter("@WidthPage", obj.WidthPage));
+                        cmd.Parameters.Add(new SqlParameter("@HightPage", obj.HightPage));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public async Task<List<ListConfigImpressionsModel>> GetConfigImpressions()
         {
             List<ListConfigImpressionsModel> list = new List<ListConfigImpressionsModel>();
@@ -56,10 +106,10 @@ namespace LinkCajaV2.Data
                 FontColor = (string)reader["FontColor"],
             };
         }
-        public async Task<ConfigBoxModel> GetConfigBox()
+        public async Task<ConfigPageModel> GetConfigBox()
         {
-            ConfigBoxModel Result = new ConfigBoxModel();
-            List<ConfigBoxModel> list = new List<ConfigBoxModel>();
+            ConfigPageModel Result = new ConfigPageModel();
+            List<ConfigPageModel> list = new List<ConfigPageModel>();
             try
             {
                 using (SqlConnection sql = new SqlConnection(Connection))
@@ -85,9 +135,9 @@ namespace LinkCajaV2.Data
             }
             return Result;
         }
-        private ConfigBoxModel MapToConfigBox(SqlDataReader reader)
+        private ConfigPageModel MapToConfigBox(SqlDataReader reader)
         {
-            return new ConfigBoxModel()
+            return new ConfigPageModel()
             {
                 Page = (string)reader["Page"],
                 Spacing = (int)reader["Spacing"],

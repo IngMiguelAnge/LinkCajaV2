@@ -23,7 +23,7 @@ namespace LinkCajaV2.Catalogs
         public int IdSeleccionado { get; set; }
         private List<ListArticlesModel> ListaImprimir { get; set; }
         public bool Impresion = false;
-        ConfigBoxModel ConfigBox;
+        ConfigPageModel ConfigBox;
         List<ListConfigImpressionsModel> ConfigImpressions;
         public Articles()
         {
@@ -300,8 +300,8 @@ namespace LinkCajaV2.Catalogs
                     MessageBox.Show("No hay artículos para mostrar en el PDF.");
                     return;
                 }
-                List<ImprimirPreciosModel> articulos = ListaImprimir
-                .Select(x => new ImprimirPreciosModel
+                List<PrinterPricesModel> articulos = ListaImprimir
+                .Select(x => new PrinterPricesModel
                   {
                      Articulo = x.Articulo, 
                      Precio = x.Precio      
