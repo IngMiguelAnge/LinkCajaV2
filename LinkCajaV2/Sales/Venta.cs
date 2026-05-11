@@ -56,144 +56,26 @@ namespace LinkCajaV2.Sales
                     }
                 }
             }
-        }
-
-        private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                lectorSonido.Play(); // Reproducción instantánea sin lag
-                e.SuppressKeyPress = true;
-                AgregarArticulo(0, txtCodigo.Text);
-                txtCodigo.Clear();
-            }
-        }
-
-        public string CalcularPrecioPorGramo(decimal Precio, decimal Cada)
-        {
-            if (Cada > 0)
-            {
-                //Precio / (Kilos * 1000)
-                decimal resultado = Precio / (Cada * 1000);
-                return resultado.ToString("N4"); // N4 es mejor para gramos
-            }
-            else
-            {
-                return "0.00";
-            }
-        }
-        public void AgregarArticulo(int id, string codigo)
-        {
-            AppRepository obj = new AppRepository();
-            AllArticleModel Articulo = new AllArticleModel();
-            Articulo = obj.GetArticleActive(id,codigo).Result;
-            
-            if (Articulo == null)
-            {
-                MessageBox.Show("Codigo no valido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if(Articulo.Status == false)
-            {
-                MessageBox.Show("El articulo no esta activo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (dgvArticulos.Rows.Count == 0)
-            {
-                CrearGridView();
-            }
-            var Presentacion = obj.GetPresentationbyId(Articulo.IdPresentation).Result;
-            decimal Cantidad = (int)NUDCantidad.Value;
-            string PrecioUnitario = Articulo.Price.ToString();
-            if (Presentacion.Decimals > 0)
-            {
-                Decimals d = new Decimals();
-                d.ShowDialog();
-                Cantidad = d.Kilos;
-                PrecioUnitario = CalcularPrecioPorGramo(Articulo.Price, Articulo.SuggestedStock);
-            }
-            bool existe = false;
-            decimal Total = 0;
-            foreach (DataGridViewRow fila in dgvArticulos.Rows)
-            {
-                if (fila.Cells["Codigo"].Value.ToString() == Articulo.Code)
-                {
-                    decimal cantidadActual = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
-                    fila.Cells["Cantidad"].Value = cantidadActual + Cantidad;
-                    string[] partes = fila.Cells["Precio"].Value.ToString().Split('$');
-                    decimal costounitario = Convert.ToDecimal(partes[1]);
-                    if (Presentacion.Decimals == 3)
-                        fila.Cells["Total"].Value = "$" + (costounitario * ((cantidadActual + Cantidad)*1000)).ToString("N2");
-                    else
-                        fila.Cells["Total"].Value = "$" + (costounitario * (cantidadActual + Cantidad)).ToString("N2");
-                    fila.DefaultCellStyle.BackColor = System.Drawing.Color.LightGreen;
-                    existe = true;
-                }
-                Total = Total + Convert.ToDecimal(fila.Cells["Total"].Value.ToString().Replace("$", ""));
-            }
-
-            if (!existe)
-            {
-                decimal totalFila = 0;
-                if (Presentacion.Decimals == 3)
-                    totalFila = (Convert.ToDecimal(Cantidad) * 1000) * Convert.ToDecimal(PrecioUnitario);
-                else
-                    totalFila = Convert.ToDecimal(Cantidad) * Convert.ToDecimal(PrecioUnitario);
-                int rowIndex = dgvArticulos.Rows.Add(Articulo.Code,
-                Articulo.Name, Cantidad, Articulo.Presentation, "$" + PrecioUnitario, "$" + (totalFila).ToString("N2"));
-                dgvArticulos.Rows[dgvArticulos.Rows.Count - 1].DefaultCellStyle.BackColor = System.Drawing.Color.LightGreen;
-                if (Presentacion.Decimals == 3)
-                {
-                    Total = Total + totalFila;
-                    dgvArticulos.Rows[rowIndex].Cells["Cantidad"].Style.Format = "N3";
-                }
-                else
-                {
-                    dgvArticulos.Rows[rowIndex].Cells["Cantidad"].Style.Format = "N0";
-                    Total = Total +
-                        Math.Round(Convert.ToDecimal(Cantidad * Convert.ToDecimal(PrecioUnitario)), 2);
-                }
-
-            }
-
-            if (Articulo.Image != null)
-            {
-                using (MemoryStream ms = new MemoryStream(Articulo.Image))
-                {
-                    PBProducto.Image = Image.FromStream(ms);
-                    PBProducto.SizeMode = PictureBoxSizeMode.Zoom;
-                }
-            }
-            lblTotal.Text = "Total: $" + Total.ToString("N2");
-        }
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-            Articles article = new Articles();
-            article.IsVenta = true;
-            if (article.ShowDialog() == DialogResult.OK)
-            {
-                AgregarArticulo(article.IdSeleccionado, string.Empty);
-                txtCodigo.Clear();
-            }
-
-        }
-
-        private void Venta_Shown(object sender, EventArgs e)
-        {
-            txtCodigo.Focus();
-        }
-
-        private void btnNuevo_Click(object sender, EventArgs e)
-        {
             CrearGridView();
         }
         public void CrearGridView()
         {
             dgvArticulos.Columns.Clear();
+            dgvArticulos.AutoGenerateColumns = false;
+            dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Id",
+                HeaderText = "Id",
+                DataPropertyName = "IdArticle",
+                ReadOnly = true,
+                Visible = false,
+                Width = 100
+            });
             dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Codigo",
                 HeaderText = "Código",
+                DataPropertyName = "Code",
                 ReadOnly = true,
                 Width = 100
             });
@@ -201,6 +83,7 @@ namespace LinkCajaV2.Sales
             {
                 Name = "Nombre",
                 HeaderText = "Nombre",
+                DataPropertyName = "Name",
                 ReadOnly = true,
                 Width = 300
             });
@@ -208,6 +91,7 @@ namespace LinkCajaV2.Sales
             {
                 Name = "Cantidad",
                 HeaderText = "Cantidad",
+                DataPropertyName = "Stock",
                 ReadOnly = false, // Aquí permites la edición
                 Width = 80
             });
@@ -215,13 +99,17 @@ namespace LinkCajaV2.Sales
             {
                 Name = "Presentacion",
                 HeaderText = "Presentación",
-                ReadOnly = false, // Aquí permites la edición
+                DataPropertyName = "Presentation",
+                ReadOnly = true, // Aquí permites la edición
                 Width = 80
             });
+
             dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Precio",
                 HeaderText = "Precio",
+                DataPropertyName = "Price",
+                DefaultCellStyle = { Format = "C4" },
                 ReadOnly = true, // Aquí permites la edición
                 Width = 80
             });
@@ -229,6 +117,8 @@ namespace LinkCajaV2.Sales
             {
                 Name = "Total",
                 HeaderText = "Total",
+                DataPropertyName = "Total",
+                DefaultCellStyle = { Format = "C2" },
                 ReadOnly = true, // Aquí permites la edición
                 Width = 80
             });
@@ -243,59 +133,178 @@ namespace LinkCajaV2.Sales
             dgvArticulos.Columns.Add(btnEliminar);
             dgvArticulos.AllowUserToAddRows = false;
         }
+        private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                lectorSonido.Play(); // Reproducción instantánea sin lag
+                e.SuppressKeyPress = true;
+                AgregarArticulo(0, txtCodigo.Text);
+                txtCodigo.Clear();
+            }
+        }
+        public async void AgregarArticulo(int id, string codigo)
+        {
+            AppRepository obj = new AppRepository();
 
+            // Usamos await en lugar de .Result para evitar bloqueos
+            var articulo = await obj.GetArticleActive(id, codigo);
+
+            if (articulo == null)
+            {
+                MessageBox.Show("Código no válido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (articulo.Status == false)
+            {
+                MessageBox.Show("El artículo no está activo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Manejo de Imagen
+            if (articulo.Image != null)
+            {
+                using (MemoryStream ms = new MemoryStream(articulo.Image))
+                {
+                    PBProducto.Image = Image.FromStream(ms);
+                    PBProducto.SizeMode = PictureBoxSizeMode.Zoom;
+                }
+            }
+            var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
+
+            // Si la lista no existe (porque es el primer artículo), la inicializamos
+            if (bindingList == null)
+            {
+                bindingList = new BindingList<ArticlesSalesModel>();
+                dgvArticulos.DataSource = bindingList;
+            }
+            var presentacion = await obj.GetPresentationbyId(articulo.IdPresentation);
+            decimal cantidadEntrante = NUDCantidad.Value;
+            decimal precioCalculado = articulo.Price;
+
+            // Lógica de decimales/granel
+            if (presentacion.Decimals > 0)
+            {
+                Decimals d = new Decimals();
+                if (d.ShowDialog() == DialogResult.OK) // Asumiendo que devuelve OK
+                {
+                    cantidadEntrante = d.Kilos;
+                    if (articulo.SuggestedStock > 0)
+                    {
+                       precioCalculado = articulo.Price / (articulo.SuggestedStock * 1000);
+                    }
+                }
+            }
+
+            // BUSCAR SI YA EXISTE EN LA LISTA
+            var articuloExistente = bindingList.FirstOrDefault(x => x.Code == articulo.Code);
+
+            if (articuloExistente != null)
+            {
+                // Si existe, solo actualizamos la cantidad
+                articuloExistente.Stock += cantidadEntrante;
+                // La BindingList no avisa automáticamente si cambia una propiedad interna, 
+                // así que refrescamos el item.
+                bindingList.ResetBindings();
+            }
+            else
+            {
+                // Si no existe, agregamos uno nuevo
+                bindingList.Add(new ArticlesSalesModel
+                {
+                    IdArticle = articulo.Id,
+                    Code = articulo.Code,
+                    Name = articulo.Name,
+                    Stock = cantidadEntrante,
+                    Presentation = articulo.Presentation,
+                    Price = precioCalculado,
+                    Decimals = presentacion.Decimals,
+                    Image = articulo.Image
+                });
+            }
+
+            ActualizarTotalGeneral();
+        }
+        private void ActualizarTotalGeneral()
+        {
+            var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
+            if (bindingList != null)
+            {
+                decimal totalGeneral = bindingList.Sum(item => item.Total);
+                lblTotal.Text = $"Total {totalGeneral:C2}";
+            }
+        }
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            Articles article = new Articles();
+            article.IsVenta = true;
+            if (article.ShowDialog() == DialogResult.OK)
+            {
+                AgregarArticulo(article.IdSeleccionado, string.Empty);
+                txtCodigo.Clear();
+            }
+
+        }
+        private void Venta_Shown(object sender, EventArgs e)
+        {
+            txtCodigo.Focus();
+        }
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
+            bindingList?.Clear();
+            ActualizarTotalGeneral();
+        }
         private void dgvArticulos_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
+            // 1. Solo validamos la columna "Cantidad"
             if (dgvArticulos.Columns[e.ColumnIndex].Name == "Cantidad")
             {
-                string formato = dgvArticulos.Columns["Cantidad"].DefaultCellStyle.Format;
-                if (formato == "0") // Modo Piezas
+                string valor = e.FormattedValue.ToString();
+
+                // 2. Si la celda está vacía, no hacemos nada (o podrías poner e.Cancel = true si es obligatorio)
+                if (string.IsNullOrEmpty(valor)) return;
+
+                // 3. Intentamos convertir a decimal
+                if (!decimal.TryParse(valor, out decimal resultado))
                 {
-                    if (e.FormattedValue.ToString().Contains("."))
+                    MessageBox.Show("Por favor, ingresa una cantidad válida", "Error de formato");
+                    e.Cancel = true;
+                    return;
+                }
+
+                // 4. VALIDACIÓN DE ORO: Miramos los decimales permitidos del OBJETO en esta fila
+                var item = (ArticlesSalesModel)dgvArticulos.Rows[e.RowIndex].DataBoundItem;
+
+                if (item != null && item.Decimals == 0) // Es modo piezas
+                {
+                    // Verificamos si el número ingresado tiene parte decimal
+                    if (resultado % 1 != 0)
                     {
-                        MessageBox.Show("Este artículo no permite decimales.");
+                        MessageBox.Show("Este artículo no permite decimales.", "Validación");
                         e.Cancel = true;
                     }
                 }
-                string valor = e.FormattedValue.ToString();
-                // Intentamos convertir a decimal. Si falla, cancelamos la salida de la celda.
-                if (!decimal.TryParse(valor, out decimal resultado) && !string.IsNullOrEmpty(valor))
-                {
-                    MessageBox.Show("Por favor, ingresa una cantidad valida", "Error de formato");
-                    e.Cancel = true; // No deja que el usuario se mueva de celda hasta que corrija
-                }
             }
         }
-
         private void dgvArticulos_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            // 1. Validaciones iniciales
             if (e.RowIndex < 0 || dgvArticulos.Columns[e.ColumnIndex].Name != "Cantidad") return;
 
-            DataGridViewRow fila = dgvArticulos.Rows[e.RowIndex];
-            string valorIngresado = fila.Cells["Cantidad"].Value?.ToString() ?? "0";
-            if (valorIngresado.StartsWith("."))
+            // 2. Manejo del punto inicial (".5" -> "0.5")
+            string valor = dgvArticulos.Rows[e.RowIndex].Cells["Cantidad"].Value?.ToString() ?? "0";
+            if (valor.StartsWith("."))
             {
-                valorIngresado = "0" + valorIngresado;
-                // Suspendemos eventos temporalmente para que no se cicle al cambiar el valor
                 dgvArticulos.CellValueChanged -= dgvArticulos_CellValueChanged;
-                fila.Cells["Cantidad"].Value = valorIngresado;
+                dgvArticulos.Rows[e.RowIndex].Cells["Cantidad"].Value = "0" + valor;
                 dgvArticulos.CellValueChanged += dgvArticulos_CellValueChanged;
             }
 
-            if (decimal.TryParse(valorIngresado, out decimal cantidad))
-            {
-                string[] partes = fila.Cells["Precio"].Value.ToString().Split('$');
-                decimal precio = Convert.ToDecimal(partes[1]);
-                decimal subtotal = cantidad * precio;
-                fila.Cells["Total"].Value = subtotal.ToString("N2"); // Formato con 2 decimales
-            }
+            dgvArticulos.InvalidateRow(e.RowIndex);
 
-            decimal Total = 0;
-            foreach (DataGridViewRow filas in dgvArticulos.Rows)
-            {
-                Total = Total + Convert.ToDecimal(filas.Cells["Total"].Value.ToString().Replace("$", ""));
-            }
-            lblTotal.Text = "Total: $" + Total.ToString("N2");
+            ActualizarTotalGeneral();
         }
         private void dgvArticulos_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
@@ -315,7 +324,6 @@ namespace LinkCajaV2.Sales
                 e.Handled = true;
             }
         }
-
         private void dgvArticulos_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             if (dgvArticulos.CurrentCell.ColumnIndex == dgvArticulos.Columns["Cantidad"].Index)
@@ -370,15 +378,24 @@ namespace LinkCajaV2.Sales
                 }
             }
         }
-
         private void dgvArticulos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Evitar errores si hacen click en el encabezado
             if (e.RowIndex < 0) return;
+
             switch (dgvArticulos.Columns[e.ColumnIndex].Name)
             {
                 case "Quitar":
-                    dgvArticulos.Rows.RemoveAt(e.RowIndex);
+                    // 2. Obtener la lista que está enlazada al Grid
+                    var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
+
+                    if (bindingList != null)
+                    {
+                        // 3. Borrar el objeto de la lista (el Grid se actualiza solo)
+                        bindingList.RemoveAt(e.RowIndex);
+
+                        // 4. Recalcular el total que muestras en el Label
+                        ActualizarTotalGeneral();
+                    }
                     break;
             }
         }

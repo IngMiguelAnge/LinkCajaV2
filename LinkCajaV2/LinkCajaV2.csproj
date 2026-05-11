@@ -194,6 +194,7 @@
     </Compile>
     <Compile Include="Model\AllArticleModel.cs" />
     <Compile Include="Model\ArticleModel.cs" />
+    <Compile Include="Model\ArticlesSalesModel.cs" />
     <Compile Include="Model\BoxModel.cs" />
     <Compile Include="Model\ClientsModel.cs" />
     <Compile Include="Model\CompanyModel.cs" />

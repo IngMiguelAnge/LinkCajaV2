@@ -186,6 +186,7 @@ namespace LinkCajaV2.Catalogs
             {
                 btnNuevo.Visible = false;
                 btnImprimir.Visible = false;
+                btnImprimir.Visible = false;
             }
         }
 
