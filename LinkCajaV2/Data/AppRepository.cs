@@ -20,6 +20,30 @@ namespace LinkCajaV2.Data
             GC.Collect();
         }
         #region ConfigImpressions
+        public async Task<bool> SaveConfigImpressions(ConfigImpressionsModel obj)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveConfigImpressions", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
+                        cmd.Parameters.Add(new SqlParameter("@FontSize", obj.FontSize));
+                        cmd.Parameters.Add(new SqlParameter("@FontStyle", obj.FontStyle));
+                        cmd.Parameters.Add(new SqlParameter("@FontColor", obj.FontColor));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public async Task<bool> SaveConfigBox(ConfigBoxModel obj)
         {
             try

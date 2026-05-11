@@ -198,6 +198,7 @@
     <Compile Include="Model\ClientsModel.cs" />
     <Compile Include="Model\CompanyModel.cs" />
     <Compile Include="Model\ConfigBoxModel.cs" />
+    <Compile Include="Model\ConfigImpressionsModel.cs" />
     <Compile Include="Model\ConfigPageModel.cs" />
     <Compile Include="Model\HighPriceModel.cs" />
     <Compile Include="Model\ImpressionsModel.cs" />

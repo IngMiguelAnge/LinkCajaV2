@@ -200,27 +200,47 @@ namespace LinkCajaV2.Configurations
                 HightPage = CBPagina.Text == "mm" ? NUDALMilimetros.Value : 0
             };
             AppRepository obj = new AppRepository();
-            if (obj.SaveImpressions(objImpresion).Result == false)
+           bool result = await obj.SaveImpressions(objImpresion);
+            if ( result == false)
             {
                 MessageBox.Show("Error al guardar la configuración de página", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            switch(CBModificar.Text)
+            if (CBModificar.Text != "Seleccione")
             {
-                case "Recuadro":
-                 ConfigBoxModel objBox = new ConfigBoxModel()
+                switch (CBModificar.Text)
+                {
+                    case "Recuadro":
+                        ConfigBoxModel objBox = new ConfigBoxModel()
                         {
-                        Name = "BoxPrecios",
-                        Spacing = Convert.ToInt32(NUDEspacio.Value),
-                        Align = CBAlineacion.SelectedValue.ToString(),
-                        Width = Convert.ToInt32(NUDAncho.Value),
-                        HightLine = NUDHightLine.Value,
-                        ColorLine = CBColorLinea.SelectedValue.ToString()
-                    };
-                    await obj.SaveConfigBox(objBox);
-                    break;
-               
+                            Name = "BoxPrecios",
+                            Spacing = Convert.ToInt32(NUDEspacio.Value),
+                            Align = CBAlineacion.SelectedValue.ToString(),
+                            Width = Convert.ToInt32(NUDAncho.Value),
+                            HightLine = NUDHightLine.Value,
+                            ColorLine = CBColorLinea.SelectedValue.ToString()
+                        };
+                        result = await obj.SaveConfigBox(objBox);
+                        break;
+                    default:
+                        ConfigImpressionsModel objConfig = new ConfigImpressionsModel()
+                        {
+                            Name = CBModificar.Text,
+                            FontSize = Convert.ToInt32(NUDSizeLetra.Value),
+                            FontColor = CBColorLetra.SelectedValue.ToString(),
+                            FontStyle = CBEstilo.SelectedItem.ToString()
+                        };
+                        result = await obj.SaveConfigImpressions(objConfig);
+                        break;
+                }
+            }
+            if(result == false)
+            {
+                MessageBox.Show("Error al guardar la configuración de impresión", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else {
+                MessageBox.Show("Configuración guardada correctamente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information); 
             }
         }
     }
