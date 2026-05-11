@@ -1,15 +1,17 @@
 ﻿using LinkCajaV2.Model;
 using QuestPDF.Fluent;
+using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QuestPDF.Helpers;
 using static QuestPDF.Helpers.Colors;
+using Spire.Pdf;
 namespace LinkCajaV2.Data
 {
     public class ImpressionsGeneral
@@ -168,7 +170,7 @@ namespace LinkCajaV2.Data
             }
             return Codigo;
         }
-        private void DibujarCuadroArticulo(IContainer container, string nombre, decimal precio, TextStyle EstiloArticulo, TextStyle EstiloPrecio)
+        private void DibujarCuadroArticulo(QuestPDF.Infrastructure.IContainer container, string nombre, decimal precio, TextStyle EstiloArticulo, TextStyle EstiloPrecio)
         {
             string Cod = CodigodeColor(ConfigBox.ColorLine);
             container
@@ -188,6 +190,98 @@ namespace LinkCajaV2.Data
                     col.Item().AlignCenter().Text(precio.ToString("C2")).Style(EstiloPrecio);
                 });
         }
+        public void GenerarTicket(BindingList<ArticlesSalesModel> lista)
+        {
+            QuestPDF.Settings.License = LicenseType.Community;
 
+            try
+            {
+                string nombreArchivo = $"Ticket_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+                string carpeta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Impresiones");
+                if (!Directory.Exists(carpeta)) Directory.CreateDirectory(carpeta);
+                string rutaCompleta = Path.Combine(carpeta, nombreArchivo);
+                float mmToPt = 2.83465f;
+                float anchoTicketMm = 80f; // Cambia a 58f si la impresora es pequeña
+                float altoTicketMm = 200f; // Un alto genérico
+                // Conversión a puntos (float)
+                float anchoFinal = anchoTicketMm * mmToPt;
+                float altoFinal = altoTicketMm * mmToPt;
+                QuestPDF.Settings.License = LicenseType.Community;  
+                var documento = Document.Create(container =>
+                {
+                    container.Page(page =>
+                    {
+                        // Usamos el ancho convertido y una altura lo suficientemente larga 
+                        // QuestPDF recortará el espacio vacío al imprimir si el driver lo soporta
+                        page.Size(anchoFinal, altoFinal);
+                        page.Margin(2, Unit.Millimetre);
+                        page.PageColor(Colors.White);
+                        page.DefaultTextStyle(x => x.FontSize(8).FontFamily(Fonts.Verdana));
+
+                        // Encabezado
+                        page.Header().Column(col =>
+                        {
+                            col.Item().AlignCenter().Text("MI TIENDA").FontSize(12).SemiBold();
+                            col.Item().AlignCenter().Text("RFC: XXXX000000").FontSize(7);
+                            col.Item().AlignCenter().Text(DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+                            col.Item().LineHorizontal(1);
+                        });
+
+                        // Contenido - Tabla de artículos
+                        page.Content().PaddingVertical(5).Table(table =>
+                        {
+                            table.ColumnsDefinition(columns =>
+                            {
+                                columns.RelativeColumn(3); // Nombre
+                                columns.RelativeColumn(1); // Cant
+                                columns.RelativeColumn(2); // Total
+                            });
+
+                            foreach (var item in lista)
+                            {
+                                // Nombre del artículo (alineado a la izquierda)
+                                table.Cell().AlignLeft().Text(item.Name);
+
+                                // Cantidad (en medio)
+                                table.Cell().AlignCenter().Text(item.Stock.ToString(item.Decimals > 0 ? "N3" : "N0"));
+
+                                // Total (alineado a la derecha)
+                                table.Cell().AlignRight().Text(item.Total.ToString("C2"));
+                            }
+                        });
+
+                        // Pie - Totales
+                        page.Footer().Column(col =>
+                        {
+                            col.Item().LineHorizontal(1);
+                            decimal granTotal = lista.Sum(x => x.Total);
+                            col.Item().AlignRight().Text($"TOTAL: {granTotal:C2}").FontSize(10).SemiBold();
+                            col.Item().PaddingTop(5).AlignCenter().Text("¡Gracias por su compra!");
+                        });
+                    });
+                });
+
+                documento.GeneratePdf(rutaCompleta);
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(rutaCompleta) { UseShellExecute = true });
+                ImprimirSilencioso(rutaCompleta);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al imprimir ticket: " + ex.Message);
+            }
+        }
+        public void ImprimirSilencioso(string rutaArchivo)
+        {
+            PdfDocument pdf = new PdfDocument();
+            pdf.LoadFromFile(rutaArchivo);
+
+            // En algunas versiones se usa esta propiedad para ocultar el diálogo:
+            pdf.PrintSettings.PrintController = new System.Drawing.Printing.StandardPrintController();
+
+            // Si quieres asegurar la impresora predeterminada:
+            // pdf.PrintSettings.PrinterName = "Nombre de tu impresora";
+
+            pdf.Print();
+        }
     }
 }

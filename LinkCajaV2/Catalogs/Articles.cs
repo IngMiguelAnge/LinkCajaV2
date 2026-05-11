@@ -49,7 +49,7 @@ namespace LinkCajaV2.Catalogs
             progressBar1.MarqueeAnimationSpeed = 30; // Velocidad de la animación
             btnNuevo.Enabled = false;
             BtnBuscar.Enabled = false;
-            BtnImpresion2.Enabled = false;
+            BtnImpresion.Enabled = false;
             if (Impresion == false)
             {
                 dgvArticulos.DataSource = null;
@@ -91,7 +91,7 @@ namespace LinkCajaV2.Catalogs
                 progressBar1.Value = 0;
                 btnNuevo.Enabled = true;
                 BtnBuscar.Enabled = true;
-                BtnImpresion2.Enabled = true;
+                BtnImpresion.Enabled = true;
             }
         }
 
@@ -186,7 +186,7 @@ namespace LinkCajaV2.Catalogs
             {
                 btnNuevo.Visible = false;
                 btnImprimir.Visible = false;
-                btnImprimir.Visible = false;
+                BtnImpresion.Visible = false;
             }
         }
 
@@ -236,7 +236,7 @@ namespace LinkCajaV2.Catalogs
                                 table.Cell().Element(ContentStyle).Text(item.Codigo);
                                 table.Cell().Element(ContentStyle).Text(item.Articulo);
                                 table.Cell().Element(ContentStyle).Text(item.PorCada);
-                                table.Cell().Element(PriceCellStyle).Text(item.Precio.ToString("C"));
+                                table.Cell().Element(ContentStyle).Text(item.Precio.ToString("C"));
 
                             }
                         });
@@ -272,17 +272,8 @@ namespace LinkCajaV2.Catalogs
                             .BorderBottom(0.5f)
                             .BorderColor(Colors.Grey.Lighten2);
         }
-        private IContainer PriceCellStyle(IContainer container)
-        {
-            return container
-                .Border(0.5f)                    // Dibuja el recuadro
-                .BorderColor(Colors.Grey.Medium) // Color de la línea
-                .PaddingHorizontal(5)            // Margen interno para que el texto no toque la línea
-                .AlignRight()                    // Alinea el número a la derecha
-                .AlignMiddle();                  // Centra verticalmente
-        }
 
-        private async void BtnImpresion2_Click(object sender, EventArgs e)
+        private async void BtnImpresion_Click(object sender, EventArgs e)
         {
             if (txtNombre.Text.Trim() == "" && txtCodigo.Text.Trim() == "")
             {

@@ -45,6 +45,9 @@
     <Reference Include="QuestPDF, Version=2026.2.4.0, Culture=neutral, PublicKeyToken=0f3c2b2315ff52c8, processorArchitecture=MSIL">
       <HintPath>..\packages\QuestPDF.2026.2.4\lib\netstandard2.0\QuestPDF.dll</HintPath>
     </Reference>
+    <Reference Include="Spire.Pdf, Version=12.4.0.0, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <HintPath>..\packages\FreeSpire.PDF.12.4.0\lib\net48\Spire.Pdf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />

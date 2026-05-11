@@ -17,6 +17,7 @@ using System.Windows.Forms;
 using System.Windows.Media;
 using static System.Net.WebRequestMethods;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
+using Color = System.Drawing.Color;
 namespace LinkCajaV2.Sales
 {
     public partial class Venta : Form
@@ -225,6 +226,20 @@ namespace LinkCajaV2.Sales
             }
 
             ActualizarTotalGeneral();
+            foreach (DataGridViewRow row in dgvArticulos.Rows)
+            {
+                row.DefaultCellStyle.BackColor = Color.White;
+            }
+
+            var fila = dgvArticulos.Rows.Cast<DataGridViewRow>()
+                        .FirstOrDefault(r => r.Cells["Codigo"].Value.ToString() == articulo.Code);
+
+            if (fila != null)
+            {
+                fila.DefaultCellStyle.BackColor = Color.PaleGreen;
+                dgvArticulos.ClearSelection(); // Quita el azul de selección para que se note el verde
+                dgvArticulos.FirstDisplayedScrollingRowIndex = fila.Index;
+            }
         }
         private void ActualizarTotalGeneral()
         {
@@ -402,12 +417,45 @@ namespace LinkCajaV2.Sales
 
         private void btnPagar_Click(object sender, EventArgs e)
         {
+            var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
 
+            if (bindingList == null || bindingList.Count == 0)
+            {
+                MessageBox.Show("No hay artículos para vender.");
+                return;
+            }
+
+            ImpressionsGeneral im = new ImpressionsGeneral();
+             im.GenerarTicket(bindingList);
         }
 
         private void btnVerTickets_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dgvArticulos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var item = (ArticlesSalesModel)dgvArticulos.Rows[e.RowIndex].DataBoundItem;
+
+            if (item != null)
+            {
+                if (item.Image != null)
+                {
+                    using (MemoryStream ms = new MemoryStream(item.Image))
+                    {
+                        PBProducto.Image = Image.FromStream(ms);
+                        PBProducto.SizeMode = PictureBoxSizeMode.Zoom;
+                    }
+                }
+                else
+                {
+                    // 4. Si no tiene imagen, poner una por defecto o limpiar
+                    PBProducto.Image = null; // O poner una imagen de "Sin imagen"
+                }
+            }
         }
     }
 }
