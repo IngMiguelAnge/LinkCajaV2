@@ -18,7 +18,8 @@ namespace LinkCajaV2.Data
     {
         ConfigPageModel ConfigBox;
         List<ListConfigImpressionsModel> ConfigImpressions;
-        public void ImpresionPrecios(List<PrinterPricesModel> ListArticulos) {
+        public void ImpresionPrecios(List<PrinterPricesModel> ListArticulos)
+        {
             try
             {
                 AppRepository obj = new AppRepository();
@@ -190,7 +191,7 @@ namespace LinkCajaV2.Data
                     col.Item().AlignCenter().Text(precio.ToString("C2")).Style(EstiloPrecio);
                 });
         }
-        public void GenerarTicket(BindingList<ArticlesSalesModel> lista)
+        public void GenerarTicket(VentaModel venta)
         {
             QuestPDF.Settings.License = LicenseType.Community;
 
@@ -202,68 +203,75 @@ namespace LinkCajaV2.Data
                 string rutaCompleta = Path.Combine(carpeta, nombreArchivo);
                 float mmToPt = 2.83465f;
                 float anchoTicketMm = 80f; // Cambia a 58f si la impresora es pequeña
-                float altoTicketMm = 200f; // Un alto genérico
-                // Conversión a puntos (float)
+                                           // Calculamos un alto base (encabezado + totales + márgenes) 
+                                           // y le sumamos unos 10mm por cada artículo.
+                float altoBaseMm = 60f;
+                float altoDinamicoMm = altoBaseMm + (venta.Articles.Count * 10f);
                 float anchoFinal = anchoTicketMm * mmToPt;
-                float altoFinal = altoTicketMm * mmToPt;
-                QuestPDF.Settings.License = LicenseType.Community;  
+                float altoFinal = altoDinamicoMm * mmToPt;
+                QuestPDF.Settings.License = LicenseType.Community;
                 var documento = Document.Create(container =>
                 {
                     container.Page(page =>
                     {
-                        // Usamos el ancho convertido y una altura lo suficientemente larga 
-                        // QuestPDF recortará el espacio vacío al imprimir si el driver lo soporta
                         page.Size(anchoFinal, altoFinal);
                         page.Margin(2, Unit.Millimetre);
                         page.PageColor(Colors.White);
                         page.DefaultTextStyle(x => x.FontSize(8).FontFamily(Fonts.Verdana));
 
-                        // Encabezado
+                        // Mantenemos el Header igual
                         page.Header().Column(col =>
                         {
-                            col.Item().AlignCenter().Text("MI TIENDA").FontSize(12).SemiBold();
-                            col.Item().AlignCenter().Text("RFC: XXXX000000").FontSize(7);
+                            col.Item().AlignCenter().Text(venta.Company.Name).FontSize(12).SemiBold();
+                            col.Item().AlignCenter().Text(venta.Company.RFC).FontSize(7);
                             col.Item().AlignCenter().Text(DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
                             col.Item().LineHorizontal(1);
                         });
 
-                        // Contenido - Tabla de artículos
-                        page.Content().PaddingVertical(5).Table(table =>
+                        // TODO el contenido (Tabla + Totales) en el Content
+                        page.Content().PaddingVertical(5).Column(mainCol =>
                         {
-                            table.ColumnsDefinition(columns =>
+                            // 1. La Tabla
+                            mainCol.Item().Table(table =>
                             {
-                                columns.RelativeColumn(3); // Nombre
-                                columns.RelativeColumn(1); // Cant
-                                columns.RelativeColumn(2); // Total
+                                table.ColumnsDefinition(columns =>
+                                {
+                                    columns.RelativeColumn(3);
+                                    columns.RelativeColumn(1);
+                                    columns.RelativeColumn(2);
+                                });
+
+                                foreach (var item in venta.Articles)
+                                {
+                                    table.Cell().AlignLeft().Text(item.Name);
+                                    table.Cell().AlignCenter().Text(item.Stock.ToString(item.Decimals > 0 ? "N3" : "N0"));
+                                    table.Cell().AlignRight().Text(item.Total.ToString("C2"));
+                                }
                             });
 
-                            foreach (var item in lista)
+                            // 2. Los Totales (justo debajo de la tabla)
+                            mainCol.Item().PaddingTop(5).Column(totalCol =>
                             {
-                                // Nombre del artículo (alineado a la izquierda)
-                                table.Cell().AlignLeft().Text(item.Name);
+                                totalCol.Item().LineHorizontal(1);
 
-                                // Cantidad (en medio)
-                                table.Cell().AlignCenter().Text(item.Stock.ToString(item.Decimals > 0 ? "N3" : "N0"));
+                                decimal granTotal = venta.Articles.Sum(x => x.Total);
+                                totalCol.Item().AlignRight().Text($"RECIBIDO: {venta.Recibido:C2}").FontSize(10).SemiBold();
+                                totalCol.Item().AlignRight().Text($"TOTAL: {granTotal:C2}").FontSize(10).SemiBold();
 
-                                // Total (alineado a la derecha)
-                                table.Cell().AlignRight().Text(item.Total.ToString("C2"));
-                            }
-                        });
+                                decimal cambio = venta.Recibido - granTotal;
+                                totalCol.Item().AlignRight().Text($"CAMBIO: {cambio:C2}").FontSize(10).SemiBold();
 
-                        // Pie - Totales
-                        page.Footer().Column(col =>
-                        {
-                            col.Item().LineHorizontal(1);
-                            decimal granTotal = lista.Sum(x => x.Total);
-                            col.Item().AlignRight().Text($"TOTAL: {granTotal:C2}").FontSize(10).SemiBold();
-                            col.Item().PaddingTop(5).AlignCenter().Text("¡Gracias por su compra!");
+                                totalCol.Item().PaddingTop(10).AlignCenter().Text("¡Gracias por su compra!");
+                            });
                         });
                     });
                 });
 
                 documento.GeneratePdf(rutaCompleta);
                 System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(rutaCompleta) { UseShellExecute = true });
-                ImprimirSilencioso(rutaCompleta);
+                if (venta.Imprimir)
+                    for (int i = 0; i <= venta.Copias; i++)
+                        ImprimirSilencioso(rutaCompleta);
             }
             catch (Exception ex)
             {

@@ -46,6 +46,7 @@
             this.PBLogo = new System.Windows.Forms.PictureBox();
             this.lblNombreEmpresa = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.CBImprimir = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.NUDCantidad)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
@@ -117,7 +118,7 @@
             this.groupBox1.Controls.Add(this.dgvArticulos);
             this.groupBox1.Location = new System.Drawing.Point(188, 166);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(753, 423);
+            this.groupBox1.Size = new System.Drawing.Size(753, 457);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Articulos:";
@@ -130,7 +131,7 @@
             this.dgvArticulos.Name = "dgvArticulos";
             this.dgvArticulos.RowHeadersWidth = 62;
             this.dgvArticulos.RowTemplate.Height = 28;
-            this.dgvArticulos.Size = new System.Drawing.Size(747, 398);
+            this.dgvArticulos.Size = new System.Drawing.Size(747, 432);
             this.dgvArticulos.TabIndex = 6;
             this.dgvArticulos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvArticulos_CellClick);
             this.dgvArticulos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvArticulos_CellContentClick);
@@ -241,6 +242,7 @@
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.CBImprimir);
             this.groupBox2.Controls.Add(this.PBLogo);
             this.groupBox2.Controls.Add(this.PBProducto);
             this.groupBox2.Controls.Add(this.NUDCopias);
@@ -249,15 +251,27 @@
             this.groupBox2.Controls.Add(this.btnPagar);
             this.groupBox2.Location = new System.Drawing.Point(956, 33);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(334, 556);
+            this.groupBox2.Size = new System.Drawing.Size(334, 606);
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
+            // 
+            // CBImprimir
+            // 
+            this.CBImprimir.AutoSize = true;
+            this.CBImprimir.Checked = true;
+            this.CBImprimir.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CBImprimir.Location = new System.Drawing.Point(24, 563);
+            this.CBImprimir.Name = "CBImprimir";
+            this.CBImprimir.Size = new System.Drawing.Size(151, 24);
+            this.CBImprimir.TabIndex = 28;
+            this.CBImprimir.Text = "¿Imprimir ticket?";
+            this.CBImprimir.UseVisualStyleBackColor = true;
             // 
             // Venta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1302, 617);
+            this.ClientSize = new System.Drawing.Size(1302, 651);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.lblNombreEmpresa);
             this.Controls.Add(this.lblUsuario);
@@ -309,5 +323,6 @@
         private System.Windows.Forms.PictureBox PBLogo;
         private System.Windows.Forms.Label lblNombreEmpresa;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox CBImprimir;
     }
 }

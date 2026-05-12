@@ -2,9 +2,7 @@
 using LinkCajaV2.Data;
 using LinkCajaV2.Items;
 using LinkCajaV2.Model;
-using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -15,8 +13,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Media;
-using static System.Net.WebRequestMethods;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
 using Color = System.Drawing.Color;
 namespace LinkCajaV2.Sales
 {
@@ -25,6 +21,7 @@ namespace LinkCajaV2.Sales
         private SoundPlayer lectorSonido;
         public int IdUsuario { get; set; }
         public string NameUser { get; set; }
+        private CompanyModel Empresa { get; set; }
         public Venta()
         {
             InitializeComponent();
@@ -34,7 +31,7 @@ namespace LinkCajaV2.Sales
         {
             AppRepository obj = new AppRepository();
             KeysModel ListKeys = obj.GetKeysActive().Result;
-            if(ListKeys == null)
+            if (ListKeys == null)
             {
                 MessageBox.Show("No se encontraron licencia activa. Contacta al soporte.", "Licencia no encontrada", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
@@ -43,8 +40,8 @@ namespace LinkCajaV2.Sales
             string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sounds", "beep.wav");
             lectorSonido = new SoundPlayer(ruta);
             lblUsuario.Text = "Bien venido " + NameUser;
-      
-            var Empresa = obj.GetCompany().Result;
+
+            Empresa = obj.GetCompany().Result;
             if (Empresa != null)
             {
                 lblNombreEmpresa.Text = Empresa.Name;
@@ -193,7 +190,7 @@ namespace LinkCajaV2.Sales
                     cantidadEntrante = d.Kilos;
                     if (articulo.SuggestedStock > 0)
                     {
-                       precioCalculado = articulo.Price / (articulo.SuggestedStock * 1000);
+                        precioCalculado = articulo.Price / (articulo.SuggestedStock * 1000);
                     }
                 }
             }
@@ -425,8 +422,24 @@ namespace LinkCajaV2.Sales
                 return;
             }
 
-            ImpressionsGeneral im = new ImpressionsGeneral();
-             im.GenerarTicket(bindingList);
+            ConfirmPay c = new ConfirmPay();
+            c.Total = bindingList.Sum(x => x.Total);
+            if (c.ShowDialog() == DialogResult.OK)
+            {
+                VentaModel venta = new VentaModel
+                {
+                   Articles = bindingList,
+                   Copias = NUDCopias.Value,
+                   Company = Empresa,
+                   Imprimir = CBImprimir.Checked,
+                   Recibido = c.Recibido
+                };
+                ImpressionsGeneral im = new ImpressionsGeneral();
+                im.GenerarTicket(venta);
+
+                // Aquí podrías guardar la venta en la base de datos, generar un ID de venta, etc.
+                MessageBox.Show("Venta realizada con éxito.");
+            }
         }
 
         private void btnVerTickets_Click(object sender, EventArgs e)
