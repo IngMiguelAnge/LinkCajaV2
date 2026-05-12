@@ -264,9 +264,22 @@ namespace LinkCajaV2.Sales
         }
         private void btnNuevo_Click(object sender, EventArgs e)
         {
+            NuevaVenta();
+        }
+        public void NuevaVenta()
+        {
             var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
             bindingList?.Clear();
             ActualizarTotalGeneral();
+
+            //dgvArticulos.DataSource = null;
+            //lblTotal.Text = "Total $0.00";
+            PBProducto.Image = null;
+            NUDCantidad.Value = 1;
+            //foreach (DataGridViewRow row in dgvArticulos.Rows)
+            //{
+            //    row.DefaultCellStyle.BackColor = Color.White;
+            //}
         }
         private void dgvArticulos_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
@@ -439,6 +452,7 @@ namespace LinkCajaV2.Sales
 
                 // Aquí podrías guardar la venta en la base de datos, generar un ID de venta, etc.
                 MessageBox.Show("Venta realizada con éxito.");
+                NuevaVenta();
             }
         }
 

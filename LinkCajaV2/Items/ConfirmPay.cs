@@ -64,5 +64,10 @@ namespace LinkCajaV2.Items
             else
                 lblCambio.Text = "CAMBIO: " + (0).ToString("C");
         }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

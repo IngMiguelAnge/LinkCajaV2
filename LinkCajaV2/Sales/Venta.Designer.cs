@@ -189,6 +189,7 @@
             this.btnVerTickets.TabIndex = 21;
             this.btnVerTickets.Text = "Ver Tickets";
             this.btnVerTickets.UseVisualStyleBackColor = true;
+            this.btnVerTickets.Visible = false;
             this.btnVerTickets.Click += new System.EventHandler(this.btnVerTickets_Click);
             // 
             // lblUsuario

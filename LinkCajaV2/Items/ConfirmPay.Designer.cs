@@ -106,6 +106,7 @@
             this.btnCancelar.TabIndex = 6;
             this.btnCancelar.Text = "CANCELAR";
             this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // ConfirmPay
             // 
