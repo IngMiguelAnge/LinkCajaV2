@@ -70,8 +70,8 @@
             this.nudRecibido.Name = "nudRecibido";
             this.nudRecibido.Size = new System.Drawing.Size(380, 89);
             this.nudRecibido.TabIndex = 3;
-            this.nudRecibido.ValueChanged += new System.EventHandler(this.nudRecibido_ValueChanged);
             this.nudRecibido.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nudRecibido_KeyDown);
+            this.nudRecibido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nudRecibido_KeyPress);
             this.nudRecibido.KeyUp += new System.Windows.Forms.KeyEventHandler(this.nudRecibido_KeyUp);
             // 
             // btnConfirmar

@@ -89,7 +89,11 @@ namespace LinkCajaV2.Catalogs
             // Evitar errores si hacen click en el encabezado
             if (e.RowIndex < 0) return;
             var Id = dgvClientes.Rows[e.RowIndex].Cells["Id"].Value;
-
+            if (Convert.ToInt32(Id) == 1)
+            {
+                MessageBox.Show("No se tiene permitido editar o cancelar al cliente general.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             switch (dgvClientes.Columns[e.ColumnIndex].Name)
             {
                 case "btnEditar":

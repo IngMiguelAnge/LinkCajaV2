@@ -5,6 +5,7 @@ namespace LinkCajaV2.Model
     public class ArticlesSalesModel
     {
         public int IdArticle { get; set; }
+        public int IdPresentation { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public decimal Stock { get; set; }

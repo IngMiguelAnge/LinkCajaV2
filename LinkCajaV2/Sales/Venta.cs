@@ -71,6 +71,15 @@ namespace LinkCajaV2.Sales
             });
             dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
             {
+                Name = "IdPresentation",
+                HeaderText = "IdPresentation",
+                DataPropertyName = "IdPresentation",
+                ReadOnly = true,
+                Visible = false,
+                Width = 100
+            });
+            dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
+            {
                 Name = "Codigo",
                 HeaderText = "Código",
                 DataPropertyName = "Code",
@@ -202,12 +211,22 @@ namespace LinkCajaV2.Sales
             {
                 // Si existe, solo actualizamos la cantidad
                 articuloExistente.Stock += cantidadEntrante;
+                if (articulo.Stock < articuloExistente.Stock)
+                {
+                    MessageBox.Show($"Stock insuficiente.", "Error de stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 // La BindingList no avisa automáticamente si cambia una propiedad interna, 
                 // así que refrescamos el item.
                 bindingList.ResetBindings();
             }
             else
             {
+                if(articulo.Stock < cantidadEntrante)
+                {
+                    MessageBox.Show($"Stock insuficiente.", "Error de stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 // Si no existe, agregamos uno nuevo
                 bindingList.Add(new ArticlesSalesModel
                 {
@@ -215,6 +234,7 @@ namespace LinkCajaV2.Sales
                     Code = articulo.Code,
                     Name = articulo.Name,
                     Stock = cantidadEntrante,
+                    IdPresentation = articulo.IdPresentation,
                     Presentation = articulo.Presentation,
                     Price = precioCalculado,
                     Decimals = presentacion.Decimals,
@@ -272,14 +292,8 @@ namespace LinkCajaV2.Sales
             bindingList?.Clear();
             ActualizarTotalGeneral();
 
-            //dgvArticulos.DataSource = null;
-            //lblTotal.Text = "Total $0.00";
             PBProducto.Image = null;
             NUDCantidad.Value = 1;
-            //foreach (DataGridViewRow row in dgvArticulos.Rows)
-            //{
-            //    row.DefaultCellStyle.BackColor = Color.White;
-            //}
         }
         private void dgvArticulos_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
@@ -447,6 +461,34 @@ namespace LinkCajaV2.Sales
                    Imprimir = CBImprimir.Checked,
                    Recibido = c.Recibido
                 };
+
+                TicketModel Ticket = new TicketModel
+                {
+                    Id = 0,
+                    IdUser = IdUsuario,
+                    IdClient = 1,//Clliente general por ahora
+                    Total = venta.Articles.Sum(x => x.Total)
+                };
+
+                AppRepository obj = new AppRepository();
+                Ticket.Id = obj.SaveTicket(Ticket).Result;
+                if(Ticket.Id == 0)
+                {
+                    MessageBox.Show("Error al guardar la venta. Intenta de nuevo.");
+                    return;
+                }
+                DetailsTicketModel Details = new DetailsTicketModel();
+                foreach (var item in venta.Articles)
+                {
+                    Details.Id = 0;
+                    Details.IdTicket = Ticket.Id;
+                    Details.IdArticle = item.IdArticle;
+                    Details.IdPresentation = item.IdPresentation;
+                    Details.StockSold = item.Stock;
+                    Details.PriceSold = item.Price;
+                    Details.TotalSold = item.Total;
+                    obj.SaveDetailsTicket(Details);
+                }
                 ImpressionsGeneral im = new ImpressionsGeneral();
                 im.GenerarTicket(venta);
 
@@ -458,7 +500,11 @@ namespace LinkCajaV2.Sales
 
         private void btnVerTickets_Click(object sender, EventArgs e)
         {
-
+            //Si se modifica un ticket solo se cambiara el estatus de los articulos que ya no se quieren
+            //y se creara un nuevo ticket con los datos nuevos.
+            //Si se devuelve un articulo cambiara el estatus del articulo a false
+            //y en reason se pondra el motivo.
+            //Si alguien modifica el ticket se guardara un historial
         }
 
         private void dgvArticulos_CellClick(object sender, DataGridViewCellEventArgs e)

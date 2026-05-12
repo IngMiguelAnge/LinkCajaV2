@@ -19,6 +19,68 @@ namespace LinkCajaV2.Data
         {
             GC.Collect();
         }
+        #region Venta
+        public async Task<int> SaveTicket(TicketModel obj)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveTicket", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", obj.Id));
+                        cmd.Parameters.Add(new SqlParameter("@IdUser", obj.IdUser));
+                        cmd.Parameters.Add(new SqlParameter("@IdClient", obj.IdClient));
+                        cmd.Parameters.Add(new SqlParameter("@Total", obj.Total));
+                         
+                        SqlParameter outputParam = new SqlParameter("@VResp", System.Data.SqlDbType.Int)
+                        {
+                            Direction = System.Data.ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outputParam);
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        int idGenerado = (outputParam.Value != DBNull.Value) ? Convert.ToInt32(outputParam.Value) : 0;
+
+                        return idGenerado;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+        public async Task<bool> SaveDetailsTicket(DetailsTicketModel obj)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveDetailsTicket", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", obj.Id));
+                        cmd.Parameters.Add(new SqlParameter("@IdTicket", obj.IdTicket));
+                        cmd.Parameters.Add(new SqlParameter("@IdArticle", obj.IdArticle));
+                        cmd.Parameters.Add(new SqlParameter("@IdPresentation", obj.IdPresentation));
+                        cmd.Parameters.Add(new SqlParameter("@StockSold", obj.StockSold));
+                        cmd.Parameters.Add(new SqlParameter("@PriceSold", obj.PriceSold));
+                        cmd.Parameters.Add(new SqlParameter("@TotalSold", obj.TotalSold));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        #endregion
         #region ConfigImpressions
         public async Task<bool> SaveConfigImpressions(ConfigImpressionsModel obj)
         {
