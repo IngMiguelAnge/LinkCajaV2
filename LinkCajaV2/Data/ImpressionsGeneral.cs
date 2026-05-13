@@ -24,7 +24,7 @@ namespace LinkCajaV2.Data
             {
                 AppRepository obj = new AppRepository();
                 ConfigBox = obj.GetConfigBox().Result;
-                ConfigImpressions = obj.GetConfigImpressions().Result;
+                ConfigImpressions = obj.GetConfigImpressions("Lista de precios").Result;
                 // 2. Configurar licencia y ruta
                 QuestPDF.Settings.License = LicenseType.Community;
                 string nombreArchivo = "Lista de precios.pdf";
@@ -201,15 +201,19 @@ namespace LinkCajaV2.Data
                 string carpeta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Impresiones");
                 if (!Directory.Exists(carpeta)) Directory.CreateDirectory(carpeta);
                 string rutaCompleta = Path.Combine(carpeta, nombreArchivo);
+                AppRepository obj = new AppRepository();
+                ConfigBox = obj.GetConfigPage().Result;
+                ConfigImpressions = obj.GetConfigImpressions("Ticket").Result;
                 float mmToPt = 2.83465f;
-                float anchoTicketMm = 80f; // Cambia a 58f si la impresora es pequeña
+                float anchoTicketMm = (float)ConfigBox.WidthPage; // Cambia a 58f si la impresora es pequeña
                                            // Calculamos un alto base (encabezado + totales + márgenes) 
                                            // y le sumamos unos 10mm por cada artículo.
-                float altoBaseMm = 60f;
+                float altoBaseMm = (float)ConfigBox.HightPage;//60f;
                 float altoDinamicoMm = altoBaseMm + (venta.Articles.Count * 10f);
                 float anchoFinal = anchoTicketMm * mmToPt;
                 float altoFinal = altoDinamicoMm * mmToPt;
                 QuestPDF.Settings.License = LicenseType.Community;
+                
                 var documento = Document.Create(container =>
                 {
                     container.Page(page =>
@@ -217,14 +221,44 @@ namespace LinkCajaV2.Data
                         page.Size(anchoFinal, altoFinal);
                         page.Margin(2, Unit.Millimetre);
                         page.PageColor(Colors.White);
-                        page.DefaultTextStyle(x => x.FontSize(8).FontFamily(Fonts.Verdana));
+                        page.DefaultTextStyle(x => x.FontSize(8).FontFamily(Fonts.Arial));
+                        int TituloFontsize = ConfigImpressions.Find(x => x.Name == "Titulo") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Titulo").FontSize) : 12;
+                        string TituloColor = ConfigImpressions.Find(x => x.Name == "Titulo") != null ? ConfigImpressions.Find(x => x.Name == "Titulo").FontColor : "Black";
+                        TituloColor = CodigodeColor(TituloColor);
+                        string TituloFontStyle = ConfigImpressions.Find(x => x.Name == "Titulo") != null ? ConfigImpressions.Find(x => x.Name == "Titulo").FontStyle : "SemiBold";
+                        var EstiloTitulo = ObtenerEstiloPersonalizado(TituloFontStyle, TituloFontsize, TituloColor);
+                        
+                        int CompanyFontsize = ConfigImpressions.Find(x => x.Name == "Company") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Company").FontSize) : 12;
+                        string CompanyColor = ConfigImpressions.Find(x => x.Name == "Company") != null ? ConfigImpressions.Find(x => x.Name == "Company").FontColor : "Black";
+                        CompanyColor = CodigodeColor(CompanyColor);
+                        string CompanyFontStyle = ConfigImpressions.Find(x => x.Name == "Company") != null ? ConfigImpressions.Find(x => x.Name == "Company").FontStyle : "SemiBold";
+                        var EstiloCompany = ObtenerEstiloPersonalizado(CompanyFontStyle, CompanyFontsize, CompanyColor);
+                        
+                        int RFCFontsize = ConfigImpressions.Find(x => x.Name == "RFC") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "RFC").FontSize) : 12;
+                        string RFCColor = ConfigImpressions.Find(x => x.Name == "RFC") != null ? ConfigImpressions.Find(x => x.Name == "RFC").FontColor : "Black";
+                        RFCColor = CodigodeColor(RFCColor);
+                        string RFCFontStyle = ConfigImpressions.Find(x => x.Name == "RFC") != null ? ConfigImpressions.Find(x => x.Name == "RFC").FontStyle : "SemiBold";
+                        var EstiloRFC = ObtenerEstiloPersonalizado(RFCFontStyle, RFCFontsize, RFCColor);
+
+                        int FechaFontsize = ConfigImpressions.Find(x => x.Name == "Fecha") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Fecha").FontSize) : 12;
+                        string FechaColor = ConfigImpressions.Find(x => x.Name == "Fecha") != null ? ConfigImpressions.Find(x => x.Name == "Fecha").FontColor : "Black";
+                        FechaColor = CodigodeColor(FechaColor);
+                        string FechaFontStyle = ConfigImpressions.Find(x => x.Name == "Fecha") != null ? ConfigImpressions.Find(x => x.Name == "Fecha").FontStyle : "SemiBold";
+                        var EstiloFecha = ObtenerEstiloPersonalizado(FechaFontStyle, FechaFontsize, FechaColor);
+
+                        int TablaFontsize = ConfigImpressions.Find(x => x.Name == "Tabla") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Tabla").FontSize) : 12;
+                        string TablaColor = ConfigImpressions.Find(x => x.Name == "Tabla") != null ? ConfigImpressions.Find(x => x.Name == "Tabla").FontColor : "Black";
+                        TablaColor = CodigodeColor(TablaColor);
+                        string TablaFontStyle = ConfigImpressions.Find(x => x.Name == "Tabla") != null ? ConfigImpressions.Find(x => x.Name == "Tabla").FontStyle : "SemiBold";
+                        var EstiloTabla = ObtenerEstiloPersonalizado(TablaFontStyle, TablaFontsize, TablaColor);
 
                         // Mantenemos el Header igual
                         page.Header().Column(col =>
                         {
-                            col.Item().AlignCenter().Text(venta.Company.Name).FontSize(12).SemiBold();
-                            col.Item().AlignCenter().Text(venta.Company.RFC).FontSize(7);
-                            col.Item().AlignCenter().Text(DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+                            col.Item().AlignCenter().Text("TICKET").Style(EstiloTitulo);
+                            col.Item().AlignCenter().Text(venta.Company.Name).Style(EstiloCompany);
+                            col.Item().AlignCenter().Text(venta.Company.RFC).Style(EstiloRFC);
+                            col.Item().AlignCenter().Text(DateTime.Now.ToString("dd/MM/yyyy HH:mm")).Style(EstiloFecha);
                             col.Item().LineHorizontal(1);
                         });
 
@@ -236,6 +270,7 @@ namespace LinkCajaV2.Data
                             {
                                 table.ColumnsDefinition(columns =>
                                 {
+                                    columns.RelativeColumn(1);
                                     columns.RelativeColumn(3);
                                     columns.RelativeColumn(1);
                                     columns.RelativeColumn(2);
@@ -243,11 +278,18 @@ namespace LinkCajaV2.Data
 
                                 foreach (var item in venta.Articles)
                                 {
-                                    table.Cell().AlignLeft().Text(item.Name);
-                                    table.Cell().AlignCenter().Text(item.Stock.ToString(item.Decimals > 0 ? "N3" : "N0"));
-                                    table.Cell().AlignRight().Text(item.Total.ToString("C2"));
+                                    table.Cell().AlignLeft().Text(item.Code).Style(EstiloTabla);
+                                    table.Cell().AlignLeft().Text(item.Name).Style(EstiloTabla);
+                                    table.Cell().AlignCenter().Text(item.Stock.ToString(item.Decimals > 0 ? "N3" : "N0")).Style(EstiloTabla);
+                                    table.Cell().AlignRight().Text(item.Total.ToString("C2")).Style(EstiloTabla);
                                 }
                             });
+
+                            int TotalFontsize = ConfigImpressions.Find(x => x.Name == "Total") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Total").FontSize) : 12;
+                            string TotalColor = ConfigImpressions.Find(x => x.Name == "Total") != null ? ConfigImpressions.Find(x => x.Name == "Total").FontColor : "Black";
+                            TotalColor = CodigodeColor(TotalColor);
+                            string TotalFontStyle = ConfigImpressions.Find(x => x.Name == "Total") != null ? ConfigImpressions.Find(x => x.Name == "Total").FontStyle : "SemiBold";
+                            var EstiloTotal = ObtenerEstiloPersonalizado(TotalFontStyle, TotalFontsize, TotalColor);
 
                             // 2. Los Totales (justo debajo de la tabla)
                             mainCol.Item().PaddingTop(5).Column(totalCol =>
@@ -255,11 +297,11 @@ namespace LinkCajaV2.Data
                                 totalCol.Item().LineHorizontal(1);
 
                                 decimal granTotal = venta.Articles.Sum(x => x.Total);
-                                totalCol.Item().AlignRight().Text($"RECIBIDO: {venta.Recibido:C2}").FontSize(10).SemiBold();
-                                totalCol.Item().AlignRight().Text($"TOTAL: {granTotal:C2}").FontSize(10).SemiBold();
+                                totalCol.Item().AlignRight().Text($"RECIBIDO: {venta.Recibido:C2}").Style(EstiloTotal);
+                                totalCol.Item().AlignRight().Text($"TOTAL: {granTotal:C2}").Style(EstiloTotal);
 
                                 decimal cambio = venta.Recibido - granTotal;
-                                totalCol.Item().AlignRight().Text($"CAMBIO: {cambio:C2}").FontSize(10).SemiBold();
+                                totalCol.Item().AlignRight().Text($"CAMBIO: {cambio:C2}").Style(EstiloTotal);
 
                                 totalCol.Item().PaddingTop(10).AlignCenter().Text("¡Gracias por su compra!");
                             });
@@ -282,13 +324,8 @@ namespace LinkCajaV2.Data
         {
             PdfDocument pdf = new PdfDocument();
             pdf.LoadFromFile(rutaArchivo);
-
             // En algunas versiones se usa esta propiedad para ocultar el diálogo:
             pdf.PrintSettings.PrintController = new System.Drawing.Printing.StandardPrintController();
-
-            // Si quieres asegurar la impresora predeterminada:
-            // pdf.PrintSettings.PrinterName = "Nombre de tu impresora";
-
             pdf.Print();
         }
     }

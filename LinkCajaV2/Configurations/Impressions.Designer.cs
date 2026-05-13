@@ -60,6 +60,7 @@
             this.GBCuadros = new System.Windows.Forms.GroupBox();
             this.GBLinea = new System.Windows.Forms.GroupBox();
             this.btnImprimir = new System.Windows.Forms.Button();
+            this.CBImprimir = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.NUDSizeLetra)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDEspacio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDAncho)).BeginInit();
@@ -346,7 +347,7 @@
             this.GBMPagina.Controls.Add(this.lblAMilemetros);
             this.GBMPagina.Location = new System.Drawing.Point(27, 103);
             this.GBMPagina.Name = "GBMPagina";
-            this.GBMPagina.Size = new System.Drawing.Size(425, 88);
+            this.GBMPagina.Size = new System.Drawing.Size(574, 88);
             this.GBMPagina.TabIndex = 28;
             this.GBMPagina.TabStop = false;
             this.GBMPagina.Text = "Medidas de página";
@@ -408,11 +409,25 @@
             this.btnImprimir.UseVisualStyleBackColor = true;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
+            // CBImprimir
+            // 
+            this.CBImprimir.AutoSize = true;
+            this.CBImprimir.Checked = true;
+            this.CBImprimir.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CBImprimir.Location = new System.Drawing.Point(407, 55);
+            this.CBImprimir.Name = "CBImprimir";
+            this.CBImprimir.Size = new System.Drawing.Size(167, 24);
+            this.CBImprimir.TabIndex = 28;
+            this.CBImprimir.Text = "¿Imprimir el ticket?";
+            this.CBImprimir.UseVisualStyleBackColor = true;
+            this.CBImprimir.Visible = false;
+            // 
             // Impressions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(639, 656);
+            this.Controls.Add(this.CBImprimir);
             this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.GBLinea);
             this.Controls.Add(this.GBCuadros);
@@ -482,5 +497,6 @@
         private System.Windows.Forms.GroupBox GBCuadros;
         private System.Windows.Forms.GroupBox GBLinea;
         private System.Windows.Forms.Button btnImprimir;
+        private System.Windows.Forms.CheckBox CBImprimir;
     }
 }

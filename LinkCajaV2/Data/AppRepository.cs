@@ -156,7 +156,7 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
-        public async Task<List<ListConfigImpressionsModel>> GetConfigImpressions()
+        public async Task<List<ListConfigImpressionsModel>> GetConfigImpressions(string Tipo)
         {
             List<ListConfigImpressionsModel> list = new List<ListConfigImpressionsModel>();
             try
@@ -166,6 +166,8 @@ namespace LinkCajaV2.Data
                     using (SqlCommand cmd = new SqlCommand("GetConfigImpressions", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Tipo", Tipo));
+
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
@@ -221,6 +223,35 @@ namespace LinkCajaV2.Data
             }
             return Result;
         }
+        public async Task<ConfigPageModel> GetConfigPage()
+        {
+            ConfigPageModel Result = new ConfigPageModel();
+            List<ConfigPageModel> list = new List<ConfigPageModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetConfigPage", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToConfigPage(reader));
+                            }
+                            Result = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Result = null;
+            }
+            return Result;
+        }
         private ConfigPageModel MapToConfigBox(SqlDataReader reader)
         {
             return new ConfigPageModel()
@@ -231,6 +262,20 @@ namespace LinkCajaV2.Data
                 Width = (int)reader["Width"],
                 HightLine = (decimal)reader["HightLine"],
                 ColorLine = (string)reader["ColorLine"],
+                WidthPage = (decimal)reader["WidthPage"],
+                HightPage = (decimal)reader["HightPage"],
+            };
+        }
+        private ConfigPageModel MapToConfigPage(SqlDataReader reader)
+        {
+            return new ConfigPageModel()
+            {
+                Page = (string)reader["Page"],
+                Spacing = 0,
+                Align = string.Empty,
+                Width = 0,
+                HightLine = 0,
+                ColorLine = string.Empty,
                 WidthPage = (decimal)reader["WidthPage"],
                 HightPage = (decimal)reader["HightPage"],
             };

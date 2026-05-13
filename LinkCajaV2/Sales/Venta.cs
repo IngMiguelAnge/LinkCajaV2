@@ -54,7 +54,13 @@ namespace LinkCajaV2.Sales
                     }
                 }
             }
-            CrearGridView();
+            else
+            {
+                MessageBox.Show("No se encontraron datos de la empresa.", "Datos de empresa no encontrados", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            }
+                CrearGridView();
         }
         public void CrearGridView()
         {
@@ -439,7 +445,7 @@ namespace LinkCajaV2.Sales
             }
         }
 
-        private void btnPagar_Click(object sender, EventArgs e)
+        private async void btnPagar_Click(object sender, EventArgs e)
         {
             var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
 
@@ -487,7 +493,7 @@ namespace LinkCajaV2.Sales
                     Details.StockSold = item.Stock;
                     Details.PriceSold = item.Price;
                     Details.TotalSold = item.Total;
-                    obj.SaveDetailsTicket(Details);
+                    await obj.SaveDetailsTicket(Details);
                 }
                 ImpressionsGeneral im = new ImpressionsGeneral();
                 im.GenerarTicket(venta);
