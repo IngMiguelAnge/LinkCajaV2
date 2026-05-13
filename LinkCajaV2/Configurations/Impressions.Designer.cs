@@ -412,7 +412,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(635, 656);
+            this.ClientSize = new System.Drawing.Size(639, 656);
             this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.GBLinea);
             this.Controls.Add(this.GBCuadros);
