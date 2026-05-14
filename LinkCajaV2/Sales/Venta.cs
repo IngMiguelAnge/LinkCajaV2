@@ -60,7 +60,7 @@ namespace LinkCajaV2.Sales
                 this.Close();
                 return;
             }
-                CrearGridView();
+            CrearGridView();
         }
         public void CrearGridView()
         {
@@ -228,7 +228,7 @@ namespace LinkCajaV2.Sales
             }
             else
             {
-                if(articulo.Stock < cantidadEntrante)
+                if (articulo.Stock < cantidadEntrante)
                 {
                     MessageBox.Show($"Stock insuficiente.", "Error de stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -444,7 +444,6 @@ namespace LinkCajaV2.Sales
                     break;
             }
         }
-
         private async void btnPagar_Click(object sender, EventArgs e)
         {
             var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
@@ -461,11 +460,11 @@ namespace LinkCajaV2.Sales
             {
                 VentaModel venta = new VentaModel
                 {
-                   Articles = bindingList,
-                   Copias = NUDCopias.Value,
-                   Company = Empresa,
-                   Imprimir = CBImprimir.Checked,
-                   Recibido = c.Recibido
+                    Articles = bindingList,
+                    Copias = NUDCopias.Value,
+                    Company = Empresa,
+                    Imprimir = CBImprimir.Checked,
+                    Recibido = c.Recibido
                 };
 
                 TicketModel Ticket = new TicketModel
@@ -478,7 +477,7 @@ namespace LinkCajaV2.Sales
 
                 AppRepository obj = new AppRepository();
                 Ticket.Id = obj.SaveTicket(Ticket).Result;
-                if(Ticket.Id == 0)
+                if (Ticket.Id == 0)
                 {
                     MessageBox.Show("Error al guardar la venta. Intenta de nuevo.");
                     return;
@@ -503,7 +502,6 @@ namespace LinkCajaV2.Sales
                 NuevaVenta();
             }
         }
-
         private void btnVerTickets_Click(object sender, EventArgs e)
         {
             //Si se modifica un ticket solo se cambiara el estatus de los articulos que ya no se quieren
@@ -512,7 +510,6 @@ namespace LinkCajaV2.Sales
             //y en reason se pondra el motivo.
             //Si alguien modifica el ticket se guardara un historial
         }
-
         private void dgvArticulos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;

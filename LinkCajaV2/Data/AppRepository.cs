@@ -19,6 +19,52 @@ namespace LinkCajaV2.Data
         {
             GC.Collect();
         }
+        #region Tickets
+        public async Task<List<ListTicketModel>> GetTickets(int IdTicket, DateTime Desde,
+            DateTime Hasta, bool FechaCreacion)
+        {
+            List<ListTicketModel> list = new List<ListTicketModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetTickets", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@IdTicket", IdTicket));
+                        cmd.Parameters.Add(new SqlParameter("@Desde", Desde));
+                        cmd.Parameters.Add(new SqlParameter("@Hasta", Hasta));
+                        cmd.Parameters.Add(new SqlParameter("@FechaCreacion", FechaCreacion));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToListTickets(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
+        private ListTicketModel MapToListTickets(SqlDataReader reader)
+        {
+            return new ListTicketModel()
+            {
+                Id = (int)reader["Id"],
+                User = (string)reader["User"],
+                Client = (string)reader["Client"],
+                Total = (decimal)reader["Total"],
+                Created = (DateTime)reader["CreateDate"],
+                Modified = (DateTime)reader["Lastmodification"],
+            };
+        }
+
+        #endregion
         #region Venta
         public async Task<int> SaveTicket(TicketModel obj)
         {

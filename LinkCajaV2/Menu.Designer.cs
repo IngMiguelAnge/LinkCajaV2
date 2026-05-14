@@ -42,10 +42,13 @@
             this.btnUsuarios = new System.Windows.Forms.Button();
             this.BtnVenta = new System.Windows.Forms.Button();
             this.gbMostrador = new System.Windows.Forms.GroupBox();
+            this.GBReportes = new System.Windows.Forms.GroupBox();
+            this.btnReporteTickets = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.GBConfiguraciones.SuspendLayout();
             this.gbCatalogos.SuspendLayout();
             this.gbMostrador.SuspendLayout();
+            this.GBReportes.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -56,14 +59,14 @@
             this.licenciaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(761, 33);
+            this.menuStrip1.Size = new System.Drawing.Size(761, 36);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // licenciaToolStripMenuItem
             // 
             this.licenciaToolStripMenuItem.Name = "licenciaToolStripMenuItem";
-            this.licenciaToolStripMenuItem.Size = new System.Drawing.Size(88, 29);
+            this.licenciaToolStripMenuItem.Size = new System.Drawing.Size(88, 32);
             this.licenciaToolStripMenuItem.Text = "Licencia";
             this.licenciaToolStripMenuItem.Click += new System.EventHandler(this.licenciaToolStripMenuItem_Click);
             // 
@@ -93,7 +96,7 @@
             this.GBConfiguraciones.Controls.Add(this.btnEmpresa);
             this.GBConfiguraciones.Controls.Add(this.BtnCajas);
             this.GBConfiguraciones.Dock = System.Windows.Forms.DockStyle.Top;
-            this.GBConfiguraciones.Location = new System.Drawing.Point(0, 33);
+            this.GBConfiguraciones.Location = new System.Drawing.Point(0, 36);
             this.GBConfiguraciones.Name = "GBConfiguraciones";
             this.GBConfiguraciones.Size = new System.Drawing.Size(761, 138);
             this.GBConfiguraciones.TabIndex = 3;
@@ -118,7 +121,7 @@
             this.gbCatalogos.Controls.Add(this.btnProveedores);
             this.gbCatalogos.Controls.Add(this.btnUsuarios);
             this.gbCatalogos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gbCatalogos.Location = new System.Drawing.Point(0, 171);
+            this.gbCatalogos.Location = new System.Drawing.Point(0, 174);
             this.gbCatalogos.Name = "gbCatalogos";
             this.gbCatalogos.Size = new System.Drawing.Size(761, 100);
             this.gbCatalogos.TabIndex = 4;
@@ -191,18 +194,40 @@
             // 
             this.gbMostrador.Controls.Add(this.BtnVenta);
             this.gbMostrador.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gbMostrador.Location = new System.Drawing.Point(0, 271);
+            this.gbMostrador.Location = new System.Drawing.Point(0, 274);
             this.gbMostrador.Name = "gbMostrador";
             this.gbMostrador.Size = new System.Drawing.Size(761, 100);
             this.gbMostrador.TabIndex = 6;
             this.gbMostrador.TabStop = false;
             this.gbMostrador.Text = "Mostrador";
             // 
+            // GBReportes
+            // 
+            this.GBReportes.Controls.Add(this.btnReporteTickets);
+            this.GBReportes.Dock = System.Windows.Forms.DockStyle.Top;
+            this.GBReportes.Location = new System.Drawing.Point(0, 374);
+            this.GBReportes.Name = "GBReportes";
+            this.GBReportes.Size = new System.Drawing.Size(761, 100);
+            this.GBReportes.TabIndex = 7;
+            this.GBReportes.TabStop = false;
+            this.GBReportes.Text = "Reportes";
+            // 
+            // btnReporteTickets
+            // 
+            this.btnReporteTickets.Location = new System.Drawing.Point(8, 38);
+            this.btnReporteTickets.Name = "btnReporteTickets";
+            this.btnReporteTickets.Size = new System.Drawing.Size(115, 56);
+            this.btnReporteTickets.TabIndex = 0;
+            this.btnReporteTickets.Text = "Tickets";
+            this.btnReporteTickets.UseVisualStyleBackColor = true;
+            this.btnReporteTickets.Click += new System.EventHandler(this.btnReporteTickets_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(761, 393);
+            this.ClientSize = new System.Drawing.Size(761, 488);
+            this.Controls.Add(this.GBReportes);
             this.Controls.Add(this.gbMostrador);
             this.Controls.Add(this.gbCatalogos);
             this.Controls.Add(this.GBConfiguraciones);
@@ -218,6 +243,7 @@
             this.GBConfiguraciones.ResumeLayout(false);
             this.gbCatalogos.ResumeLayout(false);
             this.gbMostrador.ResumeLayout(false);
+            this.GBReportes.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -239,5 +265,7 @@
         private System.Windows.Forms.Button BtnVenta;
         private System.Windows.Forms.Button btnImpresiones;
         private System.Windows.Forms.GroupBox gbMostrador;
+        private System.Windows.Forms.GroupBox GBReportes;
+        private System.Windows.Forms.Button btnReporteTickets;
     }
 }

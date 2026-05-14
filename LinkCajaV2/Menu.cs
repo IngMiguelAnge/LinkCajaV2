@@ -2,6 +2,7 @@
 using LinkCajaV2.Configuraciones;
 using LinkCajaV2.Configurations;
 using LinkCajaV2.Items;
+using LinkCajaV2.Reports;
 using LinkCajaV2.Sales;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace LinkCajaV2
             {
                 GBConfiguraciones.Visible = false;
                 gbCatalogos.Visible = false;
+                GBReportes.Visible = false;
             }
         }
 
@@ -45,7 +47,6 @@ namespace LinkCajaV2
             Licenses l = new Licenses();
             l.Show();
         }
-
         private void btnEmpresa_Click(object sender, EventArgs e)
         {
             Company m = new Company();
@@ -102,6 +103,12 @@ namespace LinkCajaV2
         {
             Impressions s = new Impressions();
             s.Show();
+        }
+
+        private void btnReporteTickets_Click(object sender, EventArgs e)
+        {
+            Tickets t = new Tickets();
+            t.Show();
         }
     }
 }

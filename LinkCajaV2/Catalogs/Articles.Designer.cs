@@ -135,7 +135,6 @@
             this.btnImprimir.TabIndex = 11;
             this.btnImprimir.Text = "Imprimir precios";
             this.btnImprimir.UseVisualStyleBackColor = true;
-            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
             // BtnImpresion
             // 

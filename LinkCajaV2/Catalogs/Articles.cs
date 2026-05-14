@@ -29,7 +29,6 @@ namespace LinkCajaV2.Catalogs
         {
             InitializeComponent();
         }
-
         private async void BtnBuscar_Click(object sender, EventArgs e)
         {
             if (txtNombre.Text.Trim() == "" && txtCodigo.Text.Trim() == "")
@@ -94,7 +93,6 @@ namespace LinkCajaV2.Catalogs
                 BtnImpresion.Enabled = true;
             }
         }
-
         private async void btnNuevo_Click(object sender, EventArgs e)
         {
             Article m = new Article();
@@ -102,7 +100,6 @@ namespace LinkCajaV2.Catalogs
             m.ShowDialog();
             await BuscarArticulos();
         }
-
         private async void dgvArticulos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Evitar errores si hacen click en el encabezado
@@ -179,7 +176,6 @@ namespace LinkCajaV2.Catalogs
             btnStock.UseColumnTextForButtonValue = true;
             dgvArticulos.Columns.Add(btnStock);
         }
-
         private void Articles_Load(object sender, EventArgs e)
         {
             if (IsVenta || IsReceta)
@@ -189,90 +185,6 @@ namespace LinkCajaV2.Catalogs
                 BtnImpresion.Visible = false;
             }
         }
-
-        private async void btnImprimir_Click(object sender, EventArgs e)
-        {
-            AppRepository obj = new AppRepository();
-            var lista = await Task.Run(() =>
-              obj.GetArticles(txtCodigo.Text, txtNombre.Text, IsReceta)
-              );
-            try
-            {
-                QuestPDF.Settings.License = LicenseType.Community;
-
-                // 1. Definimos una ruta clara (en la carpeta del programa)
-                string nombreArchivo = "Lista de precios.pdf";
-                string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory + "\\Impresiones", nombreArchivo);
-
-                // 2. Crear el documento
-                var documento = Document.Create(container =>
-                {
-                    container.Page(page =>
-                    {
-                        page.Size(PageSizes.A4);
-                        page.Margin(1, Unit.Centimetre);
-                        page.PageColor(Colors.White);
-
-                        page.Content().Table(table =>
-                        {
-                            table.ColumnsDefinition(columns =>
-                            {
-                                columns.RelativeColumn(); //Ancho fijo ConstantColumn(80) o relativo RelativeColumn()
-                                columns.RelativeColumn();
-                                columns.RelativeColumn();
-                                columns.RelativeColumn();
-                            });
-
-                            table.Header(header =>
-                            {
-                                header.Cell().Element(CellStyle).Text("Código");
-                                header.Cell().Element(CellStyle).Text("Nombre");
-                                header.Cell().Element(CellStyle).Text("Por cada");
-                                header.Cell().Element(CellStyle).Text("Precio");
-                            });
-
-                            foreach (var item in lista)
-                            {
-                                table.Cell().Element(ContentStyle).Text(item.Codigo);
-                                table.Cell().Element(ContentStyle).Text(item.Articulo);
-                                table.Cell().Element(ContentStyle).Text(item.PorCada);
-                                table.Cell().Element(ContentStyle).Text(item.Precio.ToString("C"));
-
-                            }
-                        });
-                    });
-                });
-
-                // 3. ¡IMPORTANTE! Guardar el archivo
-                documento.GeneratePdf(rutaCompleta);
-
-                // 4. Mostrar mensaje de éxito y abrir archivo
-                //MessageBox.Show("PDF Generado con éxito en: " + rutaCompleta);
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(rutaCompleta) { UseShellExecute = true });
-            }
-            catch (Exception ex)
-            {
-                // Esto te dirá si el error es por permisos, si el archivo está abierto, etc.
-                MessageBox.Show("Error al crear PDF: " + ex.Message);
-            }
-        }
-
-        // 2. Métodos privados fuera del método anterior pero dentro de la misma clase
-        private IContainer CellStyle(IContainer container)
-        {
-            return container.DefaultTextStyle(x => x.SemiBold())
-                            .PaddingVertical(5)
-                            .BorderBottom(1)
-                            .BorderColor(Colors.Black);
-        }
-
-        private IContainer ContentStyle(IContainer container)
-        {
-            return container.PaddingVertical(5)
-                            .BorderBottom(0.5f)
-                            .BorderColor(Colors.Grey.Lighten2);
-        }
-
         private async void BtnImpresion_Click(object sender, EventArgs e)
         {
             if (txtNombre.Text.Trim() == "" && txtCodigo.Text.Trim() == "")
@@ -307,6 +219,5 @@ namespace LinkCajaV2.Catalogs
                 MessageBox.Show("Error al generar el PDF: " + ex.Message);
             }
         }
-       
     }
 }
