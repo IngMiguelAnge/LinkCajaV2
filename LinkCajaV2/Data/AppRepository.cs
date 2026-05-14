@@ -20,6 +20,48 @@ namespace LinkCajaV2.Data
             GC.Collect();
         }
         #region Tickets
+        public async Task<List<ListDetailsTicketModel>> GetDetailsTicket(int IdTicket)
+        {
+            List<ListDetailsTicketModel> list = new List<ListDetailsTicketModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetDetailsTicket", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@IdTicket", IdTicket));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToListDetailsTicket(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
+        private ListDetailsTicketModel MapToListDetailsTicket(SqlDataReader reader)
+        {
+            return new ListDetailsTicketModel()
+            {
+                Id = (int)reader["Id"],
+                Code = (string)reader["Code"],
+                Name = (string)reader["Name"],
+                Stock = (string)reader["Stock"],
+                PriceSold = (decimal)reader["PriceSold"],
+                TotalSold = (decimal)reader["TotalSold"],
+                CreateDate = (DateTime)reader["CreateDate"],
+                Status = (string)reader["Status"],
+            };
+        }
+
         public async Task<List<ListTicketModel>> GetTickets(int IdTicket, DateTime Desde,
             DateTime Hasta, bool FechaCreacion)
         {

@@ -131,7 +131,7 @@
             this.GBTickets.Controls.Add(this.dgvTickets);
             this.GBTickets.Location = new System.Drawing.Point(34, 208);
             this.GBTickets.Name = "GBTickets";
-            this.GBTickets.Size = new System.Drawing.Size(644, 212);
+            this.GBTickets.Size = new System.Drawing.Size(653, 215);
             this.GBTickets.TabIndex = 1;
             this.GBTickets.TabStop = false;
             this.GBTickets.Text = "Tickets:";
@@ -144,7 +144,7 @@
             this.dgvTickets.Name = "dgvTickets";
             this.dgvTickets.RowHeadersWidth = 62;
             this.dgvTickets.RowTemplate.Height = 28;
-            this.dgvTickets.Size = new System.Drawing.Size(638, 187);
+            this.dgvTickets.Size = new System.Drawing.Size(647, 190);
             this.dgvTickets.TabIndex = 12;
             this.dgvTickets.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTickets_CellContentClick);
             // 
@@ -185,7 +185,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(702, 450);
+            this.ClientSize = new System.Drawing.Size(711, 453);
             this.Controls.Add(this.RBModificacion);
             this.Controls.Add(this.RBCreacion);
             this.Controls.Add(this.lblVenta);

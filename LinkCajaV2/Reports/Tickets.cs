@@ -104,7 +104,6 @@ namespace LinkCajaV2.Reports
             dgvTickets.Columns.Add(btnVer);
             dgvTickets.AllowUserToAddRows = false;
         }
-
         private void CBBuscar_CheckedChanged(object sender, EventArgs e)
         {
             if (CBFecha.Checked)
@@ -125,14 +124,12 @@ namespace LinkCajaV2.Reports
                 NUDTicket.Enabled = true;
             }
         }
-
         private void Tickets_Load(object sender, EventArgs e)
         {
             RBCreacion.Checked = true;
             RBModificacion.Checked = false;
             CrearGridView();
         }
-
         private void dgvTickets_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -140,11 +137,14 @@ namespace LinkCajaV2.Reports
             switch (dgvTickets.Columns[e.ColumnIndex].Name)
             {
                 case "Ver":
-
+                    ItemsTicket itemsForm = new ItemsTicket
+                    {
+                        IdTicket = Convert.ToInt32(dgvTickets.Rows[e.RowIndex].Cells["Id"].Value)
+                    };
+                    itemsForm.ShowDialog();
                     break;
             }
         }
-
         private void RBCreacion_CheckedChanged(object sender, EventArgs e)
         {
             if (RBCreacion.Checked)
@@ -152,7 +152,6 @@ namespace LinkCajaV2.Reports
             else
                 RBModificacion.Checked = true;
         }
-
         private void RBModificacion_CheckedChanged(object sender, EventArgs e)
         {
             if (RBModificacion.Checked)
