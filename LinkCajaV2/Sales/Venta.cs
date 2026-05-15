@@ -464,7 +464,9 @@ namespace LinkCajaV2.Sales
                     Copias = NUDCopias.Value,
                     Company = Empresa,
                     Imprimir = CBImprimir.Checked,
-                    Recibido = c.Recibido
+                    Recibido = c.Recibido,
+                    VentaId =0,
+                    Cliente = "Publico General"
                 };
 
                 TicketModel Ticket = new TicketModel
@@ -482,6 +484,7 @@ namespace LinkCajaV2.Sales
                     MessageBox.Show("Error al guardar la venta. Intenta de nuevo.");
                     return;
                 }
+                venta.IdTicket = Ticket.Id;
                 DetailsTicketModel Details = new DetailsTicketModel();
                 foreach (var item in venta.Articles)
                 {

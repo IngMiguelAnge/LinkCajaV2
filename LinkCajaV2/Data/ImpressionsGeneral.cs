@@ -197,7 +197,7 @@ namespace LinkCajaV2.Data
 
             try
             {
-                string nombreArchivo = $"Ticket_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+                string nombreArchivo = $"Ticket_{venta.IdTicket}.pdf";//$"Ticket_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
                 string carpeta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Impresiones");
                 if (!Directory.Exists(carpeta)) Directory.CreateDirectory(carpeta);
                 string rutaCompleta = Path.Combine(carpeta, nombreArchivo);
@@ -255,9 +255,12 @@ namespace LinkCajaV2.Data
                         // Mantenemos el Header igual
                         page.Header().Column(col =>
                         {
-                            col.Item().AlignCenter().Text("TICKET").Style(EstiloTitulo);
+                            col.Item().AlignCenter().Text("TICKET" + venta.IdTicket.ToString()).Style(EstiloTitulo);
+                            col.Item().AlignCenter().Text("VENTA").Style(EstiloTitulo);
                             col.Item().AlignCenter().Text(venta.Company.Name).Style(EstiloCompany);
                             col.Item().AlignCenter().Text(venta.Company.RFC).Style(EstiloRFC);
+                            col.Item().AlignCenter().Text(venta.Company.Address).Style(EstiloRFC);
+                            col.Item().AlignCenter().Text(venta.Cliente).Style(EstiloRFC);
                             col.Item().AlignCenter().Text(DateTime.Now.ToString("dd/MM/yyyy HH:mm")).Style(EstiloFecha);
                             col.Item().LineHorizontal(1);
                         });

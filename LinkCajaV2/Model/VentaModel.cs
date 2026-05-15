@@ -9,5 +9,7 @@ namespace LinkCajaV2.Model
         public CompanyModel Company { get; set; }
         public bool Imprimir { get; set; }
         public decimal Recibido { get; set; }
+        public int IdTicket { get; set; }
+        public string Cliente { get; set; }
     }
 }
