@@ -59,9 +59,10 @@ namespace LinkCajaV2.Data
                 TotalSold = (decimal)reader["TotalSold"],
                 CreateDate = (DateTime)reader["CreateDate"],
                 Status = (string)reader["Status"],
+                SendBack = (bool)reader["SendBack"],
+                StockSold = (decimal)reader["StockSold"],
             };
         }
-
         public async Task<List<ListTicketModel>> GetTickets(int IdTicket, DateTime Desde,
             DateTime Hasta, bool FechaCreacion)
         {
@@ -101,9 +102,74 @@ namespace LinkCajaV2.Data
                 User = (string)reader["User"],
                 Client = (string)reader["Client"],
                 Total = (decimal)reader["Total"],
+                Devolucion = (decimal)reader["Devolucion"],
                 Created = (DateTime)reader["CreateDate"],
                 Modified = (DateTime)reader["Lastmodification"],
+                Status = (string)reader["Status"],
             };
+        }
+        public async Task<bool> ReturnArticle(int Id, string NoteText)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("ReturnArticle", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        // 1. Parámetro de entrada normal
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        cmd.Parameters.Add(new SqlParameter("@NoteText", NoteText));
+                        // 2. CONFIGURAR EL PARÁMETRO DE SALIDA
+                        SqlParameter vRespParam = new SqlParameter("@VResp", System.Data.SqlDbType.Int)
+                        {
+                            Direction = System.Data.ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(vRespParam);
+
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+
+                        // 3. CAPTURAR Y EVALUAR EL RESULTADO
+                        // Validamos que no sea DBNull y que el valor sea igual a 1
+                        if (vRespParam.Value != DBNull.Value && (int)vRespParam.Value == 1)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false; // El SP devolvió 0 (error interno, ya devuelto o ID no existe)
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<bool> CancelTicket(int Id,string NoteText)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("CancelTicket", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        cmd.Parameters.Add(new SqlParameter("@NoteText", NoteText));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         #endregion
@@ -1667,6 +1733,7 @@ namespace LinkCajaV2.Data
                 Description = (string)reader["Description"],
                 Image = Convert.IsDBNull(reader["Image"]) ? null : (byte[])reader["Image"],
                 Code = (string)reader["Code"],
+                SendBack = (bool)reader["SendBack"],
                 Status = (bool)reader["Status"],
             };
         }
@@ -1684,7 +1751,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Description", obj.Description));
                         cmd.Parameters.Add(new SqlParameter("@Image", obj.Image));
                         cmd.Parameters.Add(new SqlParameter("@Code", obj.Code));
-
+                        cmd.Parameters.Add(new SqlParameter("@SendBack", obj.SendBack));
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;

@@ -37,6 +37,7 @@
             this.BtnGuardar = new System.Windows.Forms.Button();
             this.lblCodigo = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
+            this.CBDevoluciones = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.PBProducto)).BeginInit();
             this.SuspendLayout();
             // 
@@ -94,7 +95,7 @@
             // 
             // BtnGuardar
             // 
-            this.BtnGuardar.Location = new System.Drawing.Point(23, 248);
+            this.BtnGuardar.Location = new System.Drawing.Point(23, 268);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(108, 35);
             this.BtnGuardar.TabIndex = 7;
@@ -119,11 +120,22 @@
             this.txtCodigo.Size = new System.Drawing.Size(334, 26);
             this.txtCodigo.TabIndex = 1;
             // 
+            // CBDevoluciones
+            // 
+            this.CBDevoluciones.AutoSize = true;
+            this.CBDevoluciones.Location = new System.Drawing.Point(23, 218);
+            this.CBDevoluciones.Name = "CBDevoluciones";
+            this.CBDevoluciones.Size = new System.Drawing.Size(200, 24);
+            this.CBDevoluciones.TabIndex = 16;
+            this.CBDevoluciones.Text = "¿Acepta devolusiones?";
+            this.CBDevoluciones.UseVisualStyleBackColor = true;
+            // 
             // Article
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(822, 315);
+            this.Controls.Add(this.CBDevoluciones);
             this.Controls.Add(this.txtCodigo);
             this.Controls.Add(this.lblCodigo);
             this.Controls.Add(this.BtnGuardar);
@@ -156,5 +168,6 @@
         private System.Windows.Forms.Button BtnGuardar;
         private System.Windows.Forms.Label lblCodigo;
         private System.Windows.Forms.TextBox txtCodigo;
+        private System.Windows.Forms.CheckBox CBDevoluciones;
     }
 }

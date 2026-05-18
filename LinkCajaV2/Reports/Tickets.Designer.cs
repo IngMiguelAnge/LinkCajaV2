@@ -41,6 +41,7 @@
             this.lblVenta = new System.Windows.Forms.Label();
             this.RBCreacion = new System.Windows.Forms.RadioButton();
             this.RBModificacion = new System.Windows.Forms.RadioButton();
+            this.lblTotalDevolucion = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NUDTicket)).BeginInit();
             this.GBTickets.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTickets)).BeginInit();
@@ -181,11 +182,21 @@
             this.RBModificacion.UseVisualStyleBackColor = true;
             this.RBModificacion.CheckedChanged += new System.EventHandler(this.RBModificacion_CheckedChanged);
             // 
+            // lblTotalDevolucion
+            // 
+            this.lblTotalDevolucion.AutoSize = true;
+            this.lblTotalDevolucion.Location = new System.Drawing.Point(434, 185);
+            this.lblTotalDevolucion.Name = "lblTotalDevolucion";
+            this.lblTotalDevolucion.Size = new System.Drawing.Size(174, 20);
+            this.lblTotalDevolucion.TabIndex = 11;
+            this.lblTotalDevolucion.Text = "Devolución total $: 0.00";
+            // 
             // Tickets
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 453);
+            this.Controls.Add(this.lblTotalDevolucion);
             this.Controls.Add(this.RBModificacion);
             this.Controls.Add(this.RBCreacion);
             this.Controls.Add(this.lblVenta);
@@ -226,5 +237,6 @@
         private System.Windows.Forms.Label lblVenta;
         private System.Windows.Forms.RadioButton RBCreacion;
         private System.Windows.Forms.RadioButton RBModificacion;
+        private System.Windows.Forms.Label lblTotalDevolucion;
     }
 }

@@ -1,9 +1,11 @@
 ﻿using LinkCajaV2.Data;
+using LinkCajaV2.Items;
 using LinkCajaV2.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Odbc;
 using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography;
@@ -12,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QuestPDF.Helpers.Colors;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace LinkCajaV2.Reports
 {
@@ -21,8 +24,7 @@ namespace LinkCajaV2.Reports
         {
             InitializeComponent();
         }
-
-        private async void btnBuscar_Click(object sender, EventArgs e)
+        public async void Buscar()
         {
             bool fechaCreacion = RBCreacion.Checked;
             AppRepository obj = new AppRepository();
@@ -33,13 +35,19 @@ namespace LinkCajaV2.Reports
                 var listaFinal = articulo?.ToList() ?? new List<ListTicketModel>();
                 dgvTickets.DataSource = new BindingList<ListTicketModel>(listaFinal);
                 decimal totalGeneral = listaFinal.Sum(item => item.Total);
+                decimal devoluciones = listaFinal.Sum(item => item.Devolucion);
                 lblVenta.Text = $"Venta total: {totalGeneral:C2}";
+                lblTotalDevolucion.Text = $"Total Devoluciones: {devoluciones:C2}";
             }
             catch (Exception ex)
             {
                 lblVenta.Text = "Venta total: $0.00";
                 MessageBox.Show($"Error al cargar tickets: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            Buscar();
         }
         public void CrearGridView()
         {
@@ -93,6 +101,14 @@ namespace LinkCajaV2.Reports
                 ReadOnly = true,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             });
+            dgvTickets.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Status",
+                HeaderText = "Estatus",
+                DataPropertyName = "Status",
+                ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
             DataGridViewButtonColumn btnVer = new DataGridViewButtonColumn
             {
                 Name = "Ver",
@@ -102,6 +118,15 @@ namespace LinkCajaV2.Reports
                 Width = 80
             };
             dgvTickets.Columns.Add(btnVer);
+            DataGridViewButtonColumn btnCancelar = new DataGridViewButtonColumn
+            {
+                Name = "Cancelar",
+                HeaderText = "Acción",
+                Text = "Cancelar Ticket",
+                UseColumnTextForButtonValue = true,
+                Width = 90
+            };
+            dgvTickets.Columns.Add(btnCancelar);
             dgvTickets.AllowUserToAddRows = false;
         }
         private void CBBuscar_CheckedChanged(object sender, EventArgs e)
@@ -126,11 +151,11 @@ namespace LinkCajaV2.Reports
         }
         private void Tickets_Load(object sender, EventArgs e)
         {
+            CrearGridView();
             RBCreacion.Checked = true;
             RBModificacion.Checked = false;
-            CrearGridView();
         }
-        private void dgvTickets_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void dgvTickets_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
 
@@ -142,6 +167,58 @@ namespace LinkCajaV2.Reports
                         IdTicket = Convert.ToInt32(dgvTickets.Rows[e.RowIndex].Cells["Id"].Value)
                     };
                     itemsForm.ShowDialog();
+                    Buscar();
+                    break;
+                case "Cancelar":
+                    DateTime Created = Convert.ToDateTime(dgvTickets.Rows[e.RowIndex].Cells["Created"].Value);
+                    string Status = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["Status"].Value);
+                    if (Status == "Cancelado")
+                    {
+                        MessageBox.Show("El ticket ya se encuentra cancelado.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    if (Created.AddDays(2) < DateTime.Now)
+                    {
+                        MessageBox.Show("No se puede cancelar un ticket creado hace más de 48 hrs.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    DialogResult resultado = MessageBox.Show("Si cancela el ticket se devolveran todos los articulos que tengan la opción de permitir devolver.¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (resultado == DialogResult.No)
+                    {
+                        return;
+                    }
+                    Note n = new Note();
+                    n.ShowDialog();
+                    int IdTicket = Convert.ToInt32(dgvTickets.Rows[e.RowIndex].Cells["Id"].Value);
+                    AppRepository obj = new AppRepository();
+                    try
+                    {
+                        var Details = await obj.GetDetailsTicket(IdTicket);
+                        bool nosend = false;
+                        decimal sumaTotal = Details.Where(x => x.SendBack == true).Sum(d => d.TotalSold);
+                        foreach (var detail in Details)
+                        {
+                            if (detail.SendBack)
+                            {
+                                if (await obj.ReturnArticle(detail.Id, n.NoteText) == false)
+                                {
+                                    MessageBox.Show($"Error al devolver el articulo {detail.Name}.", "Error de Devolución", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    break;
+                                }
+                            }
+                            else nosend = true;
+                        }
+                        if (nosend)
+                        {
+                            await obj.CancelTicket(IdTicket, "Se cancela ticket pero este producto no se devolvera a inventario es un producto que no acepta devoluciones, motivo de cancelación: " + n.NoteText);
+                        }
+                        MessageBox.Show($"Ticket cancelado exitosamente. Total ha devolver: {sumaTotal:C2}", "Cancelación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Buscar();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al cargar los articulos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     break;
             }
         }

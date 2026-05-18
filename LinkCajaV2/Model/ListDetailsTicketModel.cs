@@ -12,5 +12,7 @@ namespace LinkCajaV2.Model
         public decimal TotalSold { get; set; }
         public DateTime CreateDate { get; set; }
         public string Status { get; set; }
+        public bool SendBack { get; set; }
+        public decimal StockSold { get; set; }
     }
 }

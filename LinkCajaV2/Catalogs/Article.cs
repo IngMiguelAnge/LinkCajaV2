@@ -86,6 +86,7 @@ namespace LinkCajaV2.Catalogs
                 Description = txtDescripcion.Text,
                 Image = PBProducto.Image != null ? ImageToByteArray() : null,
                 Code = txtCodigo.Text,
+                SendBack = CBDevoluciones.Checked
             };
             if (obj.SaveArticle(Articulo).Result)
             {
@@ -128,6 +129,7 @@ namespace LinkCajaV2.Catalogs
                 }
             }
             txtCodigo.Text = Article.Code;
+            CBDevoluciones.Checked = Article.SendBack;
         }      
     }
 }

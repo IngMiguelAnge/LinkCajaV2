@@ -42,7 +42,7 @@
             this.groupBox1.Controls.Add(this.dgvArticulos);
             this.groupBox1.Location = new System.Drawing.Point(25, 52);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1007, 578);
+            this.groupBox1.Size = new System.Drawing.Size(1139, 721);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Articulos";
@@ -55,14 +55,15 @@
             this.dgvArticulos.Name = "dgvArticulos";
             this.dgvArticulos.RowHeadersWidth = 62;
             this.dgvArticulos.RowTemplate.Height = 28;
-            this.dgvArticulos.Size = new System.Drawing.Size(1001, 553);
+            this.dgvArticulos.Size = new System.Drawing.Size(1133, 696);
             this.dgvArticulos.TabIndex = 0;
+            this.dgvArticulos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvArticulos_CellContentClick);
             // 
             // ItemsTicket
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 668);
+            this.ClientSize = new System.Drawing.Size(1199, 811);
             this.Controls.Add(this.groupBox1);
             this.MaximizeBox = false;
             this.Name = "ItemsTicket";

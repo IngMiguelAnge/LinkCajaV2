@@ -181,7 +181,6 @@ namespace LinkCajaV2.Catalogs
             if (IsVenta || IsReceta)
             {
                 btnNuevo.Visible = false;
-                btnImprimir.Visible = false;
                 BtnImpresion.Visible = false;
             }
         }
@@ -219,5 +218,6 @@ namespace LinkCajaV2.Catalogs
                 MessageBox.Show("Error al generar el PDF: " + ex.Message);
             }
         }
+
     }
 }

@@ -37,7 +37,6 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblCodigo = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
-            this.btnImprimir = new System.Windows.Forms.Button();
             this.BtnImpresion = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
@@ -127,15 +126,6 @@
             this.txtCodigo.Size = new System.Drawing.Size(179, 26);
             this.txtCodigo.TabIndex = 4;
             // 
-            // btnImprimir
-            // 
-            this.btnImprimir.Location = new System.Drawing.Point(588, 53);
-            this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(101, 46);
-            this.btnImprimir.TabIndex = 11;
-            this.btnImprimir.Text = "Imprimir precios";
-            this.btnImprimir.UseVisualStyleBackColor = true;
-            // 
             // BtnImpresion
             // 
             this.BtnImpresion.Location = new System.Drawing.Point(746, 53);
@@ -152,7 +142,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1271, 576);
             this.Controls.Add(this.BtnImpresion);
-            this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.txtCodigo);
             this.Controls.Add(this.lblCodigo);
             this.Controls.Add(this.progressBar1);
@@ -186,7 +175,6 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label lblCodigo;
         private System.Windows.Forms.TextBox txtCodigo;
-        private System.Windows.Forms.Button btnImprimir;
         private System.Windows.Forms.Button BtnImpresion;
     }
 }

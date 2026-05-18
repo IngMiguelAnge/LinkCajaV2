@@ -2,6 +2,7 @@
 using LinkCajaV2.Data;
 using LinkCajaV2.Items;
 using LinkCajaV2.Model;
+using LinkCajaV2.Reports;
 using System;
 using System.ComponentModel;
 using System.Data;
@@ -465,7 +466,7 @@ namespace LinkCajaV2.Sales
                     Company = Empresa,
                     Imprimir = CBImprimir.Checked,
                     Recibido = c.Recibido,
-                    VentaId =0,
+                    IdTicket =0,
                     Cliente = "Publico General"
                 };
 
@@ -507,11 +508,8 @@ namespace LinkCajaV2.Sales
         }
         private void btnVerTickets_Click(object sender, EventArgs e)
         {
-            //Si se modifica un ticket solo se cambiara el estatus de los articulos que ya no se quieren
-            //y se creara un nuevo ticket con los datos nuevos.
-            //Si se devuelve un articulo cambiara el estatus del articulo a false
-            //y en reason se pondra el motivo.
-            //Si alguien modifica el ticket se guardara un historial
+            Tickets t = new Tickets();
+            t.ShowDialog();
         }
         private void dgvArticulos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
