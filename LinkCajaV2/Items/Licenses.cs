@@ -1,5 +1,6 @@
 ﻿using LinkCajaV2.Data;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace LinkCajaV2.Items
@@ -14,7 +15,7 @@ namespace LinkCajaV2.Items
         private void License_Load(object sender, EventArgs e)
         {
             AppRepository obj = new AppRepository();
-           var licencia = obj.GetKeysActive().Result;
+           var licencia = obj.GetKeys().Result.FirstOrDefault();
             if (licencia != null)
             {
                 EncrypDesencryp des = new EncrypDesencryp();

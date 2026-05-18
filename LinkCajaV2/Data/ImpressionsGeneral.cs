@@ -255,8 +255,8 @@ namespace LinkCajaV2.Data
                         // Mantenemos el Header igual
                         page.Header().Column(col =>
                         {
-                            col.Item().AlignCenter().Text("TICKET" + venta.IdTicket.ToString()).Style(EstiloTitulo);
-                            col.Item().AlignCenter().Text("VENTA").Style(EstiloTitulo);
+                            col.Item().AlignCenter().Text("TICKET " + venta.IdTicket.ToString()).Style(EstiloTitulo);
+                            col.Item().AlignCenter().Text("VENTA EN LA CAJA " + venta.BoxName).Style(EstiloTitulo);
                             col.Item().AlignCenter().Text(venta.Company.Name).Style(EstiloCompany);
                             col.Item().AlignCenter().Text(venta.Company.RFC).Style(EstiloRFC);
                             col.Item().AlignCenter().Text(venta.Company.Address).Style(EstiloRFC);

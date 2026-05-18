@@ -33,7 +33,7 @@ namespace LinkCajaV2.Catalogs
         private void Boxs_Load(object sender, EventArgs e)
         {
             AppRepository obj = new AppRepository();
-            KeysModel ListKeys = obj.GetKeysActive().Result;
+            KeysModel ListKeys = obj.GetKeys().Result.FirstOrDefault();
             if (ListKeys == null)
             {
                 MessageBox.Show("No se encontraron licencia activa. Contacta al soporte.", "Licencia no encontrada", MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -23,6 +23,8 @@ namespace LinkCajaV2.Sales
         public int IdUsuario { get; set; }
         public string NameUser { get; set; }
         private CompanyModel Empresa { get; set; }
+        private int IdBox { get; set; }
+        private string BoxName { get; set; }
         public Venta()
         {
             InitializeComponent();
@@ -31,13 +33,24 @@ namespace LinkCajaV2.Sales
         private void Venta_Load(object sender, EventArgs e)
         {
             AppRepository obj = new AppRepository();
-            KeysModel ListKeys = obj.GetKeysActive().Result;
+            KeysModel ListKeys = obj.GetKeys().Result.FirstOrDefault();
             if (ListKeys == null)
             {
                 MessageBox.Show("No se encontraron licencia activa. Contacta al soporte.", "Licencia no encontrada", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
                 return;
             }
+            HardwareID hardwareID = new HardwareID();
+            string Hard = hardwareID.ObtenerHardwareID();
+            var box = obj.GetBoxsbyHardwareID(Hard).Result;
+            if (box == null || box.Estatus == "Inactivo")
+            {
+                MessageBox.Show("Licencia no válida para esta máquina. Contacta al soporte.", "Licencia no válida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            } 
+            IdBox= box.Id;
+            BoxName = box.Name;
             string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sounds", "beep.wav");
             lectorSonido = new SoundPlayer(ruta);
             lblUsuario.Text = "Bien venido " + NameUser;
@@ -466,8 +479,9 @@ namespace LinkCajaV2.Sales
                     Company = Empresa,
                     Imprimir = CBImprimir.Checked,
                     Recibido = c.Recibido,
-                    IdTicket =0,
-                    Cliente = "Publico General"
+                    IdTicket = 0,
+                    Cliente = "Publico General",
+                    BoxName = BoxName
                 };
 
                 TicketModel Ticket = new TicketModel
@@ -475,7 +489,8 @@ namespace LinkCajaV2.Sales
                     Id = 0,
                     IdUser = IdUsuario,
                     IdClient = 1,//Clliente general por ahora
-                    Total = venta.Articles.Sum(x => x.Total)
+                    Total = venta.Articles.Sum(x => x.Total),
+                    IdBox = IdBox
                 };
 
                 AppRepository obj = new AppRepository();

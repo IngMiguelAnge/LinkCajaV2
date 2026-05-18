@@ -26,7 +26,7 @@ namespace LinkCajaV2.Catalogs
         private void Box_Load(object sender, EventArgs e)
         {
             AppRepository obj = new AppRepository();
-            KeysModel ListKeys = obj.GetKeysActive().Result;
+            KeysModel ListKeys = obj.GetKeys().Result.FirstOrDefault();
             if (ListKeys == null)
             {
                 MessageBox.Show("No se encontraron licencia activa. Contacta al soporte.", "Licencia no encontrada", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -40,52 +40,16 @@ namespace LinkCajaV2.Catalogs
             CantidadCajas = int.Parse(partes[1]);
             if (Id == 0)
             {
-                txtHard.Text = ObtenerHardwareID();
+                HardwareID h = new HardwareID();
+                txtHard.Text = h.ObtenerHardwareID();
                 return;
             }
             var model = obj.GetBoxsbyId(Id).Result;
             txtHard.Text = model.HardwareID;
             txtNombre.Text = model.Name;
         }
-        public string ObtenerHardwareID()
-        {
-            string idCombinado = "";
-            try
-            {
-                // 1. Obtener ID del Procesador
-                using (ManagementObjectSearcher mbs = new ManagementObjectSearcher("Select ProcessorId From Win32_Processor"))
-                {
-                    foreach (ManagementObject mo in mbs.Get())
-                    {
-                        idCombinado += mo["ProcessorId"].ToString();
-                        break;
-                    }
-                }
-
-                // 2. Obtener Número de Serie de la Placa Base
-                using (ManagementObjectSearcher mbs = new ManagementObjectSearcher("Select SerialNumber From Win32_BaseBoard"))
-                {
-                    foreach (ManagementObject mo in mbs.Get())
-                    {
-                        idCombinado += mo["SerialNumber"].ToString();
-                        break;
-                    }
-                }
-            }
-            catch { idCombinado = "ID_GENERICO_ERROR"; }
-
-            // Convertimos la cadena larga en un Hash corto y limpio (ej: A1B2-C3D4-E5F6)
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(idCombinado));
-                string hash = BitConverter.ToString(bytes).Replace("-", "");
-                return hash.Substring(0, 16); // Retornamos solo los primeros 16 caracteres
-            }
-        }
-
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-
             try
             {
                 AppRepository obj = new AppRepository();

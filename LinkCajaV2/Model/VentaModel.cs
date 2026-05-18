@@ -11,5 +11,6 @@ namespace LinkCajaV2.Model
         public decimal Recibido { get; set; }
         public int IdTicket { get; set; }
         public string Cliente { get; set; }
+        public string BoxName { get; set; }
     }
 }

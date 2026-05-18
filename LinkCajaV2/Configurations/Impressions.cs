@@ -224,6 +224,9 @@ namespace LinkCajaV2.Configurations
                     Copias = 0,
                     Imprimir = CBImprimir.Checked,
                     Recibido = 100,
+                    IdTicket = 0,
+                    Cliente = "Publico en general",
+                    BoxName = "Caja de prueba",
                     Articles = new BindingList<ArticlesSalesModel>()
                     {
                           new ArticlesSalesModel() { IdArticle=1,IdPresentation=1, Code = "1234", Name = "Coca-Cola", Stock = 1, Presentation = "Lata", Price = 10, Decimals = 0, Image = null},
@@ -232,6 +235,7 @@ namespace LinkCajaV2.Configurations
                           new ArticlesSalesModel() { IdArticle=4,IdPresentation=1, Code = "3456", Name = "Sprite", Stock = 1, Presentation = "Botella", Price = 25, Decimals = 0, Image = null},
                           new ArticlesSalesModel() { IdArticle=5,IdPresentation=1, Code = "7890", Name = "Piña", Stock = 1, Presentation = "Pieza", Price = 5, Decimals = 0, Image = null},
                     }
+                    
                 };
                 ImpressionsGeneral im = new ImpressionsGeneral();
                 im.GenerarTicket(Venta);

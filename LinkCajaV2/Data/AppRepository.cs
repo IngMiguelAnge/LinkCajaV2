@@ -187,7 +187,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@IdUser", obj.IdUser));
                         cmd.Parameters.Add(new SqlParameter("@IdClient", obj.IdClient));
                         cmd.Parameters.Add(new SqlParameter("@Total", obj.Total));
-                         
+                        cmd.Parameters.Add(new SqlParameter("@IdBox", obj.IdBox));
                         SqlParameter outputParam = new SqlParameter("@VResp", System.Data.SqlDbType.Int)
                         {
                             Direction = System.Data.ParameterDirection.Output
@@ -1522,35 +1522,6 @@ namespace LinkCajaV2.Data
 
             }
             return list;
-        }
-        public async Task<KeysModel> GetKeysActive()
-        {
-            KeysModel obj = new KeysModel();
-            List<KeysModel> list = new List<KeysModel>();
-            try
-            {
-                using (SqlConnection sql = new SqlConnection(Connection))
-                {
-                    using (SqlCommand cmd = new SqlCommand("GetKeys", sql))
-                    {
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        await sql.OpenAsync().ConfigureAwait(false);
-                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
-                        {
-                            while (await reader.ReadAsync().ConfigureAwait(false))
-                            {
-                                list.Add(MapToKeys(reader));
-                            }
-                            obj = list.Count() > 0 ? list[0] : null;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return obj;
         }
         private KeysModel MapToKeys(SqlDataReader reader)
         {

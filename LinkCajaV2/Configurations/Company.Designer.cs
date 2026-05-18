@@ -159,7 +159,7 @@
             this.btnLogo.Location = new System.Drawing.Point(582, 177);
             this.btnLogo.Name = "btnLogo";
             this.btnLogo.Size = new System.Drawing.Size(88, 42);
-            this.btnLogo.TabIndex = 13;
+            this.btnLogo.TabIndex = 18;
             this.btnLogo.Text = "Logo";
             this.btnLogo.UseVisualStyleBackColor = true;
             this.btnLogo.Click += new System.EventHandler(this.btnLogo_Click);
@@ -177,7 +177,7 @@
             this.btnGuardar.Location = new System.Drawing.Point(41, 478);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(96, 37);
-            this.btnGuardar.TabIndex = 15;
+            this.btnGuardar.TabIndex = 19;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
