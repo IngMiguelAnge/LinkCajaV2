@@ -6,5 +6,6 @@
         public string Name { get; set; }
         public string Presentation { get; set; }
         public int Decimals { get; set; }
+        public string Submeasurement { get; set; }  
     }
 }

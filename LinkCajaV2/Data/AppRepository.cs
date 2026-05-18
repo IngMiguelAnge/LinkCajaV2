@@ -1919,6 +1919,7 @@ namespace LinkCajaV2.Data
                 Name = (string)reader["Name"],
                 Presentation = Convert.IsDBNull(reader["Presentation"]) ? string.Empty : (string)reader["Presentation"],
                 Decimals = (int)reader["Decimals"],
+                Submeasurement = Convert.IsDBNull(reader["Submeasurement"]) ? string.Empty : (string)reader["Submeasurement"]
             };
         }
         public async Task<PresentationModel> GetPresentationbyId(int id)

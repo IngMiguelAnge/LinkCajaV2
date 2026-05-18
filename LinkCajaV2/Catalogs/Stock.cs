@@ -32,10 +32,8 @@ namespace LinkCajaV2.Catalogs
                 if (cbPresentacion.SelectedItem is ListPresentationsModel row)
                 {
                     lblMedida.Text = row.Presentation;
-                    string submedida = row.Presentation == "Kg" ? "gramo" :
-                 row.Presentation == "L" ? "mililitro" :
-                 row.Presentation == "M" ? "centimetro" : row.Name;
-                    lblCostoGramo.Text = "El costo por " + submedida + " es:";
+
+                    lblCostoGramo.Text = "El costo por " + row.Submeasurement.ToLower() + " es:";
                     int decimals = row.Decimals;
 
                     if (decimals == 3)
@@ -203,7 +201,7 @@ namespace LinkCajaV2.Catalogs
             nudPrecio.Value = Convert.ToDecimal(precioMax.ToString("N2"));
             var ListPresentation = obj.GetPresentations().Result;
             // Insertamos un objeto "fantasma" al inicio para el placeholder
-            ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione", Presentation = string.Empty, Decimals = 0 });
+            ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione", Presentation = string.Empty, Decimals = 0, Submeasurement = string.Empty });
             cbPresentacion.Items.Clear();
             // Configuramos el ComboBox
             cbPresentacion.DisplayMember = "Name";
