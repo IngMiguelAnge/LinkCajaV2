@@ -287,6 +287,11 @@ namespace LinkCajaV2.Catalogs
                 MessageBox.Show("No hay proveedores para guardar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if(cbPresentacion.SelectedIndex <= 0)
+            {
+                MessageBox.Show("Por favor, selecciona una presentación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             AppRepository obj = new AppRepository();
             int IdPresentation = (int)cbPresentacion.SelectedValue;
             var r = obj.UpdateAllStatusPrices(IdArticle, IdPresentation).Result;
