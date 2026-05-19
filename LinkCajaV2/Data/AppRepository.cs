@@ -1115,6 +1115,7 @@ namespace LinkCajaV2.Data
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
+                        cmd.Parameters.Add(new SqlParameter("@BillingName", obj.BillingName));
                         cmd.Parameters.Add(new SqlParameter("@Address", obj.Address));
                         cmd.Parameters.Add(new SqlParameter("@CP", obj.CP));
                         cmd.Parameters.Add(new SqlParameter("@RFC", obj.RFC));
@@ -1151,7 +1152,7 @@ namespace LinkCajaV2.Data
                         {
                             while (await reader.ReadAsync().ConfigureAwait(false))
                             {
-                                list.Add(MapToEmpresa(reader));
+                                list.Add(MapToCompany(reader));
                             }
                             response = list.Count() > 0 ? list[0] : null;
                         }
@@ -1164,11 +1165,12 @@ namespace LinkCajaV2.Data
             }
             return response;
         }
-        private CompanyModel MapToEmpresa(SqlDataReader reader)
+        private CompanyModel MapToCompany(SqlDataReader reader)
         {
             return new CompanyModel()
             {
                 Name = (string)reader["Name"],
+                BillingName = (string)reader["BillingName"],
                 Address = (string)reader["Address"],
                 CP = Convert.IsDBNull(reader["CP"]) ? 0 : (int)reader["CP"],
                 RFC = (string)reader["RFC"],

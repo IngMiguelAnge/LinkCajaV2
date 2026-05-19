@@ -3,6 +3,7 @@
     public class CompanyModel
     {
         public string Name { get; set; }
+        public string BillingName { get; set; }
         public string Address { get; set; }
         public int CP { get; set; }
         public string RFC { get; set; }

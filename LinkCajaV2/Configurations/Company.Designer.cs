@@ -47,8 +47,10 @@
             this.NUDCP = new System.Windows.Forms.NumericUpDown();
             this.RFC = new System.Windows.Forms.Label();
             this.txtRFC = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtRegimen = new System.Windows.Forms.TextBox();
+            this.lblRegimen = new System.Windows.Forms.Label();
+            this.lblNombreFacturacion = new System.Windows.Forms.Label();
+            this.lblNombreF = new System.Windows.Forms.Label();
+            this.CBRegimen = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.PBLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDCP)).BeginInit();
             this.SuspendLayout();
@@ -69,11 +71,12 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(331, 26);
             this.txtNombre.TabIndex = 1;
+            this.txtNombre.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtNombre_KeyUp);
             // 
             // lblDireccion
             // 
             this.lblDireccion.AutoSize = true;
-            this.lblDireccion.Location = new System.Drawing.Point(37, 86);
+            this.lblDireccion.Location = new System.Drawing.Point(37, 153);
             this.lblDireccion.Name = "lblDireccion";
             this.lblDireccion.Size = new System.Drawing.Size(85, 20);
             this.lblDireccion.TabIndex = 2;
@@ -81,7 +84,7 @@
             // 
             // txtDireccion
             // 
-            this.txtDireccion.Location = new System.Drawing.Point(165, 83);
+            this.txtDireccion.Location = new System.Drawing.Point(165, 150);
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(331, 26);
             this.txtDireccion.TabIndex = 3;
@@ -89,7 +92,7 @@
             // lblEncargado
             // 
             this.lblEncargado.AutoSize = true;
-            this.lblEncargado.Location = new System.Drawing.Point(37, 287);
+            this.lblEncargado.Location = new System.Drawing.Point(37, 354);
             this.lblEncargado.Name = "lblEncargado";
             this.lblEncargado.Size = new System.Drawing.Size(97, 20);
             this.lblEncargado.TabIndex = 10;
@@ -97,7 +100,7 @@
             // 
             // txtEncargado
             // 
-            this.txtEncargado.Location = new System.Drawing.Point(165, 281);
+            this.txtEncargado.Location = new System.Drawing.Point(165, 348);
             this.txtEncargado.MaxLength = 50;
             this.txtEncargado.Name = "txtEncargado";
             this.txtEncargado.Size = new System.Drawing.Size(331, 26);
@@ -106,7 +109,7 @@
             // lblTelefono1
             // 
             this.lblTelefono1.AutoSize = true;
-            this.lblTelefono1.Location = new System.Drawing.Point(41, 338);
+            this.lblTelefono1.Location = new System.Drawing.Point(41, 405);
             this.lblTelefono1.Name = "lblTelefono1";
             this.lblTelefono1.Size = new System.Drawing.Size(81, 20);
             this.lblTelefono1.TabIndex = 12;
@@ -114,7 +117,7 @@
             // 
             // txtTelefono1
             // 
-            this.txtTelefono1.Location = new System.Drawing.Point(165, 335);
+            this.txtTelefono1.Location = new System.Drawing.Point(165, 402);
             this.txtTelefono1.MaxLength = 50;
             this.txtTelefono1.Name = "txtTelefono1";
             this.txtTelefono1.Size = new System.Drawing.Size(255, 26);
@@ -123,7 +126,7 @@
             // lblTelefono2
             // 
             this.lblTelefono2.AutoSize = true;
-            this.lblTelefono2.Location = new System.Drawing.Point(37, 386);
+            this.lblTelefono2.Location = new System.Drawing.Point(37, 453);
             this.lblTelefono2.Name = "lblTelefono2";
             this.lblTelefono2.Size = new System.Drawing.Size(84, 20);
             this.lblTelefono2.TabIndex = 14;
@@ -131,7 +134,7 @@
             // 
             // txtTelefono2
             // 
-            this.txtTelefono2.Location = new System.Drawing.Point(165, 380);
+            this.txtTelefono2.Location = new System.Drawing.Point(165, 447);
             this.txtTelefono2.MaxLength = 50;
             this.txtTelefono2.Name = "txtTelefono2";
             this.txtTelefono2.Size = new System.Drawing.Size(255, 26);
@@ -140,7 +143,7 @@
             // lblCorreo
             // 
             this.lblCorreo.AutoSize = true;
-            this.lblCorreo.Location = new System.Drawing.Point(41, 438);
+            this.lblCorreo.Location = new System.Drawing.Point(41, 505);
             this.lblCorreo.Name = "lblCorreo";
             this.lblCorreo.Size = new System.Drawing.Size(67, 20);
             this.lblCorreo.TabIndex = 16;
@@ -148,7 +151,7 @@
             // 
             // txtCorreo
             // 
-            this.txtCorreo.Location = new System.Drawing.Point(165, 432);
+            this.txtCorreo.Location = new System.Drawing.Point(165, 499);
             this.txtCorreo.MaxLength = 50;
             this.txtCorreo.Name = "txtCorreo";
             this.txtCorreo.Size = new System.Drawing.Size(255, 26);
@@ -174,7 +177,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(41, 478);
+            this.btnGuardar.Location = new System.Drawing.Point(46, 545);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(96, 37);
             this.btnGuardar.TabIndex = 19;
@@ -185,7 +188,7 @@
             // lblCP
             // 
             this.lblCP.AutoSize = true;
-            this.lblCP.Location = new System.Drawing.Point(41, 129);
+            this.lblCP.Location = new System.Drawing.Point(41, 196);
             this.lblCP.Name = "lblCP";
             this.lblCP.Size = new System.Drawing.Size(44, 20);
             this.lblCP.TabIndex = 4;
@@ -193,7 +196,7 @@
             // 
             // NUDCP
             // 
-            this.NUDCP.Location = new System.Drawing.Point(165, 129);
+            this.NUDCP.Location = new System.Drawing.Point(165, 196);
             this.NUDCP.Maximum = new decimal(new int[] {
             99999,
             0,
@@ -206,7 +209,7 @@
             // RFC
             // 
             this.RFC.AutoSize = true;
-            this.RFC.Location = new System.Drawing.Point(41, 178);
+            this.RFC.Location = new System.Drawing.Point(41, 245);
             this.RFC.Name = "RFC";
             this.RFC.Size = new System.Drawing.Size(52, 20);
             this.RFC.TabIndex = 6;
@@ -214,37 +217,56 @@
             // 
             // txtRFC
             // 
-            this.txtRFC.Location = new System.Drawing.Point(165, 172);
+            this.txtRFC.Location = new System.Drawing.Point(165, 239);
             this.txtRFC.MaxLength = 50;
             this.txtRFC.Name = "txtRFC";
             this.txtRFC.Size = new System.Drawing.Size(236, 26);
             this.txtRFC.TabIndex = 7;
             // 
-            // label1
+            // lblRegimen
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(42, 225);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(117, 20);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Regimen fiscal:";
+            this.lblRegimen.AutoSize = true;
+            this.lblRegimen.Location = new System.Drawing.Point(42, 292);
+            this.lblRegimen.Name = "lblRegimen";
+            this.lblRegimen.Size = new System.Drawing.Size(117, 20);
+            this.lblRegimen.TabIndex = 8;
+            this.lblRegimen.Text = "Regimen fiscal:";
             // 
-            // txtRegimen
+            // lblNombreFacturacion
             // 
-            this.txtRegimen.Location = new System.Drawing.Point(165, 222);
-            this.txtRegimen.MaxLength = 50;
-            this.txtRegimen.Name = "txtRegimen";
-            this.txtRegimen.Size = new System.Drawing.Size(312, 26);
-            this.txtRegimen.TabIndex = 9;
-            this.txtRegimen.Text = "Persona Moral Regimen General de Ley";
+            this.lblNombreFacturacion.AutoSize = true;
+            this.lblNombreFacturacion.Location = new System.Drawing.Point(42, 73);
+            this.lblNombreFacturacion.Name = "lblNombreFacturacion";
+            this.lblNombreFacturacion.Size = new System.Drawing.Size(188, 20);
+            this.lblNombreFacturacion.TabIndex = 20;
+            this.lblNombreFacturacion.Text = "Nombre para facturación:";
+            // 
+            // lblNombreF
+            // 
+            this.lblNombreF.AutoSize = true;
+            this.lblNombreF.Location = new System.Drawing.Point(42, 111);
+            this.lblNombreF.Name = "lblNombreF";
+            this.lblNombreF.Size = new System.Drawing.Size(18, 20);
+            this.lblNombreF.TabIndex = 21;
+            this.lblNombreF.Text = "_";
+            // 
+            // CBRegimen
+            // 
+            this.CBRegimen.FormattingEnabled = true;
+            this.CBRegimen.Location = new System.Drawing.Point(165, 292);
+            this.CBRegimen.Name = "CBRegimen";
+            this.CBRegimen.Size = new System.Drawing.Size(296, 28);
+            this.CBRegimen.TabIndex = 9;
             // 
             // Company
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(735, 525);
-            this.Controls.Add(this.txtRegimen);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(735, 594);
+            this.Controls.Add(this.CBRegimen);
+            this.Controls.Add(this.lblNombreF);
+            this.Controls.Add(this.lblNombreFacturacion);
+            this.Controls.Add(this.lblRegimen);
             this.Controls.Add(this.txtRFC);
             this.Controls.Add(this.RFC);
             this.Controls.Add(this.NUDCP);
@@ -298,7 +320,9 @@
         private System.Windows.Forms.NumericUpDown NUDCP;
         private System.Windows.Forms.Label RFC;
         private System.Windows.Forms.TextBox txtRFC;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtRegimen;
+        private System.Windows.Forms.Label lblRegimen;
+        private System.Windows.Forms.Label lblNombreFacturacion;
+        private System.Windows.Forms.Label lblNombreF;
+        private System.Windows.Forms.ComboBox CBRegimen;
     }
 }

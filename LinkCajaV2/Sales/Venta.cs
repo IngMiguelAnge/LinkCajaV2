@@ -48,8 +48,8 @@ namespace LinkCajaV2.Sales
                 MessageBox.Show("Licencia no válida para esta máquina. Contacta al soporte.", "Licencia no válida", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
                 return;
-            } 
-            IdBox= box.Id;
+            }
+            IdBox = box.Id;
             BoxName = box.Name;
             string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sounds", "beep.wav");
             lectorSonido = new SoundPlayer(ruta);
@@ -516,6 +516,18 @@ namespace LinkCajaV2.Sales
                 ImpressionsGeneral im = new ImpressionsGeneral();
                 im.GenerarTicket(venta);
 
+                //Seccion de facturacion
+                BillingDetails billing = new BillingDetails();
+                billing.IdTicket = Ticket.Id.ToString();
+                billing.FormPayment = "01"; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
+                billing.PaymentMethod = "PUE"; // Ejemplo: PUE = Pago en una sola exhibición, PPD = Pago en parcialidades o diferido
+                billing.IssuingLocation = Empresa.CP.ToString();
+                billing.Sender = new Sender
+                {
+                    RFC = Empresa.RFC,
+                    Name = Empresa.BillingName,
+                    TaxRegime = Empresa.Regimen // Ejemplo: G01 = Adquisición de mercancias, G02 = Devoluciones, descuentos o bonificaciones, G03 = Gastos en general
+                };
                 // Aquí podrías guardar la venta en la base de datos, generar un ID de venta, etc.
                 MessageBox.Show("Venta realizada con éxito.");
                 NuevaVenta();
@@ -549,5 +561,6 @@ namespace LinkCajaV2.Sales
                 }
             }
         }
+
     }
 }

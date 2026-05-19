@@ -245,6 +245,7 @@
     <Compile Include="Model\ConfigBoxModel.cs" />
     <Compile Include="Model\ConfigImpressionsModel.cs" />
     <Compile Include="Model\ConfigPageModel.cs" />
+    <Compile Include="Model\BillingDetails.cs" />
     <Compile Include="Model\DetailsTicketModel.cs" />
     <Compile Include="Model\HighPriceModel.cs" />
     <Compile Include="Model\ImpressionsModel.cs" />
@@ -267,6 +268,7 @@
     <Compile Include="Model\PresentationModel.cs" />
     <Compile Include="Model\PricesSuppliersModel.cs" />
     <Compile Include="Model\RecipeModel.cs" />
+    <Compile Include="Model\RegimenModel.cs" />
     <Compile Include="Model\StockModel.cs" />
     <Compile Include="Model\SuppliersModel.cs" />
     <Compile Include="Model\TicketModel.cs" />
