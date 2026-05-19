@@ -440,6 +440,8 @@
             this.Controls.Add(this.lblPagina);
             this.Controls.Add(this.CBImpresiones);
             this.Controls.Add(this.lblImpresiones);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Impressions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Impresiones";
