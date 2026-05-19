@@ -79,7 +79,6 @@ namespace LinkCajaV2.Catalogs
                 var bindingList = new BindingList<ListPricesSuppliersModel>(lista);
                 dgvProveedores.DataSource = bindingList;
                 cbPresentacion.SelectedValue = lista.FirstOrDefault().IdPresentation;
-                cbPresentacion.Enabled = false;
             }
             var Article = obj.GetStock(IdArticle).Result;
             var ListPresentation = obj.GetPresentations().Result;
