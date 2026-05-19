@@ -64,7 +64,7 @@ namespace LinkCajaV2.Items
                 ListKeys = new List<KeysModel>();
                 KeysModel defaultKey = new KeysModel
                 {
-                    Name = "Licencia prueba",
+                    Name = "Licencia simple",
                     Key = "1",
                 };
                 ListKeys.Add(defaultKey);
@@ -82,7 +82,7 @@ namespace LinkCajaV2.Items
                 ListKeys.Add(defaultKey);
                 defaultKey = new KeysModel
                 {
-                    Name = "Licencia permanente",
+                    Name = "Licencia Plus +",
                     Key = "10000",
                 };
                 ListKeys.Add(defaultKey);
