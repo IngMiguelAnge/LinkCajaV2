@@ -380,7 +380,6 @@
     <EmbeddedResource Include="Sales\Venta.resx">
       <DependentUpon>Venta.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="LinkCajaV2_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

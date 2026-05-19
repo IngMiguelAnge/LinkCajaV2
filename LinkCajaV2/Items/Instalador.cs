@@ -82,7 +82,7 @@ namespace LinkCajaV2.Items
                 ListKeys.Add(defaultKey);
                 defaultKey = new KeysModel
                 {
-                    Name = "Licencia Plus +",
+                    Name = "Licencia plus +",
                     Key = "10000",
                 };
                 ListKeys.Add(defaultKey);
