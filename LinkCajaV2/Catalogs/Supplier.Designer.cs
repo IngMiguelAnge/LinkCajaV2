@@ -52,10 +52,10 @@
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(105, 33);
+            this.txtNombre.Location = new System.Drawing.Point(120, 33);
             this.txtNombre.MaxLength = 50;
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(246, 26);
+            this.txtNombre.Size = new System.Drawing.Size(231, 26);
             this.txtNombre.TabIndex = 1;
             // 
             // txtDireccion
@@ -114,7 +114,7 @@
             this.txtEmail.Location = new System.Drawing.Point(120, 142);
             this.txtEmail.MaxLength = 50;
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(246, 26);
+            this.txtEmail.Size = new System.Drawing.Size(221, 26);
             this.txtEmail.TabIndex = 9;
             // 
             // lblEmail
@@ -154,7 +154,7 @@
             this.Controls.Add(this.lblNombre);
             this.Name = "Supplier";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Administrador";
+            this.Text = "Proveedor";
             this.Load += new System.EventHandler(this.Supplier_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

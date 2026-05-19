@@ -15,7 +15,6 @@ namespace LinkCajaV2.Catalogs
     public partial class PricesSuppliers : Form
     {
         public int IdArticle { get; set; }
-        private bool hayarticulos = false;
         public PricesSuppliers()
         {
             InitializeComponent();
@@ -62,15 +61,7 @@ namespace LinkCajaV2.Catalogs
         private async void PricesSuppliers_Load(object sender, EventArgs e)
         {
             AppRepository obj = new AppRepository();
-            var ListPresentation = obj.GetPresentations().Result;
-            // Insertamos un objeto "fantasma" al inicio para el placeholder
-            ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione", Presentation=string.Empty, Decimals = 0 });
-            cbPresentacion.Items.Clear();
-            // Configuramos el ComboBox
-            cbPresentacion.DisplayMember = "Name";
-            cbPresentacion.ValueMember = "Id";
-            cbPresentacion.DataSource = ListPresentation;
-            cbPresentacion.SelectedIndex = 0;
+            
             var ListProveedores = obj.GetSuppliersActives().Result;
             // Insertamos un objeto "fantasma" al inicio para el placeholder
             ListProveedores.Insert(0, new ListSuppliersActivesModel { Id = 0, Name = "Seleccione" });
@@ -91,11 +82,25 @@ namespace LinkCajaV2.Catalogs
                 cbPresentacion.Enabled = false;
             }
             var Article = obj.GetStock(IdArticle).Result;
+            var ListPresentation = obj.GetPresentations().Result;
             if (Article != null) {
-                hayarticulos = true;
-                cbPresentacion.Enabled = false;
                 cbPresentacion.SelectedValue = Article.IdPresentation;
-                MessageBox.Show("Este articulo ya cuenta con un stock no se puede cambiar la presentación", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Este articulo ya cuenta con un stock, solo se podran elegir presentaciones especificas", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var misdecimales = ListPresentation.FirstOrDefault(x => x.Id == Article.IdPresentation)?.Decimals ?? 0;
+                ListPresentation = ListPresentation.Where(x => x.Decimals == misdecimales).ToList();
+            }           
+
+            // Insertamos un objeto "fantasma" al inicio para el placeholder
+            ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione", Presentation = string.Empty, Decimals = 0 });
+            cbPresentacion.Items.Clear();
+            // Configuramos el ComboBox
+            cbPresentacion.DisplayMember = "Name";
+            cbPresentacion.ValueMember = "Id";
+            cbPresentacion.DataSource = ListPresentation;
+            cbPresentacion.SelectedIndex = 0;
+            if (Article != null)
+            {
+                cbPresentacion.SelectedValue = Article.IdPresentation;
             }
         }
         public void CrearGridView()
@@ -270,7 +275,7 @@ namespace LinkCajaV2.Catalogs
 
                     if (bindingList != null && bindingList.Count > 0)
                         bindingList.RemoveAt(e.RowIndex);
-                    if (bindingList.Count == 0 && hayarticulos == false)
+                    if (bindingList.Count == 0)
                         cbPresentacion.Enabled = true;
                     break;
             }
@@ -284,7 +289,8 @@ namespace LinkCajaV2.Catalogs
                 return;
             }
             AppRepository obj = new AppRepository();
-            var r = obj.UpdateAllStatusPrices(IdArticle).Result;
+            int IdPresentation = (int)cbPresentacion.SelectedValue;
+            var r = obj.UpdateAllStatusPrices(IdArticle, IdPresentation).Result;
             foreach (DataGridViewRow fila in dgvProveedores.Rows)
             {
                 PricesSuppliersModel item = new PricesSuppliersModel()
@@ -293,7 +299,7 @@ namespace LinkCajaV2.Catalogs
                     IdSupplier = Convert.ToInt32(fila.Cells["IdSupplier"].Value.ToString()),
                     IdArticle = IdArticle, 
                     PriceUnit = Convert.ToDecimal(fila.Cells["Costo"].Value),
-                    IdPresentation = (int)cbPresentacion.SelectedValue,
+                    IdPresentation = IdPresentation,
                     Status = true
                 };
           

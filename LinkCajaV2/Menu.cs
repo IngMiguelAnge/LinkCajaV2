@@ -39,6 +39,18 @@ namespace LinkCajaV2
                 GBConfiguraciones.Visible = false;
                 gbCatalogos.Visible = false;
                 GBReportes.Visible = false;
+                if (IdTypeUser == 2)
+                {
+                    GBArticulos.Visible = false;
+                }
+                if (IdTypeUser == 3)
+                {
+                    GBVenta.Visible = false;
+                }
+            }
+            else
+            {
+                GBArticulos.Visible = false;
             }
         }
 
@@ -109,6 +121,13 @@ namespace LinkCajaV2
         {
             Tickets t = new Tickets();
             t.Show();
+        }
+
+        private void btnArticulos2_Click(object sender, EventArgs e)
+        {
+            Articles a = new Articles();
+            a.IsVenta = false;
+            a.Show();
         }
     }
 }

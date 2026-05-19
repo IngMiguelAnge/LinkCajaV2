@@ -436,7 +436,7 @@ namespace LinkCajaV2.Data
         }
         #endregion
         #region PricesSuppliers
-        public async Task<bool> UpdateAllStatusPrices(int IdArticle)
+        public async Task<bool> UpdateAllStatusPrices(int IdArticle, int IdPresentation)
         {
             try
             {
@@ -446,6 +446,7 @@ namespace LinkCajaV2.Data
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@IdArticle", IdArticle));
+                        cmd.Parameters.Add(new SqlParameter("@IdPresentation", IdPresentation));
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;

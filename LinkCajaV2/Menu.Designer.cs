@@ -44,11 +44,16 @@
             this.gbMostrador = new System.Windows.Forms.GroupBox();
             this.GBReportes = new System.Windows.Forms.GroupBox();
             this.btnReporteTickets = new System.Windows.Forms.Button();
+            this.btnArticulos2 = new System.Windows.Forms.Button();
+            this.GBVenta = new System.Windows.Forms.GroupBox();
+            this.GBArticulos = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
             this.GBConfiguraciones.SuspendLayout();
             this.gbCatalogos.SuspendLayout();
             this.gbMostrador.SuspendLayout();
             this.GBReportes.SuspendLayout();
+            this.GBVenta.SuspendLayout();
+            this.GBArticulos.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -66,7 +71,7 @@
             // licenciaToolStripMenuItem
             // 
             this.licenciaToolStripMenuItem.Name = "licenciaToolStripMenuItem";
-            this.licenciaToolStripMenuItem.Size = new System.Drawing.Size(88, 32);
+            this.licenciaToolStripMenuItem.Size = new System.Drawing.Size(88, 30);
             this.licenciaToolStripMenuItem.Text = "Licencia";
             this.licenciaToolStripMenuItem.Click += new System.EventHandler(this.licenciaToolStripMenuItem_Click);
             // 
@@ -182,9 +187,9 @@
             // 
             // BtnVenta
             // 
-            this.BtnVenta.Location = new System.Drawing.Point(20, 23);
+            this.BtnVenta.Location = new System.Drawing.Point(5, 6);
             this.BtnVenta.Name = "BtnVenta";
-            this.BtnVenta.Size = new System.Drawing.Size(89, 71);
+            this.BtnVenta.Size = new System.Drawing.Size(92, 72);
             this.BtnVenta.TabIndex = 5;
             this.BtnVenta.Text = "Venta";
             this.BtnVenta.UseVisualStyleBackColor = true;
@@ -192,7 +197,8 @@
             // 
             // gbMostrador
             // 
-            this.gbMostrador.Controls.Add(this.BtnVenta);
+            this.gbMostrador.Controls.Add(this.GBVenta);
+            this.gbMostrador.Controls.Add(this.GBArticulos);
             this.gbMostrador.Dock = System.Windows.Forms.DockStyle.Top;
             this.gbMostrador.Location = new System.Drawing.Point(0, 274);
             this.gbMostrador.Name = "gbMostrador";
@@ -222,6 +228,36 @@
             this.btnReporteTickets.UseVisualStyleBackColor = true;
             this.btnReporteTickets.Click += new System.EventHandler(this.btnReporteTickets_Click);
             // 
+            // btnArticulos2
+            // 
+            this.btnArticulos2.Location = new System.Drawing.Point(6, 6);
+            this.btnArticulos2.Name = "btnArticulos2";
+            this.btnArticulos2.Size = new System.Drawing.Size(110, 71);
+            this.btnArticulos2.TabIndex = 6;
+            this.btnArticulos2.Text = "Articulos";
+            this.btnArticulos2.UseVisualStyleBackColor = true;
+            this.btnArticulos2.Click += new System.EventHandler(this.btnArticulos2_Click);
+            // 
+            // GBVenta
+            // 
+            this.GBVenta.Controls.Add(this.BtnVenta);
+            this.GBVenta.Dock = System.Windows.Forms.DockStyle.Left;
+            this.GBVenta.Location = new System.Drawing.Point(124, 22);
+            this.GBVenta.Name = "GBVenta";
+            this.GBVenta.Size = new System.Drawing.Size(103, 75);
+            this.GBVenta.TabIndex = 7;
+            this.GBVenta.TabStop = false;
+            // 
+            // GBArticulos
+            // 
+            this.GBArticulos.Controls.Add(this.btnArticulos2);
+            this.GBArticulos.Dock = System.Windows.Forms.DockStyle.Left;
+            this.GBArticulos.Location = new System.Drawing.Point(3, 22);
+            this.GBArticulos.Name = "GBArticulos";
+            this.GBArticulos.Size = new System.Drawing.Size(121, 75);
+            this.GBArticulos.TabIndex = 8;
+            this.GBArticulos.TabStop = false;
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -244,6 +280,8 @@
             this.gbCatalogos.ResumeLayout(false);
             this.gbMostrador.ResumeLayout(false);
             this.GBReportes.ResumeLayout(false);
+            this.GBVenta.ResumeLayout(false);
+            this.GBArticulos.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -267,5 +305,8 @@
         private System.Windows.Forms.GroupBox gbMostrador;
         private System.Windows.Forms.GroupBox GBReportes;
         private System.Windows.Forms.Button btnReporteTickets;
+        private System.Windows.Forms.Button btnArticulos2;
+        private System.Windows.Forms.GroupBox GBArticulos;
+        private System.Windows.Forms.GroupBox GBVenta;
     }
 }
