@@ -91,9 +91,27 @@ namespace LinkCajaV2.Sales
             });
             dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
             {
+                Name = "CodeSAT",
+                HeaderText = "CodeSAT",
+                DataPropertyName = "CodeSAT",
+                ReadOnly = true,
+                Visible = false,
+                Width = 100
+            });            
+            dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
+            {
                 Name = "IdPresentation",
                 HeaderText = "IdPresentation",
                 DataPropertyName = "IdPresentation",
+                ReadOnly = true,
+                Visible = false,
+                Width = 100
+            });
+            dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "UnitSAT",
+                HeaderText = "UnitSAT",
+                DataPropertyName = "UnitSAT",
                 ReadOnly = true,
                 Visible = false,
                 Width = 100
@@ -148,6 +166,15 @@ namespace LinkCajaV2.Sales
                 DefaultCellStyle = { Format = "C2" },
                 ReadOnly = true, // Aquí permites la edición
                 Width = 80
+            });
+            dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Medicine",
+                HeaderText = "Medicine",
+                DataPropertyName = "Medicine",
+                ReadOnly = true,
+                Visible = false,
+                Width = 100
             });
             DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn
             {
@@ -258,7 +285,10 @@ namespace LinkCajaV2.Sales
                     Presentation = articulo.Presentation,
                     Price = precioCalculado,
                     Decimals = presentacion.Decimals,
-                    Image = articulo.Image
+                    Image = articulo.Image,
+                    CodeSAT = articulo.CodeSAT,
+                    UnitSAT = presentacion.UnitSAT,
+                    Medicine = articulo.Medicine
                 });
             }
 
@@ -502,21 +532,6 @@ namespace LinkCajaV2.Sales
                 }
                 venta.IdTicket = Ticket.Id;
                 DetailsTicketModel Details = new DetailsTicketModel();
-                foreach (var item in venta.Articles)
-                {
-                    Details.Id = 0;
-                    Details.IdTicket = Ticket.Id;
-                    Details.IdArticle = item.IdArticle;
-                    Details.IdPresentation = item.IdPresentation;
-                    Details.StockSold = item.Stock;
-                    Details.PriceSold = item.Price;
-                    Details.TotalSold = item.Total;
-                    await obj.SaveDetailsTicket(Details);
-                }
-                ImpressionsGeneral im = new ImpressionsGeneral();
-                im.GenerarTicket(venta);
-
-                //Seccion de facturacion
                 BillingDetails billing = new BillingDetails();
                 billing.IdTicket = Ticket.Id.ToString();
                 billing.FormPayment = "01"; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
@@ -528,6 +543,39 @@ namespace LinkCajaV2.Sales
                     Name = Empresa.BillingName,
                     TaxRegime = Empresa.Regimen // Ejemplo: G01 = Adquisición de mercancias, G02 = Devoluciones, descuentos o bonificaciones, G03 = Gastos en general
                 };
+                foreach (var item in venta.Articles)
+                {
+                    Details.Id = 0;
+                    Details.IdTicket = Ticket.Id;
+                    Details.IdArticle = item.IdArticle;
+                    Details.IdPresentation = item.IdPresentation;
+                    Details.StockSold = item.Stock;//Cantidad vendida
+                    Details.PriceSold = item.Price;//Valor unitario
+                    Details.TotalSold = item.Total;
+                    await obj.SaveDetailsTicket(Details);
+                    billing.Concepts.Add(
+                    new Concepts
+                    {
+                        CodeSAT = item.CodeSAT,
+                        CodeProdServ = item.Code,
+                        Stock = item.Stock.ToString(),
+                        UnitSAT = item.UnitSAT,
+                        Description = item.Name,
+                        ObjetImp = "02",
+                        Tax = new Taxs
+                        {
+                            Base = item.Total,
+                            Tax = "002",
+                            TypeFactor = "Tasa",
+                            Rate = item.Medicine == false ? "0.160000" : "0.000000",
+                            Import = item.Medicine == false ? item.Total * 0.16m : 0m
+                        }
+                    });
+                }
+                ImpressionsGeneral im = new ImpressionsGeneral();
+                im.GenerarTicket(venta);
+
+
                 // Aquí podrías guardar la venta en la base de datos, generar un ID de venta, etc.
                 MessageBox.Show("Venta realizada con éxito.");
                 NuevaVenta();

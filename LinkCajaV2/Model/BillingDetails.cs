@@ -20,20 +20,20 @@ namespace LinkCajaV2.Model
     }
     public class Concepts
     {
-        public string CodeSat { get; set; }
+        public string CodeSAT { get; set; }
         public string CodeProdServ { get; set; }
         public string Stock { get; set; }
-        public string UnitSat { get; set; }
+        public string UnitSAT { get; set; }
         public string Description { get; set; }
         public string ObjetImp { get; set; }
         public Taxs Tax { get; set; }
     }
     public class Taxs
     {
-        public string Base { get; set; }
+        public decimal Base { get; set; }
         public string Tax { get; set; }
         public string TypeFactor { get; set; }
         public string Rate { get; set; }
-        public string Import { get; set; }
+        public decimal Import { get; set; }
     }
 }

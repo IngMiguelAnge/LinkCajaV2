@@ -1707,8 +1707,10 @@ namespace LinkCajaV2.Data
                 Description = (string)reader["Description"],
                 Image = Convert.IsDBNull(reader["Image"]) ? null : (byte[])reader["Image"],
                 Code = (string)reader["Code"],
+                CodeSAT = Convert.IsDBNull(reader["CodeSAT"]) ? string.Empty : (string)reader["CodeSAT"],
                 SendBack = (bool)reader["SendBack"],
                 Status = (bool)reader["Status"],
+                Medicine = (bool)reader["Medicine"],
             };
         }
         public async Task<bool> SaveArticle(ArticleModel obj)
@@ -1724,8 +1726,10 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
                         cmd.Parameters.Add(new SqlParameter("@Description", obj.Description));
                         cmd.Parameters.Add(new SqlParameter("@Image", obj.Image));
+                        cmd.Parameters.Add(new SqlParameter("@CodeSAT", obj.CodeSAT));
                         cmd.Parameters.Add(new SqlParameter("@Code", obj.Code));
                         cmd.Parameters.Add(new SqlParameter("@SendBack", obj.SendBack));
+                        cmd.Parameters.Add(new SqlParameter("@Medicine", obj.Medicine));
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;
@@ -1833,6 +1837,7 @@ namespace LinkCajaV2.Data
             {
                 Id = (int)reader["Id"],
                 Code = (string)reader["Code"],
+                CodeSAT = Convert.IsDBNull(reader["CodeSAT"]) ? string.Empty : (string)reader["CodeSAT"],
                 Name = (string)reader["Name"],
                 Description = (string)reader["Description"],
                 Image = Convert.IsDBNull(reader["Image"]) ? null : (byte[])reader["Image"],
@@ -1842,6 +1847,7 @@ namespace LinkCajaV2.Data
                 Presentation = Convert.IsDBNull(reader["Presentation"]) ? string.Empty : (string)reader["Presentation"],
                 Price = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
                 SuggestedStock = Convert.IsDBNull(reader["SuggestedStock"]) ? 0 : (decimal)reader["SuggestedStock"],
+                Medicine = (bool)reader["Medicine"],
             };
         }
         private ListArticlesModel MapToListArticles(SqlDataReader reader)
@@ -1854,6 +1860,7 @@ namespace LinkCajaV2.Data
                 Existencias = (string)reader["Stock"],
                 Precio = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
                 PorCada = (string)reader["PorCada"],
+                Medicamento = (string)reader["Medicine"],
                 Estatus = (string)reader["Status"],
             };
         }
@@ -1931,7 +1938,8 @@ namespace LinkCajaV2.Data
             {
                 Id = (int)reader["Id"],
                 Name = (string)reader["Name"],
-                Decimals = (int)reader["Decimals"]
+                Decimals = (int)reader["Decimals"],
+                UnitSAT = (string)reader["UnitSAT"],
             };
         }
         #endregion

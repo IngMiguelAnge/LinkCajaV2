@@ -66,7 +66,7 @@ namespace LinkCajaV2.Catalogs
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtCodigo.Text) || string.IsNullOrEmpty(txtDescripcion.Text) ||
-                string.IsNullOrEmpty(txtNombre.Text))
+                string.IsNullOrEmpty(txtClaveSAT.Text) || string.IsNullOrEmpty(txtNombre.Text))
             {
                 MessageBox.Show("Datos incompletos revise la información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -86,7 +86,9 @@ namespace LinkCajaV2.Catalogs
                 Description = txtDescripcion.Text,
                 Image = PBProducto.Image != null ? ImageToByteArray() : null,
                 Code = txtCodigo.Text,
-                SendBack = CBDevoluciones.Checked
+                CodeSAT = txtClaveSAT.Text,
+                SendBack = CBDevoluciones.Checked,
+                Medicine = cbMedicine.Checked
             };
             if (obj.SaveArticle(Articulo).Result)
             {
@@ -129,7 +131,9 @@ namespace LinkCajaV2.Catalogs
                 }
             }
             txtCodigo.Text = Article.Code;
+            txtClaveSAT.Text = Article.CodeSAT;
             CBDevoluciones.Checked = Article.SendBack;
+            cbMedicine.Checked = Article.Medicine;
         }      
     }
 }

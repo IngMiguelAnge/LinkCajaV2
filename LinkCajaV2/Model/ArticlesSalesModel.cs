@@ -4,8 +4,10 @@ namespace LinkCajaV2.Model
 {
     public class ArticlesSalesModel
     {
+        public string CodeSAT { get; set; }
         public int IdArticle { get; set; }
         public int IdPresentation { get; set; }
+        public string UnitSAT { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public decimal Stock { get; set; }
@@ -18,5 +20,6 @@ namespace LinkCajaV2.Model
      );
         public int Decimals { get; set; }
         public byte[] Image { get; set; }
+        public bool Medicine { get; set; }
     }
 }

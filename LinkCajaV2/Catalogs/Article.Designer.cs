@@ -38,49 +38,52 @@
             this.lblCodigo = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.CBDevoluciones = new System.Windows.Forms.CheckBox();
+            this.lblClaveSAT = new System.Windows.Forms.Label();
+            this.txtClaveSAT = new System.Windows.Forms.TextBox();
+            this.cbMedicine = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.PBProducto)).BeginInit();
             this.SuspendLayout();
             // 
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(19, 71);
+            this.lblNombre.Location = new System.Drawing.Point(19, 123);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(75, 20);
-            this.lblNombre.TabIndex = 2;
+            this.lblNombre.TabIndex = 4;
             this.lblNombre.Text = "*Nombre:";
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(138, 71);
+            this.txtNombre.Location = new System.Drawing.Point(138, 123);
             this.txtNombre.MaxLength = 50;
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(334, 26);
-            this.txtNombre.TabIndex = 3;
+            this.txtNombre.TabIndex = 5;
             // 
             // lblDescripcion
             // 
             this.lblDescripcion.AutoSize = true;
-            this.lblDescripcion.Location = new System.Drawing.Point(19, 119);
+            this.lblDescripcion.Location = new System.Drawing.Point(19, 171);
             this.lblDescripcion.Name = "lblDescripcion";
             this.lblDescripcion.Size = new System.Drawing.Size(102, 20);
-            this.lblDescripcion.TabIndex = 4;
+            this.lblDescripcion.TabIndex = 6;
             this.lblDescripcion.Text = "*Descripción:";
             // 
             // txtDescripcion
             // 
-            this.txtDescripcion.Location = new System.Drawing.Point(138, 116);
+            this.txtDescripcion.Location = new System.Drawing.Point(138, 168);
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(334, 83);
-            this.txtDescripcion.TabIndex = 5;
+            this.txtDescripcion.TabIndex = 7;
             // 
             // btnImagen
             // 
             this.btnImagen.Location = new System.Drawing.Point(571, 229);
             this.btnImagen.Name = "btnImagen";
             this.btnImagen.Size = new System.Drawing.Size(105, 40);
-            this.btnImagen.TabIndex = 6;
+            this.btnImagen.TabIndex = 10;
             this.btnImagen.Text = "Imagen";
             this.btnImagen.UseVisualStyleBackColor = true;
             this.btnImagen.Click += new System.EventHandler(this.btnImagen_Click);
@@ -95,10 +98,10 @@
             // 
             // BtnGuardar
             // 
-            this.BtnGuardar.Location = new System.Drawing.Point(23, 268);
+            this.BtnGuardar.Location = new System.Drawing.Point(23, 319);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(108, 35);
-            this.BtnGuardar.TabIndex = 7;
+            this.BtnGuardar.TabIndex = 11;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = true;
             this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
@@ -123,18 +126,48 @@
             // CBDevoluciones
             // 
             this.CBDevoluciones.AutoSize = true;
-            this.CBDevoluciones.Location = new System.Drawing.Point(23, 218);
+            this.CBDevoluciones.Location = new System.Drawing.Point(23, 270);
             this.CBDevoluciones.Name = "CBDevoluciones";
             this.CBDevoluciones.Size = new System.Drawing.Size(200, 24);
-            this.CBDevoluciones.TabIndex = 16;
+            this.CBDevoluciones.TabIndex = 8;
             this.CBDevoluciones.Text = "¿Acepta devolusiones?";
             this.CBDevoluciones.UseVisualStyleBackColor = true;
+            // 
+            // lblClaveSAT
+            // 
+            this.lblClaveSAT.AutoSize = true;
+            this.lblClaveSAT.Location = new System.Drawing.Point(19, 76);
+            this.lblClaveSAT.Name = "lblClaveSAT";
+            this.lblClaveSAT.Size = new System.Drawing.Size(93, 20);
+            this.lblClaveSAT.TabIndex = 2;
+            this.lblClaveSAT.Text = "*Clave SAT:";
+            // 
+            // txtClaveSAT
+            // 
+            this.txtClaveSAT.Location = new System.Drawing.Point(138, 76);
+            this.txtClaveSAT.MaxLength = 50;
+            this.txtClaveSAT.Name = "txtClaveSAT";
+            this.txtClaveSAT.Size = new System.Drawing.Size(334, 26);
+            this.txtClaveSAT.TabIndex = 3;
+            // 
+            // cbMedicine
+            // 
+            this.cbMedicine.AutoSize = true;
+            this.cbMedicine.Location = new System.Drawing.Point(242, 270);
+            this.cbMedicine.Name = "cbMedicine";
+            this.cbMedicine.Size = new System.Drawing.Size(172, 24);
+            this.cbMedicine.TabIndex = 9;
+            this.cbMedicine.Text = "¿Es medicamento?";
+            this.cbMedicine.UseVisualStyleBackColor = true;
             // 
             // Article
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(822, 315);
+            this.ClientSize = new System.Drawing.Size(822, 376);
+            this.Controls.Add(this.cbMedicine);
+            this.Controls.Add(this.txtClaveSAT);
+            this.Controls.Add(this.lblClaveSAT);
             this.Controls.Add(this.CBDevoluciones);
             this.Controls.Add(this.txtCodigo);
             this.Controls.Add(this.lblCodigo);
@@ -169,5 +202,8 @@
         private System.Windows.Forms.Label lblCodigo;
         private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.CheckBox CBDevoluciones;
+        private System.Windows.Forms.Label lblClaveSAT;
+        private System.Windows.Forms.TextBox txtClaveSAT;
+        private System.Windows.Forms.CheckBox cbMedicine;
     }
 }
