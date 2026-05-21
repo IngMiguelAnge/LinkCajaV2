@@ -50,7 +50,7 @@
             this.BtnCorte = new System.Windows.Forms.Button();
             this.btnReporteTickets = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lblMenu = new System.Windows.Forms.Label();
+            this.lblTitulo = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.GBConfiguraciones.SuspendLayout();
             this.gbCatalogos.SuspendLayout();
@@ -77,7 +77,7 @@
             // licenciaToolStripMenuItem
             // 
             this.licenciaToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.licenciaToolStripMenuItem.ForeColor = System.Drawing.Color.Gray;
+            this.licenciaToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.licenciaToolStripMenuItem.Name = "licenciaToolStripMenuItem";
             this.licenciaToolStripMenuItem.Size = new System.Drawing.Size(88, 29);
             this.licenciaToolStripMenuItem.Text = "Licencia";
@@ -372,7 +372,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.lblMenu);
+            this.groupBox1.Controls.Add(this.lblTitulo);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -383,16 +383,16 @@
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             // 
-            // lblMenu
+            // lblTitulo
             // 
-            this.lblMenu.AutoSize = true;
-            this.lblMenu.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.lblMenu.Location = new System.Drawing.Point(24, 22);
-            this.lblMenu.Name = "lblMenu";
-            this.lblMenu.Size = new System.Drawing.Size(273, 48);
-            this.lblMenu.TabIndex = 0;
-            this.lblMenu.Text = "Menú Principal";
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.lblTitulo.Location = new System.Drawing.Point(24, 22);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(273, 48);
+            this.lblTitulo.TabIndex = 0;
+            this.lblTitulo.Text = "Menú Principal";
             // 
             // Menu
             // 
@@ -453,6 +453,6 @@
         private System.Windows.Forms.GroupBox GBVenta;
         private System.Windows.Forms.Button BtnCorte;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label lblMenu;
+        private System.Windows.Forms.Label lblTitulo;
     }
 }
