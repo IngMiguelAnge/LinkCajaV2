@@ -42,18 +42,18 @@
             this.btnUsuarios = new System.Windows.Forms.Button();
             this.BtnVenta = new System.Windows.Forms.Button();
             this.gbMostrador = new System.Windows.Forms.GroupBox();
-            this.GBReportes = new System.Windows.Forms.GroupBox();
-            this.btnReporteTickets = new System.Windows.Forms.Button();
-            this.btnArticulos2 = new System.Windows.Forms.Button();
             this.GBVenta = new System.Windows.Forms.GroupBox();
             this.GBArticulos = new System.Windows.Forms.GroupBox();
+            this.btnArticulos2 = new System.Windows.Forms.Button();
+            this.GBReportes = new System.Windows.Forms.GroupBox();
+            this.btnReporteTickets = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.GBConfiguraciones.SuspendLayout();
             this.gbCatalogos.SuspendLayout();
             this.gbMostrador.SuspendLayout();
-            this.GBReportes.SuspendLayout();
             this.GBVenta.SuspendLayout();
             this.GBArticulos.SuspendLayout();
+            this.GBReportes.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -71,13 +71,13 @@
             // licenciaToolStripMenuItem
             // 
             this.licenciaToolStripMenuItem.Name = "licenciaToolStripMenuItem";
-            this.licenciaToolStripMenuItem.Size = new System.Drawing.Size(88, 30);
+            this.licenciaToolStripMenuItem.Size = new System.Drawing.Size(88, 29);
             this.licenciaToolStripMenuItem.Text = "Licencia";
             this.licenciaToolStripMenuItem.Click += new System.EventHandler(this.licenciaToolStripMenuItem_Click);
             // 
             // btnEmpresa
             // 
-            this.btnEmpresa.Location = new System.Drawing.Point(20, 35);
+            this.btnEmpresa.Location = new System.Drawing.Point(10, 35);
             this.btnEmpresa.Name = "btnEmpresa";
             this.btnEmpresa.Size = new System.Drawing.Size(143, 84);
             this.btnEmpresa.TabIndex = 1;
@@ -136,7 +136,7 @@
             // BtnRecetas
             // 
             this.BtnRecetas.Enabled = false;
-            this.BtnRecetas.Location = new System.Drawing.Point(494, 27);
+            this.BtnRecetas.Location = new System.Drawing.Point(335, 25);
             this.BtnRecetas.Name = "BtnRecetas";
             this.BtnRecetas.Size = new System.Drawing.Size(93, 74);
             this.BtnRecetas.TabIndex = 4;
@@ -147,7 +147,7 @@
             // 
             // BtnArticulos
             // 
-            this.BtnArticulos.Location = new System.Drawing.Point(389, 26);
+            this.BtnArticulos.Location = new System.Drawing.Point(241, 25);
             this.BtnArticulos.Name = "BtnArticulos";
             this.BtnArticulos.Size = new System.Drawing.Size(88, 75);
             this.BtnArticulos.TabIndex = 3;
@@ -157,17 +157,18 @@
             // 
             // btnClientes
             // 
-            this.btnClientes.Location = new System.Drawing.Point(280, 25);
+            this.btnClientes.Location = new System.Drawing.Point(442, 25);
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Size = new System.Drawing.Size(94, 75);
             this.btnClientes.TabIndex = 2;
             this.btnClientes.Text = "Clientes";
             this.btnClientes.UseVisualStyleBackColor = true;
+            this.btnClientes.Visible = false;
             this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
             // btnProveedores
             // 
-            this.btnProveedores.Location = new System.Drawing.Point(130, 25);
+            this.btnProveedores.Location = new System.Drawing.Point(105, 25);
             this.btnProveedores.Name = "btnProveedores";
             this.btnProveedores.Size = new System.Drawing.Size(130, 75);
             this.btnProveedores.TabIndex = 1;
@@ -177,7 +178,7 @@
             // 
             // btnUsuarios
             // 
-            this.btnUsuarios.Location = new System.Drawing.Point(20, 25);
+            this.btnUsuarios.Location = new System.Drawing.Point(10, 25);
             this.btnUsuarios.Name = "btnUsuarios";
             this.btnUsuarios.Size = new System.Drawing.Size(89, 75);
             this.btnUsuarios.TabIndex = 0;
@@ -207,6 +208,36 @@
             this.gbMostrador.TabStop = false;
             this.gbMostrador.Text = "Mostrador";
             // 
+            // GBVenta
+            // 
+            this.GBVenta.Controls.Add(this.BtnVenta);
+            this.GBVenta.Dock = System.Windows.Forms.DockStyle.Left;
+            this.GBVenta.Location = new System.Drawing.Point(124, 22);
+            this.GBVenta.Name = "GBVenta";
+            this.GBVenta.Size = new System.Drawing.Size(103, 75);
+            this.GBVenta.TabIndex = 7;
+            this.GBVenta.TabStop = false;
+            // 
+            // GBArticulos
+            // 
+            this.GBArticulos.Controls.Add(this.btnArticulos2);
+            this.GBArticulos.Dock = System.Windows.Forms.DockStyle.Left;
+            this.GBArticulos.Location = new System.Drawing.Point(3, 22);
+            this.GBArticulos.Name = "GBArticulos";
+            this.GBArticulos.Size = new System.Drawing.Size(121, 75);
+            this.GBArticulos.TabIndex = 8;
+            this.GBArticulos.TabStop = false;
+            // 
+            // btnArticulos2
+            // 
+            this.btnArticulos2.Location = new System.Drawing.Point(6, 6);
+            this.btnArticulos2.Name = "btnArticulos2";
+            this.btnArticulos2.Size = new System.Drawing.Size(110, 71);
+            this.btnArticulos2.TabIndex = 6;
+            this.btnArticulos2.Text = "Articulos";
+            this.btnArticulos2.UseVisualStyleBackColor = true;
+            this.btnArticulos2.Click += new System.EventHandler(this.btnArticulos2_Click);
+            // 
             // GBReportes
             // 
             this.GBReportes.Controls.Add(this.btnReporteTickets);
@@ -227,36 +258,6 @@
             this.btnReporteTickets.Text = "Tickets";
             this.btnReporteTickets.UseVisualStyleBackColor = true;
             this.btnReporteTickets.Click += new System.EventHandler(this.btnReporteTickets_Click);
-            // 
-            // btnArticulos2
-            // 
-            this.btnArticulos2.Location = new System.Drawing.Point(6, 6);
-            this.btnArticulos2.Name = "btnArticulos2";
-            this.btnArticulos2.Size = new System.Drawing.Size(110, 71);
-            this.btnArticulos2.TabIndex = 6;
-            this.btnArticulos2.Text = "Articulos";
-            this.btnArticulos2.UseVisualStyleBackColor = true;
-            this.btnArticulos2.Click += new System.EventHandler(this.btnArticulos2_Click);
-            // 
-            // GBVenta
-            // 
-            this.GBVenta.Controls.Add(this.BtnVenta);
-            this.GBVenta.Dock = System.Windows.Forms.DockStyle.Left;
-            this.GBVenta.Location = new System.Drawing.Point(124, 22);
-            this.GBVenta.Name = "GBVenta";
-            this.GBVenta.Size = new System.Drawing.Size(103, 75);
-            this.GBVenta.TabIndex = 7;
-            this.GBVenta.TabStop = false;
-            // 
-            // GBArticulos
-            // 
-            this.GBArticulos.Controls.Add(this.btnArticulos2);
-            this.GBArticulos.Dock = System.Windows.Forms.DockStyle.Left;
-            this.GBArticulos.Location = new System.Drawing.Point(3, 22);
-            this.GBArticulos.Name = "GBArticulos";
-            this.GBArticulos.Size = new System.Drawing.Size(121, 75);
-            this.GBArticulos.TabIndex = 8;
-            this.GBArticulos.TabStop = false;
             // 
             // Menu
             // 
@@ -279,9 +280,9 @@
             this.GBConfiguraciones.ResumeLayout(false);
             this.gbCatalogos.ResumeLayout(false);
             this.gbMostrador.ResumeLayout(false);
-            this.GBReportes.ResumeLayout(false);
             this.GBVenta.ResumeLayout(false);
             this.GBArticulos.ResumeLayout(false);
+            this.GBReportes.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

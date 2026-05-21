@@ -1,4 +1,6 @@
-﻿using LinkCajaV2.Data;
+﻿using LinkCajaV2.Configurations;
+using LinkCajaV2.Data;
+using LinkCajaV2.Items;
 using LinkCajaV2.Model;
 using System;
 using System.Linq;
@@ -54,7 +56,7 @@ namespace LinkCajaV2.Catalogs
                 this.Close();
                 return;
             }
-           
+
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -119,12 +121,18 @@ namespace LinkCajaV2.Catalogs
             btnCambiar.Text = "Cambio Estatus";
             btnCambiar.UseColumnTextForButtonValue = true;
             dgvCajas.Columns.Add(btnCambiar);
+            DataGridViewButtonColumn btnFondos = new DataGridViewButtonColumn();
+            btnFondos.Name = "btnFondos";
+            btnFondos.HeaderText = "Acción";
+            btnFondos.Text = "Fondos";
+            btnFondos.UseColumnTextForButtonValue = true;
+            dgvCajas.Columns.Add(btnFondos);
         }
 
         private void dgvCajas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-            int Id =(int)dgvCajas.Rows[e.RowIndex].Cells["Id"].Value;
+            int Id = (int)dgvCajas.Rows[e.RowIndex].Cells["Id"].Value;
 
             switch (dgvCajas.Columns[e.ColumnIndex].Name)
             {
@@ -135,7 +143,7 @@ namespace LinkCajaV2.Catalogs
                     BuscarBoxs();
                     break;
                 case "btnCambiar":
-                    string Estatus =(string)dgvCajas.Rows[e.RowIndex].Cells["Estatus"].Value;
+                    string Estatus = (string)dgvCajas.Rows[e.RowIndex].Cells["Estatus"].Value;
                     AppRepository obj = new AppRepository();
                     if (Estatus != "Activo")
                     {
@@ -147,7 +155,7 @@ namespace LinkCajaV2.Catalogs
                         }
                     }
                     var resultado = obj.UpdateStatusBox(Id).Result;
-                    if(resultado)
+                    if (resultado)
                     {
                         MessageBox.Show("Cambio de estado exitoso", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -156,6 +164,11 @@ namespace LinkCajaV2.Catalogs
                         MessageBox.Show("Error al cambiar el estado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     BuscarBoxs();
+                    break;
+                case "btnFondos":
+                    CashFund f = new CashFund();
+                    f.IdBox = Convert.ToInt32(Id);
+                    f.ShowDialog();
                     break;
             }
         }

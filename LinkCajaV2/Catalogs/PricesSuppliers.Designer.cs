@@ -58,9 +58,9 @@
             this.lblPresentacion.AutoSize = true;
             this.lblPresentacion.Location = new System.Drawing.Point(27, 41);
             this.lblPresentacion.Name = "lblPresentacion";
-            this.lblPresentacion.Size = new System.Drawing.Size(143, 20);
+            this.lblPresentacion.Size = new System.Drawing.Size(199, 20);
             this.lblPresentacion.TabIndex = 3;
-            this.lblPresentacion.Text = "Unidad de compra:";
+            this.lblPresentacion.Text = "Unidad de compra unitaria:";
             // 
             // nudPrecio
             // 

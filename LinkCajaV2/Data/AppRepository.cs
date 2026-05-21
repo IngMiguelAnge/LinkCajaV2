@@ -19,6 +19,123 @@ namespace LinkCajaV2.Data
         {
             GC.Collect();
         }
+        #region CashFund
+        public async Task<bool> UpdateStatusCashFund(int Id)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("UpdateStatusCashFund", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<bool> SaveCashFund(CashFundModel obj)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveCashFund", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", obj.Id));
+                        cmd.Parameters.Add(new SqlParameter("@IdBox", obj.IdBox));
+                        cmd.Parameters.Add(new SqlParameter("@Date", obj.Date));
+                        cmd.Parameters.Add(new SqlParameter("@Cashfund", obj.Cashfund));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<ListCashFundModel> GetCashFundbyDate(int IdBox, DateTime Date)
+        {
+            ListCashFundModel obj = new ListCashFundModel();
+            List<ListCashFundModel> list = new List<ListCashFundModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetCashFund", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@IdBox", IdBox));
+                        cmd.Parameters.Add(new SqlParameter("@Date", Date));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToListCashFund(reader));
+                            }
+                            obj = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return obj;
+        }
+        public async Task<List<ListCashFundModel>> GetCashFund(int IdBox, DateTime Desde,
+           DateTime Hasta)
+        {
+            List<ListCashFundModel> list = new List<ListCashFundModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetCashFund", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@IdBox", IdBox));
+                        cmd.Parameters.Add(new SqlParameter("@Desde", Desde));
+                        cmd.Parameters.Add(new SqlParameter("@Hasta", Hasta));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToListCashFund(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
+        private ListCashFundModel MapToListCashFund(SqlDataReader reader)
+        {
+            return new ListCashFundModel()
+            {
+                Id = (int)reader["Id"],
+                Cashfund = (decimal)reader["Cashfund"],
+                Date = (DateTime)reader["Date"],
+                Status = (string)reader["Status"],
+            };
+        }
+        #endregion
         #region Tickets
         public async Task<List<ListDetailsTicketModel>> GetDetailsTicket(int IdTicket)
         {
