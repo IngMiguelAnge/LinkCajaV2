@@ -51,6 +51,7 @@ namespace LinkCajaV2.Catalogs
             {
                 progressBar1.Style = ProgressBarStyle.Blocks;
                 progressBar1.Value = 0;
+                progressBar1.MarqueeAnimationSpeed = 0;
                 btnBuscar.Enabled = true;
                 btnNuevo.Enabled = true;
             }

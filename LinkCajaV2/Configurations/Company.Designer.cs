@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Company));
             this.lblNombre = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.lblDireccion = new System.Windows.Forms.Label();
@@ -182,11 +183,14 @@
             this.btnLogo.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
             this.btnLogo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogo.Image = ((System.Drawing.Image)(resources.GetObject("btnLogo.Image")));
+            this.btnLogo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLogo.Location = new System.Drawing.Point(774, 312);
             this.btnLogo.Name = "btnLogo";
             this.btnLogo.Size = new System.Drawing.Size(200, 49);
             this.btnLogo.TabIndex = 18;
             this.btnLogo.Text = "Cargar Logotipo";
+            this.btnLogo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLogo.UseVisualStyleBackColor = true;
             this.btnLogo.Click += new System.EventHandler(this.btnLogo_Click);
             // 
@@ -208,6 +212,8 @@
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
+            this.btnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("btnGuardar.Image")));
+            this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGuardar.Location = new System.Drawing.Point(774, 582);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(200, 48);

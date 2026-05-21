@@ -430,11 +430,16 @@
     <Content Include="Icons\Cajero.png" />
     <Content Include="Icons\Clientes.png" />
     <Content Include="Icons\CorteCaja.png" />
+    <Content Include="Icons\Guardar.png" />
     <Content Include="Icons\Impresiones.png" />
+    <Content Include="Icons\Impresora.png" />
     <Content Include="Icons\Inventario.png" />
+    <Content Include="Icons\Lupa.png" />
     <Content Include="Icons\Mi Empresa.png" />
+    <Content Include="Icons\Nuevo.png" />
     <Content Include="Icons\Proveedores.png" />
     <Content Include="Icons\Recetas.png" />
+    <Content Include="Icons\Subir.png" />
     <Content Include="Icons\Tickets.png" />
     <Content Include="Icons\Usuarios.png" />
     <Content Include="Icons\Venta.png" />

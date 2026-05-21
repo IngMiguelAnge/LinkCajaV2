@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Articles));
             this.lblNombre = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.btnNuevo = new System.Windows.Forms.Button();
@@ -38,6 +39,7 @@
             this.lblCodigo = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.BtnImpresion = new System.Windows.Forms.Button();
+            this.lblTitulo = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             this.SuspendLayout();
@@ -45,37 +47,54 @@
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(293, 67);
+            this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblNombre.Location = new System.Drawing.Point(346, 90);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(69, 20);
-            this.lblNombre.TabIndex = 5;
+            this.lblNombre.Size = new System.Drawing.Size(86, 25);
+            this.lblNombre.TabIndex = 2;
             this.lblNombre.Text = "Nombre:";
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(368, 61);
+            this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNombre.Location = new System.Drawing.Point(351, 125);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(168, 26);
-            this.txtNombre.TabIndex = 6;
+            this.txtNombre.Size = new System.Drawing.Size(272, 37);
+            this.txtNombre.TabIndex = 3;
             // 
             // btnNuevo
             // 
-            this.btnNuevo.Location = new System.Drawing.Point(27, 12);
+            this.btnNuevo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
+            this.btnNuevo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNuevo.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNuevo.ForeColor = System.Drawing.Color.White;
+            this.btnNuevo.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevo.Image")));
+            this.btnNuevo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNuevo.Location = new System.Drawing.Point(929, 130);
             this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(78, 33);
-            this.btnNuevo.TabIndex = 0;
+            this.btnNuevo.Size = new System.Drawing.Size(120, 37);
+            this.btnNuevo.TabIndex = 6;
             this.btnNuevo.Text = "Nuevo";
-            this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNuevo.UseVisualStyleBackColor = false;
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
             // BtnBuscar
             // 
-            this.BtnBuscar.Location = new System.Drawing.Point(314, 12);
+            this.BtnBuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            this.BtnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnBuscar.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnBuscar.ForeColor = System.Drawing.Color.White;
+            this.BtnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("BtnBuscar.Image")));
+            this.BtnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnBuscar.Location = new System.Drawing.Point(661, 129);
             this.BtnBuscar.Name = "BtnBuscar";
-            this.BtnBuscar.Size = new System.Drawing.Size(84, 35);
-            this.BtnBuscar.TabIndex = 1;
+            this.BtnBuscar.Size = new System.Drawing.Size(100, 37);
+            this.BtnBuscar.TabIndex = 4;
             this.BtnBuscar.Text = "Buscar";
-            this.BtnBuscar.UseVisualStyleBackColor = true;
+            this.BtnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnBuscar.UseVisualStyleBackColor = false;
             this.BtnBuscar.Click += new System.EventHandler(this.BtnBuscar_Click);
             // 
             // groupBox1
@@ -84,10 +103,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.dgvArticulos);
-            this.groupBox1.Location = new System.Drawing.Point(27, 105);
+            this.groupBox1.Location = new System.Drawing.Point(27, 212);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1211, 459);
-            this.groupBox1.TabIndex = 10;
+            this.groupBox1.Size = new System.Drawing.Size(1211, 352);
+            this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Articulos";
             // 
@@ -99,48 +118,75 @@
             this.dgvArticulos.Name = "dgvArticulos";
             this.dgvArticulos.RowHeadersWidth = 62;
             this.dgvArticulos.RowTemplate.Height = 28;
-            this.dgvArticulos.Size = new System.Drawing.Size(1205, 434);
+            this.dgvArticulos.Size = new System.Drawing.Size(1205, 327);
             this.dgvArticulos.TabIndex = 9;
             this.dgvArticulos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvArticulos_CellContentClick);
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(458, 24);
+            this.progressBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.progressBar1.Location = new System.Drawing.Point(41, 183);
+            this.progressBar1.MarqueeAnimationSpeed = 0;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(100, 23);
-            this.progressBar1.TabIndex = 2;
+            this.progressBar1.Size = new System.Drawing.Size(520, 6);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar1.TabIndex = 7;
             // 
             // lblCodigo
             // 
             this.lblCodigo.AutoSize = true;
-            this.lblCodigo.Location = new System.Drawing.Point(26, 67);
+            this.lblCodigo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCodigo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblCodigo.Location = new System.Drawing.Point(37, 90);
             this.lblCodigo.Name = "lblCodigo";
-            this.lblCodigo.Size = new System.Drawing.Size(63, 20);
-            this.lblCodigo.TabIndex = 3;
+            this.lblCodigo.Size = new System.Drawing.Size(77, 25);
+            this.lblCodigo.TabIndex = 0;
             this.lblCodigo.Text = "Código:";
             // 
             // txtCodigo
             // 
-            this.txtCodigo.Location = new System.Drawing.Point(108, 61);
+            this.txtCodigo.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCodigo.Location = new System.Drawing.Point(42, 125);
             this.txtCodigo.Name = "txtCodigo";
-            this.txtCodigo.Size = new System.Drawing.Size(179, 26);
-            this.txtCodigo.TabIndex = 4;
+            this.txtCodigo.Size = new System.Drawing.Size(272, 37);
+            this.txtCodigo.TabIndex = 1;
             // 
             // BtnImpresion
             // 
-            this.BtnImpresion.Location = new System.Drawing.Point(746, 53);
+            this.BtnImpresion.BackColor = System.Drawing.Color.White;
+            this.BtnImpresion.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.BtnImpresion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnImpresion.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnImpresion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.BtnImpresion.Image = ((System.Drawing.Image)(resources.GetObject("BtnImpresion.Image")));
+            this.BtnImpresion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnImpresion.Location = new System.Drawing.Point(781, 129);
             this.BtnImpresion.Name = "BtnImpresion";
-            this.BtnImpresion.Size = new System.Drawing.Size(102, 46);
-            this.BtnImpresion.TabIndex = 12;
+            this.BtnImpresion.Size = new System.Drawing.Size(123, 37);
+            this.BtnImpresion.TabIndex = 5;
             this.BtnImpresion.Text = "Imprimir";
-            this.BtnImpresion.UseVisualStyleBackColor = true;
+            this.BtnImpresion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnImpresion.UseVisualStyleBackColor = false;
             this.BtnImpresion.Click += new System.EventHandler(this.BtnImpresion_Click);
+            // 
+            // lblTitulo
+            // 
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.lblTitulo.Location = new System.Drawing.Point(33, 23);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(309, 48);
+            this.lblTitulo.TabIndex = 24;
+            this.lblTitulo.Text = "Lista de Articulos";
             // 
             // Articles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1271, 576);
+            this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.BtnImpresion);
             this.Controls.Add(this.txtCodigo);
             this.Controls.Add(this.lblCodigo);
@@ -153,8 +199,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Articles";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Articulos";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Articles_Load);
             this.groupBox1.ResumeLayout(false);
@@ -176,5 +222,6 @@
         private System.Windows.Forms.Label lblCodigo;
         private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.Button BtnImpresion;
+        private System.Windows.Forms.Label lblTitulo;
     }
 }
