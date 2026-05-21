@@ -33,56 +33,83 @@
             this.lblContraseña = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnAcceder = new System.Windows.Forms.Button();
+            this.lblLinkcaja = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblUsuario
             // 
             this.lblUsuario.AutoSize = true;
-            this.lblUsuario.Location = new System.Drawing.Point(70, 44);
+            this.lblUsuario.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblUsuario.Location = new System.Drawing.Point(60, 140);
             this.lblUsuario.Name = "lblUsuario";
-            this.lblUsuario.Size = new System.Drawing.Size(68, 20);
+            this.lblUsuario.Size = new System.Drawing.Size(82, 25);
             this.lblUsuario.TabIndex = 0;
             this.lblUsuario.Text = "Usuario:";
             // 
             // txtUser
             // 
-            this.txtUser.Location = new System.Drawing.Point(186, 44);
+            this.txtUser.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUser.Location = new System.Drawing.Point(60, 165);
             this.txtUser.Name = "txtUser";
-            this.txtUser.Size = new System.Drawing.Size(198, 26);
+            this.txtUser.Size = new System.Drawing.Size(260, 39);
             this.txtUser.TabIndex = 1;
             // 
             // lblContraseña
             // 
             this.lblContraseña.AutoSize = true;
-            this.lblContraseña.Location = new System.Drawing.Point(70, 97);
+            this.lblContraseña.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblContraseña.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblContraseña.Location = new System.Drawing.Point(60, 220);
             this.lblContraseña.Name = "lblContraseña";
-            this.lblContraseña.Size = new System.Drawing.Size(96, 20);
+            this.lblContraseña.Size = new System.Drawing.Size(113, 25);
             this.lblContraseña.TabIndex = 2;
             this.lblContraseña.Text = "Contraseña:";
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(186, 94);
+            this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassword.Location = new System.Drawing.Point(60, 245);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(198, 26);
+            this.txtPassword.Size = new System.Drawing.Size(260, 39);
             this.txtPassword.TabIndex = 3;
             // 
             // btnAcceder
             // 
-            this.btnAcceder.Location = new System.Drawing.Point(74, 148);
+            this.btnAcceder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.btnAcceder.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAcceder.FlatAppearance.BorderSize = 0;
+            this.btnAcceder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAcceder.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAcceder.ForeColor = System.Drawing.Color.White;
+            this.btnAcceder.Location = new System.Drawing.Point(60, 320);
             this.btnAcceder.Name = "btnAcceder";
-            this.btnAcceder.Size = new System.Drawing.Size(92, 35);
+            this.btnAcceder.Size = new System.Drawing.Size(260, 45);
             this.btnAcceder.TabIndex = 4;
             this.btnAcceder.Text = "Acceder";
-            this.btnAcceder.UseVisualStyleBackColor = true;
+            this.btnAcceder.UseVisualStyleBackColor = false;
             this.btnAcceder.Click += new System.EventHandler(this.btnAcceder_Click);
+            // 
+            // lblLinkcaja
+            // 
+            this.lblLinkcaja.AutoSize = true;
+            this.lblLinkcaja.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLinkcaja.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.lblLinkcaja.Location = new System.Drawing.Point(40, 50);
+            this.lblLinkcaja.Name = "lblLinkcaja";
+            this.lblLinkcaja.Size = new System.Drawing.Size(479, 48);
+            this.lblLinkcaja.TabIndex = 5;
+            this.lblLinkcaja.Text = "BIEN VENIDOS A LINKCAJA";
             // 
             // Login
             // 
+            this.AcceptButton = this.btnAcceder;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(412, 208);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(552, 444);
+            this.Controls.Add(this.lblLinkcaja);
             this.Controls.Add(this.btnAcceder);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.lblContraseña);
@@ -91,6 +118,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Login";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -104,6 +132,7 @@
         private System.Windows.Forms.Label lblContraseña;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Button btnAcceder;
+        private System.Windows.Forms.Label lblLinkcaja;
     }
 }
 
