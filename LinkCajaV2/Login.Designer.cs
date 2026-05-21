@@ -98,9 +98,9 @@
             this.lblLinkcaja.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.lblLinkcaja.Location = new System.Drawing.Point(40, 50);
             this.lblLinkcaja.Name = "lblLinkcaja";
-            this.lblLinkcaja.Size = new System.Drawing.Size(479, 48);
+            this.lblLinkcaja.Size = new System.Drawing.Size(187, 48);
             this.lblLinkcaja.TabIndex = 5;
-            this.lblLinkcaja.Text = "BIEN VENIDOS A LINKCAJA";
+            this.lblLinkcaja.Text = "LINKCAJA";
             // 
             // Login
             // 
@@ -108,7 +108,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(552, 444);
+            this.ClientSize = new System.Drawing.Size(417, 444);
             this.Controls.Add(this.lblLinkcaja);
             this.Controls.Add(this.btnAcceder);
             this.Controls.Add(this.txtPassword);

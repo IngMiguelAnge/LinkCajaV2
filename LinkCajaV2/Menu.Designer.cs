@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.licenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnEmpresa = new System.Windows.Forms.Button();
@@ -48,6 +49,8 @@
             this.GBReportes = new System.Windows.Forms.GroupBox();
             this.BtnCorte = new System.Windows.Forms.Button();
             this.btnReporteTickets = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblMenu = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.GBConfiguraciones.SuspendLayout();
             this.gbCatalogos.SuspendLayout();
@@ -55,6 +58,7 @@
             this.GBVenta.SuspendLayout();
             this.GBArticulos.SuspendLayout();
             this.GBReportes.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -65,12 +69,15 @@
             this.licenciaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(761, 33);
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.menuStrip1.Size = new System.Drawing.Size(802, 33);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // licenciaToolStripMenuItem
             // 
+            this.licenciaToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.licenciaToolStripMenuItem.ForeColor = System.Drawing.Color.Gray;
             this.licenciaToolStripMenuItem.Name = "licenciaToolStripMenuItem";
             this.licenciaToolStripMenuItem.Size = new System.Drawing.Size(88, 29);
             this.licenciaToolStripMenuItem.Text = "Licencia";
@@ -78,21 +85,31 @@
             // 
             // btnEmpresa
             // 
+            this.btnEmpresa.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEmpresa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEmpresa.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEmpresa.Image = ((System.Drawing.Image)(resources.GetObject("btnEmpresa.Image")));
             this.btnEmpresa.Location = new System.Drawing.Point(10, 35);
             this.btnEmpresa.Name = "btnEmpresa";
-            this.btnEmpresa.Size = new System.Drawing.Size(143, 84);
+            this.btnEmpresa.Size = new System.Drawing.Size(130, 110);
             this.btnEmpresa.TabIndex = 1;
             this.btnEmpresa.Text = "Mi Empresa";
+            this.btnEmpresa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnEmpresa.UseVisualStyleBackColor = true;
             this.btnEmpresa.Click += new System.EventHandler(this.btnEmpresa_Click);
             // 
             // BtnCajas
             // 
-            this.BtnCajas.Location = new System.Drawing.Point(181, 35);
+            this.BtnCajas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnCajas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnCajas.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnCajas.Image = ((System.Drawing.Image)(resources.GetObject("BtnCajas.Image")));
+            this.BtnCajas.Location = new System.Drawing.Point(154, 35);
             this.BtnCajas.Name = "BtnCajas";
-            this.BtnCajas.Size = new System.Drawing.Size(104, 84);
+            this.BtnCajas.Size = new System.Drawing.Size(130, 110);
             this.BtnCajas.TabIndex = 2;
             this.BtnCajas.Text = "Cajas";
+            this.BtnCajas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BtnCajas.UseVisualStyleBackColor = true;
             this.BtnCajas.Click += new System.EventHandler(this.BtnCajas_Click);
             // 
@@ -102,20 +119,28 @@
             this.GBConfiguraciones.Controls.Add(this.btnEmpresa);
             this.GBConfiguraciones.Controls.Add(this.BtnCajas);
             this.GBConfiguraciones.Dock = System.Windows.Forms.DockStyle.Top;
-            this.GBConfiguraciones.Location = new System.Drawing.Point(0, 33);
+            this.GBConfiguraciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GBConfiguraciones.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GBConfiguraciones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.GBConfiguraciones.Location = new System.Drawing.Point(0, 133);
             this.GBConfiguraciones.Name = "GBConfiguraciones";
-            this.GBConfiguraciones.Size = new System.Drawing.Size(761, 138);
+            this.GBConfiguraciones.Size = new System.Drawing.Size(802, 159);
             this.GBConfiguraciones.TabIndex = 3;
             this.GBConfiguraciones.TabStop = false;
             this.GBConfiguraciones.Text = "Configuraciones";
             // 
             // btnImpresiones
             // 
-            this.btnImpresiones.Location = new System.Drawing.Point(306, 35);
+            this.btnImpresiones.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImpresiones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImpresiones.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImpresiones.Image = ((System.Drawing.Image)(resources.GetObject("btnImpresiones.Image")));
+            this.btnImpresiones.Location = new System.Drawing.Point(298, 35);
             this.btnImpresiones.Name = "btnImpresiones";
-            this.btnImpresiones.Size = new System.Drawing.Size(130, 84);
+            this.btnImpresiones.Size = new System.Drawing.Size(159, 110);
             this.btnImpresiones.TabIndex = 3;
             this.btnImpresiones.Text = "Impresiones";
+            this.btnImpresiones.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnImpresiones.UseVisualStyleBackColor = true;
             this.btnImpresiones.Click += new System.EventHandler(this.btnImpresiones_Click);
             // 
@@ -127,73 +152,118 @@
             this.gbCatalogos.Controls.Add(this.btnProveedores);
             this.gbCatalogos.Controls.Add(this.btnUsuarios);
             this.gbCatalogos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gbCatalogos.Location = new System.Drawing.Point(0, 171);
+            this.gbCatalogos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.gbCatalogos.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbCatalogos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.gbCatalogos.Location = new System.Drawing.Point(0, 292);
             this.gbCatalogos.Name = "gbCatalogos";
-            this.gbCatalogos.Size = new System.Drawing.Size(761, 100);
+            this.gbCatalogos.Size = new System.Drawing.Size(802, 170);
             this.gbCatalogos.TabIndex = 4;
             this.gbCatalogos.TabStop = false;
             this.gbCatalogos.Text = "Catalogos";
             // 
             // BtnRecetas
             // 
+            this.BtnRecetas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnRecetas.Enabled = false;
-            this.BtnRecetas.Location = new System.Drawing.Point(335, 25);
+            this.BtnRecetas.FlatAppearance.BorderSize = 0;
+            this.BtnRecetas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnRecetas.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnRecetas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            this.BtnRecetas.Image = ((System.Drawing.Image)(resources.GetObject("BtnRecetas.Image")));
+            this.BtnRecetas.Location = new System.Drawing.Point(435, 48);
             this.BtnRecetas.Name = "BtnRecetas";
-            this.BtnRecetas.Size = new System.Drawing.Size(93, 74);
+            this.BtnRecetas.Size = new System.Drawing.Size(130, 87);
             this.BtnRecetas.TabIndex = 4;
             this.BtnRecetas.Text = "Recetas";
+            this.BtnRecetas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BtnRecetas.UseVisualStyleBackColor = true;
             this.BtnRecetas.Visible = false;
             this.BtnRecetas.Click += new System.EventHandler(this.BtnRecetas_Click);
             // 
             // BtnArticulos
             // 
-            this.BtnArticulos.Location = new System.Drawing.Point(241, 25);
+            this.BtnArticulos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnArticulos.FlatAppearance.BorderSize = 0;
+            this.BtnArticulos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnArticulos.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnArticulos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            this.BtnArticulos.Image = ((System.Drawing.Image)(resources.GetObject("BtnArticulos.Image")));
+            this.BtnArticulos.Location = new System.Drawing.Point(319, 48);
             this.BtnArticulos.Name = "BtnArticulos";
-            this.BtnArticulos.Size = new System.Drawing.Size(88, 75);
+            this.BtnArticulos.Size = new System.Drawing.Size(127, 87);
             this.BtnArticulos.TabIndex = 3;
-            this.BtnArticulos.Text = "Articulos";
+            this.BtnArticulos.Text = "Inventario";
+            this.BtnArticulos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BtnArticulos.UseVisualStyleBackColor = true;
             this.BtnArticulos.Click += new System.EventHandler(this.BtnArticulos_Click);
             // 
             // btnClientes
             // 
-            this.btnClientes.Location = new System.Drawing.Point(442, 25);
+            this.btnClientes.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClientes.FlatAppearance.BorderSize = 0;
+            this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClientes.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClientes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            this.btnClientes.Image = ((System.Drawing.Image)(resources.GetObject("btnClientes.Image")));
+            this.btnClientes.Location = new System.Drawing.Point(542, 48);
             this.btnClientes.Name = "btnClientes";
-            this.btnClientes.Size = new System.Drawing.Size(94, 75);
+            this.btnClientes.Size = new System.Drawing.Size(130, 87);
             this.btnClientes.TabIndex = 2;
             this.btnClientes.Text = "Clientes";
+            this.btnClientes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnClientes.UseVisualStyleBackColor = true;
             this.btnClientes.Visible = false;
             this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
             // btnProveedores
             // 
-            this.btnProveedores.Location = new System.Drawing.Point(105, 25);
+            this.btnProveedores.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnProveedores.FlatAppearance.BorderSize = 0;
+            this.btnProveedores.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProveedores.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProveedores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            this.btnProveedores.Image = ((System.Drawing.Image)(resources.GetObject("btnProveedores.Image")));
+            this.btnProveedores.Location = new System.Drawing.Point(140, 48);
             this.btnProveedores.Name = "btnProveedores";
-            this.btnProveedores.Size = new System.Drawing.Size(130, 75);
+            this.btnProveedores.Size = new System.Drawing.Size(173, 87);
             this.btnProveedores.TabIndex = 1;
             this.btnProveedores.Text = "Proveedores";
+            this.btnProveedores.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnProveedores.UseVisualStyleBackColor = true;
             this.btnProveedores.Click += new System.EventHandler(this.btnProveedores_Click);
             // 
             // btnUsuarios
             // 
-            this.btnUsuarios.Location = new System.Drawing.Point(10, 25);
+            this.btnUsuarios.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnUsuarios.FlatAppearance.BorderSize = 0;
+            this.btnUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUsuarios.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUsuarios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            this.btnUsuarios.Image = ((System.Drawing.Image)(resources.GetObject("btnUsuarios.Image")));
+            this.btnUsuarios.Location = new System.Drawing.Point(10, 48);
             this.btnUsuarios.Name = "btnUsuarios";
-            this.btnUsuarios.Size = new System.Drawing.Size(89, 75);
+            this.btnUsuarios.Size = new System.Drawing.Size(130, 87);
             this.btnUsuarios.TabIndex = 0;
             this.btnUsuarios.Text = "Usuarios";
+            this.btnUsuarios.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnUsuarios.UseVisualStyleBackColor = true;
             this.btnUsuarios.Click += new System.EventHandler(this.btnUsuarios_Click);
             // 
             // BtnVenta
             // 
+            this.BtnVenta.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnVenta.FlatAppearance.BorderSize = 0;
+            this.BtnVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnVenta.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnVenta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
+            this.BtnVenta.Image = ((System.Drawing.Image)(resources.GetObject("BtnVenta.Image")));
             this.BtnVenta.Location = new System.Drawing.Point(5, 6);
             this.BtnVenta.Name = "BtnVenta";
-            this.BtnVenta.Size = new System.Drawing.Size(92, 72);
+            this.BtnVenta.Size = new System.Drawing.Size(130, 110);
             this.BtnVenta.TabIndex = 5;
             this.BtnVenta.Text = "Venta";
+            this.BtnVenta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BtnVenta.UseVisualStyleBackColor = true;
             this.BtnVenta.Click += new System.EventHandler(this.BtnVenta_Click);
             // 
@@ -202,9 +272,12 @@
             this.gbMostrador.Controls.Add(this.GBVenta);
             this.gbMostrador.Controls.Add(this.GBArticulos);
             this.gbMostrador.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gbMostrador.Location = new System.Drawing.Point(0, 271);
+            this.gbMostrador.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.gbMostrador.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbMostrador.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.gbMostrador.Location = new System.Drawing.Point(0, 462);
             this.gbMostrador.Name = "gbMostrador";
-            this.gbMostrador.Size = new System.Drawing.Size(761, 117);
+            this.gbMostrador.Size = new System.Drawing.Size(802, 177);
             this.gbMostrador.TabIndex = 6;
             this.gbMostrador.TabStop = false;
             this.gbMostrador.Text = "Mostrador";
@@ -213,9 +286,12 @@
             // 
             this.GBVenta.Controls.Add(this.BtnVenta);
             this.GBVenta.Dock = System.Windows.Forms.DockStyle.Left;
-            this.GBVenta.Location = new System.Drawing.Point(124, 22);
+            this.GBVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GBVenta.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GBVenta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.GBVenta.Location = new System.Drawing.Point(124, 35);
             this.GBVenta.Name = "GBVenta";
-            this.GBVenta.Size = new System.Drawing.Size(103, 92);
+            this.GBVenta.Size = new System.Drawing.Size(103, 139);
             this.GBVenta.TabIndex = 7;
             this.GBVenta.TabStop = false;
             // 
@@ -223,19 +299,29 @@
             // 
             this.GBArticulos.Controls.Add(this.btnArticulos2);
             this.GBArticulos.Dock = System.Windows.Forms.DockStyle.Left;
-            this.GBArticulos.Location = new System.Drawing.Point(3, 22);
+            this.GBArticulos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GBArticulos.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GBArticulos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.GBArticulos.Location = new System.Drawing.Point(3, 35);
             this.GBArticulos.Name = "GBArticulos";
-            this.GBArticulos.Size = new System.Drawing.Size(121, 92);
+            this.GBArticulos.Size = new System.Drawing.Size(121, 139);
             this.GBArticulos.TabIndex = 8;
             this.GBArticulos.TabStop = false;
             // 
             // btnArticulos2
             // 
+            this.btnArticulos2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnArticulos2.FlatAppearance.BorderSize = 0;
+            this.btnArticulos2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnArticulos2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnArticulos2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
+            this.btnArticulos2.Image = ((System.Drawing.Image)(resources.GetObject("btnArticulos2.Image")));
             this.btnArticulos2.Location = new System.Drawing.Point(6, 6);
             this.btnArticulos2.Name = "btnArticulos2";
-            this.btnArticulos2.Size = new System.Drawing.Size(110, 71);
+            this.btnArticulos2.Size = new System.Drawing.Size(130, 110);
             this.btnArticulos2.TabIndex = 6;
-            this.btnArticulos2.Text = "Articulos";
+            this.btnArticulos2.Text = "Inventario";
+            this.btnArticulos2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnArticulos2.UseVisualStyleBackColor = true;
             this.btnArticulos2.Click += new System.EventHandler(this.btnArticulos2_Click);
             // 
@@ -244,47 +330,89 @@
             this.GBReportes.Controls.Add(this.BtnCorte);
             this.GBReportes.Controls.Add(this.btnReporteTickets);
             this.GBReportes.Dock = System.Windows.Forms.DockStyle.Top;
-            this.GBReportes.Location = new System.Drawing.Point(0, 388);
+            this.GBReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GBReportes.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GBReportes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.GBReportes.Location = new System.Drawing.Point(0, 639);
             this.GBReportes.Name = "GBReportes";
-            this.GBReportes.Size = new System.Drawing.Size(761, 100);
+            this.GBReportes.Size = new System.Drawing.Size(802, 169);
             this.GBReportes.TabIndex = 7;
             this.GBReportes.TabStop = false;
             this.GBReportes.Text = "Reportes";
             // 
             // BtnCorte
             // 
-            this.BtnCorte.Location = new System.Drawing.Point(137, 38);
+            this.BtnCorte.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnCorte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnCorte.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnCorte.Image = ((System.Drawing.Image)(resources.GetObject("BtnCorte.Image")));
+            this.BtnCorte.Location = new System.Drawing.Point(150, 38);
             this.BtnCorte.Name = "BtnCorte";
-            this.BtnCorte.Size = new System.Drawing.Size(134, 54);
+            this.BtnCorte.Size = new System.Drawing.Size(172, 110);
             this.BtnCorte.TabIndex = 1;
             this.BtnCorte.Text = "Corte de caja";
+            this.BtnCorte.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BtnCorte.UseVisualStyleBackColor = true;
             this.BtnCorte.Click += new System.EventHandler(this.BtnCorte_Click);
             // 
             // btnReporteTickets
             // 
+            this.btnReporteTickets.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReporteTickets.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReporteTickets.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReporteTickets.Image = ((System.Drawing.Image)(resources.GetObject("btnReporteTickets.Image")));
             this.btnReporteTickets.Location = new System.Drawing.Point(8, 38);
             this.btnReporteTickets.Name = "btnReporteTickets";
-            this.btnReporteTickets.Size = new System.Drawing.Size(115, 56);
+            this.btnReporteTickets.Size = new System.Drawing.Size(130, 110);
             this.btnReporteTickets.TabIndex = 0;
             this.btnReporteTickets.Text = "Tickets";
+            this.btnReporteTickets.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnReporteTickets.UseVisualStyleBackColor = true;
             this.btnReporteTickets.Click += new System.EventHandler(this.btnReporteTickets_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lblMenu);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.groupBox1.Location = new System.Drawing.Point(0, 33);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(802, 100);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            // 
+            // lblMenu
+            // 
+            this.lblMenu.AutoSize = true;
+            this.lblMenu.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.lblMenu.Location = new System.Drawing.Point(24, 22);
+            this.lblMenu.Name = "lblMenu";
+            this.lblMenu.Size = new System.Drawing.Size(273, 48);
+            this.lblMenu.TabIndex = 0;
+            this.lblMenu.Text = "Menú Principal";
             // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(761, 488);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(802, 952);
             this.Controls.Add(this.GBReportes);
             this.Controls.Add(this.gbMostrador);
             this.Controls.Add(this.gbCatalogos);
             this.Controls.Add(this.GBConfiguraciones);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Menu";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Menu";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Menu_FormClosed);
             this.Load += new System.EventHandler(this.Menu_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -295,6 +423,8 @@
             this.GBVenta.ResumeLayout(false);
             this.GBArticulos.ResumeLayout(false);
             this.GBReportes.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -322,5 +452,7 @@
         private System.Windows.Forms.GroupBox GBArticulos;
         private System.Windows.Forms.GroupBox GBVenta;
         private System.Windows.Forms.Button BtnCorte;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label lblMenu;
     }
 }

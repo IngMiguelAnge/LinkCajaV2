@@ -542,8 +542,10 @@ namespace LinkCajaV2.Sales
                 BillingDetails billing = new BillingDetails();
                 billing.IdTicket = Ticket.Id.ToString();
                 billing.FormPayment = "01"; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
+               billing.Total = venta.Articles.Sum(x => x.Total).ToString("F2");
                 billing.PaymentMethod = "PUE"; // Ejemplo: PUE = Pago en una sola exhibición, PPD = Pago en parcialidades o diferido
                 billing.IssuingLocation = Empresa.CP.ToString();
+                billing.DateCreated = DateTime.Now;
                 billing.Sender = new Sender
                 {
                     RFC = Empresa.RFC,
@@ -568,6 +570,10 @@ namespace LinkCajaV2.Sales
                         Stock = item.Stock.ToString(),
                         UnitSAT = item.UnitSAT,
                         Description = item.Name,
+                        DateCreated = DateTime.Now,
+                        LastModific = DateTime.Now,
+                        UnitValue = item.Price,
+                        Import = item.Total,
                         ObjetImp = "02",
                         Tax = new Taxs
                         {
