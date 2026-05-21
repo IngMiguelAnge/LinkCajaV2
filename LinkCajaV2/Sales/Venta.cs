@@ -49,6 +49,13 @@ namespace LinkCajaV2.Sales
                 this.Close();
                 return;
             }
+            var fund = obj.GetCashfundbyHardwareID(Hard).Result;
+            if (fund == null)
+            {
+                MessageBox.Show("Fondo de caja no encontrado para esta máquina. Contacta al administrador.", "Fondo de caja no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            }
             IdBox = box.Id;
             BoxName = box.Name;
             string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sounds", "beep.wav");

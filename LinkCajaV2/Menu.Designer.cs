@@ -64,7 +64,7 @@
             this.licenciaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(761, 36);
+            this.menuStrip1.Size = new System.Drawing.Size(761, 33);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -101,7 +101,7 @@
             this.GBConfiguraciones.Controls.Add(this.btnEmpresa);
             this.GBConfiguraciones.Controls.Add(this.BtnCajas);
             this.GBConfiguraciones.Dock = System.Windows.Forms.DockStyle.Top;
-            this.GBConfiguraciones.Location = new System.Drawing.Point(0, 36);
+            this.GBConfiguraciones.Location = new System.Drawing.Point(0, 33);
             this.GBConfiguraciones.Name = "GBConfiguraciones";
             this.GBConfiguraciones.Size = new System.Drawing.Size(761, 138);
             this.GBConfiguraciones.TabIndex = 3;
@@ -126,7 +126,7 @@
             this.gbCatalogos.Controls.Add(this.btnProveedores);
             this.gbCatalogos.Controls.Add(this.btnUsuarios);
             this.gbCatalogos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gbCatalogos.Location = new System.Drawing.Point(0, 174);
+            this.gbCatalogos.Location = new System.Drawing.Point(0, 171);
             this.gbCatalogos.Name = "gbCatalogos";
             this.gbCatalogos.Size = new System.Drawing.Size(761, 100);
             this.gbCatalogos.TabIndex = 4;
@@ -201,9 +201,9 @@
             this.gbMostrador.Controls.Add(this.GBVenta);
             this.gbMostrador.Controls.Add(this.GBArticulos);
             this.gbMostrador.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gbMostrador.Location = new System.Drawing.Point(0, 274);
+            this.gbMostrador.Location = new System.Drawing.Point(0, 271);
             this.gbMostrador.Name = "gbMostrador";
-            this.gbMostrador.Size = new System.Drawing.Size(761, 100);
+            this.gbMostrador.Size = new System.Drawing.Size(761, 117);
             this.gbMostrador.TabIndex = 6;
             this.gbMostrador.TabStop = false;
             this.gbMostrador.Text = "Mostrador";
@@ -214,7 +214,7 @@
             this.GBVenta.Dock = System.Windows.Forms.DockStyle.Left;
             this.GBVenta.Location = new System.Drawing.Point(124, 22);
             this.GBVenta.Name = "GBVenta";
-            this.GBVenta.Size = new System.Drawing.Size(103, 75);
+            this.GBVenta.Size = new System.Drawing.Size(103, 92);
             this.GBVenta.TabIndex = 7;
             this.GBVenta.TabStop = false;
             // 
@@ -224,7 +224,7 @@
             this.GBArticulos.Dock = System.Windows.Forms.DockStyle.Left;
             this.GBArticulos.Location = new System.Drawing.Point(3, 22);
             this.GBArticulos.Name = "GBArticulos";
-            this.GBArticulos.Size = new System.Drawing.Size(121, 75);
+            this.GBArticulos.Size = new System.Drawing.Size(121, 92);
             this.GBArticulos.TabIndex = 8;
             this.GBArticulos.TabStop = false;
             // 
@@ -242,7 +242,7 @@
             // 
             this.GBReportes.Controls.Add(this.btnReporteTickets);
             this.GBReportes.Dock = System.Windows.Forms.DockStyle.Top;
-            this.GBReportes.Location = new System.Drawing.Point(0, 374);
+            this.GBReportes.Location = new System.Drawing.Point(0, 388);
             this.GBReportes.Name = "GBReportes";
             this.GBReportes.Size = new System.Drawing.Size(761, 100);
             this.GBReportes.TabIndex = 7;

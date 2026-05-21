@@ -20,6 +20,35 @@ namespace LinkCajaV2.Data
             GC.Collect();
         }
         #region CashFund
+        public async Task<ListCashFundModel> GetCashfundbyHardwareID(string HardwareID)
+        {
+            ListCashFundModel response = new ListCashFundModel();
+            List<ListCashFundModel> list = new List<ListCashFundModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetCashfundbyHardwareID", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@HardwareID", HardwareID));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToListCashFund(reader));
+                            }
+                            response = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return response;
+        }
         public async Task<bool> UpdateStatusCashFund(int Id)
         {
             try
