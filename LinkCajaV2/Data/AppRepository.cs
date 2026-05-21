@@ -19,6 +19,44 @@ namespace LinkCajaV2.Data
         {
             GC.Collect();
         }
+        #region CashDrop
+        public async Task<List<CashDropModel>> GetCashDrop(DateTime Desde, DateTime Hasta)
+        {
+            List<CashDropModel> list = new List<CashDropModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetCashDrop", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Desde", Desde));
+                        cmd.Parameters.Add(new SqlParameter("@Hasta", Hasta));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToCashDrop(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
+        private CashDropModel MapToCashDrop(SqlDataReader reader)
+        {
+            return new CashDropModel()
+            {
+                Concepto = (string)reader["Concepto"],
+                Monto = (decimal)reader["Monto"],
+            };
+        }
+        #endregion
         #region CashFund
         public async Task<ListCashFundModel> GetCashfundbyHardwareID(string HardwareID)
         {

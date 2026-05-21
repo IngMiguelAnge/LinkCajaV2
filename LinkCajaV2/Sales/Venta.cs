@@ -137,7 +137,7 @@ namespace LinkCajaV2.Sales
                 HeaderText = "Nombre",
                 DataPropertyName = "Name",
                 ReadOnly = true,
-                Width = 300
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             });
             dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
             {

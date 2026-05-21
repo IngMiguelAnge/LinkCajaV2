@@ -129,5 +129,11 @@ namespace LinkCajaV2
             a.IsVenta = false;
             a.Show();
         }
+
+        private void BtnCorte_Click(object sender, EventArgs e)
+        {
+            CashDrop c = new CashDrop();
+            c.Show();
+        }
     }
 }

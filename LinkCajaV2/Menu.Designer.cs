@@ -46,6 +46,7 @@
             this.GBArticulos = new System.Windows.Forms.GroupBox();
             this.btnArticulos2 = new System.Windows.Forms.Button();
             this.GBReportes = new System.Windows.Forms.GroupBox();
+            this.BtnCorte = new System.Windows.Forms.Button();
             this.btnReporteTickets = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.GBConfiguraciones.SuspendLayout();
@@ -240,6 +241,7 @@
             // 
             // GBReportes
             // 
+            this.GBReportes.Controls.Add(this.BtnCorte);
             this.GBReportes.Controls.Add(this.btnReporteTickets);
             this.GBReportes.Dock = System.Windows.Forms.DockStyle.Top;
             this.GBReportes.Location = new System.Drawing.Point(0, 388);
@@ -248,6 +250,16 @@
             this.GBReportes.TabIndex = 7;
             this.GBReportes.TabStop = false;
             this.GBReportes.Text = "Reportes";
+            // 
+            // BtnCorte
+            // 
+            this.BtnCorte.Location = new System.Drawing.Point(137, 38);
+            this.BtnCorte.Name = "BtnCorte";
+            this.BtnCorte.Size = new System.Drawing.Size(134, 54);
+            this.BtnCorte.TabIndex = 1;
+            this.BtnCorte.Text = "Corte de caja";
+            this.BtnCorte.UseVisualStyleBackColor = true;
+            this.BtnCorte.Click += new System.EventHandler(this.BtnCorte_Click);
             // 
             // btnReporteTickets
             // 
@@ -309,5 +321,6 @@
         private System.Windows.Forms.Button btnArticulos2;
         private System.Windows.Forms.GroupBox GBArticulos;
         private System.Windows.Forms.GroupBox GBVenta;
+        private System.Windows.Forms.Button BtnCorte;
     }
 }
