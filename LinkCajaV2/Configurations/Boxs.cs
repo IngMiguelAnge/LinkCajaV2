@@ -103,6 +103,7 @@ namespace LinkCajaV2.Catalogs
             {
                 progressBar1.Style = ProgressBarStyle.Blocks;
                 progressBar1.Value = 0;
+                progressBar1.MarqueeAnimationSpeed = 0;
                 btnBuscar.Enabled = true;
                 BtnNuevo.Enabled = true;
             }
@@ -120,6 +121,7 @@ namespace LinkCajaV2.Catalogs
             btnCambiar.HeaderText = "Acción";
             btnCambiar.Text = "Cambio Estatus";
             btnCambiar.UseColumnTextForButtonValue = true;
+            btnCambiar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dgvCajas.Columns.Add(btnCambiar);
             DataGridViewButtonColumn btnFondos = new DataGridViewButtonColumn();
             btnFondos.Name = "btnFondos";
