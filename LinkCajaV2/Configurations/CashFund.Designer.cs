@@ -140,6 +140,7 @@
             // 
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.dgvFondoCaja.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvFondoCaja.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvFondoCaja.BackgroundColor = System.Drawing.Color.White;
             this.dgvFondoCaja.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvFondoCaja.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
