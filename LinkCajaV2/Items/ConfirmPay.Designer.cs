@@ -146,6 +146,7 @@
             this.Controls.Add(this.nudRecibido);
             this.Controls.Add(this.lblRecibido);
             this.Controls.Add(this.lblTotal);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConfirmPay";

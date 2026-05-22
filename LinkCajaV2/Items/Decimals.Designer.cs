@@ -119,6 +119,7 @@
             this.Controls.Add(this.NUDKilos);
             this.Controls.Add(this.lblMensaje2);
             this.Controls.Add(this.lblMensaje1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Decimals";

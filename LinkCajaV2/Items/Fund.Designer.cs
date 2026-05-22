@@ -109,6 +109,7 @@
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.lblFecha);
             this.Controls.Add(this.dtFecha);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Fund";

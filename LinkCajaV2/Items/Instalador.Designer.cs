@@ -119,6 +119,7 @@
             this.Controls.Add(this.btnConfirmar);
             this.Controls.Add(this.txtContraseña);
             this.Controls.Add(this.lblMensaje1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Instalador";

@@ -108,7 +108,7 @@
             this.BtnCajas.Name = "BtnCajas";
             this.BtnCajas.Size = new System.Drawing.Size(130, 110);
             this.BtnCajas.TabIndex = 2;
-            this.BtnCajas.Text = "Cajeros";
+            this.BtnCajas.Text = "Cajas";
             this.BtnCajas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BtnCajas.UseVisualStyleBackColor = true;
             this.BtnCajas.Click += new System.EventHandler(this.BtnCajas_Click);

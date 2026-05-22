@@ -164,9 +164,9 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.lblTitulo.Location = new System.Drawing.Point(33, 23);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(280, 48);
+            this.lblTitulo.Size = new System.Drawing.Size(244, 48);
             this.lblTitulo.TabIndex = 23;
-            this.lblTitulo.Text = "Lista de Cajeros";
+            this.lblTitulo.Text = "Lista de Cajas";
             // 
             // Boxs
             // 

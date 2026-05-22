@@ -317,6 +317,7 @@
             this.Controls.Add(this.nudExistencias);
             this.Controls.Add(this.lblExistencias);
             this.Controls.Add(this.BtnGuardar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Stock";
