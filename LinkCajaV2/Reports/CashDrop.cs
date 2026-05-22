@@ -21,6 +21,7 @@ namespace LinkCajaV2.Reports
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            CrearGridView();
             CargarDatos();
         }
         public async void CargarDatos()
@@ -39,7 +40,7 @@ namespace LinkCajaV2.Reports
         }
         private void CashDrop_Load(object sender, EventArgs e)
         {
-            CrearGridView();
+           
         }
         public void CrearGridView()
         {

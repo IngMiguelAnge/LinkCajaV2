@@ -48,6 +48,7 @@ namespace LinkCajaV2.Reports
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             Buscar();
+            CrearGridView();
         }
         public void CrearGridView()
         {
@@ -158,8 +159,7 @@ namespace LinkCajaV2.Reports
             }
         }
         private void Tickets_Load(object sender, EventArgs e)
-        {
-            CrearGridView();
+        {           
             RBCreacion.Checked = true;
             RBModificacion.Checked = false;
         }
