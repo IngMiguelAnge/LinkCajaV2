@@ -52,7 +52,7 @@
             this.BtnNuevo.ForeColor = System.Drawing.Color.White;
             this.BtnNuevo.Image = ((System.Drawing.Image)(resources.GetObject("BtnNuevo.Image")));
             this.BtnNuevo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnNuevo.Location = new System.Drawing.Point(438, 123);
+            this.BtnNuevo.Location = new System.Drawing.Point(457, 125);
             this.BtnNuevo.Name = "BtnNuevo";
             this.BtnNuevo.Size = new System.Drawing.Size(120, 37);
             this.BtnNuevo.TabIndex = 3;
@@ -81,7 +81,7 @@
             this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnBuscar.Location = new System.Drawing.Point(328, 123);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(100, 37);
+            this.btnBuscar.Size = new System.Drawing.Size(120, 37);
             this.btnBuscar.TabIndex = 2;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;

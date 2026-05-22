@@ -167,9 +167,9 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.lblTitulo.Location = new System.Drawing.Point(33, 23);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(479, 48);
+            this.lblTitulo.Size = new System.Drawing.Size(410, 48);
             this.lblTitulo.TabIndex = 25;
-            this.lblTitulo.Text = "Información Administrador";
+            this.lblTitulo.Text = "Información Proveedor";
             // 
             // Supplier
             // 
