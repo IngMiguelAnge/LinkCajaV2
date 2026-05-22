@@ -39,24 +39,29 @@
             // lblMensaje1
             // 
             this.lblMensaje1.AutoSize = true;
+            this.lblMensaje1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMensaje1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.lblMensaje1.Location = new System.Drawing.Point(12, 20);
             this.lblMensaje1.Name = "lblMensaje1";
-            this.lblMensaje1.Size = new System.Drawing.Size(231, 20);
+            this.lblMensaje1.Size = new System.Drawing.Size(260, 25);
             this.lblMensaje1.TabIndex = 0;
             this.lblMensaje1.Text = "Este articulo se vende por kilos,";
             // 
             // lblMensaje2
             // 
             this.lblMensaje2.AutoSize = true;
+            this.lblMensaje2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMensaje2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.lblMensaje2.Location = new System.Drawing.Point(57, 104);
             this.lblMensaje2.Name = "lblMensaje2";
-            this.lblMensaje2.Size = new System.Drawing.Size(46, 20);
+            this.lblMensaje2.Size = new System.Drawing.Size(53, 25);
             this.lblMensaje2.TabIndex = 1;
             this.lblMensaje2.Text = "Kilos:";
             // 
             // NUDKilos
             // 
             this.NUDKilos.DecimalPlaces = 3;
+            this.NUDKilos.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NUDKilos.Increment = new decimal(new int[] {
             10,
             0,
@@ -69,35 +74,42 @@
             0,
             0});
             this.NUDKilos.Name = "NUDKilos";
-            this.NUDKilos.Size = new System.Drawing.Size(120, 26);
+            this.NUDKilos.Size = new System.Drawing.Size(250, 37);
             this.NUDKilos.TabIndex = 2;
             this.NUDKilos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NUDKilos_KeyDown);
             this.NUDKilos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NUDKilos_KeyPress);
             // 
             // BtnConfirmar
             // 
-            this.BtnConfirmar.Location = new System.Drawing.Point(107, 143);
+            this.BtnConfirmar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
+            this.BtnConfirmar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnConfirmar.ForeColor = System.Drawing.Color.White;
+            this.BtnConfirmar.Location = new System.Drawing.Point(107, 160);
             this.BtnConfirmar.Name = "BtnConfirmar";
-            this.BtnConfirmar.Size = new System.Drawing.Size(96, 39);
+            this.BtnConfirmar.Size = new System.Drawing.Size(200, 48);
             this.BtnConfirmar.TabIndex = 3;
             this.BtnConfirmar.Text = "Confirmar";
-            this.BtnConfirmar.UseVisualStyleBackColor = true;
+            this.BtnConfirmar.UseVisualStyleBackColor = false;
             this.BtnConfirmar.Click += new System.EventHandler(this.BtnConfirmar_Click);
             // 
             // lblMensaje3
             // 
             this.lblMensaje3.AutoSize = true;
+            this.lblMensaje3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMensaje3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.lblMensaje3.Location = new System.Drawing.Point(12, 53);
             this.lblMensaje3.Name = "lblMensaje3";
-            this.lblMensaje3.Size = new System.Drawing.Size(281, 20);
+            this.lblMensaje3.Size = new System.Drawing.Size(320, 25);
             this.lblMensaje3.TabIndex = 4;
             this.lblMensaje3.Text = "Porfavor de poner la cantidad a vender";
             // 
             // Decimals
             // 
+            this.AcceptButton = this.BtnConfirmar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(312, 208);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(441, 243);
             this.ControlBox = false;
             this.Controls.Add(this.lblMensaje3);
             this.Controls.Add(this.BtnConfirmar);
