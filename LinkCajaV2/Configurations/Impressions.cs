@@ -129,7 +129,7 @@ namespace LinkCajaV2.Configurations
             {
                 GBCuadros.Visible = true;
                 GBLinea.Visible = true;
-                GBUnidos.Visible = false;
+                GBUnidos.Visible = true;
             }
         }
 

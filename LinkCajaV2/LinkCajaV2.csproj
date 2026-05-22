@@ -62,6 +62,9 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Magick.NET-Q8-AnyCPU, Version=14.13.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
       <HintPath>..\packages\Magick.NET-Q8-AnyCPU.14.13.0\lib\netstandard20\Magick.NET-Q8-AnyCPU.dll</HintPath>
@@ -412,6 +415,7 @@
     <EmbeddedResource Include="Sales\Venta.resx">
       <DependentUpon>Venta.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

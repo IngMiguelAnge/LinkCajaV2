@@ -512,7 +512,7 @@
             this.GBUnidos.Controls.Add(this.GBLinea);
             this.GBUnidos.Location = new System.Drawing.Point(999, 100);
             this.GBUnidos.Name = "GBUnidos";
-            this.GBUnidos.Size = new System.Drawing.Size(319, 368);
+            this.GBUnidos.Size = new System.Drawing.Size(601, 368);
             this.GBUnidos.TabIndex = 34;
             this.GBUnidos.TabStop = false;
             this.GBUnidos.Visible = false;
@@ -522,7 +522,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1420, 558);
+            this.ClientSize = new System.Drawing.Size(1612, 558);
             this.Controls.Add(this.GBUnidos);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.CBImprimir);
