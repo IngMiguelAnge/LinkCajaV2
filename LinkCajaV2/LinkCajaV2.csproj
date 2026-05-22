@@ -434,6 +434,7 @@
     <Content Include="Icons\Impresiones.png" />
     <Content Include="Icons\Impresora.png" />
     <Content Include="Icons\Inventario.png" />
+    <Content Include="Icons\LogoLink.jpeg" />
     <Content Include="Icons\Lupa.png" />
     <Content Include="Icons\Mi Empresa.png" />
     <Content Include="Icons\Nuevo.png" />

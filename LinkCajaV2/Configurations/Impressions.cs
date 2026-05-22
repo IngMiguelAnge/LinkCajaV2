@@ -107,6 +107,7 @@ namespace LinkCajaV2.Configurations
             GBCuadros.Visible = false;
             GBLetras.Visible = false;
             GBLinea.Visible = false;
+            GBUnidos.Visible = false;
             int Fontsize = 16;
             string Color = "Black";
             string FontStyle = "SemiBold";
@@ -115,6 +116,7 @@ namespace LinkCajaV2.Configurations
                CBModificar.Text != "Recuadro" &&
                CBModificar.Text != string.Empty)
             {
+                GBUnidos.Visible = true;
                 GBLetras.Visible = true;
                 Fontsize = ConfigImpressions.Find(x => x.Name == CBModificar.Text) != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == CBModificar.Text).FontSize) : 16;
                 NUDSizeLetra.Value = Fontsize;
@@ -127,6 +129,7 @@ namespace LinkCajaV2.Configurations
             {
                 GBCuadros.Visible = true;
                 GBLinea.Visible = true;
+                GBUnidos.Visible = false;
             }
         }
 
@@ -314,5 +317,6 @@ namespace LinkCajaV2.Configurations
                 MessageBox.Show("Configuración guardada correctamente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
     }
 }
