@@ -1,5 +1,6 @@
 ﻿using LinkCajaV2.Data;
 using System;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -77,12 +78,20 @@ namespace LinkCajaV2.Catalogs
             btnEditar.HeaderText = "Acción";
             btnEditar.Text = "Editar";
             btnEditar.UseColumnTextForButtonValue = true;
+            btnEditar.FlatStyle = FlatStyle.Flat;
+            btnEditar.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
+            btnEditar.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
+
             dgvProveedores.Columns.Add(btnEditar);
             DataGridViewButtonColumn btnCambiar = new DataGridViewButtonColumn();
             btnCambiar.Name = "btnCambiar";
             btnCambiar.HeaderText = "Acción";
             btnCambiar.Text = "Cambiar Estatus";
             btnCambiar.UseColumnTextForButtonValue = true;
+            btnCambiar.FlatStyle = FlatStyle.Flat;
+            btnCambiar.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
+            btnCambiar.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
+
             dgvProveedores.Columns.Add(btnCambiar);
         }
 

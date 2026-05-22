@@ -123,8 +123,11 @@ namespace LinkCajaV2.Reports
                 HeaderText = "Acción",
                 Text = "Devolver",
                 UseColumnTextForButtonValue = true,
-                Width = 90
+                Width = 90,
+                FlatStyle = FlatStyle.Flat,
             };
+            btnCancelar.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+            btnCancelar.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
             dgvArticulos.Columns.Add(btnCancelar);
             dgvArticulos.AllowUserToAddRows = false;
         }

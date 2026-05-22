@@ -189,8 +189,12 @@ namespace LinkCajaV2.Sales
                 HeaderText = "Acción",
                 Text = "Quitar",
                 UseColumnTextForButtonValue = true, // Para que todos los botones digan "Quitar"
-                Width = 80
+                Width = 90,
+                FlatStyle = FlatStyle.Flat,
             };
+            btnEliminar.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+            btnEliminar.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
+
             dgvArticulos.Columns.Add(btnEliminar);
             dgvArticulos.AllowUserToAddRows = false;
         }

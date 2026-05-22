@@ -1,17 +1,12 @@
 ﻿using LinkCajaV2.Data;
 using LinkCajaV2.Model;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-using static QuestPDF.Helpers.Colors;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Forms;
+
+using System.Drawing;
 
 namespace LinkCajaV2.Catalogs
 {
@@ -37,10 +32,10 @@ namespace LinkCajaV2.Catalogs
                 if (resultado == DialogResult.No)
                 {
                     return;
-                }       
+                }
             }
             Impresion = false;
-           await BuscarArticulos();
+            await BuscarArticulos();
         }
         public async Task BuscarArticulos()
         {
@@ -54,7 +49,7 @@ namespace LinkCajaV2.Catalogs
                 dgvArticulos.DataSource = null;
                 dgvArticulos.Columns.Clear();
             }
-         
+
             try
             {
                 AppRepository obj = new AppRepository();
@@ -77,7 +72,7 @@ namespace LinkCajaV2.Catalogs
                     {
                         AgregarBotones();
                         MessageBox.Show("Carga completa", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }                  
+                    }
                 }
             }
             catch (Exception ex)
@@ -149,6 +144,10 @@ namespace LinkCajaV2.Catalogs
                 btnAsignar.HeaderText = "Acción";
                 btnAsignar.Text = "Asignar";
                 btnAsignar.UseColumnTextForButtonValue = true;
+                btnAsignar.FlatStyle = FlatStyle.Flat;
+                btnAsignar.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
+                btnAsignar.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
+
                 dgvArticulos.Columns.Add(btnAsignar);
                 return;
             }
@@ -157,24 +156,36 @@ namespace LinkCajaV2.Catalogs
             btnEditar.HeaderText = "Acción";
             btnEditar.Text = "Editar";
             btnEditar.UseColumnTextForButtonValue = true;
+            btnEditar.FlatStyle = FlatStyle.Flat;
+            btnEditar.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
+            btnEditar.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
             dgvArticulos.Columns.Add(btnEditar);
             DataGridViewButtonColumn btnCambiar = new DataGridViewButtonColumn();
             btnCambiar.Name = "btnCambiar";
             btnCambiar.HeaderText = "Acción";
             btnCambiar.Text = "Cambiar Estatus";
             btnCambiar.UseColumnTextForButtonValue = true;
+            btnCambiar.FlatStyle = FlatStyle.Flat;
+            btnCambiar.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
+            btnCambiar.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
             dgvArticulos.Columns.Add(btnCambiar);
             DataGridViewButtonColumn btnProveedores = new DataGridViewButtonColumn();
             btnProveedores.Name = "btnProveedores";
             btnProveedores.HeaderText = "Acción";
             btnProveedores.Text = "Proveedores";
             btnProveedores.UseColumnTextForButtonValue = true;
+            btnProveedores.FlatStyle = FlatStyle.Flat;
+            btnProveedores.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
+            btnProveedores.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
             dgvArticulos.Columns.Add(btnProveedores);
             DataGridViewButtonColumn btnStock = new DataGridViewButtonColumn();
             btnStock.Name = "btnStock";
             btnStock.HeaderText = "Acción";
             btnStock.Text = "Stock";
             btnStock.UseColumnTextForButtonValue = true;
+            btnStock.FlatStyle = FlatStyle.Flat;
+            btnStock.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
+            btnStock.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
             dgvArticulos.Columns.Add(btnStock);
         }
         private void Articles_Load(object sender, EventArgs e)
@@ -206,10 +217,10 @@ namespace LinkCajaV2.Catalogs
                 }
                 List<PrinterPricesModel> articulos = ListaImprimir
                 .Select(x => new PrinterPricesModel
-                  {
-                     Articulo = x.Articulo, 
-                     Precio = x.Precio      
-                  })
+                {
+                    Articulo = x.Articulo,
+                    Precio = x.Precio
+                })
                 .ToList();
                 ImpressionsGeneral im = new ImpressionsGeneral();
                 im.ImpresionPrecios(articulos);

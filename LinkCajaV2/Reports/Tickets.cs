@@ -115,8 +115,12 @@ namespace LinkCajaV2.Reports
                 HeaderText = "Acción",
                 Text = "Ver Productos",
                 UseColumnTextForButtonValue = true,
-                Width = 80
+                Width =90,
+                FlatStyle = FlatStyle.Flat
             };
+            btnVer.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+            btnVer.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
+
             dgvTickets.Columns.Add(btnVer);
             DataGridViewButtonColumn btnCancelar = new DataGridViewButtonColumn
             {
@@ -124,8 +128,12 @@ namespace LinkCajaV2.Reports
                 HeaderText = "Acción",
                 Text = "Cancelar Ticket",
                 UseColumnTextForButtonValue = true,
-                Width = 90
+                Width = 90,
+                FlatStyle = FlatStyle.Flat  
             };
+            btnCancelar.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+            btnCancelar.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
+
             dgvTickets.Columns.Add(btnCancelar);
             dgvTickets.AllowUserToAddRows = false;
         }

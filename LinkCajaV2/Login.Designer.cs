@@ -130,6 +130,7 @@
             this.Controls.Add(this.lblContraseña);
             this.Controls.Add(this.txtUser);
             this.Controls.Add(this.lblUsuario);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Login";

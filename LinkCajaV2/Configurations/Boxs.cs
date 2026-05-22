@@ -3,6 +3,7 @@ using LinkCajaV2.Data;
 using LinkCajaV2.Items;
 using LinkCajaV2.Model;
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -115,6 +116,9 @@ namespace LinkCajaV2.Catalogs
             btnEditar.HeaderText = "Acción";
             btnEditar.Text = "Editar";
             btnEditar.UseColumnTextForButtonValue = true;
+            btnEditar.FlatStyle = FlatStyle.Flat;
+            btnEditar.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
+            btnEditar.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
             dgvCajas.Columns.Add(btnEditar);
             DataGridViewButtonColumn btnCambiar = new DataGridViewButtonColumn();
             btnCambiar.Name = "btnCambiar";
@@ -122,12 +126,20 @@ namespace LinkCajaV2.Catalogs
             btnCambiar.Text = "Cambio Estatus";
             btnCambiar.UseColumnTextForButtonValue = true;
             btnCambiar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            btnCambiar.FlatStyle = FlatStyle.Flat;
+            btnCambiar.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
+            btnCambiar.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
+
             dgvCajas.Columns.Add(btnCambiar);
             DataGridViewButtonColumn btnFondos = new DataGridViewButtonColumn();
             btnFondos.Name = "btnFondos";
             btnFondos.HeaderText = "Acción";
             btnFondos.Text = "Fondos";
             btnFondos.UseColumnTextForButtonValue = true;
+            btnFondos.FlatStyle = FlatStyle.Flat;
+            btnFondos.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
+            btnFondos.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
+
             dgvCajas.Columns.Add(btnFondos);
         }
 
