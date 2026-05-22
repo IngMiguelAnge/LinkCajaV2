@@ -52,7 +52,7 @@
             this.lblMensaje2.AutoSize = true;
             this.lblMensaje2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMensaje2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblMensaje2.Location = new System.Drawing.Point(57, 104);
+            this.lblMensaje2.Location = new System.Drawing.Point(12, 90);
             this.lblMensaje2.Name = "lblMensaje2";
             this.lblMensaje2.Size = new System.Drawing.Size(53, 25);
             this.lblMensaje2.TabIndex = 1;
@@ -67,7 +67,7 @@
             0,
             0,
             196608});
-            this.NUDKilos.Location = new System.Drawing.Point(154, 98);
+            this.NUDKilos.Location = new System.Drawing.Point(22, 138);
             this.NUDKilos.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -81,14 +81,17 @@
             // 
             // BtnConfirmar
             // 
-            this.BtnConfirmar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
-            this.BtnConfirmar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnConfirmar.ForeColor = System.Drawing.Color.White;
-            this.BtnConfirmar.Location = new System.Drawing.Point(107, 160);
+            this.BtnConfirmar.BackColor = System.Drawing.Color.White;
+            this.BtnConfirmar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnConfirmar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            this.BtnConfirmar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnConfirmar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnConfirmar.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BtnConfirmar.Location = new System.Drawing.Point(132, 213);
             this.BtnConfirmar.Name = "BtnConfirmar";
-            this.BtnConfirmar.Size = new System.Drawing.Size(200, 48);
+            this.BtnConfirmar.Size = new System.Drawing.Size(200, 49);
             this.BtnConfirmar.TabIndex = 3;
-            this.BtnConfirmar.Text = "Confirmar";
+            this.BtnConfirmar.Text = "CONFIRMAR";
             this.BtnConfirmar.UseVisualStyleBackColor = false;
             this.BtnConfirmar.Click += new System.EventHandler(this.BtnConfirmar_Click);
             // 
@@ -109,7 +112,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(441, 243);
+            this.ClientSize = new System.Drawing.Size(362, 293);
             this.ControlBox = false;
             this.Controls.Add(this.lblMensaje3);
             this.Controls.Add(this.BtnConfirmar);

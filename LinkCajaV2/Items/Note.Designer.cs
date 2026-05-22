@@ -36,27 +36,34 @@
             // lblMotive
             // 
             this.lblMotive.AutoSize = true;
+            this.lblMotive.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMotive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.lblMotive.Location = new System.Drawing.Point(26, 23);
             this.lblMotive.Name = "lblMotive";
-            this.lblMotive.Size = new System.Drawing.Size(185, 20);
+            this.lblMotive.Size = new System.Drawing.Size(229, 25);
             this.lblMotive.TabIndex = 0;
             this.lblMotive.Text = "Motivo de la cancelación:";
             // 
             // txtMotive
             // 
-            this.txtMotive.Location = new System.Drawing.Point(30, 46);
+            this.txtMotive.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMotive.Location = new System.Drawing.Point(30, 67);
             this.txtMotive.Multiline = true;
             this.txtMotive.Name = "txtMotive";
+            this.txtMotive.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtMotive.Size = new System.Drawing.Size(458, 163);
             this.txtMotive.TabIndex = 1;
             // 
             // BtnGuardar
             // 
-            this.BtnGuardar.Location = new System.Drawing.Point(30, 231);
+            this.BtnGuardar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            this.BtnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnGuardar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnGuardar.Location = new System.Drawing.Point(288, 252);
             this.BtnGuardar.Name = "BtnGuardar";
-            this.BtnGuardar.Size = new System.Drawing.Size(105, 48);
+            this.BtnGuardar.Size = new System.Drawing.Size(200, 49);
             this.BtnGuardar.TabIndex = 2;
-            this.BtnGuardar.Text = "Continuar";
+            this.BtnGuardar.Text = "CONFIRMAR";
             this.BtnGuardar.UseVisualStyleBackColor = true;
             this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
             // 
@@ -64,16 +71,18 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(517, 282);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(517, 331);
             this.ControlBox = false;
             this.Controls.Add(this.BtnGuardar);
             this.Controls.Add(this.txtMotive);
             this.Controls.Add(this.lblMotive);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Note";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Note";
             this.ResumeLayout(false);
             this.PerformLayout();
 
