@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QuestPDF.Helpers.Colors;
 using Spire.Pdf;
+using QRCoder;
 namespace LinkCajaV2.Data
 {
     public class ImpressionsGeneral
@@ -206,14 +207,26 @@ namespace LinkCajaV2.Data
                 ConfigImpressions = obj.GetConfigImpressions("Ticket").Result;
                 float mmToPt = 2.83465f;
                 float anchoTicketMm = (float)ConfigBox.WidthPage; // Cambia a 58f si la impresora es pequeña
-                                           // Calculamos un alto base (encabezado + totales + márgenes) 
-                                           // y le sumamos unos 10mm por cada artículo.
                 float altoBaseMm = (float)ConfigBox.HightPage;//60f;
-                float altoDinamicoMm = altoBaseMm + (venta.Articles.Count * 10f);
+                float altoDinamicoMm = altoBaseMm + (venta.Articles.Count * 10f) + 25f;
                 float anchoFinal = anchoTicketMm * mmToPt;
                 float altoFinal = altoDinamicoMm * mmToPt;
                 QuestPDF.Settings.License = LicenseType.Community;
-                
+
+                byte[] qrBytes = null;
+                using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+                {
+                    // Puedes cambiar el texto por una URL, datos de Hacienda o un resumen del ticket
+                    string datosQr = $"https://xxx.com/factura?ticket={venta.IdTicket}\n&total={venta.Articles.Sum(x => x.Total):C2}";
+
+                    using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(datosQr, QRCodeGenerator.ECCLevel.Q))
+                    using (PngByteQRCode qrCode = new PngByteQRCode(qrCodeData))
+                    {
+                        // El número 20 indica el tamaño por píxel del bloque gráfico
+                        qrBytes = qrCode.GetGraphic(20);
+                    }
+                }
+
                 var documento = Document.Create(container =>
                 {
                     container.Page(page =>
@@ -307,6 +320,10 @@ namespace LinkCajaV2.Data
                                 totalCol.Item().AlignRight().Text($"CAMBIO: {cambio:C2}").Style(EstiloTotal);
 
                                 totalCol.Item().PaddingTop(10).AlignCenter().Text("¡Gracias por su compra!");
+                                if (qrBytes != null)
+                                {
+                                    totalCol.Item().PaddingTop(10).AlignCenter().Width(50).Image(qrBytes);
+                                }
                             });
                         });
                     });
