@@ -36,6 +36,7 @@
             this.GBConfiguraciones = new System.Windows.Forms.GroupBox();
             this.btnImpresiones = new System.Windows.Forms.Button();
             this.gbCatalogos = new System.Windows.Forms.GroupBox();
+            this.btnCategorizes = new System.Windows.Forms.Button();
             this.BtnRecetas = new System.Windows.Forms.Button();
             this.BtnArticulos = new System.Windows.Forms.Button();
             this.btnClientes = new System.Windows.Forms.Button();
@@ -50,6 +51,8 @@
             this.BtnCorte = new System.Windows.Forms.Button();
             this.btnReporteTickets = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnSalir = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.GBConfiguraciones.SuspendLayout();
@@ -59,6 +62,7 @@
             this.GBArticulos.SuspendLayout();
             this.GBReportes.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -92,7 +96,7 @@
             this.btnEmpresa.Location = new System.Drawing.Point(10, 35);
             this.btnEmpresa.Name = "btnEmpresa";
             this.btnEmpresa.Size = new System.Drawing.Size(130, 110);
-            this.btnEmpresa.TabIndex = 1;
+            this.btnEmpresa.TabIndex = 2;
             this.btnEmpresa.Text = "Mi Empresa";
             this.btnEmpresa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnEmpresa.UseVisualStyleBackColor = true;
@@ -107,7 +111,7 @@
             this.BtnCajas.Location = new System.Drawing.Point(154, 35);
             this.BtnCajas.Name = "BtnCajas";
             this.BtnCajas.Size = new System.Drawing.Size(130, 110);
-            this.BtnCajas.TabIndex = 2;
+            this.BtnCajas.TabIndex = 3;
             this.BtnCajas.Text = "Cajas";
             this.BtnCajas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BtnCajas.UseVisualStyleBackColor = true;
@@ -125,7 +129,7 @@
             this.GBConfiguraciones.Location = new System.Drawing.Point(0, 133);
             this.GBConfiguraciones.Name = "GBConfiguraciones";
             this.GBConfiguraciones.Size = new System.Drawing.Size(802, 159);
-            this.GBConfiguraciones.TabIndex = 3;
+            this.GBConfiguraciones.TabIndex = 1;
             this.GBConfiguraciones.TabStop = false;
             this.GBConfiguraciones.Text = "Configuraciones";
             // 
@@ -138,7 +142,7 @@
             this.btnImpresiones.Location = new System.Drawing.Point(298, 35);
             this.btnImpresiones.Name = "btnImpresiones";
             this.btnImpresiones.Size = new System.Drawing.Size(159, 110);
-            this.btnImpresiones.TabIndex = 3;
+            this.btnImpresiones.TabIndex = 4;
             this.btnImpresiones.Text = "Impresiones";
             this.btnImpresiones.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnImpresiones.UseVisualStyleBackColor = true;
@@ -146,6 +150,7 @@
             // 
             // gbCatalogos
             // 
+            this.gbCatalogos.Controls.Add(this.btnCategorizes);
             this.gbCatalogos.Controls.Add(this.BtnRecetas);
             this.gbCatalogos.Controls.Add(this.BtnArticulos);
             this.gbCatalogos.Controls.Add(this.btnClientes);
@@ -158,9 +163,26 @@
             this.gbCatalogos.Location = new System.Drawing.Point(0, 292);
             this.gbCatalogos.Name = "gbCatalogos";
             this.gbCatalogos.Size = new System.Drawing.Size(802, 170);
-            this.gbCatalogos.TabIndex = 4;
+            this.gbCatalogos.TabIndex = 5;
             this.gbCatalogos.TabStop = false;
             this.gbCatalogos.Text = "Catalogos";
+            // 
+            // btnCategorizes
+            // 
+            this.btnCategorizes.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCategorizes.FlatAppearance.BorderSize = 0;
+            this.btnCategorizes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCategorizes.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCategorizes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            this.btnCategorizes.Image = ((System.Drawing.Image)(resources.GetObject("btnCategorizes.Image")));
+            this.btnCategorizes.Location = new System.Drawing.Point(319, 48);
+            this.btnCategorizes.Name = "btnCategorizes";
+            this.btnCategorizes.Size = new System.Drawing.Size(127, 87);
+            this.btnCategorizes.TabIndex = 8;
+            this.btnCategorizes.Text = "Categorias";
+            this.btnCategorizes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnCategorizes.UseVisualStyleBackColor = true;
+            this.btnCategorizes.Click += new System.EventHandler(this.btnCategorizes_Click);
             // 
             // BtnRecetas
             // 
@@ -171,10 +193,10 @@
             this.BtnRecetas.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnRecetas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
             this.BtnRecetas.Image = ((System.Drawing.Image)(resources.GetObject("BtnRecetas.Image")));
-            this.BtnRecetas.Location = new System.Drawing.Point(435, 48);
+            this.BtnRecetas.Location = new System.Drawing.Point(585, 48);
             this.BtnRecetas.Name = "BtnRecetas";
-            this.BtnRecetas.Size = new System.Drawing.Size(130, 87);
-            this.BtnRecetas.TabIndex = 4;
+            this.BtnRecetas.Size = new System.Drawing.Size(114, 87);
+            this.BtnRecetas.TabIndex = 10;
             this.BtnRecetas.Text = "Recetas";
             this.BtnRecetas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BtnRecetas.UseVisualStyleBackColor = true;
@@ -189,10 +211,10 @@
             this.BtnArticulos.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnArticulos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
             this.BtnArticulos.Image = ((System.Drawing.Image)(resources.GetObject("BtnArticulos.Image")));
-            this.BtnArticulos.Location = new System.Drawing.Point(319, 48);
+            this.BtnArticulos.Location = new System.Drawing.Point(452, 48);
             this.BtnArticulos.Name = "BtnArticulos";
             this.BtnArticulos.Size = new System.Drawing.Size(127, 87);
-            this.BtnArticulos.TabIndex = 3;
+            this.BtnArticulos.TabIndex = 9;
             this.BtnArticulos.Text = "Inventario";
             this.BtnArticulos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BtnArticulos.UseVisualStyleBackColor = true;
@@ -206,10 +228,10 @@
             this.btnClientes.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClientes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
             this.btnClientes.Image = ((System.Drawing.Image)(resources.GetObject("btnClientes.Image")));
-            this.btnClientes.Location = new System.Drawing.Point(542, 48);
+            this.btnClientes.Location = new System.Drawing.Point(672, 48);
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Size = new System.Drawing.Size(130, 87);
-            this.btnClientes.TabIndex = 2;
+            this.btnClientes.TabIndex = 11;
             this.btnClientes.Text = "Clientes";
             this.btnClientes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnClientes.UseVisualStyleBackColor = true;
@@ -227,7 +249,7 @@
             this.btnProveedores.Location = new System.Drawing.Point(140, 48);
             this.btnProveedores.Name = "btnProveedores";
             this.btnProveedores.Size = new System.Drawing.Size(173, 87);
-            this.btnProveedores.TabIndex = 1;
+            this.btnProveedores.TabIndex = 7;
             this.btnProveedores.Text = "Proveedores";
             this.btnProveedores.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnProveedores.UseVisualStyleBackColor = true;
@@ -244,7 +266,7 @@
             this.btnUsuarios.Location = new System.Drawing.Point(10, 48);
             this.btnUsuarios.Name = "btnUsuarios";
             this.btnUsuarios.Size = new System.Drawing.Size(130, 87);
-            this.btnUsuarios.TabIndex = 0;
+            this.btnUsuarios.TabIndex = 6;
             this.btnUsuarios.Text = "Usuarios";
             this.btnUsuarios.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnUsuarios.UseVisualStyleBackColor = true;
@@ -261,7 +283,7 @@
             this.BtnVenta.Location = new System.Drawing.Point(5, 6);
             this.BtnVenta.Name = "BtnVenta";
             this.BtnVenta.Size = new System.Drawing.Size(130, 110);
-            this.BtnVenta.TabIndex = 5;
+            this.BtnVenta.TabIndex = 14;
             this.BtnVenta.Text = "Venta";
             this.BtnVenta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BtnVenta.UseVisualStyleBackColor = true;
@@ -278,7 +300,7 @@
             this.gbMostrador.Location = new System.Drawing.Point(0, 462);
             this.gbMostrador.Name = "gbMostrador";
             this.gbMostrador.Size = new System.Drawing.Size(802, 177);
-            this.gbMostrador.TabIndex = 6;
+            this.gbMostrador.TabIndex = 12;
             this.gbMostrador.TabStop = false;
             this.gbMostrador.Text = "Mostrador";
             // 
@@ -319,7 +341,7 @@
             this.btnArticulos2.Location = new System.Drawing.Point(6, 6);
             this.btnArticulos2.Name = "btnArticulos2";
             this.btnArticulos2.Size = new System.Drawing.Size(130, 110);
-            this.btnArticulos2.TabIndex = 6;
+            this.btnArticulos2.TabIndex = 13;
             this.btnArticulos2.Text = "Inventario";
             this.btnArticulos2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnArticulos2.UseVisualStyleBackColor = true;
@@ -336,7 +358,7 @@
             this.GBReportes.Location = new System.Drawing.Point(0, 639);
             this.GBReportes.Name = "GBReportes";
             this.GBReportes.Size = new System.Drawing.Size(802, 169);
-            this.GBReportes.TabIndex = 7;
+            this.GBReportes.TabIndex = 15;
             this.GBReportes.TabStop = false;
             this.GBReportes.Text = "Reportes";
             // 
@@ -349,7 +371,7 @@
             this.BtnCorte.Location = new System.Drawing.Point(150, 38);
             this.BtnCorte.Name = "BtnCorte";
             this.BtnCorte.Size = new System.Drawing.Size(172, 110);
-            this.BtnCorte.TabIndex = 1;
+            this.BtnCorte.TabIndex = 17;
             this.BtnCorte.Text = "Corte de caja";
             this.BtnCorte.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BtnCorte.UseVisualStyleBackColor = true;
@@ -364,7 +386,7 @@
             this.btnReporteTickets.Location = new System.Drawing.Point(8, 38);
             this.btnReporteTickets.Name = "btnReporteTickets";
             this.btnReporteTickets.Size = new System.Drawing.Size(130, 110);
-            this.btnReporteTickets.TabIndex = 0;
+            this.btnReporteTickets.TabIndex = 16;
             this.btnReporteTickets.Text = "Tickets";
             this.btnReporteTickets.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnReporteTickets.UseVisualStyleBackColor = true;
@@ -372,6 +394,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.lblTitulo);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -380,8 +403,28 @@
             this.groupBox1.Location = new System.Drawing.Point(0, 33);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(802, 100);
-            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabIndex = 99;
             this.groupBox1.TabStop = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.groupBox2.Controls.Add(this.btnSalir);
+            this.groupBox2.Location = new System.Drawing.Point(615, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(187, 94);
+            this.groupBox2.TabIndex = 18;
+            this.groupBox2.TabStop = false;
+            // 
+            // btnSalir
+            // 
+            this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
+            this.btnSalir.Location = new System.Drawing.Point(79, 22);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(102, 66);
+            this.btnSalir.TabIndex = 18;
+            this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // lblTitulo
             // 
@@ -425,6 +468,7 @@
             this.GBReportes.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -454,5 +498,8 @@
         private System.Windows.Forms.Button BtnCorte;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Button btnCategorizes;
+        private System.Windows.Forms.Button btnSalir;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }

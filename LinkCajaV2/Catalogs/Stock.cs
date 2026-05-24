@@ -220,7 +220,7 @@ namespace LinkCajaV2.Catalogs
             {
                 lblCostoGramo.Visible = false;
             }
-            if (IdArticle == 0 || Article == null)
+            if (IdArticle == 0 || Article == null || Article.Margen == 0)
             {
                 isLoaded = true;
                 return;

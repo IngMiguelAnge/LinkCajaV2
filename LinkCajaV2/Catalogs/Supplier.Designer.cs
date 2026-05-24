@@ -86,7 +86,7 @@
             // txtTelefono1
             // 
             this.txtTelefono1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTelefono1.Location = new System.Drawing.Point(379, 250);
+            this.txtTelefono1.Location = new System.Drawing.Point(379, 149);
             this.txtTelefono1.MaxLength = 50;
             this.txtTelefono1.Name = "txtTelefono1";
             this.txtTelefono1.Size = new System.Drawing.Size(250, 37);
@@ -97,7 +97,7 @@
             this.lblTelefono1.AutoSize = true;
             this.lblTelefono1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTelefono1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblTelefono1.Location = new System.Drawing.Point(374, 206);
+            this.lblTelefono1.Location = new System.Drawing.Point(374, 105);
             this.lblTelefono1.Name = "lblTelefono1";
             this.lblTelefono1.Size = new System.Drawing.Size(109, 25);
             this.lblTelefono1.TabIndex = 4;
@@ -106,7 +106,7 @@
             // txtTelefono2
             // 
             this.txtTelefono2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTelefono2.Location = new System.Drawing.Point(379, 148);
+            this.txtTelefono2.Location = new System.Drawing.Point(379, 249);
             this.txtTelefono2.MaxLength = 50;
             this.txtTelefono2.Name = "txtTelefono2";
             this.txtTelefono2.Size = new System.Drawing.Size(250, 37);
@@ -117,7 +117,7 @@
             this.lblTelefono2.AutoSize = true;
             this.lblTelefono2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTelefono2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblTelefono2.Location = new System.Drawing.Point(374, 105);
+            this.lblTelefono2.Location = new System.Drawing.Point(374, 206);
             this.lblTelefono2.Name = "lblTelefono2";
             this.lblTelefono2.Size = new System.Drawing.Size(101, 25);
             this.lblTelefono2.TabIndex = 6;

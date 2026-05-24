@@ -43,6 +43,8 @@
             this.txtClaveSAT = new System.Windows.Forms.TextBox();
             this.cbMedicine = new System.Windows.Forms.CheckBox();
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.lblCategoria = new System.Windows.Forms.Label();
+            this.cbCategoria = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.PBProducto)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,20 +53,20 @@
             this.lblNombre.AutoSize = true;
             this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblNombre.Location = new System.Drawing.Point(355, 86);
+            this.lblNombre.Location = new System.Drawing.Point(40, 190);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(94, 25);
-            this.lblNombre.TabIndex = 4;
+            this.lblNombre.TabIndex = 2;
             this.lblNombre.Text = "*Nombre:";
             // 
             // txtNombre
             // 
             this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(360, 126);
+            this.txtNombre.Location = new System.Drawing.Point(45, 225);
             this.txtNombre.MaxLength = 50;
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(250, 37);
-            this.txtNombre.TabIndex = 5;
+            this.txtNombre.TabIndex = 3;
             // 
             // lblDescripcion
             // 
@@ -74,7 +76,7 @@
             this.lblDescripcion.Location = new System.Drawing.Point(355, 190);
             this.lblDescripcion.Name = "lblDescripcion";
             this.lblDescripcion.Size = new System.Drawing.Size(124, 25);
-            this.lblDescripcion.TabIndex = 6;
+            this.lblDescripcion.TabIndex = 9;
             this.lblDescripcion.Text = "*Descripción:";
             // 
             // txtDescripcion
@@ -85,7 +87,7 @@
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDescripcion.Size = new System.Drawing.Size(250, 134);
-            this.txtDescripcion.TabIndex = 7;
+            this.txtDescripcion.TabIndex = 10;
             // 
             // btnImagen
             // 
@@ -98,7 +100,7 @@
             this.btnImagen.Location = new System.Drawing.Point(664, 310);
             this.btnImagen.Name = "btnImagen";
             this.btnImagen.Size = new System.Drawing.Size(200, 49);
-            this.btnImagen.TabIndex = 10;
+            this.btnImagen.TabIndex = 12;
             this.btnImagen.Text = "Cargar Imagen";
             this.btnImagen.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnImagen.UseVisualStyleBackColor = true;
@@ -126,7 +128,7 @@
             this.BtnGuardar.Location = new System.Drawing.Point(664, 430);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(200, 48);
-            this.BtnGuardar.TabIndex = 11;
+            this.BtnGuardar.TabIndex = 13;
             this.BtnGuardar.Text = "GUARDAR";
             this.BtnGuardar.UseVisualStyleBackColor = false;
             this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
@@ -161,7 +163,7 @@
             this.CBDevoluciones.Location = new System.Drawing.Point(45, 372);
             this.CBDevoluciones.Name = "CBDevoluciones";
             this.CBDevoluciones.Size = new System.Drawing.Size(246, 32);
-            this.CBDevoluciones.TabIndex = 8;
+            this.CBDevoluciones.TabIndex = 6;
             this.CBDevoluciones.Text = "¿Acepta devolusiones?";
             this.CBDevoluciones.UseVisualStyleBackColor = true;
             // 
@@ -170,20 +172,20 @@
             this.lblClaveSAT.AutoSize = true;
             this.lblClaveSAT.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblClaveSAT.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblClaveSAT.Location = new System.Drawing.Point(37, 190);
+            this.lblClaveSAT.Location = new System.Drawing.Point(355, 86);
             this.lblClaveSAT.Name = "lblClaveSAT";
             this.lblClaveSAT.Size = new System.Drawing.Size(109, 25);
-            this.lblClaveSAT.TabIndex = 2;
+            this.lblClaveSAT.TabIndex = 7;
             this.lblClaveSAT.Text = "*Clave SAT:";
             // 
             // txtClaveSAT
             // 
             this.txtClaveSAT.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtClaveSAT.Location = new System.Drawing.Point(45, 225);
+            this.txtClaveSAT.Location = new System.Drawing.Point(360, 126);
             this.txtClaveSAT.MaxLength = 50;
             this.txtClaveSAT.Name = "txtClaveSAT";
             this.txtClaveSAT.Size = new System.Drawing.Size(250, 37);
-            this.txtClaveSAT.TabIndex = 3;
+            this.txtClaveSAT.TabIndex = 8;
             // 
             // cbMedicine
             // 
@@ -194,7 +196,7 @@
             this.cbMedicine.Location = new System.Drawing.Point(360, 372);
             this.cbMedicine.Name = "cbMedicine";
             this.cbMedicine.Size = new System.Drawing.Size(206, 32);
-            this.cbMedicine.TabIndex = 9;
+            this.cbMedicine.TabIndex = 11;
             this.cbMedicine.Text = "¿Es medicamento?";
             this.cbMedicine.UseVisualStyleBackColor = true;
             // 
@@ -209,12 +211,35 @@
             this.lblTitulo.TabIndex = 23;
             this.lblTitulo.Text = "Información del Articulo";
             // 
+            // lblCategoria
+            // 
+            this.lblCategoria.AutoSize = true;
+            this.lblCategoria.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCategoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblCategoria.Location = new System.Drawing.Point(40, 282);
+            this.lblCategoria.Name = "lblCategoria";
+            this.lblCategoria.Size = new System.Drawing.Size(107, 25);
+            this.lblCategoria.TabIndex = 4;
+            this.lblCategoria.Text = "*Categoria:";
+            // 
+            // cbCategoria
+            // 
+            this.cbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCategoria.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbCategoria.FormattingEnabled = true;
+            this.cbCategoria.Location = new System.Drawing.Point(45, 319);
+            this.cbCategoria.Name = "cbCategoria";
+            this.cbCategoria.Size = new System.Drawing.Size(250, 38);
+            this.cbCategoria.TabIndex = 5;
+            // 
             // Article
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(900, 514);
+            this.Controls.Add(this.cbCategoria);
+            this.Controls.Add(this.lblCategoria);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.cbMedicine);
             this.Controls.Add(this.txtClaveSAT);
@@ -258,5 +283,7 @@
         private System.Windows.Forms.TextBox txtClaveSAT;
         private System.Windows.Forms.CheckBox cbMedicine;
         private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Label lblCategoria;
+        private System.Windows.Forms.ComboBox cbCategoria;
     }
 }

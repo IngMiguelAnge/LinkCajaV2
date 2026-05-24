@@ -112,7 +112,7 @@ namespace LinkCajaV2.Catalogs
                 HeaderText = "Id",
                 DataPropertyName = "Id",
                 ReadOnly = true,
-                Visible = false,
+                Visible = false,                
                 Width = 100
             });
             dgvProveedores.Columns.Add(new DataGridViewTextBoxColumn

@@ -135,5 +135,18 @@ namespace LinkCajaV2
             CashDrop c = new CashDrop();
             c.Show();
         }
+
+        private void btnCategorizes_Click(object sender, EventArgs e)
+        {
+            Categories c = new Categories();
+            c.Show();
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            Login login = new Login();  
+            login.Show();
+            this.Hide();
+        }
     }
 }

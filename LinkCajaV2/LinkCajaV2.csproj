@@ -114,6 +114,18 @@
     <Compile Include="Catalogs\Articles.Designer.cs">
       <DependentUpon>Articles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Catalogs\Categorie.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\Categorie.Designer.cs">
+      <DependentUpon>Categorie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\Categories.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\Categories.Designer.cs">
+      <DependentUpon>Categories.cs</DependentUpon>
+    </Compile>
     <Compile Include="Catalogs\PricesSuppliers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -262,6 +274,7 @@
     <Compile Include="Model\BoxModel.cs" />
     <Compile Include="Model\CashDropModel.cs" />
     <Compile Include="Model\CashFundModel.cs" />
+    <Compile Include="Model\CategorieModel.cs" />
     <Compile Include="Model\ClientsModel.cs" />
     <Compile Include="Model\CompanyModel.cs" />
     <Compile Include="Model\ConfigBoxModel.cs" />
@@ -272,6 +285,7 @@
     <Compile Include="Model\HighPriceModel.cs" />
     <Compile Include="Model\ImpressionsModel.cs" />
     <Compile Include="Model\ListCashFundModel.cs" />
+    <Compile Include="Model\ListCategoriesModel.cs" />
     <Compile Include="Model\ListDetailsTicketModel.cs" />
     <Compile Include="Model\ListTicketModel.cs" />
     <Compile Include="Model\PrinterPricesModel.cs" />
@@ -329,6 +343,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\Articles.resx">
       <DependentUpon>Articles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\Categorie.resx">
+      <DependentUpon>Categorie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\Categories.resx">
+      <DependentUpon>Categories.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\PricesSuppliers.resx">
       <DependentUpon>PricesSuppliers.cs</DependentUpon>
@@ -437,6 +457,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icons\Cajero.png" />
+    <Content Include="Icons\Categorias.png" />
     <Content Include="Icons\Clientes.png" />
     <Content Include="Icons\CorteCaja.png" />
     <Content Include="Icons\Guardar.png" />
@@ -449,6 +470,7 @@
     <Content Include="Icons\Nuevo.png" />
     <Content Include="Icons\Proveedores.png" />
     <Content Include="Icons\Recetas.png" />
+    <Content Include="Icons\Salir.png" />
     <Content Include="Icons\Subir.png" />
     <Content Include="Icons\Tickets.png" />
     <Content Include="Icons\Usuarios.png" />

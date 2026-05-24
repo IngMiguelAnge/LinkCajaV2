@@ -19,6 +19,156 @@ namespace LinkCajaV2.Data
         {
             GC.Collect();
         }
+        #region Categories
+        public async Task<List<CategorieModel>> GetCategoriesActives()
+        {
+            List<CategorieModel> list = new List<CategorieModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetCategoriesActives", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToCategorie(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+        public async Task<CategorieModel> GetCategoriebyId(int Id)
+        {
+            CategorieModel obj = new CategorieModel();
+            List<CategorieModel> list = new List<CategorieModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetCategoriebyId", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToCategorie(reader));
+                            }
+                            obj = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return obj;
+        }
+        private CategorieModel MapToCategorie(SqlDataReader reader)
+        {
+            return new CategorieModel()
+            {
+                Id = (int)reader["Id"],
+                Name = (string)reader["Name"],
+                Status = (bool)reader["Status"],
+            };
+        }
+
+        public async Task<bool> SaveCategorie(int Id, string Name)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveCategorie", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        cmd.Parameters.Add(new SqlParameter("@Name", Name));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<bool> UpdateStatusCategorie(int Id)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("UpdateStatusCategorie", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<List<ListCategoriesModel>> GetCategories(string Nombre)
+        {
+            List<ListCategoriesModel> list = new List<ListCategoriesModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetCategories", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Name", Nombre));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToListCategories(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+        private ListCategoriesModel MapToListCategories(SqlDataReader reader)
+        {
+            return new ListCategoriesModel()
+            {
+                Id = (int)reader["Id"],
+                Nombre = (string)reader["Name"],
+                Estatus = (string)reader["Status"],
+            };
+        }
+
+        #endregion
         #region CashDrop
         public async Task<List<CashDropModel>> GetCashDrop(DateTime Desde, DateTime Hasta)
         {
@@ -1643,6 +1793,7 @@ namespace LinkCajaV2.Data
                     using (SqlCommand cmd = new SqlCommand("SaveClient", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                       cmd.Parameters.Add(new SqlParameter("@Id", obj.Id));
                         cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
                         cmd.Parameters.Add(new SqlParameter("@Address", obj.Address));
                         cmd.Parameters.Add(new SqlParameter("@Phone1", obj.Phone1));
@@ -1895,6 +2046,7 @@ namespace LinkCajaV2.Data
                 SendBack = (bool)reader["SendBack"],
                 Status = (bool)reader["Status"],
                 Medicine = (bool)reader["Medicine"],
+                IdCategory = Convert.IsDBNull(reader["IdCategory"]) ? 0 : (int)reader["IdCategory"],
             };
         }
         public async Task<bool> SaveArticle(ArticleModel obj)
@@ -1914,6 +2066,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Code", obj.Code));
                         cmd.Parameters.Add(new SqlParameter("@SendBack", obj.SendBack));
                         cmd.Parameters.Add(new SqlParameter("@Medicine", obj.Medicine));
+                        cmd.Parameters.Add(new SqlParameter("@IdCategory", obj.IdCategory));
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;
@@ -2041,6 +2194,7 @@ namespace LinkCajaV2.Data
                 Id = (int)reader["Id"],
                 Codigo = (string)reader["Code"],
                 Articulo = (string)reader["Name"],
+                Categoria = (string)reader["Categoria"],
                 Existencias = (string)reader["Stock"],
                 Precio = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
                 PorCada = (string)reader["PorCada"],

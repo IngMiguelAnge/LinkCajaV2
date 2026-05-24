@@ -171,6 +171,7 @@
             this.dgvArticulos.EnableHeadersVisualStyles = false;
             this.dgvArticulos.Location = new System.Drawing.Point(3, 33);
             this.dgvArticulos.Name = "dgvArticulos";
+            this.dgvArticulos.ReadOnly = true;
             this.dgvArticulos.RowHeadersWidth = 62;
             this.dgvArticulos.RowTemplate.Height = 28;
             this.dgvArticulos.Size = new System.Drawing.Size(804, 339);

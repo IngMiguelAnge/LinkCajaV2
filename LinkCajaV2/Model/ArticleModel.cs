@@ -11,5 +11,6 @@
         public bool Status { get; set; }
         public bool SendBack { get; set; }
         public bool Medicine { get; set; }
+        public int IdCategory { get; set; }
     }
 }

@@ -152,6 +152,7 @@
             this.dgvCajas.EnableHeadersVisualStyles = false;
             this.dgvCajas.Location = new System.Drawing.Point(3, 35);
             this.dgvCajas.Name = "dgvCajas";
+            this.dgvCajas.ReadOnly = true;
             this.dgvCajas.RowHeadersWidth = 62;
             this.dgvCajas.RowTemplate.Height = 28;
             this.dgvCajas.Size = new System.Drawing.Size(919, 256);

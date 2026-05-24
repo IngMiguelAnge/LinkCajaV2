@@ -88,7 +88,8 @@ namespace LinkCajaV2.Catalogs
                 Code = txtCodigo.Text,
                 CodeSAT = txtClaveSAT.Text,
                 SendBack = CBDevoluciones.Checked,
-                Medicine = cbMedicine.Checked
+                Medicine = cbMedicine.Checked,
+                IdCategory = (int)cbCategoria.SelectedValue
             };
             if (obj.SaveArticle(Articulo).Result)
             {
@@ -118,8 +119,17 @@ namespace LinkCajaV2.Catalogs
         private void Article_Load(object sender, EventArgs e)
         {
             AppRepository obj = new AppRepository();
+            var ListCategories = obj.GetCategoriesActives().Result;
+            // Insertamos un objeto "fantasma" al inicio para el placeholder
+            ListCategories.Insert(0, new CategorieModel { Id = 0, Name = "Seleccione" });
+            cbCategoria.Items.Clear();
+            cbCategoria.DisplayMember = "Name";
+            cbCategoria.ValueMember = "Id";
+            cbCategoria.DataSource = ListCategories;
+            cbCategoria.SelectedIndex = 0;
             if (Id == 0) return; 
             var Article = obj.GetArticle(Id,string.Empty).Result;
+            cbCategoria.SelectedValue = Article.IdCategory;
             txtNombre.Text = Article.Name;
             txtDescripcion.Text = Article.Description;
             if (Article.Image != null)

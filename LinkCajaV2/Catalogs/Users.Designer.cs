@@ -187,6 +187,7 @@
             this.dgvUsuarios.EnableHeadersVisualStyles = false;
             this.dgvUsuarios.Location = new System.Drawing.Point(3, 35);
             this.dgvUsuarios.Name = "dgvUsuarios";
+            this.dgvUsuarios.ReadOnly = true;
             this.dgvUsuarios.RowHeadersWidth = 62;
             this.dgvUsuarios.RowTemplate.Height = 28;
             this.dgvUsuarios.Size = new System.Drawing.Size(1185, 359);

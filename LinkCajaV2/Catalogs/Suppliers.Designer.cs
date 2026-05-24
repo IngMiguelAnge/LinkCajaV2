@@ -106,6 +106,7 @@
             this.dgvProveedores.EnableHeadersVisualStyles = false;
             this.dgvProveedores.Location = new System.Drawing.Point(3, 35);
             this.dgvProveedores.Name = "dgvProveedores";
+            this.dgvProveedores.ReadOnly = true;
             this.dgvProveedores.RowHeadersWidth = 62;
             this.dgvProveedores.RowTemplate.Height = 28;
             this.dgvProveedores.Size = new System.Drawing.Size(915, 174);
