@@ -41,14 +41,12 @@ namespace LinkCajaV2.Catalogs
         {
             Company m = new Company();
             m.Show();
-            this.Hide();
         }
 
         private void btnPanelCorte_Click(object sender, EventArgs e)
         {
             CashDrop c = new CashDrop();
             c.Show();
-            this.Hide();
         }
         private void BtnPanelSalir_Click(object sender, EventArgs e)
         {

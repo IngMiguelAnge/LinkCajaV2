@@ -1,7 +1,10 @@
-﻿using LinkCajaV2.Configurations;
+﻿using LinkCajaV2.Configuraciones;
+using LinkCajaV2.Configurations;
 using LinkCajaV2.Data;
 using LinkCajaV2.Items;
 using LinkCajaV2.Model;
+using LinkCajaV2.Reports;
+using LinkCajaV2.Sales;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -14,9 +17,55 @@ namespace LinkCajaV2.Catalogs
     public partial class Boxs : Form
     {
         int CantidadCajas = 0;
+        public int IdUsuario { get; set; }
+        public string NameUser { get; set; }
         public Boxs()
         {
             InitializeComponent();
+        }
+        private void btnPanelVentas_Click(object sender, EventArgs e)
+        {
+            Venta s = new Venta();
+            s.IdUsuario = IdUsuario;
+            s.NameUser = NameUser;
+            s.Show();
+            this.Hide();
+        }
+        private void btnPanelArticulos_Click(object sender, EventArgs e)
+        {
+            Articles a = new Articles();
+            a.IdUsuario = IdUsuario;
+            a.NameUser = NameUser;
+            a.IsVenta = false;
+            a.Show();
+            this.Hide();
+        }
+
+        private void btnPanelEmpresa_Click(object sender, EventArgs e)
+        {
+            Company m = new Company();
+            m.Show();
+            this.Hide();
+        }
+
+        private void btnPanelCorte_Click(object sender, EventArgs e)
+        {
+            CashDrop c = new CashDrop();
+            c.Show();
+        }
+        private void BtnPanelSalir_Click(object sender, EventArgs e)
+        {
+            Login login = new Login();
+            login.Show();
+            this.Hide();
+        }
+        private void btnPanelMenu_Click(object sender, EventArgs e)
+        {
+            Menu m = new Menu();
+            m.IdUsuario = IdUsuario;
+            m.NameUser = NameUser;
+            m.Show();
+            this.Hide();
         }
 
         private void BtnNuevo_Click(object sender, EventArgs e)
@@ -185,6 +234,15 @@ namespace LinkCajaV2.Catalogs
                     f.ShowDialog();
                     break;
             }
+        }
+
+        private void Boxs_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Menu m = new Menu();
+            m.IdUsuario = IdUsuario;
+            m.NameUser = NameUser;
+            m.Show();
+            this.Hide();
         }
     }
 }

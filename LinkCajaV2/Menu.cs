@@ -45,14 +45,12 @@ namespace LinkCajaV2
         {
             Company m = new Company();
             m.Show();
-            this.Hide();
         }
 
         private void btnPanelCorte_Click(object sender, EventArgs e)
         {
             CashDrop c = new CashDrop();
             c.Show();
-            this.Hide();
         }
 
         private void btnVentaMostrador_Click(object sender, EventArgs e)
@@ -120,6 +118,8 @@ namespace LinkCajaV2
         private void btnConfigCajas_Click(object sender, EventArgs e)
         {
             Boxs b = new Boxs();
+            b.IdUsuario = IdUsuario;
+            b.NameUser = NameUser;
             b.Show();
             this.Hide();
         }

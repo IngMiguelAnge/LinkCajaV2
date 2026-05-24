@@ -19,6 +19,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.panelLateral = new System.Windows.Forms.Panel();
+            this.btnPanelMenu = new System.Windows.Forms.Button();
             this.btnPanelCorte = new System.Windows.Forms.Button();
             this.PanelgroupBox = new System.Windows.Forms.GroupBox();
             this.BtnPanelSalir = new System.Windows.Forms.Button();
@@ -50,7 +51,6 @@
             this.panelOperacionesCaja = new System.Windows.Forms.Panel();
             this.btnCorteCaja = new System.Windows.Forms.Button();
             this.lblTituloOperacionesCaja = new System.Windows.Forms.Label();
-            this.btnPanelMenu = new System.Windows.Forms.Button();
             this.panelLateral.SuspendLayout();
             this.PanelgroupBox.SuspendLayout();
             this.panelSuperior.SuspendLayout();
@@ -77,6 +77,21 @@
             this.panelLateral.Name = "panelLateral";
             this.panelLateral.Size = new System.Drawing.Size(264, 736);
             this.panelLateral.TabIndex = 0;
+            // 
+            // btnPanelMenu
+            // 
+            this.btnPanelMenu.FlatAppearance.BorderSize = 0;
+            this.btnPanelMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPanelMenu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnPanelMenu.ForeColor = System.Drawing.Color.White;
+            this.btnPanelMenu.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelMenu.Image")));
+            this.btnPanelMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPanelMenu.Location = new System.Drawing.Point(9, 120);
+            this.btnPanelMenu.Name = "btnPanelMenu";
+            this.btnPanelMenu.Size = new System.Drawing.Size(247, 82);
+            this.btnPanelMenu.TabIndex = 8;
+            this.btnPanelMenu.Text = "Menu";
+            this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click);
             // 
             // btnPanelCorte
             // 
@@ -532,21 +547,6 @@
             this.lblTituloOperacionesCaja.Size = new System.Drawing.Size(331, 34);
             this.lblTituloOperacionesCaja.TabIndex = 2;
             this.lblTituloOperacionesCaja.Text = "📖 Operaciones de Caja";
-            // 
-            // btnPanelMenu
-            // 
-            this.btnPanelMenu.FlatAppearance.BorderSize = 0;
-            this.btnPanelMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPanelMenu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnPanelMenu.ForeColor = System.Drawing.Color.White;
-            this.btnPanelMenu.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelMenu.Image")));
-            this.btnPanelMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelMenu.Location = new System.Drawing.Point(12, 123);
-            this.btnPanelMenu.Name = "btnPanelMenu";
-            this.btnPanelMenu.Size = new System.Drawing.Size(247, 82);
-            this.btnPanelMenu.TabIndex = 8;
-            this.btnPanelMenu.Text = "Menu";
-            this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click);
             // 
             // Menu
             // 

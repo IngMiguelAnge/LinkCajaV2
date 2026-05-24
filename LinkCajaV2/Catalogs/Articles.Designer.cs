@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Articles));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Articles));
             this.panelLateral = new System.Windows.Forms.Panel();
+            this.btnPanelMenu = new System.Windows.Forms.Button();
             this.PanelgroupBox = new System.Windows.Forms.GroupBox();
             this.BtnPanelSalir = new System.Windows.Forms.Button();
             this.btnPanelCorte = new System.Windows.Forms.Button();
@@ -40,7 +41,6 @@
             this.btnPanelArticulos = new System.Windows.Forms.Button();
             this.btnPanelVentas = new System.Windows.Forms.Button();
             this.lblPanelTituloApp = new System.Windows.Forms.Label();
-            this.btnPanelMenu = new System.Windows.Forms.Button();
             this.lblNombre = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.btnNuevo = new System.Windows.Forms.Button();
@@ -74,6 +74,21 @@
             this.panelLateral.Name = "panelLateral";
             this.panelLateral.Size = new System.Drawing.Size(264, 691);
             this.panelLateral.TabIndex = 0;
+            // 
+            // btnPanelMenu
+            // 
+            this.btnPanelMenu.FlatAppearance.BorderSize = 0;
+            this.btnPanelMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPanelMenu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnPanelMenu.ForeColor = System.Drawing.Color.White;
+            this.btnPanelMenu.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelMenu.Image")));
+            this.btnPanelMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPanelMenu.Location = new System.Drawing.Point(11, 121);
+            this.btnPanelMenu.Name = "btnPanelMenu";
+            this.btnPanelMenu.Size = new System.Drawing.Size(246, 82);
+            this.btnPanelMenu.TabIndex = 26;
+            this.btnPanelMenu.Text = "Menu";
+            this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click);
             // 
             // PanelgroupBox
             // 
@@ -168,21 +183,6 @@
             this.lblPanelTituloApp.Size = new System.Drawing.Size(220, 87);
             this.lblPanelTituloApp.TabIndex = 4;
             this.lblPanelTituloApp.Text = "PUNTO DE VENTA";
-            // 
-            // btnPanelMenu
-            // 
-            this.btnPanelMenu.FlatAppearance.BorderSize = 0;
-            this.btnPanelMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPanelMenu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnPanelMenu.ForeColor = System.Drawing.Color.White;
-            this.btnPanelMenu.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelMenu.Image")));
-            this.btnPanelMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelMenu.Location = new System.Drawing.Point(12, 123);
-            this.btnPanelMenu.Name = "btnPanelMenu";
-            this.btnPanelMenu.Size = new System.Drawing.Size(246, 82);
-            this.btnPanelMenu.TabIndex = 26;
-            this.btnPanelMenu.Text = "Menu";
-            this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click);
             // 
             // lblNombre
             // 
@@ -359,7 +359,7 @@
             this.cbEtiquetas.TabIndex = 5;
             this.cbEtiquetas.Text = "¿Etiquetas?";
             this.cbEtiquetas.UseVisualStyleBackColor = true;
-            //
+            // 
             // Articles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);

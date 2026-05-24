@@ -181,5 +181,6 @@ namespace LinkCajaV2.Configurations
                     break;
             }
         }
+
     }
 }
