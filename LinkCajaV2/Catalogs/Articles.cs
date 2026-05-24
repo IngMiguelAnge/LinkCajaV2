@@ -34,24 +34,28 @@ namespace LinkCajaV2.Catalogs
             s.IdUsuario = IdUsuario;
             s.NameUser = NameUser;
             s.Show();
+            this.Hide();
         }
         private void btnPanelArticulos_Click(object sender, EventArgs e)
         {
-            Articles a = new Articles();
-            a.IsVenta = false;
-            a.Show();
+            //Articles a = new Articles();
+            //a.IsVenta = false;
+            //a.Show();
+            //this.Hide();
         }
 
         private void btnPanelEmpresa_Click(object sender, EventArgs e)
         {
             Company m = new Company();
             m.Show();
+            this.Hide();
         }
 
         private void btnPanelCorte_Click(object sender, EventArgs e)
         {
             CashDrop c = new CashDrop();
             c.Show();
+            this.Hide();
         }
         private void BtnPanelSalir_Click(object sender, EventArgs e)
         {
@@ -270,5 +274,13 @@ namespace LinkCajaV2.Catalogs
             }
         }
 
+        private void Articles_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Menu m = new Menu();
+            m.IdUsuario = IdUsuario;
+            m.NameUser = NameUser;
+            m.Show();
+            this.Hide();
+        }
     }
 }

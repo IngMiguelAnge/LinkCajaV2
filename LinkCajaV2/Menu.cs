@@ -29,6 +29,7 @@ namespace LinkCajaV2
             s.IdUsuario = IdUsuario;
             s.NameUser = NameUser;
             s.Show();
+            this.Hide();
         }
         private void btnPanelArticulos_Click(object sender, EventArgs e)
         {
@@ -37,18 +38,21 @@ namespace LinkCajaV2
             a.IdUsuario = IdUsuario;
             a.NameUser = NameUser;
             a.Show();
+            this.Hide();
         }
 
         private void btnPanelEmpresa_Click(object sender, EventArgs e)
         {
             Company m = new Company();
             m.Show();
+            this.Hide();
         }
 
         private void btnPanelCorte_Click(object sender, EventArgs e)
         {
             CashDrop c = new CashDrop();
             c.Show();
+            this.Hide();
         }
 
         private void btnVentaMostrador_Click(object sender, EventArgs e)
@@ -57,30 +61,35 @@ namespace LinkCajaV2
             s.IdUsuario = IdUsuario;
             s.NameUser = NameUser;
             s.Show();
+            this.Hide();
         }
 
         private void btnTicket_Click(object sender, EventArgs e)
         {
             Tickets t = new Tickets();
             t.Show();
+            this.Hide();
         }
 
         private void btnUsuarios_Click(object sender, EventArgs e)
         {
             Users u = new Users();
             u.Show();
+            this.Hide();
         }
 
         private void btnProveedores_Click(object sender, EventArgs e)
         {
             Suppliers m = new Suppliers();
             m.Show();
+            this.Hide();
         }
 
         private void btnCategorias_Click(object sender, EventArgs e)
         {
             Categories c = new Categories();
             c.Show();
+            this.Hide();
         }
 
         private void btnArticules_Click(object sender, EventArgs e)
@@ -90,12 +99,14 @@ namespace LinkCajaV2
             a.IdUsuario = IdUsuario;
             a.NameUser = NameUser;
             a.Show();
+            this.Hide();
         }
 
         private void btnCorteCaja_Click(object sender, EventArgs e)
         {
             CashDrop c = new CashDrop();
             c.Show();
+            this.Hide();
         }
 
         private void btnImpresiones_Click(object sender, EventArgs e)
@@ -108,12 +119,14 @@ namespace LinkCajaV2
         {
             Boxs b = new Boxs();
             b.Show();
+            this.Hide();
         }
 
         private void btnMiEmpresa_Click(object sender, EventArgs e)
         {
             Company m = new Company();
             m.Show();
+            this.Hide();
         }
 
         private void Menu_FormClosed(object sender, FormClosedEventArgs e)
@@ -125,6 +138,7 @@ namespace LinkCajaV2
         {
             Licenses l = new Licenses();
             l.Show();
+            this.Hide();
         }
 
         private void BtnPanelSalir_Click(object sender, EventArgs e)

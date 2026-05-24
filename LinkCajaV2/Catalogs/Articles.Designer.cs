@@ -367,6 +367,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Articles_FormClosed);
             this.Load += new System.EventHandler(this.Articles_Load);
             this.panelLateral.ResumeLayout(false);
             this.PanelgroupBox.ResumeLayout(false);
