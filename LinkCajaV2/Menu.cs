@@ -5,13 +5,6 @@ using LinkCajaV2.Items;
 using LinkCajaV2.Reports;
 using LinkCajaV2.Sales;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LinkCajaV2
@@ -26,50 +19,50 @@ namespace LinkCajaV2
             InitializeComponent();
         }
 
-
-        private void Menu_FormClosed(object sender, FormClosedEventArgs e)
+        private void btnVentas_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Venta s = new Venta();
+            s.IdUsuario = IdUsuario;
+            s.NameUser = NameUser;
+            s.Show();
         }
 
         private void Menu_Load(object sender, EventArgs e)
         {
-            if(IdTypeUser != 1)
-            {
-                GBConfiguraciones.Visible = false;
-                gbCatalogos.Visible = false;
-                GBReportes.Visible = false;
-                if (IdTypeUser == 2)
-                {
-                    GBArticulos.Visible = false;
-                }
-                if (IdTypeUser == 3)
-                {
-                    GBVenta.Visible = false;
-                }
-            }
-            else
-            {
-                GBArticulos.Visible = false;
-            }
+            lblBienvenido.Text = "Bienvenido al sistema " + NameUser;
         }
 
-        private void licenciaToolStripMenuItem_Click(object sender, EventArgs e)
+        private void btnArticulos_Click(object sender, EventArgs e)
         {
-            Licenses l = new Licenses();
-            l.Show();
+            Articles a = new Articles();
+            a.IsVenta = false;
+            a.Show();
         }
+
         private void btnEmpresa_Click(object sender, EventArgs e)
         {
             Company m = new Company();
             m.Show();
-            //this.Hide();
         }
 
-        private void BtnCajas_Click(object sender, EventArgs e)
+        private void btnCorte_Click(object sender, EventArgs e)
         {
-            Boxs b = new Boxs();
-            b.Show();
+            CashDrop c = new CashDrop();
+            c.Show();
+        }
+
+        private void btnVentaMostrador_Click(object sender, EventArgs e)
+        {
+            Venta s = new Venta();
+            s.IdUsuario = IdUsuario;
+            s.NameUser = NameUser;
+            s.Show();
+        }
+
+        private void btnTicket_Click(object sender, EventArgs e)
+        {
+            Tickets t = new Tickets();
+            t.Show();
         }
 
         private void btnUsuarios_Click(object sender, EventArgs e)
@@ -84,31 +77,23 @@ namespace LinkCajaV2
             m.Show();
         }
 
-        private void btnClientes_Click(object sender, EventArgs e)
+        private void btnCategorias_Click(object sender, EventArgs e)
         {
-            Clients c = new Clients();
+            Categories c = new Categories();
             c.Show();
         }
 
-        private void BtnArticulos_Click(object sender, EventArgs e)
+        private void btnArticules_Click(object sender, EventArgs e)
         {
             Articles a = new Articles();
             a.IsVenta = false;
             a.Show();
         }
 
-        private void BtnRecetas_Click(object sender, EventArgs e)
+        private void btnCorteCaja_Click(object sender, EventArgs e)
         {
-            Recipes r = new Recipes();
-            r.Show();
-        }
-
-        private void BtnVenta_Click(object sender, EventArgs e)
-        {
-            Venta s = new Venta();
-            s.IdUsuario = IdUsuario;
-            s.NameUser = NameUser;
-            s.Show();
+            CashDrop c = new CashDrop();
+            c.Show();
         }
 
         private void btnImpresiones_Click(object sender, EventArgs e)
@@ -117,34 +102,32 @@ namespace LinkCajaV2
             s.Show();
         }
 
-        private void btnReporteTickets_Click(object sender, EventArgs e)
+        private void btnConfigCajas_Click(object sender, EventArgs e)
         {
-            Tickets t = new Tickets();
-            t.Show();
+            Boxs b = new Boxs();
+            b.Show();
         }
 
-        private void btnArticulos2_Click(object sender, EventArgs e)
+        private void btnMiEmpresa_Click(object sender, EventArgs e)
         {
-            Articles a = new Articles();
-            a.IsVenta = false;
-            a.Show();
+            Company m = new Company();
+            m.Show();
         }
 
-        private void BtnCorte_Click(object sender, EventArgs e)
+        private void Menu_FormClosed(object sender, FormClosedEventArgs e)
         {
-            CashDrop c = new CashDrop();
-            c.Show();
+            Application.Exit();
         }
 
-        private void btnCategorizes_Click(object sender, EventArgs e)
+        private void btnLicencias_Click(object sender, EventArgs e)
         {
-            Categories c = new Categories();
-            c.Show();
+            Licenses l = new Licenses();
+            l.Show();
         }
 
-        private void btnSalir_Click(object sender, EventArgs e)
+        private void BtnSalir_Click(object sender, EventArgs e)
         {
-            Login login = new Login();  
+            Login login = new Login();
             login.Show();
             this.Hide();
         }
