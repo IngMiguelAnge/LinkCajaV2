@@ -1,17 +1,21 @@
-﻿using LinkCajaV2.Data;
+﻿using LinkCajaV2.Configuraciones;
+using LinkCajaV2.Data;
 using LinkCajaV2.Model;
+using LinkCajaV2.Reports;
+using LinkCajaV2.Sales;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using System.Drawing;
 
 namespace LinkCajaV2.Catalogs
 {
     public partial class Articles : Form
     {
+        public int IdUsuario { get; set; }
+        public string NameUser { get; set; }
         public int Id { get; set; }
         public bool IsVenta { get; set; } = false;
         public bool IsReceta { get; set; } = false;
@@ -23,6 +27,37 @@ namespace LinkCajaV2.Catalogs
         public Articles()
         {
             InitializeComponent();
+        }
+        private void btnPanelVentas_Click(object sender, EventArgs e)
+        {
+            Venta s = new Venta();
+            s.IdUsuario = IdUsuario;
+            s.NameUser = NameUser;
+            s.Show();
+        }
+        private void btnPanelArticulos_Click(object sender, EventArgs e)
+        {
+            Articles a = new Articles();
+            a.IsVenta = false;
+            a.Show();
+        }
+
+        private void btnPanelEmpresa_Click(object sender, EventArgs e)
+        {
+            Company m = new Company();
+            m.Show();
+        }
+
+        private void btnPanelCorte_Click(object sender, EventArgs e)
+        {
+            CashDrop c = new CashDrop();
+            c.Show();
+        }
+        private void BtnPanelSalir_Click(object sender, EventArgs e)
+        {
+            Login login = new Login();
+            login.Show();
+            this.Hide();
         }
         private async void BtnBuscar_Click(object sender, EventArgs e)
         {

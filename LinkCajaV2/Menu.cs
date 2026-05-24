@@ -19,33 +19,33 @@ namespace LinkCajaV2
             InitializeComponent();
         }
 
-        private void btnVentas_Click(object sender, EventArgs e)
+        private void Menu_Load(object sender, EventArgs e)
+        {
+            lblBienvenido.Text = "Bienvenido al sistema " + NameUser;
+        }
+        private void btnPanelVentas_Click(object sender, EventArgs e)
         {
             Venta s = new Venta();
             s.IdUsuario = IdUsuario;
             s.NameUser = NameUser;
             s.Show();
         }
-
-        private void Menu_Load(object sender, EventArgs e)
-        {
-            lblBienvenido.Text = "Bienvenido al sistema " + NameUser;
-        }
-
-        private void btnArticulos_Click(object sender, EventArgs e)
+        private void btnPanelArticulos_Click(object sender, EventArgs e)
         {
             Articles a = new Articles();
             a.IsVenta = false;
+            a.IdUsuario = IdUsuario;
+            a.NameUser = NameUser;
             a.Show();
         }
 
-        private void btnEmpresa_Click(object sender, EventArgs e)
+        private void btnPanelEmpresa_Click(object sender, EventArgs e)
         {
             Company m = new Company();
             m.Show();
         }
 
-        private void btnCorte_Click(object sender, EventArgs e)
+        private void btnPanelCorte_Click(object sender, EventArgs e)
         {
             CashDrop c = new CashDrop();
             c.Show();
@@ -87,6 +87,8 @@ namespace LinkCajaV2
         {
             Articles a = new Articles();
             a.IsVenta = false;
+            a.IdUsuario = IdUsuario;
+            a.NameUser = NameUser;
             a.Show();
         }
 
@@ -125,7 +127,7 @@ namespace LinkCajaV2
             l.Show();
         }
 
-        private void BtnSalir_Click(object sender, EventArgs e)
+        private void BtnPanelSalir_Click(object sender, EventArgs e)
         {
             Login login = new Login();
             login.Show();
