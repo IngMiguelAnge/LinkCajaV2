@@ -65,6 +65,8 @@ namespace LinkCajaV2
         private void btnTicket_Click(object sender, EventArgs e)
         {
             Tickets t = new Tickets();
+            t.IdUsuario = IdUsuario;
+            t.NameUser = NameUser;
             t.Show();
             this.Hide();
         }

@@ -641,6 +641,8 @@ namespace LinkCajaV2.Sales
         private void btnVerTickets_Click(object sender, EventArgs e)
         {
             Tickets t = new Tickets();
+            t.IdUsuario = IdUsuario;
+            t.NameUser = NameUser;
             t.ShowDialog();
         }
         private void dgvArticulos_CellClick(object sender, DataGridViewCellEventArgs e)
