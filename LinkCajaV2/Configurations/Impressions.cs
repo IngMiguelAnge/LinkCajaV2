@@ -35,11 +35,12 @@ namespace LinkCajaV2.Configurations
             {
                 CBModificar.Items.Add("Articulos");
                 CBModificar.Items.Add("Precios");
-                CBModificar.Items.Add("Recuadro");
+                if(CBImpresiones.Text != "Lista de precios")
+                    CBModificar.Items.Add("Recuadro");
             }
             else
             {
-                CBModificar.Items.Add("Company");
+                CBModificar.Items.Add("Nombre de empresa");
                 CBModificar.Items.Add("RFC");
                 CBModificar.Items.Add("Tabla");
                 CBModificar.Items.Add("Total");
@@ -90,6 +91,7 @@ namespace LinkCajaV2.Configurations
             CBImpresiones.Items.Add("Seleccione");
             CBImpresiones.Items.Add("Lista de precios");
             CBImpresiones.Items.Add("Ticket");
+            CBImpresiones.Items.Add("Etiquetas");
             CBImpresiones.SelectedIndex = 0;
         }
 
@@ -170,15 +172,24 @@ namespace LinkCajaV2.Configurations
                     CBImprimir.Visible = true;
                     AppRepository obj2 = new AppRepository();
                     ConfigPageModel ConfigPage = obj2.GetConfigPage().Result;
-                    //CBColorLinea.SelectedValue = ConfigPage.ColorLine;
-                    //CBAlineacion.SelectedValue = ConfigPage.Align;
-                    //NUDEspacio.Value = ConfigPage.Spacing;
-                    //NUDHightLine.Value = ConfigPage.HightLine;
-                    //NUDAncho.Value = ConfigPage.Width;
                     NUDALMilimetros.Value = ConfigPage.HightPage;
                     CBPagina.SelectedItem = ConfigPage.Page;
                     NUDAMilimetros.Value = ConfigPage.WidthPage;
                     ConfigImpressions = obj2.GetConfigImpressions("Ticket").Result;
+                    break;
+                case "Etiquetas":
+                    Iniciar();
+                    AppRepository obj3 = new AppRepository();
+                    ConfigPageModel ConfigBox2 = obj3.GetConfigBox().Result;
+                    CBColorLinea.SelectedValue = ConfigBox2.ColorLine;
+                    CBAlineacion.SelectedValue = ConfigBox2.Align;
+                    NUDEspacio.Value = ConfigBox2.Spacing;
+                    NUDHightLine.Value = ConfigBox2.HightLine;
+                    NUDAncho.Value = ConfigBox2.Width;
+                    NUDALMilimetros.Value = ConfigBox2.HightPage;
+                    CBPagina.SelectedItem = ConfigBox2.Page;
+                    NUDAMilimetros.Value = ConfigBox2.WidthPage;
+                    ConfigImpressions = obj3.GetConfigImpressions("Etiquetas").Result;
                     break;
                 default:
                     GBCuadros.Visible = false;
@@ -196,21 +207,24 @@ namespace LinkCajaV2.Configurations
                 MessageBox.Show("Seleccione una impresión", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            if (CBImpresiones.Text == "Lista de precios")
+            if (CBImpresiones.Text == "Lista de precios" || CBImpresiones.Text == "Etiquetas")
             {
                 List<PrinterPricesModel> articulos = new List<PrinterPricesModel>();
-                articulos.Add(new PrinterPricesModel() { Articulo = "Coca Cola", Precio = 15.50m });
-                articulos.Add(new PrinterPricesModel() { Articulo = "Pepsi", Precio = 14.00m });
-                articulos.Add(new PrinterPricesModel() { Articulo = "Fanta", Precio = 13.75m });
-                articulos.Add(new PrinterPricesModel() { Articulo = "Sprite", Precio = 12.25m });
-                articulos.Add(new PrinterPricesModel() { Articulo = "Agua", Precio = 10.00m });
-                articulos.Add(new PrinterPricesModel() { Articulo = "Jugo", Precio = 18.00m });
-                articulos.Add(new PrinterPricesModel() { Articulo = "Cerveza", Precio = 20.00m });
-                articulos.Add(new PrinterPricesModel() { Articulo = "Vino", Precio = 50.00m });
-                articulos.Add(new PrinterPricesModel() { Articulo = "Whisky", Precio = 100.00m });
-                articulos.Add(new PrinterPricesModel() { Articulo = "Ron", Precio = 80.00m });
+                articulos.Add(new PrinterPricesModel() { Articulo = "Coca Cola", Categoria = "Bebidas", Precio = 15.50m });
+                articulos.Add(new PrinterPricesModel() { Articulo = "Pepsi", Categoria = "Bebidas", Precio = 14.00m });
+                articulos.Add(new PrinterPricesModel() { Articulo = "Fanta", Categoria = "Bebidas", Precio = 13.75m });
+                articulos.Add(new PrinterPricesModel() { Articulo = "Sprite", Categoria = "Bebidas", Precio = 12.25m });
+                articulos.Add(new PrinterPricesModel() { Articulo = "Agua", Categoria = "Bebidas", Precio = 10.00m });
+                articulos.Add(new PrinterPricesModel() { Articulo = "Jugo", Categoria = "Bebidas", Precio = 18.00m });
+                articulos.Add(new PrinterPricesModel() { Articulo = "Cerveza", Categoria = "Bebidas", Precio = 20.00m });
+                articulos.Add(new PrinterPricesModel() { Articulo = "Vino", Categoria = "Bebidas", Precio = 50.00m });
+                articulos.Add(new PrinterPricesModel() { Articulo = "Whisky", Categoria = "Bebidas", Precio = 100.00m });
+                articulos.Add(new PrinterPricesModel() { Articulo = "Ron", Categoria = "Bebidas", Precio = 80.00m });
                 ImpressionsGeneral im = new ImpressionsGeneral();
-                im.ImpresionPrecios(articulos);
+                if(CBImpresiones.Text == "Lista de precios")
+                    im.ImpresionListaPrecios(articulos);
+                else
+                    im.ImpresionEtiquetas(articulos);
             }
             else
             {

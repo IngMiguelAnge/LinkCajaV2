@@ -43,6 +43,7 @@
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.BtnImpresion = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.cbEtiquetas = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             this.SuspendLayout();
@@ -74,10 +75,10 @@
             this.btnNuevo.ForeColor = System.Drawing.Color.White;
             this.btnNuevo.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevo.Image")));
             this.btnNuevo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNuevo.Location = new System.Drawing.Point(929, 130);
+            this.btnNuevo.Location = new System.Drawing.Point(1118, 125);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(120, 37);
-            this.btnNuevo.TabIndex = 6;
+            this.btnNuevo.TabIndex = 7;
             this.btnNuevo.Text = "Nuevo";
             this.btnNuevo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNuevo.UseVisualStyleBackColor = false;
@@ -91,7 +92,7 @@
             this.BtnBuscar.ForeColor = System.Drawing.Color.White;
             this.BtnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("BtnBuscar.Image")));
             this.BtnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnBuscar.Location = new System.Drawing.Point(661, 129);
+            this.BtnBuscar.Location = new System.Drawing.Point(660, 125);
             this.BtnBuscar.Name = "BtnBuscar";
             this.BtnBuscar.Size = new System.Drawing.Size(120, 37);
             this.BtnBuscar.TabIndex = 4;
@@ -190,10 +191,10 @@
             this.BtnImpresion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.BtnImpresion.Image = ((System.Drawing.Image)(resources.GetObject("BtnImpresion.Image")));
             this.BtnImpresion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnImpresion.Location = new System.Drawing.Point(794, 129);
+            this.BtnImpresion.Location = new System.Drawing.Point(975, 125);
             this.BtnImpresion.Name = "BtnImpresion";
             this.BtnImpresion.Size = new System.Drawing.Size(123, 37);
-            this.BtnImpresion.TabIndex = 5;
+            this.BtnImpresion.TabIndex = 6;
             this.BtnImpresion.Text = "Imprimir";
             this.BtnImpresion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnImpresion.UseVisualStyleBackColor = false;
@@ -210,12 +211,26 @@
             this.lblTitulo.TabIndex = 24;
             this.lblTitulo.Text = "Lista de Articulos";
             // 
+            // cbEtiquetas
+            // 
+            this.cbEtiquetas.AutoSize = true;
+            this.cbEtiquetas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbEtiquetas.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbEtiquetas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.cbEtiquetas.Location = new System.Drawing.Point(799, 127);
+            this.cbEtiquetas.Name = "cbEtiquetas";
+            this.cbEtiquetas.Size = new System.Drawing.Size(139, 32);
+            this.cbEtiquetas.TabIndex = 5;
+            this.cbEtiquetas.Text = "¿Etiquetas?";
+            this.cbEtiquetas.UseVisualStyleBackColor = true;
+            // 
             // Articles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1271, 576);
+            this.Controls.Add(this.cbEtiquetas);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.BtnImpresion);
             this.Controls.Add(this.txtCodigo);
@@ -253,5 +268,6 @@
         private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.Button BtnImpresion;
         private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.CheckBox cbEtiquetas;
     }
 }

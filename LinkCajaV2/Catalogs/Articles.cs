@@ -219,11 +219,15 @@ namespace LinkCajaV2.Catalogs
                 .Select(x => new PrinterPricesModel
                 {
                     Articulo = x.Articulo,
+                    Categoria = x.Categoria,
                     Precio = x.Precio
                 })
                 .ToList();
                 ImpressionsGeneral im = new ImpressionsGeneral();
-                im.ImpresionPrecios(articulos);
+                if(cbEtiquetas.Checked)
+                    im.ImpresionEtiquetas(articulos);
+                else
+                    im.ImpresionListaPrecios(articulos);
             }
             catch (Exception ex)
             {
