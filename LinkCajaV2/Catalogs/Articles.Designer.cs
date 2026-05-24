@@ -40,6 +40,7 @@
             this.btnPanelArticulos = new System.Windows.Forms.Button();
             this.btnPanelVentas = new System.Windows.Forms.Button();
             this.lblPanelTituloApp = new System.Windows.Forms.Label();
+            this.btnPanelMenu = new System.Windows.Forms.Button();
             this.lblNombre = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.btnNuevo = new System.Windows.Forms.Button();
@@ -52,7 +53,6 @@
             this.BtnImpresion = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.cbEtiquetas = new System.Windows.Forms.CheckBox();
-            this.btnPanelMenu = new System.Windows.Forms.Button();
             this.panelLateral.SuspendLayout();
             this.PanelgroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -168,6 +168,21 @@
             this.lblPanelTituloApp.Size = new System.Drawing.Size(220, 87);
             this.lblPanelTituloApp.TabIndex = 4;
             this.lblPanelTituloApp.Text = "PUNTO DE VENTA";
+            // 
+            // btnPanelMenu
+            // 
+            this.btnPanelMenu.FlatAppearance.BorderSize = 0;
+            this.btnPanelMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPanelMenu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnPanelMenu.ForeColor = System.Drawing.Color.White;
+            this.btnPanelMenu.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelMenu.Image")));
+            this.btnPanelMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPanelMenu.Location = new System.Drawing.Point(12, 123);
+            this.btnPanelMenu.Name = "btnPanelMenu";
+            this.btnPanelMenu.Size = new System.Drawing.Size(246, 82);
+            this.btnPanelMenu.TabIndex = 26;
+            this.btnPanelMenu.Text = "Menu";
+            this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click);
             // 
             // lblNombre
             // 
@@ -344,22 +359,7 @@
             this.cbEtiquetas.TabIndex = 5;
             this.cbEtiquetas.Text = "¿Etiquetas?";
             this.cbEtiquetas.UseVisualStyleBackColor = true;
-            // 
-            // btnPanelMenu
-            // 
-            this.btnPanelMenu.FlatAppearance.BorderSize = 0;
-            this.btnPanelMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPanelMenu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnPanelMenu.ForeColor = System.Drawing.Color.White;
-            this.btnPanelMenu.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelMenu.Image")));
-            this.btnPanelMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelMenu.Location = new System.Drawing.Point(12, 123);
-            this.btnPanelMenu.Name = "btnPanelMenu";
-            this.btnPanelMenu.Size = new System.Drawing.Size(246, 82);
-            this.btnPanelMenu.TabIndex = 26;
-            this.btnPanelMenu.Text = "Menu";
-            this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click);
-            // 
+            //
             // Articles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -402,6 +402,9 @@
         private System.Windows.Forms.Button btnPanelArticulos;
         private System.Windows.Forms.Button btnPanelEmpresa;
         private System.Windows.Forms.Button btnPanelCorte;
+        private System.Windows.Forms.Button BtnPanelSalir;
+        private System.Windows.Forms.Button btnPanelMenu;
+        private System.Windows.Forms.GroupBox PanelgroupBox;
 
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.TextBox txtNombre;
@@ -415,8 +418,5 @@
         private System.Windows.Forms.Button BtnImpresion;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.CheckBox cbEtiquetas;
-        private System.Windows.Forms.GroupBox PanelgroupBox;
-        private System.Windows.Forms.Button BtnPanelSalir;
-        private System.Windows.Forms.Button btnPanelMenu;
     }
 }

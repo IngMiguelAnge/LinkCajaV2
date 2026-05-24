@@ -81,6 +81,8 @@ namespace LinkCajaV2
         private void btnProveedores_Click(object sender, EventArgs e)
         {
             Suppliers m = new Suppliers();
+            m.IdUsuario= IdUsuario;
+            m.NameUser= NameUser;
             m.Show();
             this.Hide();
         }

@@ -32,6 +32,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.panelLateral = new System.Windows.Forms.Panel();
+            this.btnPanelMenu = new System.Windows.Forms.Button();
+            this.PanelgroupBox = new System.Windows.Forms.GroupBox();
+            this.BtnPanelSalir = new System.Windows.Forms.Button();
+            this.btnPanelCorte = new System.Windows.Forms.Button();
+            this.btnPanelEmpresa = new System.Windows.Forms.Button();
+            this.btnPanelArticulos = new System.Windows.Forms.Button();
+            this.btnPanelVentas = new System.Windows.Forms.Button();
+            this.lblPanelTituloApp = new System.Windows.Forms.Label();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvProveedores = new System.Windows.Forms.DataGridView();
@@ -40,9 +49,130 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.panelLateral.SuspendLayout();
+            this.PanelgroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProveedores)).BeginInit();
             this.SuspendLayout();
+            // 
+            // panelLateral
+            // 
+            this.panelLateral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            this.panelLateral.Controls.Add(this.btnPanelMenu);
+            this.panelLateral.Controls.Add(this.PanelgroupBox);
+            this.panelLateral.Controls.Add(this.btnPanelCorte);
+            this.panelLateral.Controls.Add(this.btnPanelEmpresa);
+            this.panelLateral.Controls.Add(this.btnPanelArticulos);
+            this.panelLateral.Controls.Add(this.btnPanelVentas);
+            this.panelLateral.Controls.Add(this.lblPanelTituloApp);
+            this.panelLateral.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelLateral.Location = new System.Drawing.Point(0, 0);
+            this.panelLateral.Name = "panelLateral";
+            this.panelLateral.Size = new System.Drawing.Size(264, 573);
+            this.panelLateral.TabIndex = 0;
+            // 
+            // btnPanelMenu
+            // 
+            this.btnPanelMenu.FlatAppearance.BorderSize = 0;
+            this.btnPanelMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPanelMenu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnPanelMenu.ForeColor = System.Drawing.Color.White;
+            this.btnPanelMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPanelMenu.Location = new System.Drawing.Point(9, 120);
+            this.btnPanelMenu.Name = "btnPanelMenu";
+            this.btnPanelMenu.Size = new System.Drawing.Size(249, 82);
+            this.btnPanelMenu.TabIndex = 26;
+            this.btnPanelMenu.Text = "Menu";
+            // 
+            // PanelgroupBox
+            // 
+            this.PanelgroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.PanelgroupBox.Controls.Add(this.BtnPanelSalir);
+            this.PanelgroupBox.Location = new System.Drawing.Point(6, 488);
+            this.PanelgroupBox.Name = "PanelgroupBox";
+            this.PanelgroupBox.Size = new System.Drawing.Size(258, 73);
+            this.PanelgroupBox.TabIndex = 25;
+            this.PanelgroupBox.TabStop = false;
+            // 
+            // BtnPanelSalir
+            // 
+            this.BtnPanelSalir.FlatAppearance.BorderSize = 0;
+            this.BtnPanelSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnPanelSalir.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.BtnPanelSalir.ForeColor = System.Drawing.Color.White;
+            this.BtnPanelSalir.Location = new System.Drawing.Point(6, 15);
+            this.BtnPanelSalir.Name = "BtnPanelSalir";
+            this.BtnPanelSalir.Size = new System.Drawing.Size(238, 45);
+            this.BtnPanelSalir.TabIndex = 5;
+            this.BtnPanelSalir.Text = "🡸   Salir";
+            this.BtnPanelSalir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnPanelSalir.Click += new System.EventHandler(this.BtnPanelSalir_Click);
+            // 
+            // btnPanelCorte
+            // 
+            this.btnPanelCorte.FlatAppearance.BorderSize = 0;
+            this.btnPanelCorte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPanelCorte.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnPanelCorte.ForeColor = System.Drawing.Color.White;
+            this.btnPanelCorte.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPanelCorte.Location = new System.Drawing.Point(9, 430);
+            this.btnPanelCorte.Name = "btnPanelCorte";
+            this.btnPanelCorte.Size = new System.Drawing.Size(249, 45);
+            this.btnPanelCorte.TabIndex = 7;
+            this.btnPanelCorte.Text = " Corte de Caja";
+            this.btnPanelCorte.Click += new System.EventHandler(this.btnPanelCorte_Click);
+            // 
+            // btnPanelEmpresa
+            // 
+            this.btnPanelEmpresa.FlatAppearance.BorderSize = 0;
+            this.btnPanelEmpresa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPanelEmpresa.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnPanelEmpresa.ForeColor = System.Drawing.Color.White;
+            this.btnPanelEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPanelEmpresa.Location = new System.Drawing.Point(12, 365);
+            this.btnPanelEmpresa.Name = "btnPanelEmpresa";
+            this.btnPanelEmpresa.Size = new System.Drawing.Size(249, 45);
+            this.btnPanelEmpresa.TabIndex = 0;
+            this.btnPanelEmpresa.Text = "Mi Empresa";
+            this.btnPanelEmpresa.Click += new System.EventHandler(this.btnPanelEmpresa_Click);
+            // 
+            // btnPanelArticulos
+            // 
+            this.btnPanelArticulos.FlatAppearance.BorderSize = 0;
+            this.btnPanelArticulos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPanelArticulos.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnPanelArticulos.ForeColor = System.Drawing.Color.White;
+            this.btnPanelArticulos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPanelArticulos.Location = new System.Drawing.Point(13, 296);
+            this.btnPanelArticulos.Name = "btnPanelArticulos";
+            this.btnPanelArticulos.Size = new System.Drawing.Size(248, 45);
+            this.btnPanelArticulos.TabIndex = 1;
+            this.btnPanelArticulos.Text = "Articulos";
+            this.btnPanelArticulos.Click += new System.EventHandler(this.btnPanelArticulos_Click);
+            // 
+            // btnPanelVentas
+            // 
+            this.btnPanelVentas.FlatAppearance.BorderSize = 0;
+            this.btnPanelVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPanelVentas.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnPanelVentas.ForeColor = System.Drawing.Color.White;
+            this.btnPanelVentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPanelVentas.Location = new System.Drawing.Point(12, 208);
+            this.btnPanelVentas.Name = "btnPanelVentas";
+            this.btnPanelVentas.Size = new System.Drawing.Size(249, 82);
+            this.btnPanelVentas.TabIndex = 2;
+            this.btnPanelVentas.Text = " Ventas";
+            this.btnPanelVentas.Click += new System.EventHandler(this.btnPanelVentas_Click);
+            // 
+            // lblPanelTituloApp
+            // 
+            this.lblPanelTituloApp.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.lblPanelTituloApp.ForeColor = System.Drawing.Color.White;
+            this.lblPanelTituloApp.Location = new System.Drawing.Point(22, 20);
+            this.lblPanelTituloApp.Name = "lblPanelTituloApp";
+            this.lblPanelTituloApp.Size = new System.Drawing.Size(220, 87);
+            this.lblPanelTituloApp.TabIndex = 4;
+            this.lblPanelTituloApp.Text = "PUNTO DE VENTA";
             // 
             // btnNuevo
             // 
@@ -52,7 +182,7 @@
             this.btnNuevo.ForeColor = System.Drawing.Color.White;
             this.btnNuevo.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevo.Image")));
             this.btnNuevo.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.btnNuevo.Location = new System.Drawing.Point(489, 132);
+            this.btnNuevo.Location = new System.Drawing.Point(747, 130);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(120, 37);
             this.btnNuevo.TabIndex = 3;
@@ -70,9 +200,9 @@
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.groupBox1.Location = new System.Drawing.Point(32, 236);
+            this.groupBox1.Location = new System.Drawing.Point(299, 236);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(921, 212);
+            this.groupBox1.Size = new System.Drawing.Size(654, 325);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Proveedores";
@@ -109,14 +239,14 @@
             this.dgvProveedores.ReadOnly = true;
             this.dgvProveedores.RowHeadersWidth = 62;
             this.dgvProveedores.RowTemplate.Height = 28;
-            this.dgvProveedores.Size = new System.Drawing.Size(915, 174);
+            this.dgvProveedores.Size = new System.Drawing.Size(648, 287);
             this.dgvProveedores.TabIndex = 6;
             this.dgvProveedores.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProveedores_CellContentClick);
             // 
             // txtNombre
             // 
             this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(41, 133);
+            this.txtNombre.Location = new System.Drawing.Point(299, 131);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(272, 37);
             this.txtNombre.TabIndex = 1;
@@ -126,7 +256,7 @@
             this.lblNombre.AutoSize = true;
             this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblNombre.Location = new System.Drawing.Point(37, 94);
+            this.lblNombre.Location = new System.Drawing.Point(295, 92);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(206, 25);
             this.lblNombre.TabIndex = 0;
@@ -140,7 +270,7 @@
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
             this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.btnBuscar.Location = new System.Drawing.Point(356, 133);
+            this.btnBuscar.Location = new System.Drawing.Point(614, 131);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(120, 37);
             this.btnBuscar.TabIndex = 2;
@@ -152,7 +282,7 @@
             // progressBar1
             // 
             this.progressBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.progressBar1.Location = new System.Drawing.Point(41, 196);
+            this.progressBar1.Location = new System.Drawing.Point(299, 194);
             this.progressBar1.MarqueeAnimationSpeed = 0;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(520, 6);
@@ -164,7 +294,7 @@
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.lblTitulo.Location = new System.Drawing.Point(33, 23);
+            this.lblTitulo.Location = new System.Drawing.Point(292, 27);
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(367, 48);
             this.lblTitulo.TabIndex = 25;
@@ -175,7 +305,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(986, 460);
+            this.ClientSize = new System.Drawing.Size(986, 573);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnBuscar);
@@ -183,12 +313,15 @@
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnNuevo);
+            this.Controls.Add(this.panelLateral);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Suppliers";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.panelLateral.ResumeLayout(false);
+            this.PanelgroupBox.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProveedores)).EndInit();
             this.ResumeLayout(false);
@@ -197,6 +330,15 @@
         }
 
         #endregion
+        private System.Windows.Forms.Panel panelLateral;
+        private System.Windows.Forms.Label lblPanelTituloApp;
+        private System.Windows.Forms.Button btnPanelVentas;
+        private System.Windows.Forms.Button btnPanelArticulos;
+        private System.Windows.Forms.Button btnPanelEmpresa;
+        private System.Windows.Forms.Button btnPanelCorte;
+        private System.Windows.Forms.Button BtnPanelSalir;
+        private System.Windows.Forms.Button btnPanelMenu;
+        private System.Windows.Forms.GroupBox PanelgroupBox;
 
         private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.GroupBox groupBox1;
