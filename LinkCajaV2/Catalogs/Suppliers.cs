@@ -165,5 +165,14 @@ namespace LinkCajaV2.Catalogs
                     break;
             }
         }
+
+        private void Suppliers_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Menu m = new Menu();
+            m.IdUsuario = IdUsuario;
+            m.NameUser = NameUser;
+            m.Show();
+            this.Hide();
+        }
     }
 }
