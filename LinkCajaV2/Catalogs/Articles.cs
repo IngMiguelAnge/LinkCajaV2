@@ -282,5 +282,14 @@ namespace LinkCajaV2.Catalogs
             m.Show();
             this.Hide();
         }
+
+        private void btnPanelMenu_Click(object sender, EventArgs e)
+        {
+            Menu m = new Menu();
+            m.IdUsuario = IdUsuario;
+            m.NameUser = NameUser;
+            m.Show();
+            this.Hide();
+        }
     }
 }

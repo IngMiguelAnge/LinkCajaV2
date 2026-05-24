@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Articles));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Articles));
             this.panelLateral = new System.Windows.Forms.Panel();
             this.PanelgroupBox = new System.Windows.Forms.GroupBox();
             this.BtnPanelSalir = new System.Windows.Forms.Button();
@@ -52,6 +52,7 @@
             this.BtnImpresion = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.cbEtiquetas = new System.Windows.Forms.CheckBox();
+            this.btnPanelMenu = new System.Windows.Forms.Button();
             this.panelLateral.SuspendLayout();
             this.PanelgroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -61,6 +62,7 @@
             // panelLateral
             // 
             this.panelLateral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            this.panelLateral.Controls.Add(this.btnPanelMenu);
             this.panelLateral.Controls.Add(this.PanelgroupBox);
             this.panelLateral.Controls.Add(this.btnPanelCorte);
             this.panelLateral.Controls.Add(this.btnPanelEmpresa);
@@ -105,9 +107,9 @@
             this.btnPanelCorte.ForeColor = System.Drawing.Color.White;
             this.btnPanelCorte.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelCorte.Image")));
             this.btnPanelCorte.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelCorte.Location = new System.Drawing.Point(12, 338);
+            this.btnPanelCorte.Location = new System.Drawing.Point(9, 430);
             this.btnPanelCorte.Name = "btnPanelCorte";
-            this.btnPanelCorte.Size = new System.Drawing.Size(238, 45);
+            this.btnPanelCorte.Size = new System.Drawing.Size(249, 45);
             this.btnPanelCorte.TabIndex = 7;
             this.btnPanelCorte.Text = " Corte de Caja";
             this.btnPanelCorte.Click += new System.EventHandler(this.btnPanelCorte_Click);
@@ -120,9 +122,9 @@
             this.btnPanelEmpresa.ForeColor = System.Drawing.Color.White;
             this.btnPanelEmpresa.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelEmpresa.Image")));
             this.btnPanelEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelEmpresa.Location = new System.Drawing.Point(12, 273);
+            this.btnPanelEmpresa.Location = new System.Drawing.Point(12, 365);
             this.btnPanelEmpresa.Name = "btnPanelEmpresa";
-            this.btnPanelEmpresa.Size = new System.Drawing.Size(238, 45);
+            this.btnPanelEmpresa.Size = new System.Drawing.Size(249, 45);
             this.btnPanelEmpresa.TabIndex = 0;
             this.btnPanelEmpresa.Text = "Mi Empresa";
             this.btnPanelEmpresa.Click += new System.EventHandler(this.btnPanelEmpresa_Click);
@@ -135,9 +137,9 @@
             this.btnPanelArticulos.ForeColor = System.Drawing.Color.White;
             this.btnPanelArticulos.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelArticulos.Image")));
             this.btnPanelArticulos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelArticulos.Location = new System.Drawing.Point(13, 204);
+            this.btnPanelArticulos.Location = new System.Drawing.Point(13, 296);
             this.btnPanelArticulos.Name = "btnPanelArticulos";
-            this.btnPanelArticulos.Size = new System.Drawing.Size(238, 45);
+            this.btnPanelArticulos.Size = new System.Drawing.Size(248, 45);
             this.btnPanelArticulos.TabIndex = 1;
             this.btnPanelArticulos.Text = "Articulos";
             this.btnPanelArticulos.Click += new System.EventHandler(this.btnPanelArticulos_Click);
@@ -150,9 +152,9 @@
             this.btnPanelVentas.ForeColor = System.Drawing.Color.White;
             this.btnPanelVentas.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelVentas.Image")));
             this.btnPanelVentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelVentas.Location = new System.Drawing.Point(6, 116);
+            this.btnPanelVentas.Location = new System.Drawing.Point(12, 208);
             this.btnPanelVentas.Name = "btnPanelVentas";
-            this.btnPanelVentas.Size = new System.Drawing.Size(238, 82);
+            this.btnPanelVentas.Size = new System.Drawing.Size(249, 82);
             this.btnPanelVentas.TabIndex = 2;
             this.btnPanelVentas.Text = " Ventas";
             this.btnPanelVentas.Click += new System.EventHandler(this.btnPanelVentas_Click);
@@ -343,6 +345,21 @@
             this.cbEtiquetas.Text = "¿Etiquetas?";
             this.cbEtiquetas.UseVisualStyleBackColor = true;
             // 
+            // btnPanelMenu
+            // 
+            this.btnPanelMenu.FlatAppearance.BorderSize = 0;
+            this.btnPanelMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPanelMenu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnPanelMenu.ForeColor = System.Drawing.Color.White;
+            this.btnPanelMenu.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelMenu.Image")));
+            this.btnPanelMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPanelMenu.Location = new System.Drawing.Point(12, 123);
+            this.btnPanelMenu.Name = "btnPanelMenu";
+            this.btnPanelMenu.Size = new System.Drawing.Size(246, 82);
+            this.btnPanelMenu.TabIndex = 26;
+            this.btnPanelMenu.Text = "Menu";
+            this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click);
+            // 
             // Articles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -400,5 +417,6 @@
         private System.Windows.Forms.CheckBox cbEtiquetas;
         private System.Windows.Forms.GroupBox PanelgroupBox;
         private System.Windows.Forms.Button BtnPanelSalir;
+        private System.Windows.Forms.Button btnPanelMenu;
     }
 }

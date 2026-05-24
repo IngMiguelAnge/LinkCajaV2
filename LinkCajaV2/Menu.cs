@@ -147,5 +147,10 @@ namespace LinkCajaV2
             login.Show();
             this.Hide();
         }
+
+        private void btnPanelMenu_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

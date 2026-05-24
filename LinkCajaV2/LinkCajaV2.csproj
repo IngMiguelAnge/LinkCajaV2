@@ -463,6 +463,8 @@
     <Content Include="Icons\Guardar.png" />
     <Content Include="Icons\Impresiones.png" />
     <Content Include="Icons\Impresora.png" />
+    <Content Include="Icons\Inicio.png" />
+    <Content Include="Icons\Inicio2.png" />
     <Content Include="Icons\Inventario.png" />
     <Content Include="Icons\Licencias.png" />
     <Content Include="Icons\LogoLink.jpeg" />
