@@ -308,7 +308,7 @@
             this.BtnGuardar.ForeColor = System.Drawing.Color.White;
             this.BtnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("BtnGuardar.Image")));
             this.BtnGuardar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnGuardar.Location = new System.Drawing.Point(1069, 484);
+            this.BtnGuardar.Location = new System.Drawing.Point(1385, 487);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(200, 48);
             this.BtnGuardar.TabIndex = 21;
@@ -470,7 +470,7 @@
             this.btnImprimir.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImprimir.Image = ((System.Drawing.Image)(resources.GetObject("btnImprimir.Image")));
             this.btnImprimir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnImprimir.Location = new System.Drawing.Point(803, 484);
+            this.btnImprimir.Location = new System.Drawing.Point(1119, 487);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(200, 48);
             this.btnImprimir.TabIndex = 32;
@@ -486,7 +486,7 @@
             this.CBImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CBImprimir.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBImprimir.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.CBImprimir.Location = new System.Drawing.Point(41, 376);
+            this.CBImprimir.Location = new System.Drawing.Point(885, 495);
             this.CBImprimir.Name = "CBImprimir";
             this.CBImprimir.Size = new System.Drawing.Size(215, 32);
             this.CBImprimir.TabIndex = 28;
@@ -535,6 +535,7 @@
             this.Controls.Add(this.lblPagina);
             this.Controls.Add(this.CBImpresiones);
             this.Controls.Add(this.lblImpresiones);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Impressions";

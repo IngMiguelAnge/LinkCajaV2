@@ -316,7 +316,7 @@ namespace LinkCajaV2.Data
                 float mmToPt = 2.83465f;
                 float anchoTicketMm = (float)ConfigBox.WidthPage; // Cambia a 58f si la impresora es pequeña
                 float altoBaseMm = (float)ConfigBox.HightPage;//60f;
-                float altoDinamicoMm = altoBaseMm + (venta.Articles.Count * 20f);//+ 25f;
+                float altoDinamicoMm = altoBaseMm + (venta.Articles.Count * 6f) + 16f;
                 float anchoFinal = anchoTicketMm * mmToPt;
                 float altoFinal = altoDinamicoMm * mmToPt;
                 QuestPDF.Settings.License = LicenseType.Community;
@@ -412,10 +412,10 @@ namespace LinkCajaV2.Data
                                 });
                                 foreach (var item in venta.Articles)
                                 {
-                                    table.Cell().AlignLeft().Text(item.Code).Style(EstiloTabla);
-                                    table.Cell().AlignLeft().Text(item.Name).Style(EstiloTabla);
-                                    table.Cell().AlignCenter().Text(item.Stock.ToString(item.Decimals > 0 ? "N3" : "N0")).Style(EstiloTabla);
-                                    table.Cell().AlignRight().Text(item.Total.ToString("C2")).Style(EstiloTabla);
+                                    table.Cell().PaddingVertical(1).AlignLeft().Text(item.Code).Style(EstiloTabla);
+                                    table.Cell().PaddingVertical(1).AlignLeft().Text(item.Name).Style(EstiloTabla);
+                                    table.Cell().PaddingVertical(1).AlignCenter().Text(item.Stock.ToString(item.Decimals > 0 ? "N3" : "N0")).Style(EstiloTabla);
+                                    table.Cell().PaddingVertical(1).AlignRight().Text(item.Total.ToString("C2")).Style(EstiloTabla);
                                 }
                             });
 
