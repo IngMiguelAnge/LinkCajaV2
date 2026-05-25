@@ -84,6 +84,7 @@
             this.btnPanelMenu.Size = new System.Drawing.Size(249, 82);
             this.btnPanelMenu.TabIndex = 26;
             this.btnPanelMenu.Text = "Menu";
+            this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click_1);
             // 
             // PanelgroupBox
             // 

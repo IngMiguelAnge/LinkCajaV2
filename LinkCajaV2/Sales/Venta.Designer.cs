@@ -62,6 +62,7 @@
             this.lblCopias = new System.Windows.Forms.Label();
             this.CBImprimir = new System.Windows.Forms.CheckBox();
             this.NUDCopias = new System.Windows.Forms.NumericUpDown();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.panelLateral.SuspendLayout();
             this.PanelgroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUDCantidad)).BeginInit();
@@ -72,6 +73,7 @@
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUDCopias)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelLateral
@@ -114,6 +116,7 @@
             this.btnPanelMenu.Size = new System.Drawing.Size(249, 82);
             this.btnPanelMenu.TabIndex = 26;
             this.btnPanelMenu.Text = "Menu";
+            this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click_1);
             // 
             // PanelgroupBox
             // 
@@ -234,10 +237,10 @@
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.Location = new System.Drawing.Point(1217, 294);
+            this.btnBuscar.Location = new System.Drawing.Point(1060, 293);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(114, 56);
+            this.btnBuscar.Size = new System.Drawing.Size(114, 40);
             this.btnBuscar.TabIndex = 4;
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -406,7 +409,7 @@
             this.lblUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.lblUsuario.Location = new System.Drawing.Point(18, 27);
             this.lblUsuario.Name = "lblUsuario";
-            this.lblUsuario.Size = new System.Drawing.Size(348, 95);
+            this.lblUsuario.Size = new System.Drawing.Size(281, 95);
             this.lblUsuario.TabIndex = 22;
             this.lblUsuario.Text = "Bien venido: Administrador";
             // 
@@ -422,25 +425,23 @@
             // 
             // lblNombreEmpresa
             // 
-            this.lblNombreEmpresa.AutoSize = true;
             this.lblNombreEmpresa.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombreEmpresa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.lblNombreEmpresa.Location = new System.Drawing.Point(476, 27);
+            this.lblNombreEmpresa.Location = new System.Drawing.Point(18, 27);
             this.lblNombreEmpresa.Name = "lblNombreEmpresa";
-            this.lblNombreEmpresa.Size = new System.Drawing.Size(244, 38);
+            this.lblNombreEmpresa.Size = new System.Drawing.Size(660, 108);
             this.lblNombreEmpresa.TabIndex = 26;
             this.lblNombreEmpresa.Text = "Nombre Empresa";
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.groupBox2.Controls.Add(this.lblUsuario);
-            this.groupBox2.Location = new System.Drawing.Point(762, 19);
+            this.groupBox2.Location = new System.Drawing.Point(1149, 19);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox2.Size = new System.Drawing.Size(689, 142);
+            this.groupBox2.Size = new System.Drawing.Size(302, 142);
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             // 
@@ -502,16 +503,26 @@
             this.NUDCopias.Size = new System.Drawing.Size(146, 34);
             this.NUDCopias.TabIndex = 19;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.lblNombreEmpresa);
+            this.groupBox4.Location = new System.Drawing.Point(439, 19);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(704, 142);
+            this.groupBox4.TabIndex = 29;
+            this.groupBox4.TabStop = false;
+            // 
             // Venta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1517, 1050);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.PBLogo);
-            this.Controls.Add(this.lblNombreEmpresa);
             this.Controls.Add(this.btnVerTickets);
             this.Controls.Add(this.btnNuevo);
             this.Controls.Add(this.groupBox1);
@@ -543,6 +554,7 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUDCopias)).EndInit();
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -580,5 +592,6 @@
         private System.Windows.Forms.CheckBox CBImprimir;
         private System.Windows.Forms.Label lblCopias;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox4;
     }
 }

@@ -47,9 +47,10 @@
             // dtHasta
             // 
             this.dtHasta.CalendarFont = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtHasta.Location = new System.Drawing.Point(341, 137);
+            this.dtHasta.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtHasta.Location = new System.Drawing.Point(500, 137);
             this.dtHasta.Name = "dtHasta";
-            this.dtHasta.Size = new System.Drawing.Size(272, 26);
+            this.dtHasta.Size = new System.Drawing.Size(419, 37);
             this.dtHasta.TabIndex = 3;
             // 
             // lblHasta
@@ -57,7 +58,7 @@
             this.lblHasta.AutoSize = true;
             this.lblHasta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHasta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblHasta.Location = new System.Drawing.Point(336, 96);
+            this.lblHasta.Location = new System.Drawing.Point(495, 96);
             this.lblHasta.Name = "lblHasta";
             this.lblHasta.Size = new System.Drawing.Size(66, 25);
             this.lblHasta.TabIndex = 2;
@@ -77,9 +78,10 @@
             // dtDesde
             // 
             this.dtDesde.CalendarFont = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtDesde.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtDesde.Location = new System.Drawing.Point(41, 137);
             this.dtDesde.Name = "dtDesde";
-            this.dtDesde.Size = new System.Drawing.Size(272, 26);
+            this.dtDesde.Size = new System.Drawing.Size(426, 37);
             this.dtDesde.TabIndex = 1;
             // 
             // gbDatos
@@ -93,7 +95,7 @@
             this.gbDatos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.gbDatos.Location = new System.Drawing.Point(24, 209);
             this.gbDatos.Name = "gbDatos";
-            this.gbDatos.Size = new System.Drawing.Size(742, 417);
+            this.gbDatos.Size = new System.Drawing.Size(1035, 417);
             this.gbDatos.TabIndex = 4;
             this.gbDatos.TabStop = false;
             this.gbDatos.Text = "Datos del corte";
@@ -129,7 +131,7 @@
             this.dgvCorte.Name = "dgvCorte";
             this.dgvCorte.RowHeadersWidth = 62;
             this.dgvCorte.RowTemplate.Height = 28;
-            this.dgvCorte.Size = new System.Drawing.Size(736, 379);
+            this.dgvCorte.Size = new System.Drawing.Size(1029, 379);
             this.dgvCorte.TabIndex = 0;
             // 
             // btnBuscar
@@ -141,7 +143,7 @@
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
             this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.Location = new System.Drawing.Point(632, 128);
+            this.btnBuscar.Location = new System.Drawing.Point(945, 137);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(120, 37);
             this.btnBuscar.TabIndex = 5;
@@ -166,7 +168,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(800, 650);
+            this.ClientSize = new System.Drawing.Size(1093, 650);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.gbDatos);

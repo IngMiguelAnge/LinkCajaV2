@@ -171,6 +171,7 @@ namespace LinkCajaV2.Catalogs
             Menu m = new Menu();
             m.IdUsuario = IdUsuario;
             m.NameUser = NameUser;
+            m.IdTypeUser = IdTypeUser;
             m.Show();
             this.Hide();
         }
@@ -189,6 +190,16 @@ namespace LinkCajaV2.Catalogs
                 btnPanelEmpresa.Visible = false;
                 btnPanelCorte.Visible = false;
             }
+        }
+
+        private void btnPanelMenu_Click_1(object sender, EventArgs e)
+        {
+            Menu m = new Menu();
+            m.IdUsuario = IdUsuario;
+            m.IdTypeUser = IdTypeUser;
+            m.NameUser = NameUser;
+            m.Show();
+            this.Hide();
         }
     }
 }

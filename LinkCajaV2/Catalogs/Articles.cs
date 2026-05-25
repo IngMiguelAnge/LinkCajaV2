@@ -100,9 +100,10 @@ namespace LinkCajaV2.Catalogs
             try
             {
                 AppRepository obj = new AppRepository();
+                int IdCategory = cbCategoria.SelectedIndex > 0 ? (int)cbCategoria.SelectedValue : 0;
                 var lista = await Task.Run(() => IsVenta == false ?
-                obj.GetArticles(txtCodigo.Text, txtNombre.Text, IsReceta) :
-                obj.GetArticlesActives(txtCodigo.Text, txtNombre.Text)
+                obj.GetArticles(txtCodigo.Text, txtNombre.Text, IsReceta, IdCategory) :
+                obj.GetArticlesActives(txtCodigo.Text, txtNombre.Text,IdCategory)
                 );
                 if (Impresion == false)
                     dgvArticulos.DataSource = lista != null && lista.Count > 0 ? lista : null;
@@ -253,7 +254,23 @@ namespace LinkCajaV2.Catalogs
             {
                 btnNuevo.Visible = false;
                 BtnImpresion.Visible = false;
+                btnPanelArticulos.Visible = false;
+                btnPanelCorte.Visible = false;
+                btnPanelEmpresa.Visible = false;
+                btnPanelMenu.Visible = false;
+                BtnPanelSalir.Visible = false;
+                btnPanelVentas.Visible = false;
+                cbEtiquetas.Visible = false;
             }
+            AppRepository obj = new AppRepository();
+            var ListCategories = obj.GetCategoriesActives().Result;
+            // Insertamos un objeto "fantasma" al inicio para el placeholder
+            ListCategories.Insert(0, new CategorieModel { Id = 0, Name = "Seleccione" });
+            cbCategoria.Items.Clear();
+            cbCategoria.DisplayMember = "Name";
+            cbCategoria.ValueMember = "Id";
+            cbCategoria.DataSource = ListCategories;
+            cbCategoria.SelectedIndex = 0;
         }
         private async void BtnImpresion_Click(object sender, EventArgs e)
         {
@@ -299,6 +316,7 @@ namespace LinkCajaV2.Catalogs
             Menu m = new Menu();
             m.IdUsuario = IdUsuario;
             m.NameUser = NameUser;
+            m.IdTypeUser = IdTypeUser;
             m.Show();
             this.Hide();
         }      

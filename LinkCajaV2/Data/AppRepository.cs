@@ -2078,7 +2078,7 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
-        public async Task<List<ListArticlesModel>> GetArticles(string Code, string Nombre, bool IsReceta)
+        public async Task<List<ListArticlesModel>> GetArticles(string Code, string Nombre, bool IsReceta, int IdCategory)
         {
             List<ListArticlesModel> list = new List<ListArticlesModel>();
             try
@@ -2091,6 +2091,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Code", Code));
                         cmd.Parameters.Add(new SqlParameter("@Name", Nombre));
                         cmd.Parameters.Add(new SqlParameter("@IsReceta", IsReceta));
+                        cmd.Parameters.Add(new SqlParameter("@IdCategory", IdCategory));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
@@ -2108,7 +2109,7 @@ namespace LinkCajaV2.Data
             }
             return list;
         }
-        public async Task<List<ListArticlesModel>> GetArticlesActives(string Code, string Nombre)
+        public async Task<List<ListArticlesModel>> GetArticlesActives(string Code, string Nombre, int IdCategory)
         {
             List<ListArticlesModel> list = new List<ListArticlesModel>();
             try
@@ -2120,6 +2121,7 @@ namespace LinkCajaV2.Data
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Code", Code));
                         cmd.Parameters.Add(new SqlParameter("@Name", Nombre));
+                        cmd.Parameters.Add(new SqlParameter("@IdCategory", IdCategory));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {

@@ -53,6 +53,8 @@
             this.BtnImpresion = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.cbEtiquetas = new System.Windows.Forms.CheckBox();
+            this.cbCategoria = new System.Windows.Forms.ComboBox();
+            this.lblCategoria = new System.Windows.Forms.Label();
             this.panelLateral.SuspendLayout();
             this.PanelgroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -211,7 +213,7 @@
             this.btnNuevo.ForeColor = System.Drawing.Color.White;
             this.btnNuevo.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevo.Image")));
             this.btnNuevo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNuevo.Location = new System.Drawing.Point(1377, 129);
+            this.btnNuevo.Location = new System.Drawing.Point(758, 196);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(120, 37);
             this.btnNuevo.TabIndex = 7;
@@ -228,7 +230,7 @@
             this.BtnBuscar.ForeColor = System.Drawing.Color.White;
             this.BtnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("BtnBuscar.Image")));
             this.BtnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnBuscar.Location = new System.Drawing.Point(919, 129);
+            this.BtnBuscar.Location = new System.Drawing.Point(300, 196);
             this.BtnBuscar.Name = "BtnBuscar";
             this.BtnBuscar.Size = new System.Drawing.Size(120, 37);
             this.BtnBuscar.TabIndex = 4;
@@ -246,9 +248,9 @@
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.groupBox1.Location = new System.Drawing.Point(300, 212);
+            this.groupBox1.Location = new System.Drawing.Point(300, 303);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1193, 467);
+            this.groupBox1.Size = new System.Drawing.Size(1193, 376);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Articulos";
@@ -285,14 +287,14 @@
             this.dgvArticulos.ReadOnly = true;
             this.dgvArticulos.RowHeadersWidth = 62;
             this.dgvArticulos.RowTemplate.Height = 28;
-            this.dgvArticulos.Size = new System.Drawing.Size(1187, 429);
+            this.dgvArticulos.Size = new System.Drawing.Size(1187, 338);
             this.dgvArticulos.TabIndex = 9;
             this.dgvArticulos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvArticulos_CellContentClick);
             // 
             // progressBar1
             // 
             this.progressBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.progressBar1.Location = new System.Drawing.Point(300, 187);
+            this.progressBar1.Location = new System.Drawing.Point(300, 257);
             this.progressBar1.MarqueeAnimationSpeed = 0;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(520, 6);
@@ -327,7 +329,7 @@
             this.BtnImpresion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.BtnImpresion.Image = ((System.Drawing.Image)(resources.GetObject("BtnImpresion.Image")));
             this.BtnImpresion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnImpresion.Location = new System.Drawing.Point(1234, 129);
+            this.BtnImpresion.Location = new System.Drawing.Point(615, 196);
             this.BtnImpresion.Name = "BtnImpresion";
             this.BtnImpresion.Size = new System.Drawing.Size(123, 37);
             this.BtnImpresion.TabIndex = 6;
@@ -353,12 +355,33 @@
             this.cbEtiquetas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbEtiquetas.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbEtiquetas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.cbEtiquetas.Location = new System.Drawing.Point(1058, 131);
+            this.cbEtiquetas.Location = new System.Drawing.Point(439, 198);
             this.cbEtiquetas.Name = "cbEtiquetas";
             this.cbEtiquetas.Size = new System.Drawing.Size(139, 32);
             this.cbEtiquetas.TabIndex = 5;
             this.cbEtiquetas.Text = "¿Etiquetas?";
             this.cbEtiquetas.UseVisualStyleBackColor = true;
+            // 
+            // cbCategoria
+            // 
+            this.cbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCategoria.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbCategoria.FormattingEnabled = true;
+            this.cbCategoria.Location = new System.Drawing.Point(902, 129);
+            this.cbCategoria.Name = "cbCategoria";
+            this.cbCategoria.Size = new System.Drawing.Size(250, 38);
+            this.cbCategoria.TabIndex = 26;
+            // 
+            // lblCategoria
+            // 
+            this.lblCategoria.AutoSize = true;
+            this.lblCategoria.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCategoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblCategoria.Location = new System.Drawing.Point(897, 94);
+            this.lblCategoria.Name = "lblCategoria";
+            this.lblCategoria.Size = new System.Drawing.Size(99, 25);
+            this.lblCategoria.TabIndex = 25;
+            this.lblCategoria.Text = "Categoria:";
             // 
             // Articles
             // 
@@ -366,6 +389,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1530, 691);
+            this.Controls.Add(this.cbCategoria);
+            this.Controls.Add(this.lblCategoria);
             this.Controls.Add(this.cbEtiquetas);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.BtnImpresion);
@@ -418,5 +443,7 @@
         private System.Windows.Forms.Button BtnImpresion;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.CheckBox cbEtiquetas;
+        private System.Windows.Forms.ComboBox cbCategoria;
+        private System.Windows.Forms.Label lblCategoria;
     }
 }

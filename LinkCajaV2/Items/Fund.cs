@@ -25,5 +25,10 @@ namespace LinkCajaV2.Items
             Amount = NUDCantidad.Value;
             this.DialogResult = DialogResult.OK;
         }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+        }
     }
 }

@@ -71,6 +71,7 @@ namespace LinkCajaV2.Reports
             Menu m = new Menu();
             m.IdUsuario = IdUsuario;
             m.NameUser = NameUser;
+            m.IdTypeUser = IdTypeUser;
             m.Show();
             this.Hide();
         }
@@ -98,8 +99,8 @@ namespace LinkCajaV2.Reports
         }
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Buscar();
             CrearGridView();
+            Buscar();
         }
         public void CrearGridView()
         {
@@ -313,8 +314,10 @@ namespace LinkCajaV2.Reports
             Menu m = new Menu();
             m.IdUsuario = IdUsuario;
             m.NameUser = NameUser;
+            m.IdTypeUser = IdTypeUser;
             m.Show();
             this.Hide();
         }
+
     }
 }

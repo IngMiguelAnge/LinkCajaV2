@@ -5,6 +5,7 @@ using LinkCajaV2.Items;
 using LinkCajaV2.Model;
 using LinkCajaV2.Reports;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -305,13 +306,19 @@ namespace LinkCajaV2.Sales
             if (presentacion.Decimals > 0)
             {
                 Decimals d = new Decimals();
+                d.Presentation = presentacion.Presentation;
+                d.Name = presentacion.Name;
                 if (d.ShowDialog() == DialogResult.OK) // Asumiendo que devuelve OK
-                {
+                {                    
                     cantidadEntrante = d.Kilos;
                     if (articulo.SuggestedStock > 0)
                     {
                         precioCalculado = articulo.Price / (articulo.SuggestedStock * 1000);
                     }
+                }
+                else
+                {
+                    return; // Si el usuario cancela, no agregamos el artículo
                 }
             }
 
@@ -609,6 +616,7 @@ namespace LinkCajaV2.Sales
                     Name = Empresa.BillingName,
                     TaxRegime = Empresa.Regimen // Ejemplo: G01 = Adquisición de mercancias, G02 = Devoluciones, descuentos o bonificaciones, G03 = Gastos en general
                 };
+                billing.Concepts = new List<Concepts>();
                 foreach (var item in venta.Articles)
                 {
                     Details.Id = 0;
@@ -618,7 +626,7 @@ namespace LinkCajaV2.Sales
                     Details.StockSold = item.Stock;//Cantidad vendida
                     Details.PriceSold = item.Price;//Valor unitario
                     Details.TotalSold = item.Total;
-                    await obj.SaveDetailsTicket(Details);
+                    await obj.SaveDetailsTicket(Details);              
                     billing.Concepts.Add(
                     new Concepts
                     {
@@ -688,6 +696,17 @@ namespace LinkCajaV2.Sales
             Menu m = new Menu();
             m.IdUsuario = IdUsuario;
             m.NameUser = NameUser;
+            m.IdTypeUser = IdTypeUser;
+            m.Show();
+            this.Hide();
+        }
+
+        private void btnPanelMenu_Click_1(object sender, EventArgs e)
+        {
+            Menu m = new Menu();
+            m.IdUsuario = IdUsuario;
+            m.NameUser = NameUser;
+            m.IdTypeUser = IdTypeUser;
             m.Show();
             this.Hide();
         }

@@ -119,7 +119,7 @@ namespace LinkCajaV2.Data
                     });
                 })
                 .GeneratePdf(rutaCompleta);
-
+                //Abre pdf
                 System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(rutaCompleta) { UseShellExecute = true });
             }
             catch (Exception ex)
@@ -316,24 +316,24 @@ namespace LinkCajaV2.Data
                 float mmToPt = 2.83465f;
                 float anchoTicketMm = (float)ConfigBox.WidthPage; // Cambia a 58f si la impresora es pequeña
                 float altoBaseMm = (float)ConfigBox.HightPage;//60f;
-                float altoDinamicoMm = altoBaseMm + (venta.Articles.Count * 10f) + 25f;
+                float altoDinamicoMm = altoBaseMm + (venta.Articles.Count * 20f);//+ 25f;
                 float anchoFinal = anchoTicketMm * mmToPt;
                 float altoFinal = altoDinamicoMm * mmToPt;
                 QuestPDF.Settings.License = LicenseType.Community;
+                //Cuando este la liga de arnulfo liberar
+                //byte[] qrBytes = null;
+                //using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+                //{
+                //    // Puedes cambiar el texto por una URL, datos de Hacienda o un resumen del ticket
+                //    string datosQr = $"https://xxx.com/factura?ticket={venta.IdTicket}\n&total={venta.Articles.Sum(x => x.Total):C2}";
 
-                byte[] qrBytes = null;
-                using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
-                {
-                    // Puedes cambiar el texto por una URL, datos de Hacienda o un resumen del ticket
-                    string datosQr = $"https://xxx.com/factura?ticket={venta.IdTicket}\n&total={venta.Articles.Sum(x => x.Total):C2}";
-
-                    using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(datosQr, QRCodeGenerator.ECCLevel.Q))
-                    using (PngByteQRCode qrCode = new PngByteQRCode(qrCodeData))
-                    {
-                        // El número 20 indica el tamaño por píxel del bloque gráfico
-                        qrBytes = qrCode.GetGraphic(20);
-                    }
-                }
+                //    using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(datosQr, QRCodeGenerator.ECCLevel.Q))
+                //    using (PngByteQRCode qrCode = new PngByteQRCode(qrCodeData))
+                //    {
+                //        // El número 20 indica el tamaño por píxel del bloque gráfico
+                //        qrBytes = qrCode.GetGraphic(20);
+                //    }
+                //}
 
                 var documento = Document.Create(container =>
                 {
@@ -394,12 +394,22 @@ namespace LinkCajaV2.Data
                             {
                                 table.ColumnsDefinition(columns =>
                                 {
-                                    columns.RelativeColumn(1);
-                                    columns.RelativeColumn(3);
-                                    columns.RelativeColumn(1);
-                                    columns.RelativeColumn(2);
+                                    columns.ConstantColumn(45);//Codigo
+                                    columns.RelativeColumn(3);//Descripcion
+                                    columns.RelativeColumn(1);//Cantidad
+                                    columns.RelativeColumn(1.8f);//Total
                                 });
+                                // ENCABEZADO DE LA TABLA (Títulos)
+                                table.Header(header =>
+                                {
+                                    header.Cell().AlignLeft().Text("Código").Style(EstiloTabla).Bold();
+                                    header.Cell().AlignLeft().Text("Descripción").Style(EstiloTabla).Bold();
+                                    header.Cell().AlignCenter().Text("Cant").Style(EstiloTabla).Bold();
+                                    header.Cell().AlignRight().Text("Total").Style(EstiloTabla).Bold();
 
+                                    // Una pequeña línea divisoria debajo de los títulos
+                                    header.Cell().ColumnSpan(4).PaddingVertical(2).LineHorizontal(0.5f);
+                                });
                                 foreach (var item in venta.Articles)
                                 {
                                     table.Cell().AlignLeft().Text(item.Code).Style(EstiloTabla);
@@ -428,20 +438,26 @@ namespace LinkCajaV2.Data
                                 totalCol.Item().AlignRight().Text($"CAMBIO: {cambio:C2}").Style(EstiloTotal);
 
                                 totalCol.Item().PaddingTop(10).AlignCenter().Text("¡Gracias por su compra!");
-                                if (qrBytes != null)
-                                {
-                                    totalCol.Item().PaddingTop(10).AlignCenter().Width(50).Image(qrBytes);
-                                }
+                               //Cuando este la liga de arnulfo liberar
+                                //if (qrBytes != null)
+                                //{
+                                //    totalCol.Item().PaddingTop(10).AlignCenter().Width(50).Image(qrBytes);
+                                //}
                             });
                         });
                     });
                 });
 
                 documento.GeneratePdf(rutaCompleta);
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(rutaCompleta) { UseShellExecute = true });
                 if (venta.Imprimir)
+                {
                     for (int i = 0; i <= venta.Copias; i++)
                         ImprimirSilencioso(rutaCompleta);
+                }
+                else
+                {
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(rutaCompleta) { UseShellExecute = true });
+                }
             }
             catch (Exception ex)
             {

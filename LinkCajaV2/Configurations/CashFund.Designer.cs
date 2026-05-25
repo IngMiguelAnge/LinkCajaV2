@@ -55,7 +55,7 @@
             this.btnNuevo.ForeColor = System.Drawing.Color.White;
             this.btnNuevo.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevo.Image")));
             this.btnNuevo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNuevo.Location = new System.Drawing.Point(776, 135);
+            this.btnNuevo.Location = new System.Drawing.Point(1084, 135);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(120, 37);
             this.btnNuevo.TabIndex = 0;
@@ -67,9 +67,9 @@
             // dtHasta
             // 
             this.dtHasta.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtHasta.Location = new System.Drawing.Point(327, 135);
+            this.dtHasta.Location = new System.Drawing.Point(499, 135);
             this.dtHasta.Name = "dtHasta";
-            this.dtHasta.Size = new System.Drawing.Size(272, 37);
+            this.dtHasta.Size = new System.Drawing.Size(422, 37);
             this.dtHasta.TabIndex = 3;
             // 
             // lblHasta
@@ -77,7 +77,7 @@
             this.lblHasta.AutoSize = true;
             this.lblHasta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHasta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblHasta.Location = new System.Drawing.Point(323, 93);
+            this.lblHasta.Location = new System.Drawing.Point(500, 93);
             this.lblHasta.Name = "lblHasta";
             this.lblHasta.Size = new System.Drawing.Size(66, 25);
             this.lblHasta.TabIndex = 2;
@@ -99,7 +99,7 @@
             this.dtDesde.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtDesde.Location = new System.Drawing.Point(41, 135);
             this.dtDesde.Name = "dtDesde";
-            this.dtDesde.Size = new System.Drawing.Size(272, 37);
+            this.dtDesde.Size = new System.Drawing.Size(420, 37);
             this.dtDesde.TabIndex = 1;
             // 
             // btnBuscar
@@ -111,7 +111,7 @@
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
             this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.Location = new System.Drawing.Point(633, 135);
+            this.btnBuscar.Location = new System.Drawing.Point(941, 135);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(120, 37);
             this.btnBuscar.TabIndex = 5;
@@ -131,7 +131,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.groupBox1.Location = new System.Drawing.Point(43, 228);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1033, 354);
+            this.groupBox1.Size = new System.Drawing.Size(1147, 354);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Fondos";
@@ -167,7 +167,7 @@
             this.dgvFondoCaja.Name = "dgvFondoCaja";
             this.dgvFondoCaja.RowHeadersWidth = 62;
             this.dgvFondoCaja.RowTemplate.Height = 28;
-            this.dgvFondoCaja.Size = new System.Drawing.Size(1027, 316);
+            this.dgvFondoCaja.Size = new System.Drawing.Size(1141, 316);
             this.dgvFondoCaja.TabIndex = 8;
             this.dgvFondoCaja.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFondoCaja_CellContentClick);
             // 
@@ -197,7 +197,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1115, 594);
+            this.ClientSize = new System.Drawing.Size(1229, 594);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.groupBox1);

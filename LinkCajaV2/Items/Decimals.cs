@@ -6,6 +6,8 @@ namespace LinkCajaV2.Items
     public partial class Decimals : Form
     {
         public decimal Kilos { get; set; }
+        public string Presentation { get; set; }
+        public string Name { get; set; }
         bool primerIngreso = true;
         public Decimals()
         {
@@ -81,5 +83,10 @@ namespace LinkCajaV2.Items
             }
         }
 
+        private void Decimals_Load(object sender, EventArgs e)
+        {
+            lblMensaje1.Text = "Este articulo se vende por " + Name;
+            lblMensaje2.Text = Presentation;
+        }
     }
 }

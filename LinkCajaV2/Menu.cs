@@ -99,7 +99,6 @@ namespace LinkCajaV2
         {
             Categories c = new Categories();
             c.Show();
-            this.Hide();
         }
 
         private void btnArticules_Click(object sender, EventArgs e)
@@ -117,7 +116,6 @@ namespace LinkCajaV2
         {
             CashDrop c = new CashDrop();
             c.Show();
-            this.Hide();
         }
 
         private void btnImpresiones_Click(object sender, EventArgs e)
@@ -140,7 +138,6 @@ namespace LinkCajaV2
         {
             Company m = new Company();
             m.Show();
-            this.Hide();
         }
 
         private void Menu_FormClosed(object sender, FormClosedEventArgs e)
@@ -152,7 +149,6 @@ namespace LinkCajaV2
         {
             Licenses l = new Licenses();
             l.Show();
-            this.Hide();
         }
 
         private void BtnPanelSalir_Click(object sender, EventArgs e)
