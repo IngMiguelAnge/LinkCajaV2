@@ -242,6 +242,7 @@
             this.flowContenedorCentral.Padding = new System.Windows.Forms.Padding(16, 15, 16, 15);
             this.flowContenedorCentral.Size = new System.Drawing.Size(1144, 651);
             this.flowContenedorCentral.TabIndex = 0;
+            this.flowContenedorCentral.Paint += new System.Windows.Forms.PaintEventHandler(this.flowContenedorCentral_Paint);
             // 
             // panelVentas
             // 
@@ -328,7 +329,7 @@
             this.btnArticules.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(223)))), ((int)(((byte)(54)))));
             this.btnArticules.Image = ((System.Drawing.Image)(resources.GetObject("btnArticules.Image")));
             this.btnArticules.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnArticules.Location = new System.Drawing.Point(270, 198);
+            this.btnArticules.Location = new System.Drawing.Point(280, 69);
             this.btnArticules.Name = "btnArticules";
             this.btnArticules.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
             this.btnArticules.Size = new System.Drawing.Size(231, 80);
@@ -347,7 +348,7 @@
             this.btnCategorias.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(223)))), ((int)(((byte)(54)))));
             this.btnCategorias.Image = ((System.Drawing.Image)(resources.GetObject("btnCategorias.Image")));
             this.btnCategorias.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCategorias.Location = new System.Drawing.Point(21, 198);
+            this.btnCategorias.Location = new System.Drawing.Point(33, 69);
             this.btnCategorias.Name = "btnCategorias";
             this.btnCategorias.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
             this.btnCategorias.Size = new System.Drawing.Size(231, 80);
@@ -366,7 +367,7 @@
             this.btnProveedores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(223)))), ((int)(((byte)(54)))));
             this.btnProveedores.Image = ((System.Drawing.Image)(resources.GetObject("btnProveedores.Image")));
             this.btnProveedores.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProveedores.Location = new System.Drawing.Point(270, 56);
+            this.btnProveedores.Location = new System.Drawing.Point(280, 199);
             this.btnProveedores.Name = "btnProveedores";
             this.btnProveedores.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
             this.btnProveedores.Size = new System.Drawing.Size(231, 80);
@@ -385,7 +386,7 @@
             this.btnUsuarios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(223)))), ((int)(((byte)(54)))));
             this.btnUsuarios.Image = ((System.Drawing.Image)(resources.GetObject("btnUsuarios.Image")));
             this.btnUsuarios.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUsuarios.Location = new System.Drawing.Point(20, 56);
+            this.btnUsuarios.Location = new System.Drawing.Point(33, 199);
             this.btnUsuarios.Name = "btnUsuarios";
             this.btnUsuarios.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
             this.btnUsuarios.Size = new System.Drawing.Size(231, 80);

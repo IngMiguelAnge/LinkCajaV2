@@ -28,6 +28,7 @@ namespace LinkCajaV2
             Venta s = new Venta();
             s.IdUsuario = IdUsuario;
             s.NameUser = NameUser;
+            s.IdTypeUser = IdTypeUser;
             s.Show();
             this.Hide();
         }
@@ -37,6 +38,7 @@ namespace LinkCajaV2
             a.IsVenta = false;
             a.IdUsuario = IdUsuario;
             a.NameUser = NameUser;
+            a.IdTypeUser = IdTypeUser;
             a.Show();
             this.Hide();
         }
@@ -58,6 +60,7 @@ namespace LinkCajaV2
             Venta s = new Venta();
             s.IdUsuario = IdUsuario;
             s.NameUser = NameUser;
+            s.IdTypeUser = IdTypeUser;
             s.Show();
             this.Hide();
         }
@@ -67,6 +70,7 @@ namespace LinkCajaV2
             Tickets t = new Tickets();
             t.IdUsuario = IdUsuario;
             t.NameUser = NameUser;
+            t.IdTypeUser = IdTypeUser;
             t.Show();
             this.Hide();
         }
@@ -74,6 +78,9 @@ namespace LinkCajaV2
         private void btnUsuarios_Click(object sender, EventArgs e)
         {
             Users u = new Users();
+            u.IdUsuario = IdUsuario;
+            u.NameUser = NameUser;
+            u.IdTypeUser = IdTypeUser;
             u.Show();
             this.Hide();
         }
@@ -83,6 +90,7 @@ namespace LinkCajaV2
             Suppliers m = new Suppliers();
             m.IdUsuario= IdUsuario;
             m.NameUser= NameUser;
+            m.IdTypeUser= IdTypeUser;
             m.Show();
             this.Hide();
         }
@@ -100,6 +108,7 @@ namespace LinkCajaV2
             a.IsVenta = false;
             a.IdUsuario = IdUsuario;
             a.NameUser = NameUser;
+            a.IdTypeUser = IdTypeUser;
             a.Show();
             this.Hide();
         }
@@ -122,6 +131,7 @@ namespace LinkCajaV2
             Boxs b = new Boxs();
             b.IdUsuario = IdUsuario;
             b.NameUser = NameUser;
+            b.IdTypeUser = IdTypeUser;
             b.Show();
             this.Hide();
         }
@@ -155,6 +165,32 @@ namespace LinkCajaV2
         private void btnPanelMenu_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void flowContenedorCentral_Paint(object sender, PaintEventArgs e)
+        {
+            if(IdTypeUser == 2)
+            {             
+                //Menu principal
+                panelCatalogos.Visible = false;
+                panelConfiguraciones.Visible = false;
+                panelOperacionesCaja.Visible = false;
+                //Menu lateral
+                btnPanelEmpresa.Visible = false;
+                btnPanelCorte.Visible = false;
+            }
+            if (IdTypeUser == 3)
+            {
+                //Menu principal
+                panelVentas.Visible = false;
+                panelConfiguraciones.Visible = false;
+                panelOperacionesCaja.Visible = false;
+                btnUsuarios.Visible = false;
+                btnProveedores.Visible = false;
+                //Menu lateral
+                btnPanelEmpresa.Visible = false;
+                btnPanelCorte.Visible = false;          
+            }
         }
     }
 }

@@ -25,6 +25,7 @@ namespace LinkCajaV2.Reports
     {
         public int IdUsuario { get; set; }
         public string NameUser { get; set; }
+        public int IdTypeUser { get; set; }
         public Tickets()
         {
             InitializeComponent();
@@ -34,6 +35,7 @@ namespace LinkCajaV2.Reports
             Venta s = new Venta();
             s.IdUsuario = IdUsuario;
             s.NameUser = NameUser;
+            s.IdTypeUser = IdTypeUser;
             s.Show();
             this.Hide();
         }
@@ -208,7 +210,19 @@ namespace LinkCajaV2.Reports
             }
         }
         private void Tickets_Load(object sender, EventArgs e)
-        {           
+        {
+            if (IdTypeUser == 2)
+            {
+                //Menu lateral
+                btnPanelEmpresa.Visible = false;
+                btnPanelCorte.Visible = false;
+            }
+            if (IdTypeUser == 3)
+            {
+                //Menu lateral
+                btnPanelEmpresa.Visible = false;
+                btnPanelCorte.Visible = false;
+            }
             RBCreacion.Checked = true;
             RBModificacion.Checked = false;
         }

@@ -23,6 +23,7 @@ namespace LinkCajaV2.Sales
         private SoundPlayer lectorSonido;
         public int IdUsuario { get; set; }
         public string NameUser { get; set; }
+        public int IdTypeUser { get; set; }
         private CompanyModel Empresa { get; set; }
         private int IdBox { get; set; }
         private string BoxName { get; set; }
@@ -72,6 +73,18 @@ namespace LinkCajaV2.Sales
 
         private void Venta_Load(object sender, EventArgs e)
         {
+            if (IdTypeUser == 2)
+            {
+                //Menu lateral
+                btnPanelEmpresa.Visible = false;
+                btnPanelCorte.Visible = false;
+            }
+            if (IdTypeUser == 3)
+            {
+                //Menu lateral
+                btnPanelEmpresa.Visible = false;
+                btnPanelCorte.Visible = false;
+            }
             AppRepository obj = new AppRepository();
             KeysModel ListKeys = obj.GetKeys().Result.FirstOrDefault();
             if (ListKeys == null)
@@ -643,6 +656,7 @@ namespace LinkCajaV2.Sales
             Tickets t = new Tickets();
             t.IdUsuario = IdUsuario;
             t.NameUser = NameUser;
+            t.IdTypeUser = IdTypeUser;
             t.ShowDialog();
         }
         private void dgvArticulos_CellClick(object sender, DataGridViewCellEventArgs e)

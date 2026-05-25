@@ -16,6 +16,7 @@ namespace LinkCajaV2.Catalogs
     {
         public int IdUsuario { get; set; }
         public string NameUser { get; set; }
+        public int IdTypeUser { get; set; }
         public int Id { get; set; }
         public bool IsVenta { get; set; } = false;
         public bool IsReceta { get; set; } = false;
@@ -33,6 +34,7 @@ namespace LinkCajaV2.Catalogs
             Venta s = new Venta();
             s.IdUsuario = IdUsuario;
             s.NameUser = NameUser;
+            s.IdTypeUser = IdTypeUser;
             s.Show();
             this.Hide();
         }
@@ -235,6 +237,18 @@ namespace LinkCajaV2.Catalogs
         }
         private void Articles_Load(object sender, EventArgs e)
         {
+            if(IdTypeUser == 2)
+            {
+                //Menu lateral
+                btnPanelEmpresa.Visible = false;
+                btnPanelCorte.Visible = false;
+            }
+            if (IdTypeUser == 3)
+            {
+                //Menu lateral
+                btnPanelEmpresa.Visible = false;
+                btnPanelCorte.Visible = false;
+            }
             if (IsVenta || IsReceta)
             {
                 btnNuevo.Visible = false;

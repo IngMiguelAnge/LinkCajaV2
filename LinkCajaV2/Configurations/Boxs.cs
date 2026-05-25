@@ -19,6 +19,7 @@ namespace LinkCajaV2.Catalogs
         int CantidadCajas = 0;
         public int IdUsuario { get; set; }
         public string NameUser { get; set; }
+        public int IdTypeUser { get; set; }
         public Boxs()
         {
             InitializeComponent();
@@ -28,6 +29,7 @@ namespace LinkCajaV2.Catalogs
             Venta s = new Venta();
             s.IdUsuario = IdUsuario;
             s.NameUser = NameUser;
+            s.IdTypeUser = IdTypeUser;
             s.Show();
             this.Hide();
         }
@@ -83,6 +85,18 @@ namespace LinkCajaV2.Catalogs
 
         private void Boxs_Load(object sender, EventArgs e)
         {
+            if (IdTypeUser == 2)
+            {
+                //Menu lateral
+                btnPanelEmpresa.Visible = false;
+                btnPanelCorte.Visible = false;
+            }
+            if (IdTypeUser == 3)
+            {
+                //Menu lateral
+                btnPanelEmpresa.Visible = false;
+                btnPanelCorte.Visible = false;
+            }
             AppRepository obj = new AppRepository();
             KeysModel ListKeys = obj.GetKeys().Result.FirstOrDefault();
             if (ListKeys == null)

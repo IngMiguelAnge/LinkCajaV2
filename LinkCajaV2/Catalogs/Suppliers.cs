@@ -13,6 +13,7 @@ namespace LinkCajaV2.Catalogs
     {
         public int IdUsuario { get; set; }
         public string NameUser { get; set; }
+        public int IdTypeUser { get; set; }
         public Suppliers()
         {
             InitializeComponent();
@@ -22,6 +23,7 @@ namespace LinkCajaV2.Catalogs
             Venta s = new Venta();
             s.IdUsuario = IdUsuario;
             s.NameUser = NameUser;
+            s.IdTypeUser = IdTypeUser;
             s.Show();
             this.Hide();
         }
@@ -171,6 +173,22 @@ namespace LinkCajaV2.Catalogs
             m.NameUser = NameUser;
             m.Show();
             this.Hide();
+        }
+
+        private void Suppliers_Load(object sender, EventArgs e)
+        {
+            if (IdTypeUser == 2)
+            {
+                //Menu lateral
+                btnPanelEmpresa.Visible = false;
+                btnPanelCorte.Visible = false;
+            }
+            if (IdTypeUser == 3)
+            {
+                //Menu lateral
+                btnPanelEmpresa.Visible = false;
+                btnPanelCorte.Visible = false;
+            }
         }
     }
 }
