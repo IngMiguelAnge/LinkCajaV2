@@ -76,7 +76,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.groupBox1.Location = new System.Drawing.Point(41, 238);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(636, 313);
+            this.groupBox1.Size = new System.Drawing.Size(886, 424);
             this.groupBox1.TabIndex = 33;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Categorias";
@@ -113,7 +113,7 @@
             this.dgvCategorias.ReadOnly = true;
             this.dgvCategorias.RowHeadersWidth = 62;
             this.dgvCategorias.RowTemplate.Height = 28;
-            this.dgvCategorias.Size = new System.Drawing.Size(630, 275);
+            this.dgvCategorias.Size = new System.Drawing.Size(880, 386);
             this.dgvCategorias.TabIndex = 9;
             this.dgvCategorias.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCategorias_CellContentClick);
             // 
@@ -175,7 +175,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(720, 576);
+            this.ClientSize = new System.Drawing.Size(970, 687);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.groupBox1);

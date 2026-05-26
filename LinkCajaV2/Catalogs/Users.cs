@@ -67,17 +67,18 @@ namespace LinkCajaV2.Catalogs
 
         private void Users_Load(object sender, EventArgs e)
         {
-            if (IdTypeUser == 2)
+            if (IdTypeUser == 2)//Vendedor
             {
                 //Menu lateral
                 btnPanelEmpresa.Visible = false;
                 btnPanelCorte.Visible = false;
             }
-            if (IdTypeUser == 3)
+            if (IdTypeUser == 3)//Almacenista
             {
                 //Menu lateral
                 btnPanelEmpresa.Visible = false;
                 btnPanelCorte.Visible = false;
+                btnPanelVentas.Visible = false;
             }
             AppRepository obj = new AppRepository();
             var ListType = obj.GetTypesUsers().Result;

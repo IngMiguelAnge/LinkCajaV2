@@ -21,7 +21,6 @@
             this.panelLateral = new System.Windows.Forms.Panel();
             this.btnPanelMenu = new System.Windows.Forms.Button();
             this.btnPanelCorte = new System.Windows.Forms.Button();
-            this.PanelgroupBox = new System.Windows.Forms.GroupBox();
             this.BtnPanelSalir = new System.Windows.Forms.Button();
             this.btnPanelEmpresa = new System.Windows.Forms.Button();
             this.btnPanelArticulos = new System.Windows.Forms.Button();
@@ -52,7 +51,6 @@
             this.btnCorteCaja = new System.Windows.Forms.Button();
             this.lblTituloOperacionesCaja = new System.Windows.Forms.Label();
             this.panelLateral.SuspendLayout();
-            this.PanelgroupBox.SuspendLayout();
             this.panelSuperior.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowContenedorCentral.SuspendLayout();
@@ -65,9 +63,9 @@
             // panelLateral
             // 
             this.panelLateral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            this.panelLateral.Controls.Add(this.BtnPanelSalir);
             this.panelLateral.Controls.Add(this.btnPanelMenu);
             this.panelLateral.Controls.Add(this.btnPanelCorte);
-            this.panelLateral.Controls.Add(this.PanelgroupBox);
             this.panelLateral.Controls.Add(this.btnPanelEmpresa);
             this.panelLateral.Controls.Add(this.btnPanelArticulos);
             this.panelLateral.Controls.Add(this.btnPanelVentas);
@@ -108,28 +106,19 @@
             this.btnPanelCorte.Text = " Corte de Caja";
             this.btnPanelCorte.Click += new System.EventHandler(this.btnPanelCorte_Click);
             // 
-            // PanelgroupBox
-            // 
-            this.PanelgroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.PanelgroupBox.Controls.Add(this.BtnPanelSalir);
-            this.PanelgroupBox.Location = new System.Drawing.Point(6, 617);
-            this.PanelgroupBox.Name = "PanelgroupBox";
-            this.PanelgroupBox.Size = new System.Drawing.Size(258, 116);
-            this.PanelgroupBox.TabIndex = 6;
-            this.PanelgroupBox.TabStop = false;
-            // 
             // BtnPanelSalir
             // 
             this.BtnPanelSalir.FlatAppearance.BorderSize = 0;
             this.BtnPanelSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnPanelSalir.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.BtnPanelSalir.ForeColor = System.Drawing.Color.White;
-            this.BtnPanelSalir.Location = new System.Drawing.Point(17, 30);
+            this.BtnPanelSalir.Image = ((System.Drawing.Image)(resources.GetObject("BtnPanelSalir.Image")));
+            this.BtnPanelSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnPanelSalir.Location = new System.Drawing.Point(12, 502);
             this.BtnPanelSalir.Name = "BtnPanelSalir";
-            this.BtnPanelSalir.Size = new System.Drawing.Size(238, 45);
+            this.BtnPanelSalir.Size = new System.Drawing.Size(252, 45);
             this.BtnPanelSalir.TabIndex = 5;
-            this.BtnPanelSalir.Text = "🡸   Salir";
-            this.BtnPanelSalir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnPanelSalir.Text = " Salir";
             this.BtnPanelSalir.Click += new System.EventHandler(this.BtnPanelSalir_Click);
             // 
             // btnPanelEmpresa
@@ -568,7 +557,6 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Menu_FormClosed);
             this.Load += new System.EventHandler(this.Menu_Load);
             this.panelLateral.ResumeLayout(false);
-            this.PanelgroupBox.ResumeLayout(false);
             this.panelSuperior.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.flowContenedorCentral.ResumeLayout(false);
@@ -612,7 +600,6 @@
         private System.Windows.Forms.Button btnConfigCajas;
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox PanelgroupBox;
         private System.Windows.Forms.Button BtnPanelSalir;
         private System.Windows.Forms.Button btnArticules;
         private System.Windows.Forms.Button btnCategorias;

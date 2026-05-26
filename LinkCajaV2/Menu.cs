@@ -165,7 +165,7 @@ namespace LinkCajaV2
 
         private void flowContenedorCentral_Paint(object sender, PaintEventArgs e)
         {
-            if(IdTypeUser == 2)
+            if(IdTypeUser == 2)//Vendedor
             {             
                 //Menu principal
                 panelCatalogos.Visible = false;
@@ -173,9 +173,9 @@ namespace LinkCajaV2
                 panelOperacionesCaja.Visible = false;
                 //Menu lateral
                 btnPanelEmpresa.Visible = false;
-                btnPanelCorte.Visible = false;
+                btnPanelCorte.Visible = false;             
             }
-            if (IdTypeUser == 3)
+            if (IdTypeUser == 3)//Almacenista
             {
                 //Menu principal
                 panelVentas.Visible = false;
@@ -184,7 +184,8 @@ namespace LinkCajaV2
                 btnUsuarios.Visible = false;
                 //Menu lateral
                 btnPanelEmpresa.Visible = false;
-                btnPanelCorte.Visible = false;          
+                btnPanelCorte.Visible = false;
+                btnPanelVentas.Visible = false;
             }
         }
     }

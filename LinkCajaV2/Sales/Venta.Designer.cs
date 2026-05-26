@@ -35,7 +35,6 @@
             this.panelLateral = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.btnPanelMenu = new System.Windows.Forms.Button();
-            this.PanelgroupBox = new System.Windows.Forms.GroupBox();
             this.BtnPanelSalir = new System.Windows.Forms.Button();
             this.btnPanelCorte = new System.Windows.Forms.Button();
             this.btnPanelEmpresa = new System.Windows.Forms.Button();
@@ -64,7 +63,6 @@
             this.NUDCopias = new System.Windows.Forms.NumericUpDown();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.panelLateral.SuspendLayout();
-            this.PanelgroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUDCantidad)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
@@ -79,9 +77,9 @@
             // panelLateral
             // 
             this.panelLateral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            this.panelLateral.Controls.Add(this.BtnPanelSalir);
             this.panelLateral.Controls.Add(this.label1);
             this.panelLateral.Controls.Add(this.btnPanelMenu);
-            this.panelLateral.Controls.Add(this.PanelgroupBox);
             this.panelLateral.Controls.Add(this.btnPanelCorte);
             this.panelLateral.Controls.Add(this.btnPanelEmpresa);
             this.panelLateral.Controls.Add(this.btnPanelArticulos);
@@ -118,28 +116,19 @@
             this.btnPanelMenu.Text = "Menu";
             this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click_1);
             // 
-            // PanelgroupBox
-            // 
-            this.PanelgroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.PanelgroupBox.Controls.Add(this.BtnPanelSalir);
-            this.PanelgroupBox.Location = new System.Drawing.Point(6, 965);
-            this.PanelgroupBox.Name = "PanelgroupBox";
-            this.PanelgroupBox.Size = new System.Drawing.Size(258, 73);
-            this.PanelgroupBox.TabIndex = 25;
-            this.PanelgroupBox.TabStop = false;
-            // 
             // BtnPanelSalir
             // 
             this.BtnPanelSalir.FlatAppearance.BorderSize = 0;
             this.BtnPanelSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnPanelSalir.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.BtnPanelSalir.ForeColor = System.Drawing.Color.White;
-            this.BtnPanelSalir.Location = new System.Drawing.Point(6, 15);
+            this.BtnPanelSalir.Image = ((System.Drawing.Image)(resources.GetObject("BtnPanelSalir.Image")));
+            this.BtnPanelSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnPanelSalir.Location = new System.Drawing.Point(0, 506);
             this.BtnPanelSalir.Name = "BtnPanelSalir";
-            this.BtnPanelSalir.Size = new System.Drawing.Size(238, 45);
+            this.BtnPanelSalir.Size = new System.Drawing.Size(264, 45);
             this.BtnPanelSalir.TabIndex = 5;
-            this.BtnPanelSalir.Text = "🡸   Salir";
-            this.BtnPanelSalir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnPanelSalir.Text = "Salir";
             this.BtnPanelSalir.Click += new System.EventHandler(this.BtnPanelSalir_Click);
             // 
             // btnPanelCorte
@@ -544,7 +533,6 @@
             this.Load += new System.EventHandler(this.Venta_Load);
             this.Shown += new System.EventHandler(this.Venta_Shown);
             this.panelLateral.ResumeLayout(false);
-            this.PanelgroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.NUDCantidad)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).EndInit();
@@ -569,7 +557,6 @@
         private System.Windows.Forms.Button btnPanelCorte;
         private System.Windows.Forms.Button BtnPanelSalir;
         private System.Windows.Forms.Button btnPanelMenu;
-        private System.Windows.Forms.GroupBox PanelgroupBox;
 
         private System.Windows.Forms.Label lblCodigo;
         private System.Windows.Forms.TextBox txtCodigo;
