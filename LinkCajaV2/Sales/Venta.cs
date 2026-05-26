@@ -12,11 +12,15 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Media;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Media;
 using Color = System.Drawing.Color;
+
 namespace LinkCajaV2.Sales
 {
     public partial class Venta : Form
@@ -159,12 +163,21 @@ namespace LinkCajaV2.Sales
                 ReadOnly = true,
                 Visible = false,
                 Width = 100
-            });            
+            });
             dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
             {
-                Name = "IdPresentation",
-                HeaderText = "IdPresentation",
-                DataPropertyName = "IdPresentation",
+                Name = "NamePresentation",
+                HeaderText = "NamePresentation",
+                DataPropertyName = "NamePresentation",
+                ReadOnly = true,
+                Visible = false,
+                Width = 100
+            });
+            dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Decimals",
+                HeaderText = "Decimals",
+                DataPropertyName = "Decimals",
                 ReadOnly = true,
                 Visible = false,
                 Width = 100
@@ -310,7 +323,7 @@ namespace LinkCajaV2.Sales
                 d.Presentation = presentacion.Presentation;
                 d.Name = presentacion.Name;
                 if (d.ShowDialog() == DialogResult.OK) // Asumiendo que devuelve OK
-                {                    
+                {
                     cantidadEntrante = d.Kilos;
                     if (articulo.SuggestedStock > 0)
                     {
@@ -354,6 +367,7 @@ namespace LinkCajaV2.Sales
                     Name = articulo.Name,
                     Stock = cantidadEntrante,
                     IdPresentation = articulo.IdPresentation,
+                    NamePresentation = presentacion.Name,
                     Presentation = articulo.Presentation,
                     Price = precioCalculado,
                     Decimals = presentacion.Decimals,
@@ -629,19 +643,25 @@ namespace LinkCajaV2.Sales
                 venta.IdTicket = Ticket.Id;
                 DetailsTicketModel Details = new DetailsTicketModel();
                 BillingDetails billing = new BillingDetails();
-                billing.IdTicket = Ticket.Id.ToString();
-                billing.FormPayment = "01"; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
-               billing.Total = venta.Articles.Sum(x => x.Total).ToString("F2");
-                billing.PaymentMethod = "PUE"; // Ejemplo: PUE = Pago en una sola exhibición, PPD = Pago en parcialidades o diferido
-                billing.IssuingLocation = Empresa.CP.ToString();
-                billing.DateCreated = DateTime.Now;
-                billing.Sender = new Sender
-                {
-                    RFC = Empresa.RFC,
-                    Name = Empresa.BillingName,
-                    TaxRegime = Empresa.Regimen // Ejemplo: G01 = Adquisición de mercancias, G02 = Devoluciones, descuentos o bonificaciones, G03 = Gastos en general
-                };
-                billing.Concepts = new List<Concepts>();
+                billing.pos_ticket_id = "TKT-"+DateTime.Now.Year.ToString()+"-"+Ticket.Id.ToString();
+                billing.form_payment = "01"; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
+                billing.total = venta.Articles.Sum(x => x.Total).ToString("F2");
+                billing.serie = "A";
+                billing.folio = Ticket.Id.ToString();
+                billing.currency = "MXN";
+                billing.exchange_rate = null;
+                billing.exportacion = "01"; // Ejemplo: 01 = No exportación, 02 = Exportación definitiva, 03 = Exportación temporal
+                billing.payment_method = "PUE"; // Ejemplo: PUE = Pago en una sola exhibición, PPD = Pago en parcialidades o diferido
+                billing.payment_conditions = null;
+                billing.issuing_location = Empresa.CP.ToString();
+                billing.sold_at = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+                //billing.Sender = new Sender
+                //{
+                //    RFC = Empresa.RFC,
+                //    Name = Empresa.BillingName,
+                //    TaxRegime = Empresa.Regimen // Ejemplo: G01 = Adquisición de mercancias, G02 = Devoluciones, descuentos o bonificaciones, G03 = Gastos en general
+                //};
+                billing.concepts = new List<concepts>();
                 foreach (var item in venta.Articles)
                 {
                     Details.Id = 0;
@@ -651,37 +671,78 @@ namespace LinkCajaV2.Sales
                     Details.StockSold = item.Stock;//Cantidad vendida
                     Details.PriceSold = item.Price;//Valor unitario
                     Details.TotalSold = item.Total;
-                    await obj.SaveDetailsTicket(Details);              
-                    billing.Concepts.Add(
-                    new Concepts
+                    await obj.SaveDetailsTicket(Details);
+                    billing.concepts.Add(
+                    new concepts
                     {
-                        CodeSAT = item.CodeSAT,
-                        CodeProdServ = item.Code,
-                        Stock = item.Stock.ToString(),
-                        UnitSAT = item.UnitSAT,
-                        Description = item.Name,
-                        DateCreated = DateTime.Now,
-                        LastModific = DateTime.Now,
-                        UnitValue = item.Price,
-                        Import = item.Total,
-                        ObjetImp = "02",
-                        Tax = new Taxs
+                        clave_prod_serv = item.CodeSAT,
+                        no_identificacion = item.Code,
+                        quantity = item.Stock,
+                        clave_unidad = item.UnitSAT,
+                        unidad = item.NamePresentation,
+                        description = item.Name,
+                        unit_value = item.Price,
+                        amount = item.Total,
+                        discount = null,
+                        object_tax = "02",
+                        taxes = new taxes
                         {
-                            Base = item.Total,
-                            Tax = "002",
-                            TypeFactor = "Tasa",
-                            Rate = item.Medicine == false ? "0.160000" : "0.000000",
-                            Import = item.Medicine == false ? item.Total * 0.16m : 0m
+                            tax_type = "traslado",
+                            @base = item.Total,
+                            tax = "002",
+                            type_factor = "Tasa",
+                            rate = item.Medicine == false ? "0.160000" : "0.000000",
+                            amount = item.Medicine == false ? item.Total * 0.16m : 0m
                         }
                     });
                 }
                 ImpressionsGeneral im = new ImpressionsGeneral();
                 im.GenerarTicket(venta);
 
-
+                await ProcesarYEnviarTicketBackend(billing);
                 // Aquí podrías guardar la venta en la base de datos, generar un ID de venta, etc.
                 MessageBox.Show("Venta realizada con éxito.");
                 NuevaVenta();
+            }
+        }
+
+        public async Task ProcesarYEnviarTicketBackend(BillingDetails billing)
+        {
+            string url = "https://api.tu-servidor.com/api/tickets";
+            //string apiKey = "TU_API_KEY_AQUI";
+
+            // 2. Enviamos usando HttpClient
+            using (HttpClient client = new HttpClient())
+            {
+                //client.DefaultRequestHeaders.Add("X-POS-API-KEY", apiKey);
+
+                try
+                {
+                    // PostAsJsonAsync se encarga de convertir el objeto 'ticket' a JSON 
+                    // y configurar los headers de "application/json" automáticamente.
+                    HttpResponseMessage respuesta = await client.PostAsJsonAsync(url, billing);
+                    string resultadoServidor = await respuesta.Content.ReadAsStringAsync();
+                    //Para ver que json envias descomento esto
+                    // Esto genera el JSON en formato bonito (indented) para que lo puedas leer
+                    //string jsonGenerado = System.Text.Json.JsonSerializer.Serialize(billing, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+
+                    //// Lo imprime en la ventana de "Salida" (Output) de Visual Studio
+                    //System.Diagnostics.Debug.WriteLine("--- JSON GENERADO POR MI BACKEND ---");
+                    //System.Diagnostics.Debug.WriteLine(jsonGenerado);
+                    if (respuesta.IsSuccessStatusCode)
+                    {
+                        //Console.WriteLine("¡Ticket enviado y procesado desde el backend!");
+                        //Console.WriteLine(resultadoServidor);
+                    }
+                    else
+                    {
+                        //Console.WriteLine($"Error {respuesta.StatusCode}: {resultadoServidor}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //Console.WriteLine($"Error al conectar: {ex.Message}");
+                }
             }
         }
         private void btnVerTickets_Click(object sender, EventArgs e)
