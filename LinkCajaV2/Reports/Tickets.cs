@@ -281,7 +281,11 @@ namespace LinkCajaV2.Reports
                         return;
                     }
                     Note n = new Note();
-                    n.ShowDialog();
+                    if (n.ShowDialog() != DialogResult.OK)
+                    {
+                     MessageBox.Show("Cancelación del ticket cancelada por el usuario.", "Cancelación Cancelada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
                     int IdTicket = Convert.ToInt32(dgvTickets.Rows[e.RowIndex].Cells["Id"].Value);
                     AppRepository obj = new AppRepository();
                     try

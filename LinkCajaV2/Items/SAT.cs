@@ -10,22 +10,22 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Items
 {
-    public partial class Note : Form
+    public partial class SAT : Form
     {
-        public string NoteText { get; set; }
-        public Note()
+        public string Clave { get; set; }
+        public SAT()
         {
             InitializeComponent();
         }
 
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(txtMotive.Text))
+            if (string.IsNullOrWhiteSpace(txtClave.Text))
             {
-                MessageBox.Show("El motivo no puede estar vacío.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("La Clave no puede estar vacía.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            NoteText = txtMotive.Text;
+            Clave = txtClave.Text;
             DialogResult = DialogResult.OK;
         }
 

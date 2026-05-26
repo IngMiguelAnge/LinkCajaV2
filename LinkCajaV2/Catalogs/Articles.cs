@@ -1,5 +1,6 @@
 ﻿using LinkCajaV2.Configuraciones;
 using LinkCajaV2.Data;
+using LinkCajaV2.Items;
 using LinkCajaV2.Model;
 using LinkCajaV2.Reports;
 using LinkCajaV2.Sales;
@@ -263,6 +264,7 @@ namespace LinkCajaV2.Catalogs
                 BtnPanelSalir.Visible = false;
                 btnPanelVentas.Visible = false;
                 cbEtiquetas.Visible = false;
+                BtnSAT.Visible = false;
             }
             AppRepository obj = new AppRepository();
             var ListCategories = obj.GetCategoriesActives().Result;
@@ -276,7 +278,7 @@ namespace LinkCajaV2.Catalogs
         }
         private async void BtnImpresion_Click(object sender, EventArgs e)
         {
-            if (txtNombre.Text.Trim() == "" && txtCodigo.Text.Trim() == "")
+            if (txtNombre.Text.Trim() == "" && txtCodigo.Text.Trim() == "" && cbCategoria.SelectedIndex == 0)
             {
                 DialogResult resultado = MessageBox.Show("Ha dejado el campo vacio, esto buscara a todos los articulos pero puede demorar ¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (resultado == DialogResult.No)
@@ -321,6 +323,27 @@ namespace LinkCajaV2.Catalogs
             m.IdTypeUser = IdTypeUser;
             m.Show();
             this.Hide();
-        }      
+        }
+
+        private async void BtnSAT_Click(object sender, EventArgs e)
+        {
+            if (dgvArticulos.Rows.Count == 0)
+            {
+                MessageBox.Show("No hay artículos para agregar codigo SAT.");
+                return;
+
+            }
+            SAT s = new SAT();
+            if (s.ShowDialog() != DialogResult.OK)
+            {
+                MessageBox.Show("Introducción de clave cancelada por el usuario.", "Clave Cancelada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            int IdCategory = cbCategoria.SelectedIndex > 0 ? (int)cbCategoria.SelectedValue : 0;
+
+            AppRepository obj = new AppRepository();
+            await obj.UpdateSAT(s.Clave,txtCodigo.Text, txtNombre.Text, IdCategory);
+            await BuscarArticulos();
+        }
     }
 }

@@ -256,6 +256,12 @@
     <Compile Include="Items\Note.Designer.cs">
       <DependentUpon>Note.cs</DependentUpon>
     </Compile>
+    <Compile Include="Items\SAT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Items\SAT.Designer.cs">
+      <DependentUpon>SAT.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -413,6 +419,9 @@
     <EmbeddedResource Include="Items\Note.resx">
       <DependentUpon>Note.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Items\SAT.resx">
+      <DependentUpon>SAT.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -456,6 +465,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Icons\All.png" />
     <Content Include="Icons\Cajero.png" />
     <Content Include="Icons\Categorias.png" />
     <Content Include="Icons\Clientes.png" />

@@ -2005,6 +2005,31 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
+        public async Task<bool> UpdateSAT(string CodeSAT, string Code, string Name, int IdCategory)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("UpdateSAT", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@CodeSAT", CodeSAT));
+                        cmd.Parameters.Add(new SqlParameter("@Code", Code));
+                        cmd.Parameters.Add(new SqlParameter("@Name", Name));
+                        cmd.Parameters.Add(new SqlParameter("@IdCategory", IdCategory));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public async Task<ArticleModel> GetArticle(int Id, string Code)
         {
             ArticleModel response = new ArticleModel();

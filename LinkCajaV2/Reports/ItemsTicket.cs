@@ -158,7 +158,12 @@ namespace LinkCajaV2.Reports
                         return;
                     }
                     Note n = new Note();
-                    n.ShowDialog();
+                    if (n.ShowDialog() != DialogResult.OK)
+                    {
+                        MessageBox.Show("Devolución cancelada por el usuario.", "Devolución Cancelada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
                     int IdDetalle = Convert.ToInt32(dgvArticulos.Rows[e.RowIndex].Cells["Id"].Value);
                     decimal Total = Convert.ToDecimal(dgvArticulos.Rows[e.RowIndex].Cells["TotalSold"].Value);
                     string Name = Convert.ToString(dgvArticulos.Rows[e.RowIndex].Cells["Name"].Value);
