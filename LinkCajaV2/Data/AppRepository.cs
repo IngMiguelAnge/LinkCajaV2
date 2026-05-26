@@ -522,6 +522,8 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@IdClient", obj.IdClient));
                         cmd.Parameters.Add(new SqlParameter("@Total", obj.Total));
                         cmd.Parameters.Add(new SqlParameter("@IdBox", obj.IdBox));
+                        //cmd.Parameters.Add(new SqlParameter("@Adjustment", obj.Adjustment));
+                        //cmd.Parameters.Add(new SqlParameter("@TotalCharged", obj.TotalCharged));
                         SqlParameter outputParam = new SqlParameter("@VResp", System.Data.SqlDbType.Int)
                         {
                             Direction = System.Data.ParameterDirection.Output

@@ -182,7 +182,6 @@ namespace LinkCajaV2
                 panelConfiguraciones.Visible = false;
                 panelOperacionesCaja.Visible = false;
                 btnUsuarios.Visible = false;
-                btnProveedores.Visible = false;
                 //Menu lateral
                 btnPanelEmpresa.Visible = false;
                 btnPanelCorte.Visible = false;          

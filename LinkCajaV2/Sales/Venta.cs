@@ -584,14 +584,38 @@ namespace LinkCajaV2.Sales
                     Cliente = "Publico General",
                     BoxName = BoxName
                 };
-
+                decimal TotalReal = venta.Articles.Sum(x => x.Total);
+                //decimal parteEntera = Math.Truncate(TotalReal);
+                //decimal centavos = TotalReal - parteEntera;
+                //decimal centavosRedondeados = 0.00m;
+                ////Aplicamos la regla basada en .25 y .75
+                //if (centavos >= 0.01m && centavos <= 0.25m)
+                //{
+                //    centavosRedondeados = 0.00m; // Redondea hacia abajo a .00
+                //}
+                //else if (centavos >= 0.26m && centavos <= 0.50m)
+                //{
+                //    centavosRedondeados = 0.50m; // Redondea hacia arriba a .50
+                //}
+                //else if (centavos >= 0.51m && centavos <= 0.75m)
+                //{
+                //    centavosRedondeados = 0.50m; // Redondea hacia abajo a .50
+                //}
+                //else if (centavos >= 0.76m && centavos <= 0.99m)
+                //{
+                //    centavosRedondeados = 1.00m; // Redondea hacia arriba al siguiente peso
+                //}
+                //decimal TotalCobrado = parteEntera + centavosRedondeados;
+                //decimal Ajuste = TotalCobrado - TotalReal;
                 TicketModel Ticket = new TicketModel
                 {
                     Id = 0,
                     IdUser = IdUsuario,
                     IdClient = 1,//Clliente general por ahora
-                    Total = venta.Articles.Sum(x => x.Total),
+                    Total = TotalReal,
                     IdBox = IdBox
+                    //Adjustment = Ajuste,
+                    //TotalCharged = TotalCobrado
                 };
 
                 AppRepository obj = new AppRepository();

@@ -7,5 +7,7 @@
         public int IdClient { get; set; } 
         public int IdBox { get; set; }
         public decimal Total { get; set; }
+        //public decimal Adjustment { get; set; }
+        //public decimal TotalCharged { get; set; }
     }
 }
