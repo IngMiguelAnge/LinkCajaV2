@@ -87,13 +87,17 @@ namespace LinkCajaV2.Reports
                 var listaFinal = articulo?.ToList() ?? new List<ListTicketModel>();
                 dgvTickets.DataSource = new BindingList<ListTicketModel>(listaFinal);
                 decimal totalGeneral = listaFinal.Sum(item => item.Total);
-                decimal devoluciones = listaFinal.Sum(item => item.Devolucion);
+                decimal devoluciones = listaFinal.Sum(item => item.TotalReturn);
+                decimal totalFinal = listaFinal.Sum(item => item.TotalEnd);
                 lblVenta.Text = $"Venta total: {totalGeneral:C2}";
-                lblTotalDevolucion.Text = $"Total Devoluciones: {devoluciones:C2}";
+                lblTotalDevolucion.Text = $"Total devoluciones: {devoluciones:C2}";
+                lblVentaFinal.Text = $"Total final: {totalFinal:C2}";
             }
             catch (Exception ex)
             {
                 lblVenta.Text = "Venta total: $0.00";
+                lblTotalDevolucion.Text = "Total devoluciones: $0.00";
+                lblVentaFinal.Text = "Venta final: $0.00";
                 MessageBox.Show($"Error al cargar tickets: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -133,8 +137,24 @@ namespace LinkCajaV2.Reports
             dgvTickets.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Total",
-                HeaderText = "Total",
+                HeaderText = "Total de Venta",
                 DataPropertyName = "Total",
+                ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+            dgvTickets.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "TotalReturn",
+                HeaderText = "Total Devuelto",
+                DataPropertyName = "TotalReturn",
+                ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+            dgvTickets.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "TotalEnd",
+                HeaderText = "Total Final",
+                DataPropertyName = "TotalEnd",
                 ReadOnly = true,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             });
