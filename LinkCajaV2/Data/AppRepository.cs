@@ -86,7 +86,6 @@ namespace LinkCajaV2.Data
                 Status = (bool)reader["Status"],
             };
         }
-
         public async Task<bool> SaveCategorie(int Id, string Name)
         {
             try
@@ -354,6 +353,95 @@ namespace LinkCajaV2.Data
         }
         #endregion
         #region Tickets
+        public async Task<TicketModel> GetTicketsbyId(int Id)
+        {
+            TicketModel result = new TicketModel();
+            List<TicketModel> list = new List<TicketModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetTicketsbyId", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToTicket(reader));
+                            }
+                            result = list.Count() > 0 ? list[0] : null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return result;
+        }
+        private TicketModel MapToTicket(SqlDataReader reader)
+        {
+            return new TicketModel()
+            {
+                Id = (int)reader["Id"],
+                IdUser = (int)reader["IdUser"],
+                IdClient = (int)reader["IdClient"],
+                CreateDate = (DateTime)reader["CreateDate"],
+                Lastmodification = (DateTime)reader["Lastmodification"],
+                Status = (bool)reader["Status"],
+                IdBox = (int)reader["IdBox"],
+                Total = (decimal)reader["Total"],
+                TotalReturn = (decimal)reader["TotalReturn"],
+                Send = (bool)reader["Send"],
+            };
+        }
+        public async Task<List<DetailsforFactureModel>> GetDetailsforFacture(int IdTicket)
+        {
+            List<DetailsforFactureModel> list = new List<DetailsforFactureModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetDetailsforFacture", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@IdTicket", IdTicket));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToDetailTicket(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
+        private DetailsforFactureModel MapToDetailTicket(SqlDataReader reader)
+        {
+            return new DetailsforFactureModel()
+            {
+                CodeSAT = (string)reader["CodeSAT"],
+                Code = (string)reader["Code"],
+                Stock = (decimal)reader["StockSold"],
+                UnitSAT = (string)reader["UnitSAT"],
+                NamePresentation = (string)reader["NamePresentation"],
+                Name = (string)reader["Name"],
+                Price = (decimal)reader["PriceSold"],
+                Total = (decimal)reader["TotalSold"],
+                Rate = (string)reader["Rate"],
+                Amount = (decimal)reader["Amount"],
+            };
+        }
+
         public async Task<List<ListDetailsTicketModel>> GetDetailsTicket(int IdTicket)
         {
             List<ListDetailsTicketModel> list = new List<ListDetailsTicketModel>();
@@ -509,6 +597,27 @@ namespace LinkCajaV2.Data
 
         #endregion
         #region Venta
+        public async Task<bool> ConfirmSend(int Id, bool Send)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("ConfirmSend", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        cmd.Parameters.Add(new SqlParameter("@Send", Send));
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public async Task<int> SaveTicket(TicketModel obj)
         {
             try
@@ -559,6 +668,8 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@StockSold", obj.StockSold));
                         cmd.Parameters.Add(new SqlParameter("@PriceSold", obj.PriceSold));
                         cmd.Parameters.Add(new SqlParameter("@TotalSold", obj.TotalSold));
+                        cmd.Parameters.Add(new SqlParameter("@Rate", obj.Rate));
+                        cmd.Parameters.Add(new SqlParameter("@Amount", obj.Amount));
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;

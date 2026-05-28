@@ -9,5 +9,7 @@
         public decimal StockSold { get; set; }
         public decimal PriceSold { get; set; }
         public decimal TotalSold { get; set; }
+        public string Rate { get; set; }
+        public decimal Amount { get; set; }
     }
 }

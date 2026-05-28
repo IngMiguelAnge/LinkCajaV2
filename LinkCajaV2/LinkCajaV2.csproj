@@ -245,6 +245,7 @@
       <DependentUpon>Impressions.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\AppRepository.cs" />
+    <Compile Include="Data\BillingMethods.cs" />
     <Compile Include="Data\EncrypDesencryp.cs" />
     <Compile Include="Data\HardwareID.cs" />
     <Compile Include="Data\ImpressionsGeneral.cs" />
@@ -316,6 +317,7 @@
     <Compile Include="Model\ConfigPageModel.cs" />
     <Compile Include="Model\BillingDetails.cs" />
     <Compile Include="Model\DetailsTicketModel.cs" />
+    <Compile Include="Model\DetailsforFactureModel.cs" />
     <Compile Include="Model\HighPriceModel.cs" />
     <Compile Include="Model\ImpressionsModel.cs" />
     <Compile Include="Model\ListCashFundModel.cs" />

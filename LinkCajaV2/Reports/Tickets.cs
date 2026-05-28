@@ -15,6 +15,7 @@ using System.Security.Cryptography;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Forms;
 using static QuestPDF.Helpers.Colors;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
@@ -26,6 +27,7 @@ namespace LinkCajaV2.Reports
         public int IdUsuario { get; set; }
         public string NameUser { get; set; }
         public int IdTypeUser { get; set; }
+        private CompanyModel Empresa { get; set; }
         public Tickets()
         {
             InitializeComponent();
@@ -182,13 +184,21 @@ namespace LinkCajaV2.Reports
                 ReadOnly = true,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             });
+            dgvTickets.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Send",
+                HeaderText = "Enviado",
+                DataPropertyName = "Send",
+                ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
             DataGridViewButtonColumn btnVer = new DataGridViewButtonColumn
             {
                 Name = "Ver",
                 HeaderText = "Acción",
                 Text = "Ver Productos",
                 UseColumnTextForButtonValue = true,
-                Width =90,
+                Width = 90,
                 FlatStyle = FlatStyle.Flat
             };
             btnVer.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
@@ -202,7 +212,20 @@ namespace LinkCajaV2.Reports
                 Text = "Cancelar Ticket",
                 UseColumnTextForButtonValue = true,
                 Width = 90,
-                FlatStyle = FlatStyle.Flat  
+                FlatStyle = FlatStyle.Flat
+            };
+            btnCancelar.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+            btnCancelar.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
+
+            dgvTickets.Columns.Add(btnCancelar);
+            DataGridViewButtonColumn btnEnviar = new DataGridViewButtonColumn
+            {
+                Name = "Send",
+                HeaderText = "Acción",
+                Text = "Enviar a Facturación",
+                UseColumnTextForButtonValue = true,
+                Width = 90,
+                FlatStyle = FlatStyle.Flat
             };
             btnCancelar.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
             btnCancelar.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
@@ -247,18 +270,20 @@ namespace LinkCajaV2.Reports
             }
             RBCreacion.Checked = true;
             RBModificacion.Checked = false;
+            AppRepository obj = new AppRepository();
+            Empresa = obj.GetCompany().Result;
         }
         private async void dgvTickets_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
+            int IdTicket = Convert.ToInt32(dgvTickets.Rows[e.RowIndex].Cells["Id"].Value);
+
 
             switch (dgvTickets.Columns[e.ColumnIndex].Name)
             {
                 case "Ver":
-                    ItemsTicket itemsForm = new ItemsTicket
-                    {
-                        IdTicket = Convert.ToInt32(dgvTickets.Rows[e.RowIndex].Cells["Id"].Value)
-                    };
+                    ItemsTicket itemsForm = new ItemsTicket();
+                    itemsForm.IdTicket = IdTicket;
                     itemsForm.ShowDialog();
                     Buscar();
                     break;
@@ -283,10 +308,9 @@ namespace LinkCajaV2.Reports
                     Note n = new Note();
                     if (n.ShowDialog() != DialogResult.OK)
                     {
-                     MessageBox.Show("Cancelación del ticket cancelada por el usuario.", "Cancelación Cancelada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Cancelación del ticket cancelada por el usuario.", "Cancelación Cancelada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                    int IdTicket = Convert.ToInt32(dgvTickets.Rows[e.RowIndex].Cells["Id"].Value);
                     AppRepository obj = new AppRepository();
                     try
                     {
@@ -316,6 +340,65 @@ namespace LinkCajaV2.Reports
                     {
                         MessageBox.Show($"Error al cargar los articulos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                    break;
+                case "Send":
+                    string Send = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["Send"].Value);
+                    if (Send == "Enviado")
+                    {
+                        MessageBox.Show("El ticket ya se encuentra enviado a facturación.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    AppRepository obj2 = new AppRepository();
+                    var Venta = await obj2.GetTicketsbyId(IdTicket);
+                    var DetaillsVenta = await obj2.GetDetailsforFacture(IdTicket);
+                    BillingDetails billing = new BillingDetails();
+                    billing.pos_ticket_id = "TKT-" + Venta.CreateDate.ToString() + "-" + Venta.Id.ToString();
+                    billing.form_payment = "01"; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
+                    billing.total = Venta.Total.ToString("F2");
+                    billing.serie = "A";
+                    billing.folio = Venta.Id.ToString();
+                    billing.currency = "MXN";
+                    billing.exchange_rate = null;
+                    billing.exportacion = "01"; // Ejemplo: 01 = No exportación, 02 = Exportación definitiva, 03 = Exportación temporal
+                    billing.payment_method = "PUE"; // Ejemplo: PUE = Pago en una sola exhibición, PPD = Pago en parcialidades o diferido
+                    billing.payment_conditions = null;
+                    billing.issuing_location = Empresa.CP.ToString();
+                    billing.sold_at = Venta.CreateDate.ToString("yyyy-MM-ddTHH:mm:ss");
+                    billing.concepts = new List<concepts>();
+                    foreach (var item in DetaillsVenta)
+                    {
+                        billing.concepts.Add(
+                        new concepts
+                        {
+                            clave_prod_serv = item.CodeSAT,
+                            no_identificacion = item.Code,
+                            quantity = item.Stock,
+                            clave_unidad = item.UnitSAT,
+                            unidad = item.NamePresentation,
+                            description = item.Name,
+                            unit_value = item.Price,
+                            amount = item.Total,
+                            discount = null,
+                            object_tax = "02",
+                            taxes = new taxes
+                              {
+                              tax_type = "traslado",
+                              @base = item.Total,
+                              tax = "002",
+                              type_factor = "Tasa",
+                              rate = item.Rate,
+                              amount = item.Amount
+                              }
+                        });
+                    }
+                    BillingMethods Facturacion = new BillingMethods();
+                    bool Enviado = await Facturacion.EnviarFactura(billing);
+                    if (obj2.ConfirmSend(IdTicket, Enviado).Result == true)
+                        MessageBox.Show("Venta realizada con éxito.");
+                    else MessageBox.Show("Venta realizada con éxito. Pero fallo el envio consular consoporte");
+
+                    break;
+                default:
                     break;
             }
         }

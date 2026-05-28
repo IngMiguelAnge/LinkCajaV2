@@ -14,6 +14,7 @@ using System.Linq;
 using System.Media;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -626,9 +627,14 @@ namespace LinkCajaV2.Sales
                 {
                     Id = 0,
                     IdUser = IdUsuario,
-                    IdClient = 1,//Clliente general por ahora
+                    IdClient = 1,//Clliente general por ahora                  
+                    CreateDate = DateTime.Now,
+                    Lastmodification = DateTime.Now,    
+                    Status = true,
+                    IdBox = IdBox,
                     Total = TotalReal,
-                    IdBox = IdBox
+                    TotalReturn = 0,
+                    Send = false
                     //Adjustment = Ajuste,
                     //TotalCharged = TotalCobrado
                 };
@@ -671,6 +677,8 @@ namespace LinkCajaV2.Sales
                     Details.StockSold = item.Stock;//Cantidad vendida
                     Details.PriceSold = item.Price;//Valor unitario
                     Details.TotalSold = item.Total;
+                    Details.Rate = item.Medicine == false ? "0.160000" : "0.000000";
+                    Details.Amount = item.Medicine == false ? item.Total * 0.16m : 0m;
                     await obj.SaveDetailsTicket(Details);
                     billing.concepts.Add(
                     new concepts
@@ -699,52 +707,15 @@ namespace LinkCajaV2.Sales
                 ImpressionsGeneral im = new ImpressionsGeneral();
                 im.GenerarTicket(venta);
 
-                await ProcesarYEnviarTicketBackend(billing);
-                // Aquí podrías guardar la venta en la base de datos, generar un ID de venta, etc.
-                MessageBox.Show("Venta realizada con éxito.");
+                BillingMethods Facturacion = new BillingMethods();
+                bool Enviado=await Facturacion.EnviarFactura(billing);
+                if (obj.ConfirmSend(Ticket.Id, Enviado).Result == true)
+                 MessageBox.Show("Venta realizada con éxito.");
+                else MessageBox.Show("Venta realizada con éxito. Pero fallo el envio consular consoporte");
                 NuevaVenta();
             }
         }
-
-        public async Task ProcesarYEnviarTicketBackend(BillingDetails billing)
-        {
-            string url = "https://api.tu-servidor.com/api/tickets";
-            //string apiKey = "TU_API_KEY_AQUI";
-
-            // 2. Enviamos usando HttpClient
-            using (HttpClient client = new HttpClient())
-            {
-                //client.DefaultRequestHeaders.Add("X-POS-API-KEY", apiKey);
-
-                try
-                {
-                    // PostAsJsonAsync se encarga de convertir el objeto 'ticket' a JSON 
-                    // y configurar los headers de "application/json" automáticamente.
-                    HttpResponseMessage respuesta = await client.PostAsJsonAsync(url, billing);
-                    string resultadoServidor = await respuesta.Content.ReadAsStringAsync();
-                    //Para ver que json envias descomento esto
-                    // Esto genera el JSON en formato bonito (indented) para que lo puedas leer
-                    //string jsonGenerado = System.Text.Json.JsonSerializer.Serialize(billing, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
-
-                    //// Lo imprime en la ventana de "Salida" (Output) de Visual Studio
-                    //System.Diagnostics.Debug.WriteLine("--- JSON GENERADO POR MI BACKEND ---");
-                    //System.Diagnostics.Debug.WriteLine(jsonGenerado);
-                    if (respuesta.IsSuccessStatusCode)
-                    {
-                        //Console.WriteLine("¡Ticket enviado y procesado desde el backend!");
-                        //Console.WriteLine(resultadoServidor);
-                    }
-                    else
-                    {
-                        //Console.WriteLine($"Error {respuesta.StatusCode}: {resultadoServidor}");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    //Console.WriteLine($"Error al conectar: {ex.Message}");
-                }
-            }
-        }
+     
         private void btnVerTickets_Click(object sender, EventArgs e)
         {
             Tickets t = new Tickets();
