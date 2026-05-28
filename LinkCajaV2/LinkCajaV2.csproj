@@ -479,6 +479,7 @@
     <EmbeddedResource Include="Sales\Venta.resx">
       <DependentUpon>Venta.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include=".gitignore" />
     <None Include="app.manifest" />
     <None Include="Impresiones\Lista de precios.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
