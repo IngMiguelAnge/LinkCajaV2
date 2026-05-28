@@ -394,8 +394,8 @@ namespace LinkCajaV2.Reports
                     BillingMethods Facturacion = new BillingMethods();
                     bool Enviado = await Facturacion.EnviarFactura(billing);
                     if (obj2.ConfirmSend(IdTicket, Enviado).Result == true)
-                        MessageBox.Show("Venta realizada con éxito.");
-                    else MessageBox.Show("Venta realizada con éxito. Pero fallo el envio consular consoporte");
+                        MessageBox.Show("Envio con éxito.");
+                    else MessageBox.Show("Fallo el envio consultar con soporte");
 
                     break;
                 default:

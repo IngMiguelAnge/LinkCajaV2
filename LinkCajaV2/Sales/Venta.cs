@@ -711,7 +711,7 @@ namespace LinkCajaV2.Sales
                 bool Enviado=await Facturacion.EnviarFactura(billing);
                 if (obj.ConfirmSend(Ticket.Id, Enviado).Result == true)
                  MessageBox.Show("Venta realizada con éxito.");
-                else MessageBox.Show("Venta realizada con éxito. Pero fallo el envio consular consoporte");
+                else MessageBox.Show("Venta realizada con éxito. Pero fallo el envio consultar con soporte");
                 NuevaVenta();
             }
         }
