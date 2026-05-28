@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Reports
 {
-    public partial class CashDrop : Form
+    public partial class CashDrop : System.Windows.Forms.Form
     {
         public CashDrop()
         {

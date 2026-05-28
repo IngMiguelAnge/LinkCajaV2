@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Items
 {
-    public partial class Licenses : Form
+    public partial class Licenses : System.Windows.Forms.Form
     {
           public Licenses()
         {

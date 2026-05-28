@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Items
 {
-    public partial class Instalador : Form
+    public partial class Instalador : System.Windows.Forms.Form
     {
         public string NameLicense { get; set; }
         public string Box { get; set; }

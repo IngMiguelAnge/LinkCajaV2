@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Configurations
 {
-    public partial class Impressions : Form
+    public partial class Impressions : System.Windows.Forms.Form
     {
         List<ListConfigImpressionsModel> ConfigImpressions;
         public Impressions()

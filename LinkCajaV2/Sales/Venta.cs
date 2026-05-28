@@ -24,7 +24,7 @@ using Color = System.Drawing.Color;
 
 namespace LinkCajaV2.Sales
 {
-    public partial class Venta : Form
+    public partial class Venta : System.Windows.Forms.Form
     {
         private SoundPlayer lectorSonido;
         public int IdUsuario { get; set; }

@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Catalogs
 {
-    public partial class Article : Form
+    public partial class Article : System.Windows.Forms.Form
     {
         public int Id { get; set; }
         public Article()

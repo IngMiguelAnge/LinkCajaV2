@@ -22,7 +22,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace LinkCajaV2.Reports
 {
-    public partial class Tickets : Form
+    public partial class Tickets : System.Windows.Forms.Form
     {
         public int IdUsuario { get; set; }
         public string NameUser { get; set; }

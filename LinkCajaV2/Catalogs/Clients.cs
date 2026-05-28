@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Catalogs
 {
-    public partial class Clients : Form
+    public partial class Clients : System.Windows.Forms.Form
     {
         public Clients()
         {

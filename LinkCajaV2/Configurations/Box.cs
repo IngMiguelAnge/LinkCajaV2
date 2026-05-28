@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Catalogs
 {
-    public partial class Box : Form
+    public partial class Box : System.Windows.Forms.Form
     {
         public int Id { get; set; }
         int CantidadCajas = 0;

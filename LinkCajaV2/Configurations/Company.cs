@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Configuraciones
 {
-    public partial class Company : Form
+    public partial class Company : System.Windows.Forms.Form
     {
         public Company()
         {

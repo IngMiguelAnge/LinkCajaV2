@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Catalogs
 {
-    public partial class Recipe : Form
+    public partial class Recipe : System.Windows.Forms.Form
     {
         private SoundPlayer lectorSonido;
         public int Id { get; set; }

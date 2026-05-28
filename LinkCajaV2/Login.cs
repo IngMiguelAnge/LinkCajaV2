@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2
 {
-    public partial class Login : Form
+    public partial class Login : System.Windows.Forms.Form
     {
         public Login()
         {

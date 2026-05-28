@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Items
 {
-    public partial class Fund : Form
+    public partial class Fund : System.Windows.Forms.Form
     {
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }

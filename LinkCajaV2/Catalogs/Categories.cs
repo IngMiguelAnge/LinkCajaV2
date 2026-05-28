@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Catalogs
 {
-    public partial class Categories : Form
+    public partial class Categories : System.Windows.Forms.Form
     {
         public Categories()
         {

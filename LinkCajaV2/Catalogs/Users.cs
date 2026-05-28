@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Catalogs
 {
-    public partial class Users : Form
+    public partial class Users : System.Windows.Forms.Form
     {
         public int IdUsuario { get; set; }
         public string NameUser { get; set; }

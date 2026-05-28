@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Catalogs
 {
-    public partial class Client : Form
+    public partial class Client : System.Windows.Forms.Form
     {
         public int Id { get; set; }
         public Client()

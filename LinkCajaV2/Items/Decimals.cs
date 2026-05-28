@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Items
 {
-    public partial class Decimals : Form
+    public partial class Decimals : System.Windows.Forms.Form
     {
         public decimal Kilos { get; set; }
         public string Presentation { get; set; }

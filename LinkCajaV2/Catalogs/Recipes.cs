@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Catalogs
 {
-    public partial class Recipes : Form
+    public partial class Recipes : System.Windows.Forms.Form
     {
         public Recipes()
         {

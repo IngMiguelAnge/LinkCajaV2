@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2
 {
-    public partial class Menu : Form
+    public partial class Menu : System.Windows.Forms.Form
     {
         public int IdUsuario { get; set; }
         public int IdTypeUser { get; set; }

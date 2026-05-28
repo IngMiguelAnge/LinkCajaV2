@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Configurations
 {
-    public partial class CashFund : Form
+    public partial class CashFund : System.Windows.Forms.Form
     {
         public int IdBox { get; set; }
         public CashFund()

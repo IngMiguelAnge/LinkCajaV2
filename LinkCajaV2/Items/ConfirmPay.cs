@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Items
 {
-    public partial class ConfirmPay : Form
+    public partial class ConfirmPay : System.Windows.Forms.Form
     {
         public decimal Total { get; set; }
         public decimal Recibido { get; set; }

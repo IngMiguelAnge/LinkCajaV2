@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Items
 {
-    public partial class SAT : Form
+    public partial class SAT : System.Windows.Forms.Form
     {
         public string Clave { get; set; }
         public SAT()

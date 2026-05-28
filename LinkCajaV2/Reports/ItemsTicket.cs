@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Reports
 {
-    public partial class ItemsTicket : Form
+    public partial class ItemsTicket : System.Windows.Forms.Form
     {
         public int IdTicket { get; set; }
         public ItemsTicket()

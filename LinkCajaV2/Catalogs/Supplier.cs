@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Catalogs
 {
-    public partial class Supplier : Form
+    public partial class Supplier : System.Windows.Forms.Form
     {
         public int Id { get; set; }
         public Supplier()

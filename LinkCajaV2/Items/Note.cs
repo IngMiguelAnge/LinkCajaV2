@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Items
 {
-    public partial class Note : Form
+    public partial class Note : System.Windows.Forms.Form
     {
         public string NoteText { get; set; }
         public Note()

@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Catalogs
 {
-    public partial class Stock : Form
+    public partial class Stock : System.Windows.Forms.Form
     {
         public int IdArticle { get; set; }
         public string Nombre { get; set; }
