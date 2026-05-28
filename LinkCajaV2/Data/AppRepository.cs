@@ -2035,6 +2035,7 @@ namespace LinkCajaV2.Data
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Id", obj.Id));
                         cmd.Parameters.Add(new SqlParameter("@Stock", obj.Stock));
+                        cmd.Parameters.Add(new SqlParameter("@StockMin", obj.StockMin));
                         cmd.Parameters.Add(new SqlParameter("@IdPresentation", obj.IdPresentation));
                         cmd.Parameters.Add(new SqlParameter("@Price", obj.Price));
                         cmd.Parameters.Add(new SqlParameter("@SuggestedStock", obj.SuggestedStock));
@@ -2086,6 +2087,7 @@ namespace LinkCajaV2.Data
             {
                 Id = (int)reader["Id"],
                 Stock = Convert.IsDBNull(reader["Stock"]) ? 0 : (decimal)reader["Stock"],
+                StockMin = Convert.IsDBNull(reader["StockMin"]) ? 0 : (decimal)reader["StockMin"],
                 IdPresentation = Convert.IsDBNull(reader["IdPresentation"]) ? 0 : (int)reader["IdPresentation"],
                 Presentation = Convert.IsDBNull(reader["Presentation"]) ? string.Empty : (string)reader["Presentation"],
                 Price = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
@@ -2217,7 +2219,7 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
-        public async Task<List<ListArticlesModel>> GetArticles(string Code, string Nombre, bool IsReceta, int IdCategory)
+        public async Task<List<ListArticlesModel>> GetArticles(string Code, string Nombre, bool IsReceta, int IdCategory, bool Agotados)
         {
             List<ListArticlesModel> list = new List<ListArticlesModel>();
             try
@@ -2231,6 +2233,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Name", Nombre));
                         cmd.Parameters.Add(new SqlParameter("@IsReceta", IsReceta));
                         cmd.Parameters.Add(new SqlParameter("@IdCategory", IdCategory));
+                        cmd.Parameters.Add(new SqlParameter("@Outstock", Agotados));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
@@ -2334,9 +2337,11 @@ namespace LinkCajaV2.Data
             {
                 Id = (int)reader["Id"],
                 Codigo = (string)reader["Code"],
+                ClaveSAT = Convert.IsDBNull(reader["CodeSAT"]) ? string.Empty : (string)reader["CodeSAT"],
                 Articulo = (string)reader["Name"],
                 Categoria = (string)reader["Categoria"],
                 Existencias = (string)reader["Stock"],
+                ExistenciasMinimas = (string)reader["StockMin"],
                 Precio = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
                 PorCada = (string)reader["PorCada"],
                 Medicamento = (string)reader["Medicine"],

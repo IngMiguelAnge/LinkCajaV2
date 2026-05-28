@@ -49,10 +49,13 @@
             this.lblRecomendacion3 = new System.Windows.Forms.Label();
             this.lblPrecioGramo = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.NUDExistenciasMinimas = new System.Windows.Forms.NumericUpDown();
+            this.lblExistenciasMinimas = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudCada)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudExistencias)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMargen)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDExistenciasMinimas)).BeginInit();
             this.SuspendLayout();
             // 
             // lblMedida
@@ -74,7 +77,7 @@
             this.lblCostoGramo.Location = new System.Drawing.Point(352, 399);
             this.lblCostoGramo.Name = "lblCostoGramo";
             this.lblCostoGramo.Size = new System.Drawing.Size(159, 25);
-            this.lblCostoGramo.TabIndex = 13;
+            this.lblCostoGramo.TabIndex = 16;
             this.lblCostoGramo.Text = "Costo por gramo:";
             this.lblCostoGramo.Visible = false;
             // 
@@ -89,7 +92,7 @@
             0});
             this.nudCada.Name = "nudCada";
             this.nudCada.Size = new System.Drawing.Size(250, 37);
-            this.nudCada.TabIndex = 11;
+            this.nudCada.TabIndex = 15;
             this.nudCada.KeyUp += new System.Windows.Forms.KeyEventHandler(this.nudCada_KeyUp);
             // 
             // lblPor
@@ -100,7 +103,7 @@
             this.lblPor.Location = new System.Drawing.Point(352, 313);
             this.lblPor.Name = "lblPor";
             this.lblPor.Size = new System.Drawing.Size(85, 25);
-            this.lblPor.TabIndex = 10;
+            this.lblPor.TabIndex = 14;
             this.lblPor.Text = "Por cada";
             // 
             // nudPrecio
@@ -115,7 +118,7 @@
             0});
             this.nudPrecio.Name = "nudPrecio";
             this.nudPrecio.Size = new System.Drawing.Size(250, 37);
-            this.nudPrecio.TabIndex = 9;
+            this.nudPrecio.TabIndex = 13;
             this.nudPrecio.KeyUp += new System.Windows.Forms.KeyEventHandler(this.nudPrecio_KeyUp);
             // 
             // lblPrecio
@@ -126,7 +129,7 @@
             this.lblPrecio.Location = new System.Drawing.Point(352, 225);
             this.lblPrecio.Name = "lblPrecio";
             this.lblPrecio.Size = new System.Drawing.Size(70, 25);
-            this.lblPrecio.TabIndex = 8;
+            this.lblPrecio.TabIndex = 12;
             this.lblPrecio.Text = "Precio:";
             // 
             // cbPresentacion
@@ -186,7 +189,7 @@
             this.BtnGuardar.Location = new System.Drawing.Point(466, 477);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(200, 48);
-            this.BtnGuardar.TabIndex = 14;
+            this.BtnGuardar.TabIndex = 18;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
             this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
@@ -210,7 +213,7 @@
             this.lblRecomendacion.Location = new System.Drawing.Point(351, 94);
             this.lblRecomendacion.Name = "lblRecomendacion";
             this.lblRecomendacion.Size = new System.Drawing.Size(142, 25);
-            this.lblRecomendacion.TabIndex = 7;
+            this.lblRecomendacion.TabIndex = 9;
             this.lblRecomendacion.Text = "Se recomienda:";
             // 
             // lblMargen
@@ -218,20 +221,20 @@
             this.lblMargen.AutoSize = true;
             this.lblMargen.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMargen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblMargen.Location = new System.Drawing.Point(40, 313);
+            this.lblMargen.Location = new System.Drawing.Point(40, 398);
             this.lblMargen.Name = "lblMargen";
             this.lblMargen.Size = new System.Drawing.Size(191, 25);
-            this.lblMargen.TabIndex = 5;
+            this.lblMargen.TabIndex = 7;
             this.lblMargen.Text = "Margen de ganancia:";
             // 
             // nudMargen
             // 
             this.nudMargen.DecimalPlaces = 2;
             this.nudMargen.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudMargen.Location = new System.Drawing.Point(41, 348);
+            this.nudMargen.Location = new System.Drawing.Point(41, 433);
             this.nudMargen.Name = "nudMargen";
             this.nudMargen.Size = new System.Drawing.Size(250, 37);
-            this.nudMargen.TabIndex = 6;
+            this.nudMargen.TabIndex = 8;
             this.nudMargen.ValueChanged += new System.EventHandler(this.nudMargen_ValueChanged);
             this.nudMargen.KeyUp += new System.Windows.Forms.KeyEventHandler(this.nudMargen_KeyUp);
             // 
@@ -240,7 +243,7 @@
             this.Porcentaje.AutoSize = true;
             this.Porcentaje.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Porcentaje.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.Porcentaje.Location = new System.Drawing.Point(297, 358);
+            this.Porcentaje.Location = new System.Drawing.Point(297, 443);
             this.Porcentaje.Name = "Porcentaje";
             this.Porcentaje.Size = new System.Drawing.Size(27, 25);
             this.Porcentaje.TabIndex = 15;
@@ -254,7 +257,7 @@
             this.lblRecomendacion2.Location = new System.Drawing.Point(351, 190);
             this.lblRecomendacion2.Name = "lblRecomendacion2";
             this.lblRecomendacion2.Size = new System.Drawing.Size(142, 25);
-            this.lblRecomendacion2.TabIndex = 16;
+            this.lblRecomendacion2.TabIndex = 11;
             this.lblRecomendacion2.Text = "Se recomienda:";
             // 
             // lblRecomendacion3
@@ -265,7 +268,7 @@
             this.lblRecomendacion3.Location = new System.Drawing.Point(351, 144);
             this.lblRecomendacion3.Name = "lblRecomendacion3";
             this.lblRecomendacion3.Size = new System.Drawing.Size(142, 25);
-            this.lblRecomendacion3.TabIndex = 17;
+            this.lblRecomendacion3.TabIndex = 10;
             this.lblRecomendacion3.Text = "Se recomienda:";
             // 
             // lblPrecioGramo
@@ -276,7 +279,7 @@
             this.lblPrecioGramo.Location = new System.Drawing.Point(517, 399);
             this.lblPrecioGramo.Name = "lblPrecioGramo";
             this.lblPrecioGramo.Size = new System.Drawing.Size(22, 25);
-            this.lblPrecioGramo.TabIndex = 18;
+            this.lblPrecioGramo.TabIndex = 17;
             this.lblPrecioGramo.Text = "$";
             this.lblPrecioGramo.Visible = false;
             // 
@@ -291,12 +294,33 @@
             this.lblTitulo.TabIndex = 25;
             this.lblTitulo.Text = "Existencias";
             // 
+            // NUDExistenciasMinimas
+            // 
+            this.NUDExistenciasMinimas.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NUDExistenciasMinimas.Location = new System.Drawing.Point(45, 348);
+            this.NUDExistenciasMinimas.Name = "NUDExistenciasMinimas";
+            this.NUDExistenciasMinimas.Size = new System.Drawing.Size(250, 37);
+            this.NUDExistenciasMinimas.TabIndex = 6;
+            // 
+            // lblExistenciasMinimas
+            // 
+            this.lblExistenciasMinimas.AutoSize = true;
+            this.lblExistenciasMinimas.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblExistenciasMinimas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblExistenciasMinimas.Location = new System.Drawing.Point(44, 313);
+            this.lblExistenciasMinimas.Name = "lblExistenciasMinimas";
+            this.lblExistenciasMinimas.Size = new System.Drawing.Size(187, 25);
+            this.lblExistenciasMinimas.TabIndex = 5;
+            this.lblExistenciasMinimas.Text = "Existencias Minimas:";
+            // 
             // Stock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(706, 560);
+            this.Controls.Add(this.NUDExistenciasMinimas);
+            this.Controls.Add(this.lblExistenciasMinimas);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.lblPrecioGramo);
             this.Controls.Add(this.lblRecomendacion3);
@@ -328,6 +352,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudExistencias)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMargen)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDExistenciasMinimas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -355,5 +380,7 @@
         private System.Windows.Forms.Label lblRecomendacion3;
         private System.Windows.Forms.Label lblPrecioGramo;
         private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.NumericUpDown NUDExistenciasMinimas;
+        private System.Windows.Forms.Label lblExistenciasMinimas;
     }
 }

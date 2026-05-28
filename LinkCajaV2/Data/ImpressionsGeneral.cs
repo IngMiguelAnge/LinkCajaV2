@@ -19,6 +19,128 @@ namespace LinkCajaV2.Data
     {
         ConfigPageModel ConfigBox;
         List<ListConfigImpressionsModel> ConfigImpressions;
+        public void ImpresionListaAgotados(List<PrinterPricesModel> ListArticulos)
+        {
+            try
+            {
+                AppRepository obj = new AppRepository();
+                ConfigBox = obj.GetConfigBox().Result;
+                ConfigImpressions = obj.GetConfigImpressions("Lista de articulos agotados").Result;
+
+                // 2. Configurar licencia y ruta
+                QuestPDF.Settings.License = LicenseType.Community;
+                string nombreArchivo = "Lista de agotados.pdf";
+                string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory + "\\Impresiones", nombreArchivo);
+
+                // 3. Crear el documento
+                Document.Create(container =>
+                {
+                    container.Page(page =>
+                    {
+                        if (ConfigBox.Page == "A4")
+                        {
+                            page.Size(PageSizes.A4);
+                            page.Margin(1, Unit.Centimetre);
+                        }
+                        else
+                        {
+                            const float MM = 2.8346f;
+                            page.Size((float)ConfigBox.WidthPage * MM, (float)ConfigBox.HightPage * MM);
+                            page.Margin(2f * MM);
+                        }
+
+                        page.PageColor(Colors.White);
+
+                        int TituloFontsize = ConfigImpressions.Find(x => x.Name == "Titulo") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Titulo").FontSize) : 16;
+                        string TituloColor = ConfigImpressions.Find(x => x.Name == "Titulo") != null ? ConfigImpressions.Find(x => x.Name == "Titulo").FontColor : "Black";
+                        TituloColor = CodigodeColor(TituloColor);
+                        string TituloFontStyle = ConfigImpressions.Find(x => x.Name == "Titulo") != null ? ConfigImpressions.Find(x => x.Name == "Titulo").FontStyle : "SemiBold";
+                        var EstiloTitulo = ObtenerEstiloPersonalizado(TituloFontStyle, TituloFontsize, TituloColor);
+
+                        int FechaFontsize = ConfigImpressions.Find(x => x.Name == "Fecha") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Fecha").FontSize) : 16;
+                        string FechaColor = ConfigImpressions.Find(x => x.Name == "Fecha") != null ? ConfigImpressions.Find(x => x.Name == "Fecha").FontColor : "Black";
+                        FechaColor = CodigodeColor(FechaColor);
+                        string FechaFontStyle = ConfigImpressions.Find(x => x.Name == "Fecha") != null ? ConfigImpressions.Find(x => x.Name == "Fecha").FontStyle : "SemiBold";
+                        var EstiloFecha = ObtenerEstiloPersonalizado(FechaFontStyle, FechaFontsize, FechaColor);
+
+                        // Cabecera del documento
+                        page.Header().Row(row =>
+                        {
+                            row.RelativeItem().Column(col =>
+                            {
+                                col.Item().Text("LISTA DE AGOTADOS").Style(EstiloTitulo);
+                                col.Item().Text("Generado el: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm")).Style(EstiloFecha);
+                            });
+                        });
+
+                        // 🔥 CONTENIDO EN FORMA DE LISTA NORMAL (SIN CUADROS)
+                        page.Content().PaddingVertical(10).Column(listCol =>
+                        {
+                            // Espaciado vertical entre cada artículo de la lista
+                            listCol.Spacing((float)ConfigBox.Spacing);
+
+                            int ArticuloFontsize = ConfigImpressions.Find(x => x.Name == "Articulo") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Articulo").FontSize) : 16;
+                            string ArticuloColor = ConfigImpressions.Find(x => x.Name == "Articulo") != null ? ConfigImpressions.Find(x => x.Name == "Articulo").FontColor : "Black";
+                            ArticuloColor = CodigodeColor(ArticuloColor);
+                            string ArticuloFontStyle = ConfigImpressions.Find(x => x.Name == "Articulo") != null ? ConfigImpressions.Find(x => x.Name == "Articulo").FontStyle : "SemiBold";
+                            var EstiloArticulo = ObtenerEstiloPersonalizado(ArticuloFontStyle, ArticuloFontsize, ArticuloColor);
+
+                            int PrecioFontsize = ConfigImpressions.Find(x => x.Name == "Precio") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Precio").FontSize) : 16;
+                            string PrecioColor = ConfigImpressions.Find(x => x.Name == "Precio") != null ? ConfigImpressions.Find(x => x.Name == "Precio").FontColor : "Black";
+                            PrecioColor = CodigodeColor(PrecioColor);
+                            string PrecioFontStyle = ConfigImpressions.Find(x => x.Name == "Precio") != null ? ConfigImpressions.Find(x => x.Name == "Precio").FontStyle : "SemiBold";
+                            var EstiloPrecio = ObtenerEstiloPersonalizado(PrecioFontStyle, PrecioFontsize, PrecioColor);
+                            listCol.Item().Column(headerCol =>
+                            {
+                                headerCol.Item().Row(row =>
+                                {
+                                    row.RelativeItem().AlignLeft().Text("Artículo").Style(EstiloArticulo);
+                                    row.RelativeItem().AlignCenter().Text("Categoría").Style(EstiloArticulo);
+                                    row.RelativeItem().AlignCenter().Text("Existencias").Style(EstiloArticulo);
+                                    row.RelativeItem().AlignCenter().Text("Existencias Minimas").Style(EstiloArticulo);
+                                });
+
+                                // Línea divisoria ligeramente más marcada para los títulos
+                                headerCol.Item().PaddingTop(5).Height(1.5f).Background(Colors.Grey.Darken1);
+                            });
+                            foreach (var item in ListArticulos)
+                            {
+                                // Reemplazamos el método del cuadro por una fila limpia de texto continuo
+                                listCol.Item().Column(itemCol =>
+                                {
+                                    // 1. Renglón con la información del artículo
+                                    itemCol.Item().Row(row =>
+                                    {
+                                        row.RelativeItem().AlignLeft().Text(item.Articulo).Style(EstiloArticulo);
+                                        row.RelativeItem().AlignCenter().Text(item.Categoria).Style(EstiloArticulo);
+                                        row.RelativeItem().AlignCenter().Text(item.Stock).Style(EstiloArticulo);
+                                        row.RelativeItem().AlignCenter().Text(item.StockMinimo).Style(EstiloArticulo);
+                                    });
+
+                                    // 2. Línea divisoria horizontal (delgada y de un gris sutil para que se vea elegante)
+                                    itemCol.Item().PaddingTop(5).Height(1).Background(Colors.Grey.Lighten2);
+                                });
+                            }
+                        });
+
+                        // Pie de página
+                        page.Footer().AlignCenter().Text(x =>
+                        {
+                            x.Span("Página ");
+                            x.CurrentPageNumber();
+                        });
+                    });
+                })
+                .GeneratePdf(rutaCompleta);
+                //Abre pdf
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(rutaCompleta) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar el PDF: " + ex.Message);
+            }
+        }
+
         public void ImpresionListaPrecios(List<PrinterPricesModel> ListArticulos)
         {
             try
@@ -90,7 +212,19 @@ namespace LinkCajaV2.Data
                             PrecioColor = CodigodeColor(PrecioColor);
                             string PrecioFontStyle = ConfigImpressions.Find(x => x.Name == "Precio") != null ? ConfigImpressions.Find(x => x.Name == "Precio").FontStyle : "SemiBold";
                             var EstiloPrecio = ObtenerEstiloPersonalizado(PrecioFontStyle, PrecioFontsize, PrecioColor);
+                            listCol.Item().Column(headerCol =>
+                            {
+                                headerCol.Item().Row(row =>
+                                {
+                                    row.RelativeItem().AlignLeft().Text("Artículo").Style(EstiloArticulo);
+                                    row.RelativeItem().AlignCenter().Text("Categoría").Style(EstiloArticulo);
+                                    row.RelativeItem().AlignCenter().Text("Clave SAT").Style(EstiloArticulo);
+                                    row.ConstantItem(80).AlignRight().Text("Precio").Style(EstiloArticulo); // O EstiloPrecio si prefieres
+                                });
 
+                                // Línea divisoria ligeramente más marcada para los títulos
+                                headerCol.Item().PaddingTop(5).Height(1.5f).Background(Colors.Grey.Darken1);
+                            });
                             foreach (var item in ListArticulos)
                             {
                                 // Reemplazamos el método del cuadro por una fila limpia de texto continuo
@@ -101,6 +235,7 @@ namespace LinkCajaV2.Data
                                     {
                                         row.RelativeItem().AlignLeft().Text(item.Articulo).Style(EstiloArticulo);
                                         row.RelativeItem().AlignCenter().Text(item.Categoria).Style(EstiloArticulo);
+                                        row.RelativeItem().AlignCenter().Text(item.ClaveSAT).Style(EstiloArticulo);
                                         row.ConstantItem(80).AlignRight().Text(item.Precio.ToString("C2")).Style(EstiloPrecio);
                                     });
 

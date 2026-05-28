@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Articles));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelLateral = new System.Windows.Forms.Panel();
-            this.btnPanelMenu = new System.Windows.Forms.Button();
             this.BtnPanelSalir = new System.Windows.Forms.Button();
+            this.btnPanelMenu = new System.Windows.Forms.Button();
             this.btnPanelCorte = new System.Windows.Forms.Button();
             this.btnPanelEmpresa = new System.Windows.Forms.Button();
             this.btnPanelArticulos = new System.Windows.Forms.Button();
@@ -51,10 +51,13 @@
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.BtnImpresion = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.cbEtiquetas = new System.Windows.Forms.CheckBox();
             this.cbCategoria = new System.Windows.Forms.ComboBox();
             this.lblCategoria = new System.Windows.Forms.Label();
             this.BtnSAT = new System.Windows.Forms.Button();
+            this.lblOpciones = new System.Windows.Forms.Label();
+            this.RBEtiquetas = new System.Windows.Forms.RadioButton();
+            this.RBListaPrecios = new System.Windows.Forms.RadioButton();
+            this.CBAgotados = new System.Windows.Forms.CheckBox();
             this.panelLateral.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
@@ -76,21 +79,6 @@
             this.panelLateral.Size = new System.Drawing.Size(264, 691);
             this.panelLateral.TabIndex = 0;
             // 
-            // btnPanelMenu
-            // 
-            this.btnPanelMenu.FlatAppearance.BorderSize = 0;
-            this.btnPanelMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPanelMenu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnPanelMenu.ForeColor = System.Drawing.Color.White;
-            this.btnPanelMenu.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelMenu.Image")));
-            this.btnPanelMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelMenu.Location = new System.Drawing.Point(11, 121);
-            this.btnPanelMenu.Name = "btnPanelMenu";
-            this.btnPanelMenu.Size = new System.Drawing.Size(246, 82);
-            this.btnPanelMenu.TabIndex = 26;
-            this.btnPanelMenu.Text = "Menu";
-            this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click);
-            // 
             // BtnPanelSalir
             // 
             this.BtnPanelSalir.FlatAppearance.BorderSize = 0;
@@ -105,6 +93,21 @@
             this.BtnPanelSalir.TabIndex = 5;
             this.BtnPanelSalir.Text = "Salir";
             this.BtnPanelSalir.Click += new System.EventHandler(this.BtnPanelSalir_Click);
+            // 
+            // btnPanelMenu
+            // 
+            this.btnPanelMenu.FlatAppearance.BorderSize = 0;
+            this.btnPanelMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPanelMenu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnPanelMenu.ForeColor = System.Drawing.Color.White;
+            this.btnPanelMenu.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelMenu.Image")));
+            this.btnPanelMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPanelMenu.Location = new System.Drawing.Point(11, 121);
+            this.btnPanelMenu.Name = "btnPanelMenu";
+            this.btnPanelMenu.Size = new System.Drawing.Size(246, 82);
+            this.btnPanelMenu.TabIndex = 26;
+            this.btnPanelMenu.Text = "Menu";
+            this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click);
             // 
             // btnPanelCorte
             // 
@@ -181,7 +184,7 @@
             this.lblNombre.AutoSize = true;
             this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblNombre.Location = new System.Drawing.Point(605, 94);
+            this.lblNombre.Location = new System.Drawing.Point(587, 94);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(86, 25);
             this.lblNombre.TabIndex = 2;
@@ -190,7 +193,7 @@
             // txtNombre
             // 
             this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(610, 129);
+            this.txtNombre.Location = new System.Drawing.Point(592, 131);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(272, 37);
             this.txtNombre.TabIndex = 3;
@@ -203,7 +206,7 @@
             this.btnNuevo.ForeColor = System.Drawing.Color.White;
             this.btnNuevo.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevo.Image")));
             this.btnNuevo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNuevo.Location = new System.Drawing.Point(948, 196);
+            this.btnNuevo.Location = new System.Drawing.Point(1344, 131);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(120, 37);
             this.btnNuevo.TabIndex = 7;
@@ -220,7 +223,7 @@
             this.BtnBuscar.ForeColor = System.Drawing.Color.White;
             this.BtnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("BtnBuscar.Image")));
             this.BtnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnBuscar.Location = new System.Drawing.Point(300, 196);
+            this.BtnBuscar.Location = new System.Drawing.Point(1194, 131);
             this.BtnBuscar.Name = "BtnBuscar";
             this.BtnBuscar.Size = new System.Drawing.Size(120, 37);
             this.BtnBuscar.TabIndex = 4;
@@ -240,36 +243,36 @@
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.groupBox1.Location = new System.Drawing.Point(300, 303);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1193, 376);
+            this.groupBox1.Size = new System.Drawing.Size(1440, 376);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Articulos";
             // 
             // dgvArticulos
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
-            this.dgvArticulos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.dgvArticulos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvArticulos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvArticulos.BackgroundColor = System.Drawing.Color.White;
             this.dgvArticulos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvArticulos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvArticulos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvArticulos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvArticulos.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvArticulos.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvArticulos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvArticulos.EnableHeadersVisualStyles = false;
             this.dgvArticulos.Location = new System.Drawing.Point(3, 35);
@@ -277,7 +280,7 @@
             this.dgvArticulos.ReadOnly = true;
             this.dgvArticulos.RowHeadersWidth = 62;
             this.dgvArticulos.RowTemplate.Height = 28;
-            this.dgvArticulos.Size = new System.Drawing.Size(1187, 338);
+            this.dgvArticulos.Size = new System.Drawing.Size(1434, 338);
             this.dgvArticulos.TabIndex = 9;
             this.dgvArticulos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvArticulos_CellContentClick);
             // 
@@ -319,7 +322,7 @@
             this.BtnImpresion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.BtnImpresion.Image = ((System.Drawing.Image)(resources.GetObject("BtnImpresion.Image")));
             this.BtnImpresion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnImpresion.Location = new System.Drawing.Point(615, 196);
+            this.BtnImpresion.Location = new System.Drawing.Point(1178, 203);
             this.BtnImpresion.Name = "BtnImpresion";
             this.BtnImpresion.Size = new System.Drawing.Size(123, 37);
             this.BtnImpresion.TabIndex = 6;
@@ -338,19 +341,6 @@
             this.lblTitulo.Size = new System.Drawing.Size(309, 48);
             this.lblTitulo.TabIndex = 24;
             this.lblTitulo.Text = "Lista de Articulos";
-            // 
-            // cbEtiquetas
-            // 
-            this.cbEtiquetas.AutoSize = true;
-            this.cbEtiquetas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbEtiquetas.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbEtiquetas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.cbEtiquetas.Location = new System.Drawing.Point(439, 198);
-            this.cbEtiquetas.Name = "cbEtiquetas";
-            this.cbEtiquetas.Size = new System.Drawing.Size(139, 32);
-            this.cbEtiquetas.TabIndex = 5;
-            this.cbEtiquetas.Text = "¿Etiquetas?";
-            this.cbEtiquetas.UseVisualStyleBackColor = true;
             // 
             // cbCategoria
             // 
@@ -382,25 +372,81 @@
             this.BtnSAT.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.BtnSAT.Image = ((System.Drawing.Image)(resources.GetObject("BtnSAT.Image")));
             this.BtnSAT.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnSAT.Location = new System.Drawing.Point(778, 196);
+            this.BtnSAT.Location = new System.Drawing.Point(1328, 203);
             this.BtnSAT.Name = "BtnSAT";
-            this.BtnSAT.Size = new System.Drawing.Size(123, 37);
+            this.BtnSAT.Size = new System.Drawing.Size(216, 37);
             this.BtnSAT.TabIndex = 27;
-            this.BtnSAT.Text = "SAT";
+            this.BtnSAT.Text = "Agregar SAT general";
             this.BtnSAT.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnSAT.UseVisualStyleBackColor = false;
             this.BtnSAT.Click += new System.EventHandler(this.BtnSAT_Click);
+            // 
+            // lblOpciones
+            // 
+            this.lblOpciones.AutoSize = true;
+            this.lblOpciones.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOpciones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblOpciones.Location = new System.Drawing.Point(298, 178);
+            this.lblOpciones.Name = "lblOpciones";
+            this.lblOpciones.Size = new System.Drawing.Size(96, 25);
+            this.lblOpciones.TabIndex = 28;
+            this.lblOpciones.Text = "Opciones:";
+            // 
+            // RBEtiquetas
+            // 
+            this.RBEtiquetas.AutoSize = true;
+            this.RBEtiquetas.Checked = true;
+            this.RBEtiquetas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RBEtiquetas.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RBEtiquetas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.RBEtiquetas.Location = new System.Drawing.Point(300, 208);
+            this.RBEtiquetas.Name = "RBEtiquetas";
+            this.RBEtiquetas.Size = new System.Drawing.Size(211, 32);
+            this.RBEtiquetas.TabIndex = 29;
+            this.RBEtiquetas.TabStop = true;
+            this.RBEtiquetas.Text = "Imprimir Etiquetas";
+            this.RBEtiquetas.UseVisualStyleBackColor = true;
+            // 
+            // RBListaPrecios
+            // 
+            this.RBListaPrecios.AutoSize = true;
+            this.RBListaPrecios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RBListaPrecios.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RBListaPrecios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.RBListaPrecios.Location = new System.Drawing.Point(546, 208);
+            this.RBListaPrecios.Name = "RBListaPrecios";
+            this.RBListaPrecios.Size = new System.Drawing.Size(270, 32);
+            this.RBListaPrecios.TabIndex = 30;
+            this.RBListaPrecios.Text = "Imprimir Lista de Precios";
+            this.RBListaPrecios.UseVisualStyleBackColor = true;
+            // 
+            // CBAgotados
+            // 
+            this.CBAgotados.AutoSize = true;
+            this.CBAgotados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CBAgotados.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CBAgotados.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.CBAgotados.Location = new System.Drawing.Point(888, 208);
+            this.CBAgotados.Name = "CBAgotados";
+            this.CBAgotados.Size = new System.Drawing.Size(251, 32);
+            this.CBAgotados.TabIndex = 32;
+            this.CBAgotados.Text = "Ver/Imprimir Agotados";
+            this.CBAgotados.UseVisualStyleBackColor = true;
+            this.CBAgotados.CheckedChanged += new System.EventHandler(this.CBAgotados_CheckedChanged);
             // 
             // Articles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1530, 691);
+            this.ClientSize = new System.Drawing.Size(1777, 691);
+            this.Controls.Add(this.CBAgotados);
+            this.Controls.Add(this.RBListaPrecios);
+            this.Controls.Add(this.RBEtiquetas);
+            this.Controls.Add(this.lblOpciones);
             this.Controls.Add(this.BtnSAT);
             this.Controls.Add(this.cbCategoria);
             this.Controls.Add(this.lblCategoria);
-            this.Controls.Add(this.cbEtiquetas);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.BtnImpresion);
             this.Controls.Add(this.txtCodigo);
@@ -449,9 +495,12 @@
         private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.Button BtnImpresion;
         private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.CheckBox cbEtiquetas;
         private System.Windows.Forms.ComboBox cbCategoria;
         private System.Windows.Forms.Label lblCategoria;
         private System.Windows.Forms.Button BtnSAT;
+        private System.Windows.Forms.Label lblOpciones;
+        private System.Windows.Forms.RadioButton RBEtiquetas;
+        private System.Windows.Forms.RadioButton RBListaPrecios;
+        private System.Windows.Forms.CheckBox CBAgotados;
     }
 }

@@ -104,7 +104,7 @@ namespace LinkCajaV2.Catalogs
                 AppRepository obj = new AppRepository();
                 int IdCategory = cbCategoria.SelectedIndex > 0 ? (int)cbCategoria.SelectedValue : 0;
                 var lista = await Task.Run(() => IsVenta == false ?
-                obj.GetArticles(txtCodigo.Text, txtNombre.Text, IsReceta, IdCategory) :
+                obj.GetArticles(txtCodigo.Text, txtNombre.Text, IsReceta, IdCategory,CBAgotados.Checked) :
                 obj.GetArticlesActives(txtCodigo.Text, txtNombre.Text,IdCategory)
                 );
                 if (Impresion == false)
@@ -263,7 +263,9 @@ namespace LinkCajaV2.Catalogs
                 btnPanelMenu.Visible = false;
                 BtnPanelSalir.Visible = false;
                 btnPanelVentas.Visible = false;
-                cbEtiquetas.Visible = false;
+                RBEtiquetas.Visible = false;
+                RBListaPrecios.Visible = false;
+                CBAgotados.Visible = false;
                 BtnSAT.Visible = false;
             }
             AppRepository obj = new AppRepository();
@@ -280,7 +282,7 @@ namespace LinkCajaV2.Catalogs
         {
             if (txtNombre.Text.Trim() == "" && txtCodigo.Text.Trim() == "" && cbCategoria.SelectedIndex == 0)
             {
-                DialogResult resultado = MessageBox.Show("Ha dejado el campo vacio, esto buscara a todos los articulos pero puede demorar ¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult resultado = MessageBox.Show("Ha dejado el campo vacio, esto buscara  e imprimira todos los articulos pero puede demorar ¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (resultado == DialogResult.No)
                 {
                     return;
@@ -300,14 +302,19 @@ namespace LinkCajaV2.Catalogs
                 {
                     Articulo = x.Articulo,
                     Categoria = x.Categoria,
-                    Precio = x.Precio
+                    ClaveSAT = x.ClaveSAT,
+                    Precio = x.Precio,
+                    Stock = x.Existencias,
+                    StockMinimo = x.ExistenciasMinimas
                 })
                 .ToList();
                 ImpressionsGeneral im = new ImpressionsGeneral();
-                if(cbEtiquetas.Checked)
+                if(RBEtiquetas.Checked && !CBAgotados.Checked)
                     im.ImpresionEtiquetas(articulos);
-                else
+                if(RBListaPrecios.Checked && !CBAgotados.Checked)
                     im.ImpresionListaPrecios(articulos);
+                if (CBAgotados.Checked)
+                    im.ImpresionListaAgotados(articulos);
             }
             catch (Exception ex)
             {
@@ -344,6 +351,20 @@ namespace LinkCajaV2.Catalogs
             AppRepository obj = new AppRepository();
             await obj.UpdateSAT(s.Clave,txtCodigo.Text, txtNombre.Text, IdCategory);
             await BuscarArticulos();
+        }
+
+        private void CBAgotados_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CBAgotados.Checked)
+            { 
+            RBEtiquetas.Enabled = false;
+            RBListaPrecios.Enabled = false;
+            }
+            else
+            {
+                RBEtiquetas.Enabled = true;
+                RBListaPrecios.Enabled = true;
+            }
         }
     }
 }

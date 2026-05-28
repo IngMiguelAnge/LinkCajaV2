@@ -41,6 +41,9 @@ namespace LinkCajaV2.Catalogs
                         nudExistencias.DecimalPlaces = 3;
                         nudExistencias.Increment = 0.010M;
                         nudExistencias.Maximum = 10000;
+                        NUDExistenciasMinimas.DecimalPlaces = 3;
+                        NUDExistenciasMinimas.Increment = 0.010M;
+                        NUDExistenciasMinimas.Maximum = 10000;
                         nudCada.DecimalPlaces = 3;
                         nudCada.Maximum = 1000000;
                         nudCada.Increment = 0.010M;
@@ -49,6 +52,7 @@ namespace LinkCajaV2.Catalogs
                         if (isLoaded)
                         {
                             nudExistencias.Value = 0.000M;
+                            NUDExistenciasMinimas.Value = 0.000M;
                             nudCada.Value = 0.000M;
                         }
                     }
@@ -57,11 +61,15 @@ namespace LinkCajaV2.Catalogs
                         nudExistencias.DecimalPlaces = 0;
                         nudExistencias.Increment = 1M;
                         nudExistencias.Maximum = 1000000;
+                        NUDExistenciasMinimas.DecimalPlaces = 0;
+                        NUDExistenciasMinimas.Increment = 1M;
+                        NUDExistenciasMinimas.Maximum = 1000000;
                         nudCada.DecimalPlaces = 0;
                         nudCada.Maximum = 1000000;
                         nudCada.Increment = 1M;
                         nudCada.Enabled = false;
                         nudExistencias.Value = 0;
+                        NUDExistenciasMinimas.Value = 0;
                         nudCada.Value = 1;
                     }
                     if (decimals > 1)
@@ -157,7 +165,8 @@ namespace LinkCajaV2.Catalogs
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
             if ((int)cbPresentacion.SelectedValue == 0 ||
-               nudPrecio.Value <= 0 || nudCada.Value <= 0)
+               nudPrecio.Value <= 0 || nudCada.Value <= 0 || 
+               NUDExistenciasMinimas.Value <= 0)
             {
                 MessageBox.Show("Datos incompletos revise la información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -166,6 +175,7 @@ namespace LinkCajaV2.Catalogs
             {
                 Id = IdArticle,
                 Stock = nudExistencias.Value,
+                StockMin = NUDExistenciasMinimas.Value,
                 IdPresentation = (int)cbPresentacion.SelectedValue,
                 Price = nudPrecio.Value,
                 SuggestedStock = nudCada.Value,
@@ -227,6 +237,7 @@ namespace LinkCajaV2.Catalogs
             }
             nudMargen.Value = Article.Margen;
             nudExistencias.Value = Article.Stock;
+            NUDExistenciasMinimas.Value = Article.StockMin;
             nudPrecio.Value = Article.Price;
             nudCada.Value = Article.SuggestedStock;
             isLoaded = true;

@@ -19,9 +19,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.panelLateral = new System.Windows.Forms.Panel();
+            this.BtnPanelSalir = new System.Windows.Forms.Button();
             this.btnPanelMenu = new System.Windows.Forms.Button();
             this.btnPanelCorte = new System.Windows.Forms.Button();
-            this.BtnPanelSalir = new System.Windows.Forms.Button();
             this.btnPanelEmpresa = new System.Windows.Forms.Button();
             this.btnPanelArticulos = new System.Windows.Forms.Button();
             this.btnPanelVentas = new System.Windows.Forms.Button();
@@ -76,6 +76,21 @@
             this.panelLateral.Size = new System.Drawing.Size(264, 736);
             this.panelLateral.TabIndex = 0;
             // 
+            // BtnPanelSalir
+            // 
+            this.BtnPanelSalir.FlatAppearance.BorderSize = 0;
+            this.BtnPanelSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnPanelSalir.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.BtnPanelSalir.ForeColor = System.Drawing.Color.White;
+            this.BtnPanelSalir.Image = ((System.Drawing.Image)(resources.GetObject("BtnPanelSalir.Image")));
+            this.BtnPanelSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnPanelSalir.Location = new System.Drawing.Point(12, 502);
+            this.BtnPanelSalir.Name = "BtnPanelSalir";
+            this.BtnPanelSalir.Size = new System.Drawing.Size(252, 45);
+            this.BtnPanelSalir.TabIndex = 5;
+            this.BtnPanelSalir.Text = " Salir";
+            this.BtnPanelSalir.Click += new System.EventHandler(this.BtnPanelSalir_Click);
+            // 
             // btnPanelMenu
             // 
             this.btnPanelMenu.FlatAppearance.BorderSize = 0;
@@ -105,21 +120,6 @@
             this.btnPanelCorte.TabIndex = 7;
             this.btnPanelCorte.Text = " Corte de Caja";
             this.btnPanelCorte.Click += new System.EventHandler(this.btnPanelCorte_Click);
-            // 
-            // BtnPanelSalir
-            // 
-            this.BtnPanelSalir.FlatAppearance.BorderSize = 0;
-            this.BtnPanelSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnPanelSalir.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.BtnPanelSalir.ForeColor = System.Drawing.Color.White;
-            this.BtnPanelSalir.Image = ((System.Drawing.Image)(resources.GetObject("BtnPanelSalir.Image")));
-            this.BtnPanelSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnPanelSalir.Location = new System.Drawing.Point(12, 502);
-            this.BtnPanelSalir.Name = "BtnPanelSalir";
-            this.BtnPanelSalir.Size = new System.Drawing.Size(252, 45);
-            this.BtnPanelSalir.TabIndex = 5;
-            this.BtnPanelSalir.Text = " Salir";
-            this.BtnPanelSalir.Click += new System.EventHandler(this.BtnPanelSalir_Click);
             // 
             // btnPanelEmpresa
             // 
@@ -550,7 +550,6 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "Menu";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
