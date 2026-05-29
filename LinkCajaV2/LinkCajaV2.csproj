@@ -340,6 +340,7 @@
     <Compile Include="Model\DetailsforFactureModel.cs" />
     <Compile Include="Model\HighPriceModel.cs" />
     <Compile Include="Model\ImpressionsModel.cs" />
+    <Compile Include="Model\ListArticlesActivesModel.cs" />
     <Compile Include="Model\ListCashFundModel.cs" />
     <Compile Include="Model\ListCategoriesModel.cs" />
     <Compile Include="Model\ListDetailsTicketModel.cs" />

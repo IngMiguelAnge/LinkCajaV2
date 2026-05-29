@@ -141,7 +141,7 @@ namespace LinkCajaV2.Reports
                 case "Cancelar":
                     DateTime Created = Convert.ToDateTime(dgvArticulos.Rows[e.RowIndex].Cells["CreateDate"].Value);
                     string Status = Convert.ToString(dgvArticulos.Rows[e.RowIndex].Cells["Status"].Value);
-                    if (Status == "Cancelado")
+                    if (Status == "DEVUELTO")
                     {
                         MessageBox.Show("El producto ya se encuentra cancelado.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
@@ -185,6 +185,15 @@ namespace LinkCajaV2.Reports
                     }
                     break;
             }
+        }
+
+        private void dgvArticulos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var item = (ListDetailsTicketModel)dgvArticulos.Rows[e.RowIndex].DataBoundItem;
+            if (item != null)
+                txtMotivo.Text = item.Note;
         }
     }
 }

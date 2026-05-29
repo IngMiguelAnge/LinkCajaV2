@@ -13,5 +13,6 @@ namespace LinkCajaV2.Model
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
         public string Status { get; set; }
+        public string Send { get; set; }
     }
 }

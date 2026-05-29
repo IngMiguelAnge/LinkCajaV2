@@ -147,13 +147,13 @@ namespace LinkCajaV2.Catalogs
         {
             AppRepository obj = new AppRepository();
             // Usamos await para no congelar la pantalla
-            var Articulo = await obj.GetArticleActive(id, codigo);
+            //var Articulo = await obj.GetArticleActive(id, codigo);
 
-            if (Articulo == null)
-            {
-                MessageBox.Show("Código no válido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if (Articulo == null)
+            //{
+            //    MessageBox.Show("Código no válido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
 
             // Obtenemos la lista que ya está conectada al Grid
             var bindingList = (BindingList<ItemsRecipeModel>)dgvArticulos.DataSource;
@@ -165,59 +165,59 @@ namespace LinkCajaV2.Catalogs
                 dgvArticulos.DataSource = bindingList;
             }
 
-            var Presentacion = await obj.GetPresentationbyId(Articulo.IdPresentation);
-            decimal Cantidad = NUDCantidad.Value;
-            decimal PrecioFinal = Articulo.Price;
+            //var Presentacion = await obj.GetPresentationbyId(Articulo.IdPresentation);
+            //decimal Cantidad = NUDCantidad.Value;
+            //decimal PrecioFinal = Articulo.Price;
 
             // Lógica para productos a granel
-            if (Presentacion.Decimals > 0)
-            {
-                Decimals d = new Decimals();
-                if (d.ShowDialog() == DialogResult.OK)
-                {
-                    Cantidad = d.Kilos;
-                    // Calculamos el precio por gramo (como número, no como string)
-                    if (Articulo.SuggestedStock > 0)
-                        PrecioFinal = Articulo.Price / (Articulo.SuggestedStock * 1000);
-                }
-                else return; // Si cancela el diálogo de kilos, no agregamos nada
-            }
+            //if (Presentacion.Decimals > 0)
+            //{
+            //    Decimals d = new Decimals();
+            //    if (d.ShowDialog() == DialogResult.OK)
+            //    {
+            //        Cantidad = d.Kilos;
+            //        // Calculamos el precio por gramo (como número, no como string)
+            //        if (Articulo.SuggestedStock > 0)
+            //            PrecioFinal = Articulo.Price / (Articulo.SuggestedStock * 1000);
+            //    }
+            //    else return; // Si cancela el diálogo de kilos, no agregamos nada
+            //}
 
             // Buscamos si el artículo ya está en nuestra LISTA de objetos
-            var itemExistente = bindingList.FirstOrDefault(x => x.Code == Articulo.Code);
+            //var itemExistente = bindingList.FirstOrDefault(x => x.Code == Articulo.Code);
 
-            if (itemExistente != null)
-            {
-                // Si existe, solo actualizamos el objeto. 
-                // El "Total" se recalcula solo por la propiedad que hicimos en el modelo.
-                itemExistente.Stock += Cantidad;
-                dgvArticulos.Refresh(); // Refresca el dibujo del grid
-            }
-            else
-            {
-                // Si es nuevo, lo agregamos a la lista
-                bindingList.Add(new ItemsRecipeModel
-                {
-                    IdArticle = Articulo.Id,
-                    Code = Articulo.Code,
-                    Name = Articulo.Name,
-                    Stock = Cantidad,
-                    Presentation = Articulo.Presentation,
-                    Price = PrecioFinal,
-                    Decimals = Presentacion.Decimals,
-                    Image = Articulo.Image
-                });
-            }
+            //if (itemExistente != null)
+            //{
+            //    // Si existe, solo actualizamos el objeto. 
+            //    // El "Total" se recalcula solo por la propiedad que hicimos en el modelo.
+            //    itemExistente.Stock += Cantidad;
+            //    dgvArticulos.Refresh(); // Refresca el dibujo del grid
+            //}
+            //else
+            //{
+            //    // Si es nuevo, lo agregamos a la lista
+            //    bindingList.Add(new ItemsRecipeModel
+            //    {
+            //        IdArticle = Articulo.Id,
+            //        Code = Articulo.Code,
+            //        Name = Articulo.Name,
+            //        Stock = Cantidad,
+            //        Presentation = Articulo.Presentation,
+            //        Price = PrecioFinal,
+            //        Decimals = Presentacion.Decimals,
+            //        Image = Articulo.Image
+            //    });
+            //}
 
             // Actualizamos la imagen del producto
-            if (Articulo.Image != null)
-            {
-                using (MemoryStream ms = new MemoryStream(Articulo.Image))
-                {
-                    PBSeleccion.Image = Image.FromStream(ms);
-                    PBSeleccion.SizeMode = PictureBoxSizeMode.Zoom;
-                }
-            }
+            //if (Articulo.Image != null)
+            //{
+            //    using (MemoryStream ms = new MemoryStream(Articulo.Image))
+            //    {
+            //        PBSeleccion.Image = Image.FromStream(ms);
+            //        PBSeleccion.SizeMode = PictureBoxSizeMode.Zoom;
+            //    }
+            //}
 
             // Recalculamos el total general usando el método centralizado
             ActualizarTotalGeneral();

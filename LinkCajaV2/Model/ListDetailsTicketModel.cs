@@ -14,5 +14,6 @@ namespace LinkCajaV2.Model
         public string Status { get; set; }
         public bool SendBack { get; set; }
         public decimal StockSold { get; set; }
+        public string Note { get; set; }
     }
 }

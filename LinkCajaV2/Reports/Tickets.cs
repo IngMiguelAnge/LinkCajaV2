@@ -230,7 +230,7 @@ namespace LinkCajaV2.Reports
             btnCancelar.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
             btnCancelar.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
 
-            dgvTickets.Columns.Add(btnCancelar);
+            dgvTickets.Columns.Add(btnEnviar);
             dgvTickets.AllowUserToAddRows = false;
         }
         private void CBBuscar_CheckedChanged(object sender, EventArgs e)

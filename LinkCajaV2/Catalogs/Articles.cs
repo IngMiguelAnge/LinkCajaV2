@@ -103,15 +103,21 @@ namespace LinkCajaV2.Catalogs
             {
                 AppRepository obj = new AppRepository();
                 int IdCategory = cbCategoria.SelectedIndex > 0 ? (int)cbCategoria.SelectedValue : 0;
-                var lista = await Task.Run(() => IsVenta == false ?
-                obj.GetArticles(txtCodigo.Text, txtNombre.Text, IsReceta, IdCategory,CBAgotados.Checked) :
-                obj.GetArticlesActives(txtCodigo.Text, txtNombre.Text,IdCategory)
-                );
-                if (Impresion == false)
-                    dgvArticulos.DataSource = lista != null && lista.Count > 0 ? lista : null;
+                var lista1 = new List<ListArticlesModel>();
+                var lista2 = new List<ListArticlesActivesModel>();
+                if (IsVenta == false)
+                    lista1 = await Task.Run(()=>obj.GetArticles(txtCodigo.Text, txtNombre.Text, IsReceta, IdCategory,CBAgotados.Checked));
                 else
-                    ListaImprimir = lista;
-                if (lista == null || lista.Count == 0)
+                    lista2 = await Task.Run(()=>obj.GetArticlesActives(txtCodigo.Text, txtNombre.Text,IdCategory));
+        
+                if (Impresion == false)
+                    if(IsVenta == false)
+                        dgvArticulos.DataSource = lista1 != null && lista1.Count > 0 ? lista1 : null;
+                    else
+                       dgvArticulos.DataSource = lista2 != null && lista2.Count > 0 ? lista2 : null;
+                else
+                   ListaImprimir = lista1;
+                if ((lista1 == null || lista1.Count == 0) && (lista2 == null || lista2.Count == 0))
                 {
                     MessageBox.Show("No se encontraron articulos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;

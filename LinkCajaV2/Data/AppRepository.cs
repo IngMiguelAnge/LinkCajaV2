@@ -2,6 +2,7 @@
 using LinkCajaV2.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -483,6 +484,7 @@ namespace LinkCajaV2.Data
                 Status = (string)reader["Status"],
                 SendBack = (bool)reader["SendBack"],
                 StockSold = (decimal)reader["StockSold"],
+                Note = (string)reader["Note"],
             };
         }
         public async Task<List<ListTicketModel>> GetTickets(int IdTicket, DateTime Desde,
@@ -529,6 +531,7 @@ namespace LinkCajaV2.Data
                 Created = (DateTime)reader["CreateDate"],
                 Modified = (DateTime)reader["Lastmodification"],
                 Status = (string)reader["Status"],
+                Send = (string)reader["Send"],
             };
         }
         public async Task<bool> ReturnArticle(int Id, string NoteText)
@@ -2278,9 +2281,9 @@ namespace LinkCajaV2.Data
             }
             return list;
         }
-        public async Task<List<ListArticlesModel>> GetArticlesActives(string Code, string Nombre, int IdCategory)
+        public async Task<List<ListArticlesActivesModel>> GetArticlesActives(string Code, string Nombre, int IdCategory)
         {
-            List<ListArticlesModel> list = new List<ListArticlesModel>();
+            List<ListArticlesActivesModel> list = new List<ListArticlesActivesModel>();
             try
             {
                 using (SqlConnection sql = new SqlConnection(Connection))
@@ -2296,7 +2299,7 @@ namespace LinkCajaV2.Data
                         {
                             while (await reader.ReadAsync().ConfigureAwait(false))
                             {
-                                list.Add(MapToListArticles(reader));
+                                list.Add(MapToListArticlesActives(reader));
                             }
                         }
                     }
@@ -2373,6 +2376,20 @@ namespace LinkCajaV2.Data
                 PorCada = (string)reader["PorCada"],
                 Medicamento = (string)reader["Medicine"],
                 Estatus = (string)reader["Status"],
+            };
+        }
+        private ListArticlesActivesModel MapToListArticlesActives(SqlDataReader reader)
+        {
+            return new ListArticlesActivesModel()
+            {
+                Id = (int)reader["Id"],
+                Codigo = (string)reader["Code"],
+                Nombre = (string)reader["Name"],
+                Stock = (string)reader["Stock"],
+                Precio = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
+                PorCada = (string)reader["PorCada"],
+                EsMedicina = (string)reader["Medicine"],
+                Categoria = (string)reader["Category"],
             };
         }
         #endregion
