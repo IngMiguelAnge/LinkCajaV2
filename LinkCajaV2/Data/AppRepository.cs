@@ -2097,6 +2097,33 @@ namespace LinkCajaV2.Data
         }
         #endregion
         #region Articles
+        public async Task<int> GetStockOut()
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetStockOut", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        SqlParameter outputParam = new SqlParameter("@VResp", System.Data.SqlDbType.Int)
+                        {
+                            Direction = System.Data.ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outputParam);
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        int Agotados = (outputParam.Value != DBNull.Value) ? Convert.ToInt32(outputParam.Value) : 0;
+
+                        return Agotados;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
         public async Task<bool> UpdateStatusArticle(int Id)
         {
             try

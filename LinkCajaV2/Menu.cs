@@ -1,6 +1,7 @@
 ﻿using LinkCajaV2.Catalogs;
 using LinkCajaV2.Configuraciones;
 using LinkCajaV2.Configurations;
+using LinkCajaV2.Data;
 using LinkCajaV2.Items;
 using LinkCajaV2.Reports;
 using LinkCajaV2.Sales;
@@ -22,10 +23,16 @@ namespace LinkCajaV2
         private void Menu_Load(object sender, EventArgs e)
         {
             lblBienvenido.Text = "Bienvenido al sistema " + NameUser;
-            lblAlertaMensaje.Text = $"⚠ Aviso: Se han detectado artículos con existencias agotadas...";
-            panelAlertaStock.Visible = true;
-            panelAlertaStock.BringToFront();
-            flowContenedorCentral.Padding = new System.Windows.Forms.Padding(16, 50, 16, 15);
+            AppRepository app = new AppRepository();
+            if (app.GetStockOut().Result > 0)
+            {
+                lblAlertaMensaje.Text = $"⚠ Aviso: Se han detectado artículos con existencias agotadas...";
+                panelAlertaStock.Visible = true;
+                panelAlertaStock.BringToFront();
+                flowContenedorCentral.Padding = new System.Windows.Forms.Padding(16, 50, 16, 15);
+            }
+            else
+                panelAlertaStock.Visible = false;
         }
         private void btnPanelVentas_Click(object sender, EventArgs e)
         {
