@@ -51,6 +51,8 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.NUDExistenciasMinimas = new System.Windows.Forms.NumericUpDown();
             this.lblExistenciasMinimas = new System.Windows.Forms.Label();
+            this.BtnEntrada = new System.Windows.Forms.Button();
+            this.btnSalida = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudCada)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudExistencias)).BeginInit();
@@ -156,6 +158,7 @@
             // 
             // nudExistencias
             // 
+            this.nudExistencias.Enabled = false;
             this.nudExistencias.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudExistencias.Location = new System.Drawing.Point(44, 263);
             this.nudExistencias.Maximum = new decimal(new int[] {
@@ -186,7 +189,7 @@
             this.BtnGuardar.ForeColor = System.Drawing.Color.White;
             this.BtnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("BtnGuardar.Image")));
             this.BtnGuardar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnGuardar.Location = new System.Drawing.Point(466, 477);
+            this.BtnGuardar.Location = new System.Drawing.Point(466, 574);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(200, 48);
             this.BtnGuardar.TabIndex = 18;
@@ -221,7 +224,7 @@
             this.lblMargen.AutoSize = true;
             this.lblMargen.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMargen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblMargen.Location = new System.Drawing.Point(40, 398);
+            this.lblMargen.Location = new System.Drawing.Point(36, 458);
             this.lblMargen.Name = "lblMargen";
             this.lblMargen.Size = new System.Drawing.Size(191, 25);
             this.lblMargen.TabIndex = 7;
@@ -231,7 +234,7 @@
             // 
             this.nudMargen.DecimalPlaces = 2;
             this.nudMargen.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudMargen.Location = new System.Drawing.Point(41, 433);
+            this.nudMargen.Location = new System.Drawing.Point(37, 493);
             this.nudMargen.Name = "nudMargen";
             this.nudMargen.Size = new System.Drawing.Size(250, 37);
             this.nudMargen.TabIndex = 8;
@@ -243,7 +246,7 @@
             this.Porcentaje.AutoSize = true;
             this.Porcentaje.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Porcentaje.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.Porcentaje.Location = new System.Drawing.Point(297, 443);
+            this.Porcentaje.Location = new System.Drawing.Point(293, 503);
             this.Porcentaje.Name = "Porcentaje";
             this.Porcentaje.Size = new System.Drawing.Size(27, 25);
             this.Porcentaje.TabIndex = 15;
@@ -297,7 +300,7 @@
             // NUDExistenciasMinimas
             // 
             this.NUDExistenciasMinimas.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NUDExistenciasMinimas.Location = new System.Drawing.Point(45, 348);
+            this.NUDExistenciasMinimas.Location = new System.Drawing.Point(41, 408);
             this.NUDExistenciasMinimas.Name = "NUDExistenciasMinimas";
             this.NUDExistenciasMinimas.Size = new System.Drawing.Size(250, 37);
             this.NUDExistenciasMinimas.TabIndex = 6;
@@ -307,18 +310,40 @@
             this.lblExistenciasMinimas.AutoSize = true;
             this.lblExistenciasMinimas.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblExistenciasMinimas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblExistenciasMinimas.Location = new System.Drawing.Point(44, 313);
+            this.lblExistenciasMinimas.Location = new System.Drawing.Point(40, 373);
             this.lblExistenciasMinimas.Name = "lblExistenciasMinimas";
             this.lblExistenciasMinimas.Size = new System.Drawing.Size(187, 25);
             this.lblExistenciasMinimas.TabIndex = 5;
             this.lblExistenciasMinimas.Text = "Existencias Minimas:";
+            // 
+            // BtnEntrada
+            // 
+            this.BtnEntrada.Image = ((System.Drawing.Image)(resources.GetObject("BtnEntrada.Image")));
+            this.BtnEntrada.Location = new System.Drawing.Point(44, 313);
+            this.BtnEntrada.Name = "BtnEntrada";
+            this.BtnEntrada.Size = new System.Drawing.Size(45, 47);
+            this.BtnEntrada.TabIndex = 26;
+            this.BtnEntrada.UseVisualStyleBackColor = true;
+            this.BtnEntrada.Click += new System.EventHandler(this.BtnEntrada_Click);
+            // 
+            // btnSalida
+            // 
+            this.btnSalida.Image = ((System.Drawing.Image)(resources.GetObject("btnSalida.Image")));
+            this.btnSalida.Location = new System.Drawing.Point(117, 313);
+            this.btnSalida.Name = "btnSalida";
+            this.btnSalida.Size = new System.Drawing.Size(45, 47);
+            this.btnSalida.TabIndex = 27;
+            this.btnSalida.UseVisualStyleBackColor = true;
+            this.btnSalida.Click += new System.EventHandler(this.btnSalida_Click);
             // 
             // Stock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(706, 560);
+            this.ClientSize = new System.Drawing.Size(706, 634);
+            this.Controls.Add(this.btnSalida);
+            this.Controls.Add(this.BtnEntrada);
             this.Controls.Add(this.NUDExistenciasMinimas);
             this.Controls.Add(this.lblExistenciasMinimas);
             this.Controls.Add(this.lblTitulo);
@@ -382,5 +407,7 @@
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.NumericUpDown NUDExistenciasMinimas;
         private System.Windows.Forms.Label lblExistenciasMinimas;
+        private System.Windows.Forms.Button BtnEntrada;
+        private System.Windows.Forms.Button btnSalida;
     }
 }

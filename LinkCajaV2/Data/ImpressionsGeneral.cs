@@ -451,24 +451,24 @@ namespace LinkCajaV2.Data
                 float mmToPt = 2.83465f;
                 float anchoTicketMm = (float)ConfigBox.WidthPage; // Cambia a 58f si la impresora es pequeña
                 float altoBaseMm = (float)ConfigBox.HightPage;//60f;
-                float altoDinamicoMm = altoBaseMm + (venta.Articles.Count * 6f) + 16f;
+                float altoDinamicoMm = altoBaseMm + (venta.Articles.Count * 6f) + 36f;
                 float anchoFinal = anchoTicketMm * mmToPt;
                 float altoFinal = altoDinamicoMm * mmToPt;
                 QuestPDF.Settings.License = LicenseType.Community;
                 //Cuando este la liga de arnulfo liberar
-                //byte[] qrBytes = null;
-                //using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
-                //{
-                //    // Puedes cambiar el texto por una URL, datos de Hacienda o un resumen del ticket
-                //    string datosQr = $"https://xxx.com/factura?ticket={venta.IdTicket}\n&total={venta.Articles.Sum(x => x.Total):C2}";
+                byte[] qrBytes = null;
+                using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+                {
+                    // Puedes cambiar el texto por una URL, datos de Hacienda o un resumen del ticket
+                    string datosQr = $"https://facturacion.tiendasmino.com/facturar?ticket={venta.Title}\n&total={venta.Total.ToString()}";
 
-                //    using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(datosQr, QRCodeGenerator.ECCLevel.Q))
-                //    using (PngByteQRCode qrCode = new PngByteQRCode(qrCodeData))
-                //    {
-                //        // El número 20 indica el tamaño por píxel del bloque gráfico
-                //        qrBytes = qrCode.GetGraphic(20);
-                //    }
-                //}
+                    using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(datosQr, QRCodeGenerator.ECCLevel.Q))
+                    using (PngByteQRCode qrCode = new PngByteQRCode(qrCodeData))
+                    {
+                        // El número 20 indica el tamaño por píxel del bloque gráfico
+                        qrBytes = qrCode.GetGraphic(20);
+                    }
+                }
 
                 var documento = Document.Create(container =>
                 {
@@ -573,11 +573,10 @@ namespace LinkCajaV2.Data
                                 totalCol.Item().AlignRight().Text($"CAMBIO: {cambio:C2}").Style(EstiloTotal);
 
                                 totalCol.Item().PaddingTop(10).AlignCenter().Text("¡Gracias por su compra!");
-                               //Cuando este la liga de arnulfo liberar
-                                //if (qrBytes != null)
-                                //{
-                                //    totalCol.Item().PaddingTop(10).AlignCenter().Width(50).Image(qrBytes);
-                                //}
+                                if (qrBytes != null)
+                                {
+                                    totalCol.Item().PaddingTop(10).AlignCenter().Width(50).Image(qrBytes);
+                                }
                             });
                         });
                     });

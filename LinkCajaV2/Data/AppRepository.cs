@@ -600,7 +600,7 @@ namespace LinkCajaV2.Data
 
         #endregion
         #region Venta
-        public async Task<bool> ConfirmSend(int Id, bool Send)
+        public async Task<bool> ConfirmSend(int Id, RespuestaFactureModel Send)
         {
             try
             {
@@ -610,7 +610,9 @@ namespace LinkCajaV2.Data
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Id", Id));
-                        cmd.Parameters.Add(new SqlParameter("@Send", Send));
+                        cmd.Parameters.Add(new SqlParameter("@Send", Send.Exito));
+                        cmd.Parameters.Add(new SqlParameter("@Note", Send.Mensaje));
+                        await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;
                     }

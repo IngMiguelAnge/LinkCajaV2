@@ -8,15 +8,15 @@ namespace LinkCajaV2.Data
 {
     public class BillingMethods
     {
-        public async Task<bool> EnviarFactura(BillingDetails billing)
+        public async Task<RespuestaFactureModel> EnviarFactura(BillingDetails billing)
         {
-            string url = "https://api.tu-servidor.com/api/tickets";
-            //string apiKey = "TU_API_KEY_AQUI";
+            string url = "https://facturacion.tiendasmino.com/api/tickets";
+            string apiKey = "change_me_pos_secret";
 
             // 2. Enviamos usando HttpClient
             using (HttpClient client = new HttpClient())
             {
-                //client.DefaultRequestHeaders.Add("X-POS-API-KEY", apiKey);
+                client.DefaultRequestHeaders.Add("X-POS-API-KEY", apiKey);
 
                 try
                 {
@@ -31,14 +31,11 @@ namespace LinkCajaV2.Data
                     //// Lo imprime en la ventana de "Salida" (Output) de Visual Studio
                     //System.Diagnostics.Debug.WriteLine("--- JSON GENERADO POR MI BACKEND ---");
                     //System.Diagnostics.Debug.WriteLine(jsonGenerado);
-                    if (respuesta.IsSuccessStatusCode)
-                        return true;
-                    else
-                        return false;
-                }
+                    return new RespuestaFactureModel { Exito = respuesta.IsSuccessStatusCode, Mensaje = resultadoServidor};
+                 }
                 catch (Exception ex)
                 {
-                    return false;
+                    return new RespuestaFactureModel { Exito = false, Mensaje = ex.Message };
                 }
             }
         }

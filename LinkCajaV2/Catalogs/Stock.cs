@@ -1,4 +1,5 @@
 ﻿using LinkCajaV2.Data;
+using LinkCajaV2.Items;
 using LinkCajaV2.Model;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace LinkCajaV2.Catalogs
         public string Nombre { get; set; }
         private bool isLoaded = false;
         private decimal MyCostoMax = 0;
+        private string Concepto = string.Empty;
+        private decimal CantidadAjustada = 0;
         public Stock()
         {
             InitializeComponent();
@@ -271,6 +274,36 @@ namespace LinkCajaV2.Catalogs
             else
             {
                 nudMargen.Value = 0;
+            }
+        }
+
+        private void BtnEntrada_Click(object sender, EventArgs e)
+        {
+            Adjustment adj = new Adjustment();
+            adj.Entrada = true;
+            adj.DecimalPlaces = nudExistencias.DecimalPlaces;
+            adj.Increment = nudExistencias.Increment;
+            adj.Maximum = nudExistencias.Maximum;
+            if (adj.ShowDialog() == DialogResult.OK)
+            {
+               nudExistencias.Value += adj.Cantidad;
+               CantidadAjustada += adj.Cantidad;
+            }         
+        }
+
+        private void btnSalida_Click(object sender, EventArgs e)
+        {
+            Adjustment adj = new Adjustment();
+            adj.Entrada = false;
+            adj.Existencias = nudExistencias.Value;
+            adj.DecimalPlaces = nudExistencias.DecimalPlaces;
+            adj.Increment = nudExistencias.Increment;
+            adj.Maximum = nudExistencias.Maximum;
+            if (adj.ShowDialog() == DialogResult.OK)
+            {
+                nudExistencias.Value -= adj.Cantidad;
+                CantidadAjustada -= adj.Cantidad;
+                Concepto = adj.Concepto;
             }
         }
     }

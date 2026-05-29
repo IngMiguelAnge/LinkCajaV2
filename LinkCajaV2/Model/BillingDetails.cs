@@ -33,13 +33,13 @@ namespace LinkCajaV2.Model
         public string no_identificacion { get; set; }//Clave producto o servicio
         public decimal quantity { get; set; }//Cantidad
         public string clave_unidad { get; set; }//Clave unidad SAT
-        public string unidad { get; set; }//Unidad de medida
+        public string unit { get; set; }//Unidad de medida
         public string description { get; set; }
         public decimal unit_value { get; set; }//Valor unitario
         public decimal amount { get; set; }//Importe
         public decimal? discount { get; set; }//Descuento
         public string object_tax { get; set; }//Objeto de impuesto
-        public taxes taxes { get; set; }//Impuestos
+        public List<taxes> taxes { get; set; }//Impuestos
     }
     public class taxes
     {

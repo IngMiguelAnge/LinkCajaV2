@@ -12,5 +12,7 @@ namespace LinkCajaV2.Model
         public int IdTicket { get; set; }
         public string Cliente { get; set; }
         public string BoxName { get; set; }
+        public decimal Total { get; set; }
+        public string Title { get; set; }
     }
 }

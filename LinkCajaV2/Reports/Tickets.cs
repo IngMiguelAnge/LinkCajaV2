@@ -351,8 +351,8 @@ namespace LinkCajaV2.Reports
                     AppRepository obj2 = new AppRepository();
                     var Venta = await obj2.GetTicketsbyId(IdTicket);
                     var DetaillsVenta = await obj2.GetDetailsforFacture(IdTicket);
-                    BillingDetails billing = new BillingDetails();
-                    billing.pos_ticket_id = "TKT-" + Venta.CreateDate.ToString() + "-" + Venta.Id.ToString();
+                    BillingDetails billing = new BillingDetails();                    
+                    billing.pos_ticket_id = "TKT" + Empresa.BillingName.Trim() + "-" + DateTime.Now.Year.ToString() + "-" + IdTicket.ToString();
                     billing.form_payment = "01"; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
                     billing.total = Venta.Total.ToString("F2");
                     billing.serie = "A";
@@ -367,6 +367,16 @@ namespace LinkCajaV2.Reports
                     billing.concepts = new List<concepts>();
                     foreach (var item in DetaillsVenta)
                     {
+                        List<taxes> listtaxes = new List<taxes>();
+                        listtaxes.Add(new taxes
+                        {
+                            tax_type = "traslado",
+                            @base = item.Total,
+                            tax = "002",
+                            type_factor = "Tasa",
+                            rate = item.Rate,
+                            amount = item.Amount
+                        });
                         billing.concepts.Add(
                         new concepts
                         {
@@ -374,26 +384,19 @@ namespace LinkCajaV2.Reports
                             no_identificacion = item.Code,
                             quantity = item.Stock,
                             clave_unidad = item.UnitSAT,
-                            unidad = item.NamePresentation,
+                            unit = item.NamePresentation,
                             description = item.Name,
                             unit_value = item.Price,
                             amount = item.Total,
                             discount = null,
                             object_tax = "02",
-                            taxes = new taxes
-                              {
-                              tax_type = "traslado",
-                              @base = item.Total,
-                              tax = "002",
-                              type_factor = "Tasa",
-                              rate = item.Rate,
-                              amount = item.Amount
-                              }
+                            taxes = listtaxes
                         });
                     }
                     BillingMethods Facturacion = new BillingMethods();
-                    bool Enviado = await Facturacion.EnviarFactura(billing);
-                    if (obj2.ConfirmSend(IdTicket, Enviado).Result == true)
+                    RespuestaFactureModel Enviado = await Facturacion.EnviarFactura(billing);
+                    bool result = obj2.ConfirmSend(IdTicket, Enviado).Result;
+                    if (Enviado.Exito == true)
                         MessageBox.Show("Envio con éxito.");
                     else MessageBox.Show("Fallo el envio consultar con soporte");
 

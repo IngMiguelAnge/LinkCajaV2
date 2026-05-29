@@ -14,7 +14,5 @@ namespace LinkCajaV2.Model
         public decimal Total { get; set; }
         public decimal TotalReturn { get; set; }
         public bool Send { get; set; }
-        //public decimal Adjustment { get; set; }
-        //public decimal TotalCharged { get; set; }
     }
 }

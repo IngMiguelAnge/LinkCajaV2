@@ -88,5 +88,10 @@ namespace LinkCajaV2.Items
             lblMensaje1.Text = "Este articulo se vende por " + Name;
             lblMensaje2.Text = Presentation;
         }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+        }
     }
 }

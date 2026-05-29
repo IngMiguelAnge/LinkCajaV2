@@ -109,13 +109,15 @@ namespace LinkCajaV2.Catalogs
                     lista1 = await Task.Run(()=>obj.GetArticles(txtCodigo.Text, txtNombre.Text, IsReceta, IdCategory,CBAgotados.Checked));
                 else
                     lista2 = await Task.Run(()=>obj.GetArticlesActives(txtCodigo.Text, txtNombre.Text,IdCategory));
-        
+
                 if (Impresion == false)
-                    if(IsVenta == false)
+                    if (IsVenta == false)
                         dgvArticulos.DataSource = lista1 != null && lista1.Count > 0 ? lista1 : null;
                     else
-                       dgvArticulos.DataSource = lista2 != null && lista2.Count > 0 ? lista2 : null;
-                else
+                    {
+                        dgvArticulos.DataSource = lista2 != null && lista2.Count > 0 ? lista2 : null;
+                    }
+                   else
                    ListaImprimir = lista1;
                 if ((lista1 == null || lista1.Count == 0) && (lista2 == null || lista2.Count == 0))
                 {
@@ -127,8 +129,12 @@ namespace LinkCajaV2.Catalogs
                     if (Impresion == false)
                     {
                         AgregarBotones();
-                        MessageBox.Show("Carga completa", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //MessageBox.Show("Carga completa", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+                }
+                if (dgvArticulos.Columns["Id"] != null)
+                {
+                    dgvArticulos.Columns["Id"].Visible = false;
                 }
             }
             catch (Exception ex)
@@ -205,6 +211,7 @@ namespace LinkCajaV2.Catalogs
                 btnAsignar.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
 
                 dgvArticulos.Columns.Add(btnAsignar);
+                btnAsignar.DisplayIndex = 0;
                 return;
             }
             DataGridViewButtonColumn btnEditar = new DataGridViewButtonColumn();

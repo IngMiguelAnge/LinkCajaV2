@@ -589,6 +589,7 @@ namespace LinkCajaV2.Sales
             c.Total = bindingList.Sum(x => x.Total);
             if (c.ShowDialog() == DialogResult.OK)
             {
+                decimal TotalReal = bindingList.Sum(x => x.Total);
                 VentaModel venta = new VentaModel
                 {
                     Articles = bindingList,
@@ -598,31 +599,11 @@ namespace LinkCajaV2.Sales
                     Recibido = c.Recibido,
                     IdTicket = 0,
                     Cliente = "Publico General",
-                    BoxName = BoxName
+                    BoxName = BoxName,
+                    Total = TotalReal,
+                    Title = string.Empty
                 };
-                decimal TotalReal = venta.Articles.Sum(x => x.Total);
-                //decimal parteEntera = Math.Truncate(TotalReal);
-                //decimal centavos = TotalReal - parteEntera;
-                //decimal centavosRedondeados = 0.00m;
-                ////Aplicamos la regla basada en .25 y .75
-                //if (centavos >= 0.01m && centavos <= 0.25m)
-                //{
-                //    centavosRedondeados = 0.00m; // Redondea hacia abajo a .00
-                //}
-                //else if (centavos >= 0.26m && centavos <= 0.50m)
-                //{
-                //    centavosRedondeados = 0.50m; // Redondea hacia arriba a .50
-                //}
-                //else if (centavos >= 0.51m && centavos <= 0.75m)
-                //{
-                //    centavosRedondeados = 0.50m; // Redondea hacia abajo a .50
-                //}
-                //else if (centavos >= 0.76m && centavos <= 0.99m)
-                //{
-                //    centavosRedondeados = 1.00m; // Redondea hacia arriba al siguiente peso
-                //}
-                //decimal TotalCobrado = parteEntera + centavosRedondeados;
-                //decimal Ajuste = TotalCobrado - TotalReal;
+  
                 TicketModel Ticket = new TicketModel
                 {
                     Id = 0,
@@ -634,9 +615,7 @@ namespace LinkCajaV2.Sales
                     IdBox = IdBox,
                     Total = TotalReal,
                     TotalReturn = 0,
-                    Send = false
-                    //Adjustment = Ajuste,
-                    //TotalCharged = TotalCobrado
+                    Send = false,
                 };
 
                 AppRepository obj = new AppRepository();
@@ -649,9 +628,10 @@ namespace LinkCajaV2.Sales
                 venta.IdTicket = Ticket.Id;
                 DetailsTicketModel Details = new DetailsTicketModel();
                 BillingDetails billing = new BillingDetails();
-                billing.pos_ticket_id = "TKT-"+DateTime.Now.Year.ToString()+"-"+Ticket.Id.ToString();
+                venta.Title= "TKT" + Empresa.BillingName.Trim() + "-" + DateTime.Now.Year.ToString() + "-" + Ticket.Id.ToString();
+                billing.pos_ticket_id = venta.Title;
                 billing.form_payment = "01"; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
-                billing.total = venta.Articles.Sum(x => x.Total).ToString("F2");
+                billing.total = TotalReal.ToString();//venta.Articles.Sum(x => x.Total).ToString("F2");
                 billing.serie = "A";
                 billing.folio = Ticket.Id.ToString();
                 billing.currency = "MXN";
@@ -661,12 +641,7 @@ namespace LinkCajaV2.Sales
                 billing.payment_conditions = null;
                 billing.issuing_location = Empresa.CP.ToString();
                 billing.sold_at = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-                //billing.Sender = new Sender
-                //{
-                //    RFC = Empresa.RFC,
-                //    Name = Empresa.BillingName,
-                //    TaxRegime = Empresa.Regimen // Ejemplo: G01 = Adquisición de mercancias, G02 = Devoluciones, descuentos o bonificaciones, G03 = Gastos en general
-                //};
+
                 billing.concepts = new List<concepts>();
                 foreach (var item in venta.Articles)
                 {
@@ -680,6 +655,16 @@ namespace LinkCajaV2.Sales
                     Details.Rate = item.Medicine == false ? "0.160000" : "0.000000";
                     Details.Amount = item.Medicine == false ? item.Total * 0.16m : 0m;
                     await obj.SaveDetailsTicket(Details);
+                    List<taxes> Listtaxes = new List<taxes>();
+                    Listtaxes.Add(new taxes
+                    {
+                        tax_type = "traslado",
+                        @base = item.Total,
+                        tax = "002",
+                        type_factor = "Tasa",
+                        rate = item.Medicine == false ? "0.160000" : "0.000000",
+                        amount = item.Medicine == false ? item.Total * 0.16m : 0m   
+                    });
                     billing.concepts.Add(
                     new concepts
                     {
@@ -687,30 +672,24 @@ namespace LinkCajaV2.Sales
                         no_identificacion = item.Code,
                         quantity = item.Stock,
                         clave_unidad = item.UnitSAT,
-                        unidad = item.NamePresentation,
+                        unit = item.NamePresentation,
                         description = item.Name,
                         unit_value = item.Price,
                         amount = item.Total,
                         discount = null,
                         object_tax = "02",
-                        taxes = new taxes
-                        {
-                            tax_type = "traslado",
-                            @base = item.Total,
-                            tax = "002",
-                            type_factor = "Tasa",
-                            rate = item.Medicine == false ? "0.160000" : "0.000000",
-                            amount = item.Medicine == false ? item.Total * 0.16m : 0m
-                        }
+                        taxes=Listtaxes
                     });
                 }
                 ImpressionsGeneral im = new ImpressionsGeneral();
                 im.GenerarTicket(venta);
 
                 BillingMethods Facturacion = new BillingMethods();
-                bool Enviado=await Facturacion.EnviarFactura(billing);
-                if (obj.ConfirmSend(Ticket.Id, Enviado).Result == true)
-                 MessageBox.Show("Venta realizada con éxito.");
+                string mensaje = string.Empty;
+                RespuestaFactureModel Enviado = await Facturacion.EnviarFactura(billing);
+                bool result = obj.ConfirmSend(Ticket.Id, Enviado).Result;
+                if (Enviado.Exito == true)
+                    MessageBox.Show("Venta realizada con éxito.");
                 else MessageBox.Show("Venta realizada con éxito. Pero fallo el envio consultar con soporte");
                 NuevaVenta();
             }
