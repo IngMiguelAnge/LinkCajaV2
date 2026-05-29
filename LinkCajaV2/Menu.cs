@@ -22,6 +22,10 @@ namespace LinkCajaV2
         private void Menu_Load(object sender, EventArgs e)
         {
             lblBienvenido.Text = "Bienvenido al sistema " + NameUser;
+            lblAlertaMensaje.Text = $"⚠ Aviso: Se han detectado artículos con existencias agotadas...";
+            panelAlertaStock.Visible = true;
+            panelAlertaStock.BringToFront();
+            flowContenedorCentral.Padding = new System.Windows.Forms.Padding(16, 50, 16, 15);
         }
         private void btnPanelVentas_Click(object sender, EventArgs e)
         {

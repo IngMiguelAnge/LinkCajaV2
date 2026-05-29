@@ -50,6 +50,8 @@
             this.panelOperacionesCaja = new System.Windows.Forms.Panel();
             this.btnCorteCaja = new System.Windows.Forms.Button();
             this.lblTituloOperacionesCaja = new System.Windows.Forms.Label();
+            this.panelAlertaStock = new System.Windows.Forms.Panel();
+            this.lblAlertaMensaje = new System.Windows.Forms.Label();
             this.panelLateral.SuspendLayout();
             this.panelSuperior.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -58,6 +60,7 @@
             this.panelCatalogos.SuspendLayout();
             this.panelConfiguraciones.SuspendLayout();
             this.panelOperacionesCaja.SuspendLayout();
+            this.panelAlertaStock.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelLateral
@@ -73,7 +76,7 @@
             this.panelLateral.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelLateral.Location = new System.Drawing.Point(0, 0);
             this.panelLateral.Name = "panelLateral";
-            this.panelLateral.Size = new System.Drawing.Size(264, 736);
+            this.panelLateral.Size = new System.Drawing.Size(264, 836);
             this.panelLateral.TabIndex = 0;
             // 
             // BtnPanelSalir
@@ -229,7 +232,7 @@
             this.flowContenedorCentral.Location = new System.Drawing.Point(264, 85);
             this.flowContenedorCentral.Name = "flowContenedorCentral";
             this.flowContenedorCentral.Padding = new System.Windows.Forms.Padding(16, 15, 16, 15);
-            this.flowContenedorCentral.Size = new System.Drawing.Size(1144, 651);
+            this.flowContenedorCentral.Size = new System.Drawing.Size(1144, 751);
             this.flowContenedorCentral.TabIndex = 0;
             this.flowContenedorCentral.Paint += new System.Windows.Forms.PaintEventHandler(this.flowContenedorCentral_Paint);
             // 
@@ -538,15 +541,39 @@
             this.lblTituloOperacionesCaja.TabIndex = 2;
             this.lblTituloOperacionesCaja.Text = "📖 Operaciones de Caja";
             // 
+            // panelAlertaStock
+            // 
+            this.panelAlertaStock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(243)))), ((int)(((byte)(205)))));
+            this.panelAlertaStock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelAlertaStock.Controls.Add(this.lblAlertaMensaje);
+            this.panelAlertaStock.Location = new System.Drawing.Point(290, 85);
+            this.panelAlertaStock.Name = "panelAlertaStock";
+            this.panelAlertaStock.Size = new System.Drawing.Size(1079, 50);
+            this.panelAlertaStock.TabIndex = 5;
+            this.panelAlertaStock.Visible = false;
+            // 
+            // lblAlertaMensaje
+            // 
+            this.lblAlertaMensaje.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblAlertaMensaje.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(100)))), ((int)(((byte)(4)))));
+            this.lblAlertaMensaje.Location = new System.Drawing.Point(15, 11);
+            this.lblAlertaMensaje.Name = "lblAlertaMensaje";
+            this.lblAlertaMensaje.Size = new System.Drawing.Size(1000, 32);
+            this.lblAlertaMensaje.TabIndex = 0;
+            this.lblAlertaMensaje.Text = "⚠ Aviso: Se han detectado artículos con existencias agotadas o por debajo del mín" +
+    "imo.";
+            this.lblAlertaMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.ClientSize = new System.Drawing.Size(1408, 736);
+            this.ClientSize = new System.Drawing.Size(1408, 836);
             this.Controls.Add(this.flowContenedorCentral);
             this.Controls.Add(this.panelSuperior);
             this.Controls.Add(this.panelLateral);
+            this.Controls.Add(this.panelAlertaStock);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -563,6 +590,7 @@
             this.panelCatalogos.ResumeLayout(false);
             this.panelConfiguraciones.ResumeLayout(false);
             this.panelOperacionesCaja.ResumeLayout(false);
+            this.panelAlertaStock.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -588,6 +616,10 @@
         private System.Windows.Forms.Label lblTituloConfiguraciones;
         public System.Windows.Forms.Panel panelOperacionesCaja;
         private System.Windows.Forms.Label lblTituloOperacionesCaja;
+
+        //Alerta de Stock Integrada
+        public System.Windows.Forms.Panel panelAlertaStock;
+        private System.Windows.Forms.Label lblAlertaMensaje;
 
         // Botones de accesos corregidos
         private System.Windows.Forms.Button btnVentaMostrador;
