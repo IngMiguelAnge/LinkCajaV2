@@ -244,6 +244,7 @@ namespace LinkCajaV2.Configurations
                     IdTicket = 0,
                     Cliente = "Publico General",
                     BoxName = "Caja de prueba",
+                    Title= "TKT" + Empresa.BillingName.Trim() + "-" + DateTime.Now.Year.ToString() + "-0",
                     Articles = new BindingList<ArticlesSalesModel>()
                     {
                           new ArticlesSalesModel() { IdArticle=1,IdPresentation=1, Code = "1234", Name = "Coca-Cola", Stock = 1, Presentation = "Lata", Price = 10, Decimals = 0, Image = null},

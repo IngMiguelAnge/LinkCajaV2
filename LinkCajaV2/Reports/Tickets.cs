@@ -342,6 +342,8 @@ namespace LinkCajaV2.Reports
                     }
                     break;
                 case "Send":
+                    MessageBox.Show("En mantenimiento espere información de soporte.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                     string Send = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["Send"].Value);
                     if (Send == "Enviado")
                     {

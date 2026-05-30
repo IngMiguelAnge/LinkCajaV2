@@ -121,6 +121,7 @@
             // 
             // txtMotivo
             // 
+            this.txtMotivo.Enabled = false;
             this.txtMotivo.Location = new System.Drawing.Point(13, 38);
             this.txtMotivo.Multiline = true;
             this.txtMotivo.Name = "txtMotivo";
