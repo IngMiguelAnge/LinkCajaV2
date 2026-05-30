@@ -33,8 +33,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelLateral = new System.Windows.Forms.Panel();
-            this.btnPanelMenu = new System.Windows.Forms.Button();
             this.BtnPanelSalir = new System.Windows.Forms.Button();
+            this.btnPanelMenu = new System.Windows.Forms.Button();
             this.btnPanelCorte = new System.Windows.Forms.Button();
             this.btnPanelEmpresa = new System.Windows.Forms.Button();
             this.btnPanelArticulos = new System.Windows.Forms.Button();
@@ -78,21 +78,6 @@
             this.panelLateral.Size = new System.Drawing.Size(264, 571);
             this.panelLateral.TabIndex = 0;
             // 
-            // btnPanelMenu
-            // 
-            this.btnPanelMenu.FlatAppearance.BorderSize = 0;
-            this.btnPanelMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPanelMenu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnPanelMenu.ForeColor = System.Drawing.Color.White;
-            this.btnPanelMenu.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelMenu.Image")));
-            this.btnPanelMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelMenu.Location = new System.Drawing.Point(9, 120);
-            this.btnPanelMenu.Name = "btnPanelMenu";
-            this.btnPanelMenu.Size = new System.Drawing.Size(249, 82);
-            this.btnPanelMenu.TabIndex = 26;
-            this.btnPanelMenu.Text = "Menu";
-            this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click);
-            // 
             // BtnPanelSalir
             // 
             this.BtnPanelSalir.FlatAppearance.BorderSize = 0;
@@ -108,6 +93,21 @@
             this.BtnPanelSalir.Text = "Salir";
             this.BtnPanelSalir.Click += new System.EventHandler(this.BtnPanelSalir_Click);
             // 
+            // btnPanelMenu
+            // 
+            this.btnPanelMenu.FlatAppearance.BorderSize = 0;
+            this.btnPanelMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPanelMenu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnPanelMenu.ForeColor = System.Drawing.Color.White;
+            this.btnPanelMenu.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelMenu.Image")));
+            this.btnPanelMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPanelMenu.Location = new System.Drawing.Point(9, 120);
+            this.btnPanelMenu.Name = "btnPanelMenu";
+            this.btnPanelMenu.Size = new System.Drawing.Size(249, 82);
+            this.btnPanelMenu.TabIndex = 26;
+            this.btnPanelMenu.Text = "Menu";
+            this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click);
+            // 
             // btnPanelCorte
             // 
             this.btnPanelCorte.FlatAppearance.BorderSize = 0;
@@ -120,7 +120,7 @@
             this.btnPanelCorte.Name = "btnPanelCorte";
             this.btnPanelCorte.Size = new System.Drawing.Size(249, 45);
             this.btnPanelCorte.TabIndex = 7;
-            this.btnPanelCorte.Text = " Corte de Caja";
+            this.btnPanelCorte.Text = "Resumen";
             this.btnPanelCorte.Click += new System.EventHandler(this.btnPanelCorte_Click);
             // 
             // btnPanelEmpresa

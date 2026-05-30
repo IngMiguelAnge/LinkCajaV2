@@ -123,7 +123,7 @@ namespace LinkCajaV2
             this.Hide();
         }
 
-        private void btnCorteCaja_Click(object sender, EventArgs e)
+        private void btnResumen_Click(object sender, EventArgs e)
         {
             CashDrop c = new CashDrop();
             c.Show();
@@ -184,7 +184,7 @@ namespace LinkCajaV2
                 panelOperacionesCaja.Visible = false;
                 //Menu lateral
                 btnPanelEmpresa.Visible = false;
-                btnPanelCorte.Visible = false;             
+                btnPanelReusmen.Visible = false;             
             }
             if (IdTypeUser == 3)//Almacenista
             {
@@ -195,7 +195,7 @@ namespace LinkCajaV2
                 btnUsuarios.Visible = false;
                 //Menu lateral
                 btnPanelEmpresa.Visible = false;
-                btnPanelCorte.Visible = false;
+                btnPanelReusmen.Visible = false;
                 btnPanelVentas.Visible = false;
             }
         }

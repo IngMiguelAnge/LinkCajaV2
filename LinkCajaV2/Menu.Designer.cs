@@ -21,7 +21,7 @@
             this.panelLateral = new System.Windows.Forms.Panel();
             this.BtnPanelSalir = new System.Windows.Forms.Button();
             this.btnPanelMenu = new System.Windows.Forms.Button();
-            this.btnPanelCorte = new System.Windows.Forms.Button();
+            this.btnPanelReusmen = new System.Windows.Forms.Button();
             this.btnPanelEmpresa = new System.Windows.Forms.Button();
             this.btnPanelArticulos = new System.Windows.Forms.Button();
             this.btnPanelVentas = new System.Windows.Forms.Button();
@@ -48,10 +48,11 @@
             this.btnMiEmpresa = new System.Windows.Forms.Button();
             this.lblTituloConfiguraciones = new System.Windows.Forms.Label();
             this.panelOperacionesCaja = new System.Windows.Forms.Panel();
-            this.btnCorteCaja = new System.Windows.Forms.Button();
+            this.btnResumen = new System.Windows.Forms.Button();
             this.lblTituloOperacionesCaja = new System.Windows.Forms.Label();
             this.panelAlertaStock = new System.Windows.Forms.Panel();
             this.lblAlertaMensaje = new System.Windows.Forms.Label();
+            this.BtnCorte = new System.Windows.Forms.Button();
             this.panelLateral.SuspendLayout();
             this.panelSuperior.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -68,7 +69,7 @@
             this.panelLateral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
             this.panelLateral.Controls.Add(this.BtnPanelSalir);
             this.panelLateral.Controls.Add(this.btnPanelMenu);
-            this.panelLateral.Controls.Add(this.btnPanelCorte);
+            this.panelLateral.Controls.Add(this.btnPanelReusmen);
             this.panelLateral.Controls.Add(this.btnPanelEmpresa);
             this.panelLateral.Controls.Add(this.btnPanelArticulos);
             this.panelLateral.Controls.Add(this.btnPanelVentas);
@@ -109,20 +110,20 @@
             this.btnPanelMenu.Text = "Menu";
             this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click);
             // 
-            // btnPanelCorte
+            // btnPanelReusmen
             // 
-            this.btnPanelCorte.FlatAppearance.BorderSize = 0;
-            this.btnPanelCorte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPanelCorte.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnPanelCorte.ForeColor = System.Drawing.Color.White;
-            this.btnPanelCorte.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelCorte.Image")));
-            this.btnPanelCorte.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelCorte.Location = new System.Drawing.Point(13, 430);
-            this.btnPanelCorte.Name = "btnPanelCorte";
-            this.btnPanelCorte.Size = new System.Drawing.Size(245, 45);
-            this.btnPanelCorte.TabIndex = 7;
-            this.btnPanelCorte.Text = " Corte de Caja";
-            this.btnPanelCorte.Click += new System.EventHandler(this.btnPanelCorte_Click);
+            this.btnPanelReusmen.FlatAppearance.BorderSize = 0;
+            this.btnPanelReusmen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPanelReusmen.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnPanelReusmen.ForeColor = System.Drawing.Color.White;
+            this.btnPanelReusmen.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelReusmen.Image")));
+            this.btnPanelReusmen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPanelReusmen.Location = new System.Drawing.Point(13, 430);
+            this.btnPanelReusmen.Name = "btnPanelReusmen";
+            this.btnPanelReusmen.Size = new System.Drawing.Size(245, 45);
+            this.btnPanelReusmen.TabIndex = 7;
+            this.btnPanelReusmen.Text = "Resumen";
+            this.btnPanelReusmen.Click += new System.EventHandler(this.btnPanelCorte_Click);
             // 
             // btnPanelEmpresa
             // 
@@ -504,7 +505,8 @@
             // 
             this.panelOperacionesCaja.BackColor = System.Drawing.Color.White;
             this.panelOperacionesCaja.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelOperacionesCaja.Controls.Add(this.btnCorteCaja);
+            this.panelOperacionesCaja.Controls.Add(this.BtnCorte);
+            this.panelOperacionesCaja.Controls.Add(this.btnResumen);
             this.panelOperacionesCaja.Controls.Add(this.lblTituloOperacionesCaja);
             this.panelOperacionesCaja.Location = new System.Drawing.Point(577, 360);
             this.panelOperacionesCaja.Margin = new System.Windows.Forms.Padding(11, 10, 11, 10);
@@ -512,24 +514,24 @@
             this.panelOperacionesCaja.Size = new System.Drawing.Size(528, 193);
             this.panelOperacionesCaja.TabIndex = 3;
             // 
-            // btnCorteCaja
+            // btnResumen
             // 
-            this.btnCorteCaja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(251)))), ((int)(((byte)(252)))));
-            this.btnCorteCaja.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(235)))), ((int)(((byte)(240)))));
-            this.btnCorteCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCorteCaja.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
-            this.btnCorteCaja.Image = ((System.Drawing.Image)(resources.GetObject("btnCorteCaja.Image")));
-            this.btnCorteCaja.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCorteCaja.Location = new System.Drawing.Point(20, 56);
-            this.btnCorteCaja.Name = "btnCorteCaja";
-            this.btnCorteCaja.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
-            this.btnCorteCaja.Size = new System.Drawing.Size(231, 80);
-            this.btnCorteCaja.TabIndex = 7;
-            this.btnCorteCaja.Text = "Corte de caja";
-            this.btnCorteCaja.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCorteCaja.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnCorteCaja.UseVisualStyleBackColor = false;
-            this.btnCorteCaja.Click += new System.EventHandler(this.btnCorteCaja_Click);
+            this.btnResumen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(251)))), ((int)(((byte)(252)))));
+            this.btnResumen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(235)))), ((int)(((byte)(240)))));
+            this.btnResumen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnResumen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            this.btnResumen.Image = ((System.Drawing.Image)(resources.GetObject("btnResumen.Image")));
+            this.btnResumen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnResumen.Location = new System.Drawing.Point(20, 56);
+            this.btnResumen.Name = "btnResumen";
+            this.btnResumen.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
+            this.btnResumen.Size = new System.Drawing.Size(231, 98);
+            this.btnResumen.TabIndex = 7;
+            this.btnResumen.Text = "Resumen de ventas y entradas/salidas";
+            this.btnResumen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnResumen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnResumen.UseVisualStyleBackColor = false;
+            this.btnResumen.Click += new System.EventHandler(this.btnResumen_Click);
             // 
             // lblTituloOperacionesCaja
             // 
@@ -563,6 +565,24 @@
             this.lblAlertaMensaje.Text = "⚠ Aviso: Se han detectado artículos con existencias agotadas o por debajo del mín" +
     "imo.";
             this.lblAlertaMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // BtnCorte
+            // 
+            this.BtnCorte.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(251)))), ((int)(((byte)(252)))));
+            this.BtnCorte.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(235)))), ((int)(((byte)(240)))));
+            this.BtnCorte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnCorte.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            this.BtnCorte.Image = ((System.Drawing.Image)(resources.GetObject("BtnCorte.Image")));
+            this.BtnCorte.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnCorte.Location = new System.Drawing.Point(280, 56);
+            this.BtnCorte.Name = "BtnCorte";
+            this.BtnCorte.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
+            this.BtnCorte.Size = new System.Drawing.Size(231, 80);
+            this.BtnCorte.TabIndex = 8;
+            this.BtnCorte.Text = "Corte de caja";
+            this.BtnCorte.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnCorte.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnCorte.UseVisualStyleBackColor = false;
             // 
             // Menu
             // 
@@ -634,9 +654,10 @@
         private System.Windows.Forms.Button BtnPanelSalir;
         private System.Windows.Forms.Button btnArticules;
         private System.Windows.Forms.Button btnCategorias;
-        private System.Windows.Forms.Button btnPanelCorte;
-        private System.Windows.Forms.Button btnCorteCaja;
+        private System.Windows.Forms.Button btnPanelReusmen;
+        private System.Windows.Forms.Button btnResumen;
         private System.Windows.Forms.Button btnLicencias;
         private System.Windows.Forms.Button btnPanelMenu;
+        private System.Windows.Forms.Button BtnCorte;
     }
 }

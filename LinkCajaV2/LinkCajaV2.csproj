@@ -535,6 +535,7 @@
     <Content Include="Icons\Cajero.png" />
     <Content Include="Icons\Categorias.png" />
     <Content Include="Icons\Clientes.png" />
+    <Content Include="Icons\Corte.png" />
     <Content Include="Icons\CorteCaja.png" />
     <Content Include="Icons\Guardar.png" />
     <Content Include="Icons\Impresiones.png" />
