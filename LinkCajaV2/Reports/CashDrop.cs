@@ -29,7 +29,7 @@ namespace LinkCajaV2.Reports
             AppRepository obj = new AppRepository();
             try
             {
-                var detalles = await obj.GetCashDrop(dtDesde.Value, dtHasta.Value);
+                var detalles = await obj.GetCashDrop(dtDesde.Value, dtHasta.Value,CBEntradas.Checked);
                 var listaFinal = detalles?.ToList() ?? new List<CashDropModel>();
                 dgvCorte.DataSource = new BindingList<CashDropModel>(listaFinal);
             }
@@ -52,26 +52,37 @@ namespace LinkCajaV2.Reports
                 HeaderText = "Concepto",
                 DataPropertyName = "Concepto",
                 ReadOnly = true,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                Width = 300
             });
+           
+            if(CBEntradas.Checked)
+            {
+                dgvCorte.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Articulo",
+                    HeaderText = "Articulo",
+                    DataPropertyName = "Articulo",
+                    ReadOnly = true,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                });
+                dgvCorte.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Fecha",
+                    HeaderText = "Fecha",
+                    DataPropertyName = "Fecha",
+                    ReadOnly = true,
+                    Width = 300
+                });
+            }
             dgvCorte.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Monto",
                 HeaderText = "Monto",
                 DataPropertyName = "Monto",
                 ReadOnly = true,
-                DefaultCellStyle = { Format = "C2" },
                 Width = 300
             });
-            //DataGridViewButtonColumn btnDetalles = new DataGridViewButtonColumn
-            //{
-            //    Name = "Detalles",
-            //    HeaderText = "Acción",
-            //    Text = "Detalles",
-            //    UseColumnTextForButtonValue = true, // Para que todos los botones digan "Quitar"
-            //    Width = 80
-            //};
-            //dgvCorte.Columns.Add(btnDetalles);
             dgvCorte.AllowUserToAddRows = false;
         }
     }

@@ -669,7 +669,7 @@ namespace LinkCajaV2.Sales
                     new concepts
                     {
                         clave_prod_serv = item.CodeSAT,
-                        no_identificacion = item.Code,
+                        no_identificacion = "Id" + item.IdArticle.ToString(),
                         quantity = item.Stock,
                         clave_unidad = item.UnitSAT,
                         unit = item.NamePresentation,

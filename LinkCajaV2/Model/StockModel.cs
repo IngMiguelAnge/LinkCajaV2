@@ -2,7 +2,7 @@
 {
     public class StockModel
     {
-        public int Id { get; set; } //Como estan en el mismo id este es el id article
+        public int Id { get; set; }
         public decimal Stock { get; set; }
         public decimal StockMin { get; set; }
         public int IdPresentation { get; set; }

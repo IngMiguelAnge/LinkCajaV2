@@ -40,6 +40,8 @@
             this.dgvCorte = new System.Windows.Forms.DataGridView();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.CBEntradas = new System.Windows.Forms.CheckBox();
+            this.lblOpciones = new System.Windows.Forms.Label();
             this.gbDatos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCorte)).BeginInit();
             this.SuspendLayout();
@@ -93,9 +95,9 @@
             this.gbDatos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gbDatos.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbDatos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.gbDatos.Location = new System.Drawing.Point(24, 209);
+            this.gbDatos.Location = new System.Drawing.Point(24, 283);
             this.gbDatos.Name = "gbDatos";
-            this.gbDatos.Size = new System.Drawing.Size(1035, 417);
+            this.gbDatos.Size = new System.Drawing.Size(1179, 531);
             this.gbDatos.TabIndex = 4;
             this.gbDatos.TabStop = false;
             this.gbDatos.Text = "Datos del corte";
@@ -131,7 +133,7 @@
             this.dgvCorte.Name = "dgvCorte";
             this.dgvCorte.RowHeadersWidth = 62;
             this.dgvCorte.RowTemplate.Height = 28;
-            this.dgvCorte.Size = new System.Drawing.Size(1029, 379);
+            this.dgvCorte.Size = new System.Drawing.Size(1173, 493);
             this.dgvCorte.TabIndex = 0;
             // 
             // btnBuscar
@@ -163,12 +165,38 @@
             this.lblTitulo.TabIndex = 25;
             this.lblTitulo.Text = "Corte de caja";
             // 
+            // CBEntradas
+            // 
+            this.CBEntradas.AutoSize = true;
+            this.CBEntradas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CBEntradas.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CBEntradas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.CBEntradas.Location = new System.Drawing.Point(41, 219);
+            this.CBEntradas.Name = "CBEntradas";
+            this.CBEntradas.Size = new System.Drawing.Size(225, 32);
+            this.CBEntradas.TabIndex = 34;
+            this.CBEntradas.Text = "Ver entradas/salidas";
+            this.CBEntradas.UseVisualStyleBackColor = true;
+            // 
+            // lblOpciones
+            // 
+            this.lblOpciones.AutoSize = true;
+            this.lblOpciones.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOpciones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblOpciones.Location = new System.Drawing.Point(36, 191);
+            this.lblOpciones.Name = "lblOpciones";
+            this.lblOpciones.Size = new System.Drawing.Size(96, 25);
+            this.lblOpciones.TabIndex = 33;
+            this.lblOpciones.Text = "Opciones:";
+            // 
             // CashDrop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1093, 650);
+            this.ClientSize = new System.Drawing.Size(1237, 838);
+            this.Controls.Add(this.CBEntradas);
+            this.Controls.Add(this.lblOpciones);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.gbDatos);
@@ -199,5 +227,7 @@
         private System.Windows.Forms.DataGridView dgvCorte;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.CheckBox CBEntradas;
+        private System.Windows.Forms.Label lblOpciones;
     }
 }

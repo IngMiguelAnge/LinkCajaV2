@@ -34,11 +34,21 @@ namespace LinkCajaV2.Items
             nudExistencias.DecimalPlaces = DecimalPlaces;
             nudExistencias.Increment = Increment;
             nudExistencias.Maximum = Maximum;
+            if(Entrada == false)
+            {
+                RBPerdida.Enabled = true;
+                RBOtro.Enabled = true;                
+            }
         }
 
         private void BtnConfirmar_Click(object sender, EventArgs e)
         {
-            if (Entrada == false && Existencias < Cantidad)
+            if (nudExistencias.Value == 0)
+            {
+                MessageBox.Show("Se requiere una cantidad.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (Entrada == false && Existencias < nudExistencias.Value)
             {
                 MessageBox.Show("No se pueden retirar más existencias de las que hay disponibles.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -52,7 +62,24 @@ namespace LinkCajaV2.Items
             {
                 Concepto = txtMotivo.Text;
             }
+            
+            Cantidad = nudExistencias.Value;
             this.DialogResult = DialogResult.OK;
+        }
+
+        private void RBPerdida_CheckedChanged(object sender, EventArgs e)
+        {
+            if(RBPerdida.Checked)
+            {
+                txtMotivo.Text = string.Empty;
+                txtMotivo.Enabled = false;
+            }    
+        }
+
+        private void RBOtro_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RBOtro.Checked)
+                txtMotivo.Enabled = true;
         }
     }
 }

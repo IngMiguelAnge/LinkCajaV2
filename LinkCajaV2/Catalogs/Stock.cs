@@ -185,8 +185,18 @@ namespace LinkCajaV2.Catalogs
                 Margen = nudMargen.Value
             };
             AppRepository obj = new AppRepository();
-            if (obj.SaveStock(Stock).Result)
+            var result = obj.SaveStock(Stock).Result;
+            if (result)
             {
+
+                TransactionHistoryModel t = new TransactionHistoryModel();
+                t.IdArticles = IdArticle;
+                t.Stock = CantidadAjustada < 0 ? CantidadAjustada * -1: CantidadAjustada;
+                t.Concept = CantidadAjustada < 0 ? Concepto: CantidadAjustada > 0 ?"Ingreso de mercancia":string.Empty;
+                if (CantidadAjustada != 0)
+                {
+                    var r = obj.SaveTransactionHistory(t).Result;
+                }                    
                 MessageBox.Show("Stock guardado correctamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }

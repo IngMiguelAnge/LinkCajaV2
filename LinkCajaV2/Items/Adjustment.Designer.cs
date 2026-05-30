@@ -35,13 +35,12 @@
             this.lblMotivo = new System.Windows.Forms.Label();
             this.txtMotivo = new System.Windows.Forms.TextBox();
             this.RBPerdida = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.RBOtro = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.nudExistencias)).BeginInit();
             this.SuspendLayout();
             // 
             // nudExistencias
             // 
-            this.nudExistencias.Enabled = false;
             this.nudExistencias.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudExistencias.Location = new System.Drawing.Point(12, 59);
             this.nudExistencias.Maximum = new decimal(new int[] {
@@ -131,20 +130,22 @@
             this.RBPerdida.TabStop = true;
             this.RBPerdida.Text = "Perdida";
             this.RBPerdida.UseVisualStyleBackColor = true;
+            this.RBPerdida.CheckedChanged += new System.EventHandler(this.RBPerdida_CheckedChanged);
             // 
-            // radioButton1
+            // RBOtro
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Enabled = false;
-            this.radioButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radioButton1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.radioButton1.Location = new System.Drawing.Point(140, 126);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(140, 29);
-            this.radioButton1.TabIndex = 3;
-            this.radioButton1.Text = "Otro Motivo";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.RBOtro.AutoSize = true;
+            this.RBOtro.Enabled = false;
+            this.RBOtro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RBOtro.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RBOtro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.RBOtro.Location = new System.Drawing.Point(140, 126);
+            this.RBOtro.Name = "RBOtro";
+            this.RBOtro.Size = new System.Drawing.Size(140, 29);
+            this.RBOtro.TabIndex = 3;
+            this.RBOtro.Text = "Otro Motivo";
+            this.RBOtro.UseVisualStyleBackColor = true;
+            this.RBOtro.CheckedChanged += new System.EventHandler(this.RBOtro_CheckedChanged);
             // 
             // Adjustment
             // 
@@ -154,7 +155,7 @@
             this.CancelButton = this.btnCancelar;
             this.ClientSize = new System.Drawing.Size(306, 425);
             this.ControlBox = false;
-            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.RBOtro);
             this.Controls.Add(this.RBPerdida);
             this.Controls.Add(this.txtMotivo);
             this.Controls.Add(this.lblMotivo);
@@ -183,6 +184,6 @@
         private System.Windows.Forms.Label lblMotivo;
         private System.Windows.Forms.TextBox txtMotivo;
         private System.Windows.Forms.RadioButton RBPerdida;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton RBOtro;
     }
 }

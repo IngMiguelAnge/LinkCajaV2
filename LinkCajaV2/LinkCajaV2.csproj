@@ -373,6 +373,7 @@
     <Compile Include="Model\StockModel.cs" />
     <Compile Include="Model\SuppliersModel.cs" />
     <Compile Include="Model\TicketModel.cs" />
+    <Compile Include="Model\TransactionHistoryModel.cs" />
     <Compile Include="Model\TypesUsersModel.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Model\VentaModel.cs" />

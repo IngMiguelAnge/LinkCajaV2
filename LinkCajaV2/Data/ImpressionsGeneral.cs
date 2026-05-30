@@ -425,14 +425,26 @@ namespace LinkCajaV2.Data
                 .Padding(5)
                 .Column(col =>
                 {
-                    // Nombre del artículo (arriba)
-                    col.Item().Height(25).AlignCenter().Text(nombre).Style(EstiloArticulo);
+                    // 1. Nombre del artículo (Sin Height fijo)
+                    col.Item().Row(row =>
+                    {
+                        row.RelativeItem()
+                           .AlignCenter()
+                           .Text(nombre)
+                           .Style(EstiloArticulo);
+                    });
 
-                    // Línea divisoria
-                    col.Item().PaddingVertical(2).LineHorizontal((float)ConfigBox.HightLine).LineColor(Cod);
+                    // 2. Línea divisoria
+                    col.Item()
+                       .PaddingVertical(2)
+                       .LineHorizontal((float)ConfigBox.HightLine)
+                       .LineColor(Cod);
 
-                    // Precio (abajo dentro del mismo cuadro)
-                    col.Item().AlignCenter().Text(precio.ToString("C2")).Style(EstiloPrecio);
+                    // 3. Precio (Abajo)
+                    col.Item()
+                       .AlignCenter()
+                       .Text(precio.ToString("C2"))
+                       .Style(EstiloPrecio);
                 });
         }
         public void GenerarTicket(VentaModel venta)

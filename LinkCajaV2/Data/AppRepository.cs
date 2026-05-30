@@ -170,7 +170,7 @@ namespace LinkCajaV2.Data
 
         #endregion
         #region CashDrop
-        public async Task<List<CashDropModel>> GetCashDrop(DateTime Desde, DateTime Hasta)
+        public async Task<List<CashDropModel>> GetCashDrop(DateTime Desde, DateTime Hasta, bool Entradas)
         {
             List<CashDropModel> list = new List<CashDropModel>();
             try
@@ -182,6 +182,7 @@ namespace LinkCajaV2.Data
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Desde", Desde));
                         cmd.Parameters.Add(new SqlParameter("@Hasta", Hasta));
+                        cmd.Parameters.Add(new SqlParameter("@Entradas", Entradas));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
@@ -204,6 +205,8 @@ namespace LinkCajaV2.Data
             {
                 Concepto = (string)reader["Concepto"],
                 Monto = (decimal)reader["Monto"],
+                Articulo = (string)reader["Articulo"],
+                Fecha = (DateTime)reader["Fecha"]
             };
         }
         #endregion
@@ -431,7 +434,7 @@ namespace LinkCajaV2.Data
             return new DetailsforFactureModel()
             {
                 CodeSAT = (string)reader["CodeSAT"],
-                Code = (string)reader["Code"],
+                Code = (string)reader["Code"], //Ahora este guarda "Id"+ Idarticle
                 Stock = (decimal)reader["StockSold"],
                 UnitSAT = (string)reader["UnitSAT"],
                 NamePresentation = (string)reader["NamePresentation"],
@@ -2029,6 +2032,29 @@ namespace LinkCajaV2.Data
         }
         #endregion
         #region Stock
+        public async Task<bool> SaveTransactionHistory(TransactionHistoryModel obj)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveTransactionHistory", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@IdArticle", obj.IdArticles));
+                        cmd.Parameters.Add(new SqlParameter("@Stock", obj.Stock));
+                        cmd.Parameters.Add(new SqlParameter("@Concept", obj.Concept));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public async Task<bool> SaveStock(StockModel obj)
         {
             try
