@@ -684,13 +684,13 @@ namespace LinkCajaV2.Sales
                 ImpressionsGeneral im = new ImpressionsGeneral();
                 im.GenerarTicket(venta);
 
-                BillingMethods Facturacion = new BillingMethods();
-                string mensaje = string.Empty;
-                RespuestaFactureModel Enviado = await Facturacion.EnviarFactura(billing);
-                bool result = obj.ConfirmSend(Ticket.Id, Enviado).Result;
-                if (Enviado.Exito == true)
+                //BillingMethods Facturacion = new BillingMethods();
+                //string mensaje = string.Empty;
+                //RespuestaFactureModel Enviado = await Facturacion.EnviarFactura(billing);
+                //bool result = obj.ConfirmSend(Ticket.Id, Enviado).Result;
+                //if (Enviado.Exito == true)
                     MessageBox.Show("Venta realizada con éxito.");
-                else MessageBox.Show("Venta realizada con éxito. Pero fallo el envio consultar con soporte");
+                //else MessageBox.Show("Venta realizada con éxito. Pero fallo el envio consultar con soporte");
                 NuevaVenta();
             }
         }

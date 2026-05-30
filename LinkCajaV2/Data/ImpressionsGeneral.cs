@@ -441,32 +441,29 @@ namespace LinkCajaV2.Data
 
             try
             {
-                string nombreArchivo = $"Ticket_{venta.IdTicket}.pdf";//$"Ticket_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+                string nombreArchivo = $"Ticket_{venta.IdTicket}.pdf";
                 string carpeta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Impresiones");
                 if (!Directory.Exists(carpeta)) Directory.CreateDirectory(carpeta);
                 string rutaCompleta = Path.Combine(carpeta, nombreArchivo);
+
                 AppRepository obj = new AppRepository();
                 ConfigBox = obj.GetConfigPage().Result;
                 ConfigImpressions = obj.GetConfigImpressions("Ticket").Result;
+
                 float mmToPt = 2.83465f;
-                float anchoTicketMm = (float)ConfigBox.WidthPage; // Cambia a 58f si la impresora es pequeña
-                float altoBaseMm = (float)ConfigBox.HightPage;//60f;
-                float altoDinamicoMm = altoBaseMm + (venta.Articles.Count * 6f) + 36f;
+                float anchoTicketMm = (float)ConfigBox.WidthPage; // Ej. 58f u 80f
                 float anchoFinal = anchoTicketMm * mmToPt;
-                float altoFinal = altoDinamicoMm * mmToPt;
-                QuestPDF.Settings.License = LicenseType.Community;
-                //Cuando este la liga de arnulfo liberar
+
+                // Generar QR
                 byte[] qrBytes = null;
                 using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
                 {
-                    // Puedes cambiar el texto por una URL, datos de Hacienda o un resumen del ticket
                     string datosQr = $"https://facturacion.tiendasmino.com/facturar?ticket={venta.Title}\n&total={venta.Total.ToString()}";
 
                     using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(datosQr, QRCodeGenerator.ECCLevel.Q))
                     using (PngByteQRCode qrCode = new PngByteQRCode(qrCodeData))
                     {
-                        // El número 20 indica el tamaño por píxel del bloque gráfico
-                        qrBytes = qrCode.GetGraphic(20);
+                        qrBytes = qrCode.GetGraphic(10);
                     }
                 }
 
@@ -474,41 +471,45 @@ namespace LinkCajaV2.Data
                 {
                     container.Page(page =>
                     {
-                        page.Size(anchoFinal, altoFinal);
+                        // CORRECCIÓN: Método oficial de QuestPDF para ancho fijo y alto variable
+                        page.ContinuousSize(anchoFinal);
+
                         page.Margin(2, Unit.Millimetre);
                         page.PageColor(Colors.White);
                         page.DefaultTextStyle(x => x.FontSize(8).FontFamily(Fonts.Arial));
-                        int TituloFontsize = ConfigImpressions.Find(x => x.Name == "Titulo") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Titulo").FontSize) : 12;
+
+                        // Carga de estilos desde tu configuración
+                        int TituloFontsize = ConfigImpressions.Find(x => x.Name == "Titulo") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Titulo").FontSize) : 10;
                         string TituloColor = ConfigImpressions.Find(x => x.Name == "Titulo") != null ? ConfigImpressions.Find(x => x.Name == "Titulo").FontColor : "Black";
                         TituloColor = CodigodeColor(TituloColor);
                         string TituloFontStyle = ConfigImpressions.Find(x => x.Name == "Titulo") != null ? ConfigImpressions.Find(x => x.Name == "Titulo").FontStyle : "SemiBold";
                         var EstiloTitulo = ObtenerEstiloPersonalizado(TituloFontStyle, TituloFontsize, TituloColor);
-                        
-                        int CompanyFontsize = ConfigImpressions.Find(x => x.Name == "Company") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Company").FontSize) : 12;
+
+                        int CompanyFontsize = ConfigImpressions.Find(x => x.Name == "Company") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Company").FontSize) : 10;
                         string CompanyColor = ConfigImpressions.Find(x => x.Name == "Company") != null ? ConfigImpressions.Find(x => x.Name == "Company").FontColor : "Black";
                         CompanyColor = CodigodeColor(CompanyColor);
                         string CompanyFontStyle = ConfigImpressions.Find(x => x.Name == "Company") != null ? ConfigImpressions.Find(x => x.Name == "Company").FontStyle : "SemiBold";
                         var EstiloCompany = ObtenerEstiloPersonalizado(CompanyFontStyle, CompanyFontsize, CompanyColor);
-                        
-                        int RFCFontsize = ConfigImpressions.Find(x => x.Name == "RFC") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "RFC").FontSize) : 12;
+
+                        int RFCFontsize = ConfigImpressions.Find(x => x.Name == "RFC") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "RFC").FontSize) : 8;
                         string RFCColor = ConfigImpressions.Find(x => x.Name == "RFC") != null ? ConfigImpressions.Find(x => x.Name == "RFC").FontColor : "Black";
                         RFCColor = CodigodeColor(RFCColor);
-                        string RFCFontStyle = ConfigImpressions.Find(x => x.Name == "RFC") != null ? ConfigImpressions.Find(x => x.Name == "RFC").FontStyle : "SemiBold";
+                        string RFCFontStyle = ConfigImpressions.Find(x => x.Name == "RFC") != null ? ConfigImpressions.Find(x => x.Name == "RFC").FontStyle : "Normal";
                         var EstiloRFC = ObtenerEstiloPersonalizado(RFCFontStyle, RFCFontsize, RFCColor);
 
-                        int FechaFontsize = ConfigImpressions.Find(x => x.Name == "Fecha") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Fecha").FontSize) : 12;
+                        int FechaFontsize = ConfigImpressions.Find(x => x.Name == "Fecha") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Fecha").FontSize) : 8;
                         string FechaColor = ConfigImpressions.Find(x => x.Name == "Fecha") != null ? ConfigImpressions.Find(x => x.Name == "Fecha").FontColor : "Black";
                         FechaColor = CodigodeColor(FechaColor);
-                        string FechaFontStyle = ConfigImpressions.Find(x => x.Name == "Fecha") != null ? ConfigImpressions.Find(x => x.Name == "Fecha").FontStyle : "SemiBold";
+                        string FechaFontStyle = ConfigImpressions.Find(x => x.Name == "Fecha") != null ? ConfigImpressions.Find(x => x.Name == "Fecha").FontStyle : "Normal";
                         var EstiloFecha = ObtenerEstiloPersonalizado(FechaFontStyle, FechaFontsize, FechaColor);
 
-                        int TablaFontsize = ConfigImpressions.Find(x => x.Name == "Tabla") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Tabla").FontSize) : 12;
+                        int TablaFontsize = ConfigImpressions.Find(x => x.Name == "Tabla") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Tabla").FontSize) : 8;
                         string TablaColor = ConfigImpressions.Find(x => x.Name == "Tabla") != null ? ConfigImpressions.Find(x => x.Name == "Tabla").FontColor : "Black";
                         TablaColor = CodigodeColor(TablaColor);
-                        string TablaFontStyle = ConfigImpressions.Find(x => x.Name == "Tabla") != null ? ConfigImpressions.Find(x => x.Name == "Tabla").FontStyle : "SemiBold";
+                        string TablaFontStyle = ConfigImpressions.Find(x => x.Name == "Tabla") != null ? ConfigImpressions.Find(x => x.Name == "Tabla").FontStyle : "Normal";
                         var EstiloTabla = ObtenerEstiloPersonalizado(TablaFontStyle, TablaFontsize, TablaColor);
 
-                        // Mantenemos el Header igual
+                        // Encabezado del Ticket
                         page.Header().Column(col =>
                         {
                             col.Item().AlignCenter().Text("TICKET " + venta.IdTicket.ToString()).Style(EstiloTitulo);
@@ -518,33 +519,34 @@ namespace LinkCajaV2.Data
                             col.Item().AlignCenter().Text(venta.Company.Address).Style(EstiloRFC);
                             col.Item().AlignCenter().Text(venta.Cliente).Style(EstiloRFC);
                             col.Item().AlignCenter().Text(DateTime.Now.ToString("dd/MM/yyyy HH:mm")).Style(EstiloFecha);
-                            col.Item().LineHorizontal(1);
+                            col.Item().PaddingVertical(2).LineHorizontal(1);
                         });
 
-                        // TODO el contenido (Tabla + Totales) en el Content
-                        page.Content().PaddingVertical(5).Column(mainCol =>
+                        // Contenido Principal
+                        page.Content().PaddingVertical(2).Column(mainCol =>
                         {
                             // 1. La Tabla
                             mainCol.Item().Table(table =>
                             {
                                 table.ColumnsDefinition(columns =>
                                 {
-                                    columns.ConstantColumn(45);//Codigo
-                                    columns.RelativeColumn(3);//Descripcion
-                                    columns.RelativeColumn(1);//Cantidad
-                                    columns.RelativeColumn(1.8f);//Total
+                                    columns.RelativeColumn(2.2f); // Código espaciado de forma elástica
+                                    columns.RelativeColumn(4f);    // Descripción
+                                    columns.RelativeColumn(1f);    // Cantidad
+                                    columns.RelativeColumn(1.8f);  // Total
                                 });
-                                // ENCABEZADO DE LA TABLA (Títulos)
+
+                                // Encabezados
                                 table.Header(header =>
                                 {
                                     header.Cell().AlignLeft().Text("Código").Style(EstiloTabla).Bold();
                                     header.Cell().AlignLeft().Text("Descripción").Style(EstiloTabla).Bold();
                                     header.Cell().AlignCenter().Text("Cant").Style(EstiloTabla).Bold();
                                     header.Cell().AlignRight().Text("Total").Style(EstiloTabla).Bold();
-
-                                    // Una pequeña línea divisoria debajo de los títulos
                                     header.Cell().ColumnSpan(4).PaddingVertical(2).LineHorizontal(0.5f);
                                 });
+
+                                // Artículos
                                 foreach (var item in venta.Articles)
                                 {
                                     table.Cell().PaddingVertical(1).AlignLeft().Text(item.Code).Style(EstiloTabla);
@@ -554,35 +556,45 @@ namespace LinkCajaV2.Data
                                 }
                             });
 
-                            int TotalFontsize = ConfigImpressions.Find(x => x.Name == "Total") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Total").FontSize) : 12;
+                            // Totales
+                            int TotalFontsize = ConfigImpressions.Find(x => x.Name == "Total") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Total").FontSize) : 9;
                             string TotalColor = ConfigImpressions.Find(x => x.Name == "Total") != null ? ConfigImpressions.Find(x => x.Name == "Total").FontColor : "Black";
                             TotalColor = CodigodeColor(TotalColor);
                             string TotalFontStyle = ConfigImpressions.Find(x => x.Name == "Total") != null ? ConfigImpressions.Find(x => x.Name == "Total").FontStyle : "SemiBold";
                             var EstiloTotal = ObtenerEstiloPersonalizado(TotalFontStyle, TotalFontsize, TotalColor);
 
-                            // 2. Los Totales (justo debajo de la tabla)
-                            mainCol.Item().PaddingTop(5).Column(totalCol =>
+                            // 2. Bloque de Cierre
+                            mainCol.Item().PaddingTop(3).Column(totalCol =>
                             {
                                 totalCol.Item().LineHorizontal(1);
 
                                 decimal granTotal = venta.Articles.Sum(x => x.Total);
-                                totalCol.Item().AlignRight().Text($"RECIBIDO: {venta.Recibido:C2}").Style(EstiloTotal);
+
+                                totalCol.Item().PaddingTop(2).AlignRight().Text($"RECIBIDO: {venta.Recibido:C2}").Style(EstiloTotal);
                                 totalCol.Item().AlignRight().Text($"TOTAL: {granTotal:C2}").Style(EstiloTotal);
 
                                 decimal cambio = venta.Recibido - granTotal;
                                 totalCol.Item().AlignRight().Text($"CAMBIO: {cambio:C2}").Style(EstiloTotal);
 
-                                totalCol.Item().PaddingTop(10).AlignCenter().Text("¡Gracias por su compra!");
+                                totalCol.Item().PaddingTop(8).AlignCenter().Text("¡Gracias por su compra!").Style(EstiloTabla);
+
+                                // Control estricto de tamaño del QR
                                 if (qrBytes != null)
                                 {
-                                    totalCol.Item().PaddingTop(10).AlignCenter().Width(50).Image(qrBytes);
+                                    totalCol.Item()
+                                            .PaddingTop(8)
+                                            .AlignCenter()
+                                            .Width(55)
+                                            .Image(qrBytes);
                                 }
                             });
                         });
                     });
                 });
 
+                // Guardado y Ejecución
                 documento.GeneratePdf(rutaCompleta);
+
                 if (venta.Imprimir)
                 {
                     for (int i = 0; i <= venta.Copias; i++)

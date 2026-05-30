@@ -242,7 +242,7 @@ namespace LinkCajaV2.Configurations
                     Imprimir = CBImprimir.Checked,
                     Recibido = 100,
                     IdTicket = 0,
-                    Cliente = "Publico en general",
+                    Cliente = "Publico General",
                     BoxName = "Caja de prueba",
                     Articles = new BindingList<ArticlesSalesModel>()
                     {
