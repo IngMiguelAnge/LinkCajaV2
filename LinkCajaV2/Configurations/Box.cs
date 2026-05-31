@@ -1,0 +1,103 @@
+﻿using LinkCajaV2.Data;
+using LinkCajaV2.Model;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Management;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace LinkCajaV2.Catalogs
+{
+    public partial class Box : System.Windows.Forms.Form
+    {
+        public int Id { get; set; }
+        int CantidadCajas = 0;
+        public Box()
+        {
+            InitializeComponent();
+        }
+
+        private void Box_Load(object sender, EventArgs e)
+        {
+            AppRepository obj = new AppRepository();
+            KeysModel ListKeys = obj.GetKeys().Result.FirstOrDefault();
+            if (ListKeys == null)
+            {
+                MessageBox.Show("No se encontraron licencia activa. Contacta al soporte.", "Licencia no encontrada", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            }
+
+            EncrypDesencryp objEncryp = new EncrypDesencryp();
+            string Key = objEncryp.Desencriptar(ListKeys.Key);
+            string[] partes = Key.Split(new string[] { "Box", "box" }, StringSplitOptions.None);
+            CantidadCajas = int.Parse(partes[1]);
+            if (Id == 0)
+            {
+                HardwareID h = new HardwareID();
+                txtHard.Text = h.ObtenerHardwareID();
+                return;
+            }
+            var model = obj.GetBoxsbyId(Id).Result;
+            txtHard.Text = model.HardwareID;
+            txtNombre.Text = model.Name;
+        }
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                AppRepository obj = new AppRepository();
+                BoxModel model = new BoxModel
+                {
+                    HardwareID = txtHard.Text,
+                    Name = txtNombre.Text,
+                };
+
+                if (Id == 0)
+                {
+                    var exit = obj.GetBoxsbyHardwareID(txtHard.Text).Result;
+                    if (exit == null)
+                    {
+                        int list = obj.GetBoxsActives().Result.Count();
+                        if (list >= CantidadCajas)
+                        {
+                            MessageBox.Show("Has alcanzado el limite de cajas permitidas por tu licencia. Contacta al soporte para adquirir más cajas.", "Limite de cajas alcanzado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if(Id != exit.Id)
+                        {
+                            MessageBox.Show("Ya existe una caja registrada con este hardware ID. Verifica que no estés registrando la misma caja nuevamente.", "Caja duplicada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+                }
+                var res = obj.SaveBox(model).Result;
+                if(res)
+                {
+                    MessageBox.Show("Caja guardada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Error al guardar la caja. Intenta nuevamente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se encontraron licencia activa. Contacta al soporte.", "Licencia no encontrada", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            }
+        }
+    }
+}

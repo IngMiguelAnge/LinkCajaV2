@@ -1,0 +1,16 @@
+﻿namespace LinkCajaV2.Model
+{
+    public class ArticleModel
+    {
+        public int Id { get; set; }
+        public string Code { get; set; }
+        public string CodeSAT { get; set; }
+        public string Name { get; set; }       
+        public string Description { get; set; }
+        public byte[] Image { get; set; } 
+        public bool Status { get; set; }
+        public bool SendBack { get; set; }
+        public bool Medicine { get; set; }
+        public int IdCategory { get; set; }
+    }
+}
