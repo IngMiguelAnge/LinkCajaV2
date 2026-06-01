@@ -205,13 +205,13 @@
             this.btnNuevo.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevo.ForeColor = System.Drawing.Color.White;
             this.btnNuevo.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevo.Image")));
-            this.btnNuevo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNuevo.Location = new System.Drawing.Point(1344, 131);
+            this.btnNuevo.Location = new System.Drawing.Point(1343, 126);
             this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(120, 37);
+            this.btnNuevo.Size = new System.Drawing.Size(120, 41);
             this.btnNuevo.TabIndex = 7;
             this.btnNuevo.Text = "Nuevo";
             this.btnNuevo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNuevo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnNuevo.UseVisualStyleBackColor = false;
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
@@ -222,13 +222,13 @@
             this.BtnBuscar.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnBuscar.ForeColor = System.Drawing.Color.White;
             this.BtnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("BtnBuscar.Image")));
-            this.BtnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnBuscar.Location = new System.Drawing.Point(1194, 131);
+            this.BtnBuscar.Location = new System.Drawing.Point(1193, 126);
             this.BtnBuscar.Name = "BtnBuscar";
-            this.BtnBuscar.Size = new System.Drawing.Size(120, 37);
+            this.BtnBuscar.Size = new System.Drawing.Size(120, 41);
             this.BtnBuscar.TabIndex = 4;
             this.BtnBuscar.Text = "Buscar";
             this.BtnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnBuscar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BtnBuscar.UseVisualStyleBackColor = false;
             this.BtnBuscar.Click += new System.EventHandler(this.BtnBuscar_Click);
             // 
@@ -374,7 +374,7 @@
             this.BtnSAT.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnSAT.Location = new System.Drawing.Point(1328, 203);
             this.BtnSAT.Name = "BtnSAT";
-            this.BtnSAT.Size = new System.Drawing.Size(216, 37);
+            this.BtnSAT.Size = new System.Drawing.Size(238, 37);
             this.BtnSAT.TabIndex = 27;
             this.BtnSAT.Text = "Agregar SAT general";
             this.BtnSAT.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
