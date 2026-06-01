@@ -24,7 +24,6 @@ namespace LinkCajaV2.Items
         private void ConfirmPayTarjet_Load(object sender, EventArgs e)
         {
             lblTotal.Text = "TOTAL: " + Total.ToString("C");
-            // Aseguramos que empiece con el foco para que primerIngreso funcione
             TXTFOLIO.Focus();
         }
 

@@ -40,7 +40,6 @@
             this.nudExistencias = new System.Windows.Forms.NumericUpDown();
             this.lblExistencias = new System.Windows.Forms.Label();
             this.BtnGuardar = new System.Windows.Forms.Button();
-            this.lblNombre = new System.Windows.Forms.Label();
             this.lblRecomendacion = new System.Windows.Forms.Label();
             this.lblMargen = new System.Windows.Forms.Label();
             this.nudMargen = new System.Windows.Forms.NumericUpDown();
@@ -140,7 +139,7 @@
             this.cbPresentacion.Enabled = false;
             this.cbPresentacion.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbPresentacion.FormattingEnabled = true;
-            this.cbPresentacion.Location = new System.Drawing.Point(44, 177);
+            this.cbPresentacion.Location = new System.Drawing.Point(41, 131);
             this.cbPresentacion.Name = "cbPresentacion";
             this.cbPresentacion.Size = new System.Drawing.Size(250, 38);
             this.cbPresentacion.TabIndex = 2;
@@ -150,7 +149,7 @@
             this.lblPresentacion.AutoSize = true;
             this.lblPresentacion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPresentacion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblPresentacion.Location = new System.Drawing.Point(40, 144);
+            this.lblPresentacion.Location = new System.Drawing.Point(37, 98);
             this.lblPresentacion.Name = "lblPresentacion";
             this.lblPresentacion.Size = new System.Drawing.Size(127, 25);
             this.lblPresentacion.TabIndex = 1;
@@ -160,7 +159,7 @@
             // 
             this.nudExistencias.Enabled = false;
             this.nudExistencias.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudExistencias.Location = new System.Drawing.Point(44, 263);
+            this.nudExistencias.Location = new System.Drawing.Point(41, 217);
             this.nudExistencias.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -175,7 +174,7 @@
             this.lblExistencias.AutoSize = true;
             this.lblExistencias.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblExistencias.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblExistencias.Location = new System.Drawing.Point(40, 225);
+            this.lblExistencias.Location = new System.Drawing.Point(37, 179);
             this.lblExistencias.Name = "lblExistencias";
             this.lblExistencias.Size = new System.Drawing.Size(110, 25);
             this.lblExistencias.TabIndex = 3;
@@ -185,10 +184,11 @@
             // 
             this.BtnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
             this.BtnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnGuardar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnGuardar.ForeColor = System.Drawing.Color.White;
             this.BtnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("BtnGuardar.Image")));
-            this.BtnGuardar.Location = new System.Drawing.Point(466, 574);
+            this.BtnGuardar.Location = new System.Drawing.Point(466, 519);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(200, 48);
             this.BtnGuardar.TabIndex = 18;
@@ -196,17 +196,6 @@
             this.BtnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BtnGuardar.UseVisualStyleBackColor = false;
             this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
-            // 
-            // lblNombre
-            // 
-            this.lblNombre.AutoSize = true;
-            this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblNombre.Location = new System.Drawing.Point(40, 99);
-            this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(152, 25);
-            this.lblNombre.TabIndex = 0;
-            this.lblNombre.Text = "Nombre articulo";
             // 
             // lblRecomendacion
             // 
@@ -224,7 +213,7 @@
             this.lblMargen.AutoSize = true;
             this.lblMargen.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMargen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblMargen.Location = new System.Drawing.Point(36, 458);
+            this.lblMargen.Location = new System.Drawing.Point(33, 412);
             this.lblMargen.Name = "lblMargen";
             this.lblMargen.Size = new System.Drawing.Size(191, 25);
             this.lblMargen.TabIndex = 7;
@@ -234,7 +223,7 @@
             // 
             this.nudMargen.DecimalPlaces = 2;
             this.nudMargen.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudMargen.Location = new System.Drawing.Point(37, 493);
+            this.nudMargen.Location = new System.Drawing.Point(34, 447);
             this.nudMargen.Name = "nudMargen";
             this.nudMargen.Size = new System.Drawing.Size(250, 37);
             this.nudMargen.TabIndex = 8;
@@ -246,7 +235,7 @@
             this.Porcentaje.AutoSize = true;
             this.Porcentaje.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Porcentaje.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.Porcentaje.Location = new System.Drawing.Point(293, 503);
+            this.Porcentaje.Location = new System.Drawing.Point(290, 457);
             this.Porcentaje.Name = "Porcentaje";
             this.Porcentaje.Size = new System.Drawing.Size(27, 25);
             this.Porcentaje.TabIndex = 15;
@@ -300,7 +289,7 @@
             // NUDExistenciasMinimas
             // 
             this.NUDExistenciasMinimas.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NUDExistenciasMinimas.Location = new System.Drawing.Point(41, 408);
+            this.NUDExistenciasMinimas.Location = new System.Drawing.Point(38, 362);
             this.NUDExistenciasMinimas.Name = "NUDExistenciasMinimas";
             this.NUDExistenciasMinimas.Size = new System.Drawing.Size(250, 37);
             this.NUDExistenciasMinimas.TabIndex = 6;
@@ -310,7 +299,7 @@
             this.lblExistenciasMinimas.AutoSize = true;
             this.lblExistenciasMinimas.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblExistenciasMinimas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblExistenciasMinimas.Location = new System.Drawing.Point(40, 373);
+            this.lblExistenciasMinimas.Location = new System.Drawing.Point(37, 327);
             this.lblExistenciasMinimas.Name = "lblExistenciasMinimas";
             this.lblExistenciasMinimas.Size = new System.Drawing.Size(187, 25);
             this.lblExistenciasMinimas.TabIndex = 5;
@@ -318,8 +307,9 @@
             // 
             // BtnEntrada
             // 
+            this.BtnEntrada.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnEntrada.Image = ((System.Drawing.Image)(resources.GetObject("BtnEntrada.Image")));
-            this.BtnEntrada.Location = new System.Drawing.Point(44, 313);
+            this.BtnEntrada.Location = new System.Drawing.Point(41, 267);
             this.BtnEntrada.Name = "BtnEntrada";
             this.BtnEntrada.Size = new System.Drawing.Size(45, 47);
             this.BtnEntrada.TabIndex = 26;
@@ -328,8 +318,9 @@
             // 
             // btnSalida
             // 
+            this.btnSalida.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSalida.Image = ((System.Drawing.Image)(resources.GetObject("btnSalida.Image")));
-            this.btnSalida.Location = new System.Drawing.Point(117, 313);
+            this.btnSalida.Location = new System.Drawing.Point(114, 267);
             this.btnSalida.Name = "btnSalida";
             this.btnSalida.Size = new System.Drawing.Size(45, 47);
             this.btnSalida.TabIndex = 27;
@@ -341,7 +332,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(706, 634);
+            this.ClientSize = new System.Drawing.Size(706, 622);
             this.Controls.Add(this.btnSalida);
             this.Controls.Add(this.BtnEntrada);
             this.Controls.Add(this.NUDExistenciasMinimas);
@@ -354,7 +345,6 @@
             this.Controls.Add(this.nudMargen);
             this.Controls.Add(this.lblMargen);
             this.Controls.Add(this.lblRecomendacion);
-            this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.lblMedida);
             this.Controls.Add(this.lblCostoGramo);
             this.Controls.Add(this.nudCada);
@@ -396,7 +386,6 @@
         private System.Windows.Forms.NumericUpDown nudExistencias;
         private System.Windows.Forms.Label lblExistencias;
         private System.Windows.Forms.Button BtnGuardar;
-        private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblRecomendacion;
         private System.Windows.Forms.Label lblMargen;
         private System.Windows.Forms.NumericUpDown nudMargen;

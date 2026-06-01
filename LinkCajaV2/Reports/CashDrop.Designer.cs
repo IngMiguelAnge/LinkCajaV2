@@ -97,7 +97,7 @@
             this.gbDatos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.gbDatos.Location = new System.Drawing.Point(24, 283);
             this.gbDatos.Name = "gbDatos";
-            this.gbDatos.Size = new System.Drawing.Size(1179, 531);
+            this.gbDatos.Size = new System.Drawing.Size(1179, 372);
             this.gbDatos.TabIndex = 4;
             this.gbDatos.TabStop = false;
             this.gbDatos.Text = "Resumen del sistema";
@@ -106,7 +106,6 @@
             // 
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.dgvCorte.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvCorte.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvCorte.BackgroundColor = System.Drawing.Color.White;
             this.dgvCorte.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvCorte.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
@@ -133,7 +132,7 @@
             this.dgvCorte.Name = "dgvCorte";
             this.dgvCorte.RowHeadersWidth = 62;
             this.dgvCorte.RowTemplate.Height = 28;
-            this.dgvCorte.Size = new System.Drawing.Size(1173, 493);
+            this.dgvCorte.Size = new System.Drawing.Size(1173, 334);
             this.dgvCorte.TabIndex = 0;
             // 
             // btnBuscar
@@ -195,7 +194,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1237, 838);
+            this.ClientSize = new System.Drawing.Size(1237, 790);
             this.Controls.Add(this.CBEntradas);
             this.Controls.Add(this.lblOpciones);
             this.Controls.Add(this.lblTitulo);
@@ -209,6 +208,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CashDrop";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.CashDrop_Load);
             this.gbDatos.ResumeLayout(false);

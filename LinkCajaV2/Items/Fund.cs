@@ -165,10 +165,10 @@ namespace LinkCajaV2.Items
                     else
                     {                        
                             btnGuardar.Visible = true;
-                            dtFechaApertura.MinDate = result.CheckOut.AddMinutes(1);
-                            dtFechaCierre.MinDate = result.CheckOut.AddMinutes(2);
+                            dtFechaApertura.MinDate = result.CheckOut.AddSeconds(1);
+                            dtFechaCierre.MinDate = result.CheckOut.AddSeconds(2);
                             dtFechaApertura.Value = DateTime.Now;
-                            dtFechaCierre.Value = DateTime.Now.AddMinutes(1);
+                            dtFechaCierre.Value = DateTime.Now.AddSeconds(1);
                             nudInicio.Value = result.CashFinish;
                             NudRetiro.Value = 0m;
                     }

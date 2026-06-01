@@ -26,6 +26,7 @@ namespace LinkCajaV2.Items
         private void btnTarjeta_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.None;
+            this.Close();
         }
     }
 }

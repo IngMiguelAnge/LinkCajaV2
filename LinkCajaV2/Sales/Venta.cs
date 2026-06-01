@@ -118,10 +118,7 @@ namespace LinkCajaV2.Sales
                 this.Close();
                 return;
             }
-            if (fund.CheckOut < DateTime.Now)
-            {
-                MessageBox.Show("Ya es la hora de corte para esta máquina.", "Fin", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+          
             HoraEntrada = fund.CheckIn;
             HoraCierre = fund.CheckOut;
             IdBox = box.Id;
@@ -428,10 +425,6 @@ namespace LinkCajaV2.Sales
         }
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            if (HoraCierre < DateTime.Now)
-            {
-                MessageBox.Show("Ya es la hora de corte para esta máquina.", "Fin", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
             NuevaVenta();
         }
         public void NuevaVenta()
@@ -600,7 +593,7 @@ namespace LinkCajaV2.Sales
             decimal Recibido = 0;
             string Folio = string.Empty;
             TypePay tp = new TypePay();
-            if(tp.ShowDialog() != DialogResult.OK)
+            if(tp.ShowDialog() == DialogResult.OK)
             {
                 ConfirmPay c = new ConfirmPay();
                 c.Total = TotalReal;
@@ -659,7 +652,10 @@ namespace LinkCajaV2.Sales
             venta.IdTicket = Ticket.Id;
             DetailsTicketModel Details = new DetailsTicketModel();
             BillingDetails billing = new BillingDetails();
-            venta.Title = "TKT" + Empresa.BillingName.Trim() + "-" + DateTime.Now.Year.ToString() + "-" + Ticket.Id.ToString();
+            //para pruebas quita billingname
+            venta.Title = "TKT" + "-" + DateTime.Now.Year.ToString() + "-" + Ticket.Id.ToString();
+            //venta.Title = "TKT" + Empresa.BillingName.Trim() + "-" + DateTime.Now.Year.ToString() + "-" + Ticket.Id.ToString();
+
             billing.pos_ticket_id = venta.Title;
             billing.form_payment = TipoPago; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
             billing.total = TotalReal.ToString();//venta.Articles.Sum(x => x.Total).ToString("F2");
@@ -715,13 +711,13 @@ namespace LinkCajaV2.Sales
             ImpressionsGeneral im = new ImpressionsGeneral();
             im.GenerarTicket(venta);
 
-            //BillingMethods Facturacion = new BillingMethods();
+            BillingMethods Facturacion = new BillingMethods();
             string mensaje = string.Empty;
-            //RespuestaFactureModel Enviado = await Facturacion.EnviarFactura(billing);
-            //bool result = obj.ConfirmSend(Ticket.Id, Enviado).Result;
-            //if (Enviado.Exito == true)
+            RespuestaFactureModel Enviado = await Facturacion.EnviarFactura(billing);
+            bool result = obj.ConfirmSend(Ticket.Id, Enviado).Result;
+            if (Enviado.Exito == true)
                 MessageBox.Show("Venta realizada con éxito.");
-            //else MessageBox.Show("Venta realizada con éxito. Pero fallo el envio consultar con soporte");
+            else MessageBox.Show("Venta realizada con éxito. Pero fallo el envio consultar con soporte");
             NuevaVenta();
         }
      

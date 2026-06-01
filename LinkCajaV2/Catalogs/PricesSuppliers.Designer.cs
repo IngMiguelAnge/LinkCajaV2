@@ -150,7 +150,8 @@
             this.gbProveedores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.gbProveedores.Location = new System.Drawing.Point(41, 359);
             this.gbProveedores.Name = "gbProveedores";
-            this.gbProveedores.Size = new System.Drawing.Size(524, 340);
+            // SE REDUCIÓ LA ALTURA DEL CONTENEDOR DE LA TABLA DE 340 A 240 PARA DEJAR ESPACIO AL BOTÓN
+            this.gbProveedores.Size = new System.Drawing.Size(524, 240);
             this.gbProveedores.TabIndex = 13;
             this.gbProveedores.TabStop = false;
             this.gbProveedores.Text = "Proveedores";
@@ -186,13 +187,9 @@
             this.dgvProveedores.Name = "dgvProveedores";
             this.dgvProveedores.RowHeadersWidth = 62;
             this.dgvProveedores.RowTemplate.Height = 28;
-            this.dgvProveedores.Size = new System.Drawing.Size(518, 302);
+            // SE AJUSTÓ EN PROPORCIÓN AL CONTENEDOR PADRE
+            this.dgvProveedores.Size = new System.Drawing.Size(518, 202);
             this.dgvProveedores.TabIndex = 14;
-            this.dgvProveedores.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProveedores_CellContentClick);
-            this.dgvProveedores.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvProveedores_CellPainting);
-            this.dgvProveedores.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvProveedores_CellValidating);
-            this.dgvProveedores.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProveedores_CellValueChanged);
-            this.dgvProveedores.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvProveedores_EditingControlShowing);
             // 
             // btnGuardar
             // 
@@ -202,7 +199,8 @@
             this.btnGuardar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
             this.btnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("btnGuardar.Image")));
-            this.btnGuardar.Location = new System.Drawing.Point(365, 723);
+            // SE SUBIÓ LA POSICIÓN EN Y DE 723 A 615 PARA COLOCARLO JUSTO DEBAJO DE LA TABLA
+            this.btnGuardar.Location = new System.Drawing.Point(365, 615);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(200, 48);
             this.btnGuardar.TabIndex = 14;
@@ -227,7 +225,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(634, 796);
+            // SE FORZÓ UN TAMAÑO DE VENTANA MÁS CUADRADO Y COMPACTO DE 620x720 PARA QUE SE DETENGA ANTES DE LA PANTALLA PRINCIPAL
+            this.Size = new System.Drawing.Size(620, 720);
+            this.ClientSize = new System.Drawing.Size(604, 680);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.gbProveedores);

@@ -268,6 +268,7 @@ namespace LinkCajaV2.Catalogs
             }
             if (IsVenta || IsReceta)
             {
+                lblOpciones.Visible = false;
                 btnNuevo.Visible = false;
                 BtnImpresion.Visible = false;
                 btnPanelArticulos.Visible = false;

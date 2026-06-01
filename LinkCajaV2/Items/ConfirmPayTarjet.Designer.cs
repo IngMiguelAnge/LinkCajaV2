@@ -32,10 +32,10 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnConfirmar = new System.Windows.Forms.Button();
             this.lblRecibido = new System.Windows.Forms.Label();
-            this.lblTotal = new System.Windows.Forms.Label();
             this.TXTFOLIO = new System.Windows.Forms.TextBox();
             this.rbCredito = new System.Windows.Forms.RadioButton();
             this.rbDebito = new System.Windows.Forms.RadioButton();
+            this.lblTotal = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblTitulo
@@ -45,9 +45,9 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.lblTitulo.Location = new System.Drawing.Point(23, 24);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(259, 38);
+            this.lblTitulo.Size = new System.Drawing.Size(328, 38);
             this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "FINALIZAR VENTA";
+            this.lblTitulo.Text = "SELECCION DE TARJETA";
             // 
             // btnCancelar
             // 
@@ -85,22 +85,11 @@
             this.lblRecibido.AutoSize = true;
             this.lblRecibido.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRecibido.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblRecibido.Location = new System.Drawing.Point(25, 192);
+            this.lblRecibido.Location = new System.Drawing.Point(32, 199);
             this.lblRecibido.Name = "lblRecibido";
-            this.lblRecibido.Size = new System.Drawing.Size(166, 28);
+            this.lblRecibido.Size = new System.Drawing.Size(241, 28);
             this.lblRecibido.TabIndex = 4;
-            this.lblRecibido.Text = "FOLIO IMPRESO:";
-            // 
-            // lblTotal
-            // 
-            this.lblTotal.AutoSize = true;
-            this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblTotal.Location = new System.Drawing.Point(23, 91);
-            this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(108, 38);
-            this.lblTotal.TabIndex = 1;
-            this.lblTotal.Text = "TOTAL:";
+            this.lblRecibido.Text = "FOLIO DE APROBACIÓN:";
             // 
             // TXTFOLIO
             // 
@@ -139,6 +128,17 @@
             this.rbDebito.Text = "Tarjeta de débito";
             this.rbDebito.UseVisualStyleBackColor = true;
             // 
+            // lblTotal
+            // 
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblTotal.Location = new System.Drawing.Point(23, 91);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(108, 38);
+            this.lblTotal.TabIndex = 1;
+            this.lblTotal.Text = "TOTAL:";
+            // 
             // ConfirmPayTarjet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -171,9 +171,9 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnConfirmar;
         private System.Windows.Forms.Label lblRecibido;
-        private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.TextBox TXTFOLIO;
         private System.Windows.Forms.RadioButton rbCredito;
         private System.Windows.Forms.RadioButton rbDebito;
+        private System.Windows.Forms.Label lblTotal;
     }
 }

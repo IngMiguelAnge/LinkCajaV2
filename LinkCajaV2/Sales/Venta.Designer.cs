@@ -31,9 +31,9 @@ namespace LinkCajaV2.Sales
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Venta));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelLateral = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.BtnPanelSalir = new System.Windows.Forms.Button();
@@ -57,8 +57,8 @@ namespace LinkCajaV2.Sales
             this.lblUsuario = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lblCopias = new System.Windows.Forms.Label();
-            this.CBImprimir = new System.Windows.Forms.CheckBox();
             this.PBProducto = new System.Windows.Forms.PictureBox();
+            this.CBImprimir = new System.Windows.Forms.CheckBox();
             this.NUDCopias = new System.Windows.Forms.NumericUpDown();
             this.lblTotal = new System.Windows.Forms.Label();
             this.btnPagar = new System.Windows.Forms.Button();
@@ -298,29 +298,29 @@ namespace LinkCajaV2.Sales
             // 
             // dgvArticulos
             // 
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
-            this.dgvArticulos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.dgvArticulos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvArticulos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvArticulos.BackgroundColor = System.Drawing.Color.White;
             this.dgvArticulos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvArticulos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvArticulos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvArticulos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvArticulos.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvArticulos.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvArticulos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvArticulos.EnableHeadersVisualStyles = false;
             this.dgvArticulos.Location = new System.Drawing.Point(3, 34);
@@ -434,6 +434,16 @@ namespace LinkCajaV2.Sales
             this.lblCopias.TabIndex = 21;
             this.lblCopias.Text = "Copias";
             // 
+            // PBProducto
+            // 
+            this.PBProducto.Location = new System.Drawing.Point(41, 36);
+            this.PBProducto.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.PBProducto.Name = "PBProducto";
+            this.PBProducto.Size = new System.Drawing.Size(262, 180);
+            this.PBProducto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PBProducto.TabIndex = 16;
+            this.PBProducto.TabStop = false;
+            // 
             // CBImprimir
             // 
             this.CBImprimir.AutoSize = true;
@@ -449,16 +459,6 @@ namespace LinkCajaV2.Sales
             this.CBImprimir.TabIndex = 20;
             this.CBImprimir.Text = "Imprimir";
             this.CBImprimir.UseVisualStyleBackColor = true;
-            // 
-            // PBProducto
-            // 
-            this.PBProducto.Location = new System.Drawing.Point(41, 36);
-            this.PBProducto.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.PBProducto.Name = "PBProducto";
-            this.PBProducto.Size = new System.Drawing.Size(262, 180);
-            this.PBProducto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PBProducto.TabIndex = 16;
-            this.PBProducto.TabStop = false;
             // 
             // NUDCopias
             // 
@@ -545,6 +545,8 @@ namespace LinkCajaV2.Sales
             this.Controls.Add(this.panelLateral);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Venta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

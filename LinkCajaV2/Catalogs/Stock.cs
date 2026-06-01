@@ -207,7 +207,6 @@ namespace LinkCajaV2.Catalogs
 
         private void Stock_Load(object sender, EventArgs e)
         {
-            lblNombre.Text = "Stock de " + Nombre;
             AppRepository obj = new AppRepository();
             var CostoMax = obj.GetHighPrice(IdArticle).Result;
             if (CostoMax == null)

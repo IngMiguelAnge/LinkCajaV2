@@ -121,7 +121,7 @@
   <data name="BtnGuardar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1
-        MAAA6mAAADqYAAAXcJy6UTwAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAHdElNRQfqBR8UFjMD9oWQAAAD
+        MAAA6mAAADqYAAAXcJy6UTwAAAAJcEhZcwAADsEAAA7BAbiRa+0AAAAHdElNRQfqBR8UFjMD9oWQAAAD
         yElEQVQ4T53Q2VNTZxzG8fMH9aLTv6I3veyMg3axCpQdhWDe7AYKYck52UAiAbJCFoRGSd5sMFBEIIpQ
         AaOdTikFISGyJYYQKjydc9DqRTuT8eJ7985nnt/LdPQHGjSW+0G32083ZqJ0azZGt2ajdPPhx0Xo5gxf
         +EO/hOjWTJiuRsdpCzcYqm/u9ZeLO79kNH1+b3OPdzQ0Htk9XlvAaSJedH8n4kgtzqKFHUCd2owahUHM
@@ -144,7 +144,7 @@
   <data name="BtnEntrada.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1
-        MAAA6mAAADqYAAAXcJy6UTwAAAAJcEhZcwAAEJsAABCbAXSJnEsAAAAHdElNRQfqBR8WFTJcWDKrAAAB
+        MAAA6mAAADqYAAAXcJy6UTwAAAAJcEhZcwAAEJoAABCaAabOfq8AAAAHdElNRQfqBR8WFTJcWDKrAAAB
         bklEQVQ4T7WVSU4DMRBFnQvAhuEEgbMwicoRQlYsgVMwnAgkdsC/AQdgwbBIgRh2CPSCjQqnW0GoaelL
         7vKv3/Z3uTqllJLJI3omXzH5vsnPTX5n8vcMxsQOMgfud+7kqcTmTT4y+ZXJX0z+0QLmLk2+Y/K5H6Lh
         ZcnkJyZ/ahBow6PJj02+WAuyMsTeqgS2eWPy6wzGxCKHHETRSGnw5QPbbFrZq8l3Tb6awZhYzSN3ZBr3
@@ -157,7 +157,7 @@
   <data name="btnSalida.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1
-        MAAA6mAAADqYAAAXcJy6UTwAAAAJcEhZcwAAAOsAAADrASts18IAAAAHdElNRQfqBR8WFTJcWDKrAAAA
+        MAAA6mAAADqYAAAXcJy6UTwAAAAJcEhZcwAAAOoAAADqAfkrNSYAAAAHdElNRQfqBR8WFTJcWDKrAAAA
         GXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAbBJREFUOE+tlT1LA0EQhgdCSuNPMlYR
         FCF3s7m72RhLY2EtItgYwUDyR/zoFP0RflQ2YqeFKGJpIdwrs7cxJsaYIzl4YW935mH2duc9IiJCuUyo
         1whJSBBWlZDwCoQ7EL6A8I2XjnVuOYsJCDbMZIyiyA0gNYKtEaJqARIuQvgUwi8Qxh/StWNIWEa9WoA1

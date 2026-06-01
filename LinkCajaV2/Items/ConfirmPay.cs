@@ -23,8 +23,7 @@ namespace LinkCajaV2.Items
         private void ConfirmPay_Load(object sender, EventArgs e)
         {
             lblTotal.Text = "TOTAL: " + Total.ToString("C");
-            // Aseguramos que empiece con el foco para que primerIngreso funcione
-            nudRecibido.Focus();
+           nudRecibido.Focus();
         }
 
         private void nudRecibido_KeyPress(object sender, KeyPressEventArgs e)
