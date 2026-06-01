@@ -96,9 +96,10 @@
             this.btnImagen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImagen.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImagen.Image = ((System.Drawing.Image)(resources.GetObject("btnImagen.Image")));
+            this.btnImagen.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnImagen.Location = new System.Drawing.Point(664, 310);
             this.btnImagen.Name = "btnImagen";
-            this.btnImagen.Size = new System.Drawing.Size(200, 49);
+            this.btnImagen.Size = new System.Drawing.Size(224, 49);
             this.btnImagen.TabIndex = 12;
             this.btnImagen.Text = "Cargar Imagen";
             this.btnImagen.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -109,7 +110,7 @@
             // PBProducto
             // 
             this.PBProducto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PBProducto.Location = new System.Drawing.Point(664, 86);
+            this.PBProducto.Location = new System.Drawing.Point(681, 86);
             this.PBProducto.Name = "PBProducto";
             this.PBProducto.Size = new System.Drawing.Size(200, 200);
             this.PBProducto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -124,7 +125,7 @@
             this.BtnGuardar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnGuardar.ForeColor = System.Drawing.Color.White;
             this.BtnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("BtnGuardar.Image")));
-            this.BtnGuardar.Location = new System.Drawing.Point(664, 430);
+            this.BtnGuardar.Location = new System.Drawing.Point(686, 430);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(200, 48);
             this.BtnGuardar.TabIndex = 13;
@@ -237,7 +238,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(900, 514);
+            this.ClientSize = new System.Drawing.Size(939, 514);
             this.Controls.Add(this.cbCategoria);
             this.Controls.Add(this.lblCategoria);
             this.Controls.Add(this.lblTitulo);

@@ -350,11 +350,10 @@ namespace LinkCajaV2.Catalogs
 
         private async void BtnSAT_Click(object sender, EventArgs e)
         {
-            if (dgvArticulos.Rows.Count == 0)
+            if(cbCategoria.SelectedIndex == 0)
             {
-                MessageBox.Show("No hay artículos para agregar codigo SAT.");
+                MessageBox.Show("Seleccione una categoría para asignar el código SAT.");
                 return;
-
             }
             SAT s = new SAT();
             if (s.ShowDialog() != DialogResult.OK)

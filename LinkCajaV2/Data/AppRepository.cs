@@ -170,6 +170,37 @@ namespace LinkCajaV2.Data
 
         #endregion
         #region CashDrop
+        public async Task<List<CashDropModel>> GetCashDropbyIdBox(int IdBox, DateTime Desde, DateTime Hasta, bool Entradas)
+        {
+            List<CashDropModel> list = new List<CashDropModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetCashDropbyIdBox", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@IdBox", IdBox));
+                        cmd.Parameters.Add(new SqlParameter("@Desde", Desde));
+                        cmd.Parameters.Add(new SqlParameter("@Hasta", Hasta));
+                        cmd.Parameters.Add(new SqlParameter("@Entradas", Entradas));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToCashDrop(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
+
         public async Task<List<CashDropModel>> GetCashDrop(DateTime Desde, DateTime Hasta, bool Entradas)
         {
             List<CashDropModel> list = new List<CashDropModel>();
@@ -211,10 +242,10 @@ namespace LinkCajaV2.Data
         }
         #endregion
         #region CashFund
-        public async Task<ListCashFundModel> GetCashfundbyHardwareID(string HardwareID)
+        public async Task<CashFundModel> GetCashfundbyHardwareID(string HardwareID)
         {
-            ListCashFundModel response = new ListCashFundModel();
-            List<ListCashFundModel> list = new List<ListCashFundModel>();
+            CashFundModel response = new CashFundModel();
+            List<CashFundModel> list = new List<CashFundModel>();
             try
             {
                 using (SqlConnection sql = new SqlConnection(Connection))
@@ -228,7 +259,7 @@ namespace LinkCajaV2.Data
                         {
                             while (await reader.ReadAsync().ConfigureAwait(false))
                             {
-                                list.Add(MapToListCashFund(reader));
+                                list.Add(MapToCashFund(reader));
                             }
                             response = list.Count() > 0 ? list[0] : null;
                         }
@@ -446,6 +477,8 @@ namespace LinkCajaV2.Data
                 Total = (decimal)reader["Total"],
                 TotalReturn = (decimal)reader["TotalReturn"],
                 Send = (bool)reader["Send"],
+                TypePay = (string)reader["TypePay"],
+                Folio = (string)reader["Folio"]
             };
         }
         public async Task<List<DetailsforFactureModel>> GetDetailsforFacture(int IdTicket)
@@ -567,35 +600,6 @@ namespace LinkCajaV2.Data
             }
             return list;
         }
-        public async Task<List<ListTicketModel>> GetTicketsbyDates(int IdBox, DateTime Desde, DateTime Hasta)
-        {
-            List<ListTicketModel> list = new List<ListTicketModel>();
-            try
-            {
-                using (SqlConnection sql = new SqlConnection(Connection))
-                {
-                    using (SqlCommand cmd = new SqlCommand("GetTicketsbyDates", sql))
-                    {
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        cmd.Parameters.Add(new SqlParameter("@IdBox", IdBox));
-                        cmd.Parameters.Add(new SqlParameter("@Desde", Desde));
-                        cmd.Parameters.Add(new SqlParameter("@Hasta", Hasta));
-                        await sql.OpenAsync().ConfigureAwait(false);
-                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
-                        {
-                            while (await reader.ReadAsync().ConfigureAwait(false))
-                            {
-                                list.Add(MapToListTickets(reader));
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            return list;
-        }
         private ListTicketModel MapToListTickets(SqlDataReader reader)
         {
             return new ListTicketModel()
@@ -610,6 +614,7 @@ namespace LinkCajaV2.Data
                 Modified = (DateTime)reader["Lastmodification"],
                 Status = (string)reader["Status"],
                 Send = (string)reader["Send"],
+                TypePay = (string)reader["TypePay"],
             };
         }
         public async Task<bool> ReturnArticle(int Id, string NoteText)
@@ -715,6 +720,8 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@IdClient", obj.IdClient));
                         cmd.Parameters.Add(new SqlParameter("@Total", obj.Total));
                         cmd.Parameters.Add(new SqlParameter("@IdBox", obj.IdBox));
+                        cmd.Parameters.Add(new SqlParameter("@TypePay", obj.TypePay));
+                        cmd.Parameters.Add(new SqlParameter("@Folio", obj.Folio));
                         SqlParameter outputParam = new SqlParameter("@VResp", System.Data.SqlDbType.Int)
                         {
                             Direction = System.Data.ParameterDirection.Output

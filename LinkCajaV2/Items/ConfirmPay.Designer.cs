@@ -43,7 +43,7 @@
             this.lblTotal.AutoSize = true;
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblTotal.Location = new System.Drawing.Point(40, 100);
+            this.lblTotal.Location = new System.Drawing.Point(33, 87);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(108, 38);
             this.lblTotal.TabIndex = 3;
@@ -54,7 +54,7 @@
             this.lblRecibido.AutoSize = true;
             this.lblRecibido.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRecibido.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblRecibido.Location = new System.Drawing.Point(38, 149);
+            this.lblRecibido.Location = new System.Drawing.Point(35, 154);
             this.lblRecibido.Name = "lblRecibido";
             this.lblRecibido.Size = new System.Drawing.Size(204, 28);
             this.lblRecibido.TabIndex = 4;

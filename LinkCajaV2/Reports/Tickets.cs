@@ -192,6 +192,14 @@ namespace LinkCajaV2.Reports
                 ReadOnly = true,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             });
+            dgvTickets.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "TypePay",
+                HeaderText = "Tipo de Pago",
+                DataPropertyName = "TypePay",
+                ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
             DataGridViewButtonColumn btnVer = new DataGridViewButtonColumn
             {
                 Name = "Ver",
@@ -355,7 +363,7 @@ namespace LinkCajaV2.Reports
                     var DetaillsVenta = await obj2.GetDetailsforFacture(IdTicket);
                     BillingDetails billing = new BillingDetails();                    
                     billing.pos_ticket_id = "TKT" + Empresa.BillingName.Trim() + "-" + DateTime.Now.Year.ToString() + "-" + IdTicket.ToString();
-                    billing.form_payment = "01"; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
+                    billing.form_payment = Venta.TypePay; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
                     billing.total = Venta.Total.ToString("F2");
                     billing.serie = "A";
                     billing.folio = Venta.Id.ToString();

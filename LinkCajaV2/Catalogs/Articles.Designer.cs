@@ -324,9 +324,9 @@
             this.BtnImpresion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnImpresion.Location = new System.Drawing.Point(1178, 203);
             this.BtnImpresion.Name = "BtnImpresion";
-            this.BtnImpresion.Size = new System.Drawing.Size(123, 37);
+            this.BtnImpresion.Size = new System.Drawing.Size(135, 37);
             this.BtnImpresion.TabIndex = 6;
-            this.BtnImpresion.Text = "Imprimir";
+            this.BtnImpresion.Text = "  Imprimir";
             this.BtnImpresion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnImpresion.UseVisualStyleBackColor = false;
             this.BtnImpresion.Click += new System.EventHandler(this.BtnImpresion_Click);

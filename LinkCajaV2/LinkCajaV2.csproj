@@ -281,6 +281,12 @@
     <Compile Include="Items\ConfirmPay.Designer.cs">
       <DependentUpon>ConfirmPay.cs</DependentUpon>
     </Compile>
+    <Compile Include="Items\ConfirmPayTarjet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Items\ConfirmPayTarjet.Designer.cs">
+      <DependentUpon>ConfirmPayTarjet.cs</DependentUpon>
+    </Compile>
     <Compile Include="Items\Decimals.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -316,6 +322,12 @@
     </Compile>
     <Compile Include="Items\SAT.Designer.cs">
       <DependentUpon>SAT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Items\TypePay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Items\TypePay.Designer.cs">
+      <DependentUpon>TypePay.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -466,6 +478,9 @@
     <EmbeddedResource Include="Items\ConfirmPay.resx">
       <DependentUpon>ConfirmPay.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Items\ConfirmPayTarjet.resx">
+      <DependentUpon>ConfirmPayTarjet.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Items\Decimals.resx">
       <DependentUpon>Decimals.cs</DependentUpon>
     </EmbeddedResource>
@@ -483,6 +498,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Items\SAT.resx">
       <DependentUpon>SAT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Items\TypePay.resx">
+      <DependentUpon>TypePay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

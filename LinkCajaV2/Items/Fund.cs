@@ -16,10 +16,13 @@ namespace LinkCajaV2.Items
     {
         public int Id { get; set; }
         public int IdBox { get; set; }
+        private decimal totalGeneralTarjeta = 0;
         private decimal totalGeneral = 0;
         private decimal devoluciones = 0;
+        private decimal devolucionesTarjeta = 0;
         private decimal totalFinal = 0;
-        private decimal TotalReal = 0;
+        private decimal totalFinalTarjeta = 0;  
+        private decimal TotalCaja = 0;
         public Fund()
         {
             InitializeComponent();
@@ -66,7 +69,7 @@ namespace LinkCajaV2.Items
                 MessageBox.Show("La fecha de apertura no puede ser mayor o igual a la fecha de cierre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (TotalReal < 0)
+            if (TotalCaja < 0)
             {
                 MessageBox.Show("El fondo de caja no puede quedar en negativo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -122,17 +125,28 @@ namespace LinkCajaV2.Items
                 //BuscarTickets();
             }
         }
-
+        public void Reiniciar()
+        {
+            totalGeneral = 0m;
+            totalGeneralTarjeta = 0m;
+            devoluciones = 0m;
+            devolucionesTarjeta = 0m;
+            totalFinal = 0m;
+            totalFinalTarjeta = 0m;
+            lblVenta.Text = "Venta total en efectivo: $0.00";
+            lblVentaContarjeta.Text = "Venta total con tarjeta: $0.00";
+            lblTotalDevolucion.Text = "Devolución total en efectivo: $0.00";
+            lbTotallDevolucionTarjeta.Text = "Devolución total en tarjeta: $0.00";
+            lblSaldoTotalTarjeta.Text = "Saldo en tarjeta: $0.00";
+            Calcular();
+        }
         private void CBCajas_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (CBCajas.SelectedIndex == 0)
             {
                 nudInicio.Value = 0m;
                 NudRetiro.Value = 0m;
-                lblVenta.Text = "Venta total: $0.00";
-                lblTotalDevolucion.Text = "Devolucion Total: $0.00";
-                lblSaldoTotal.Text = "Saldo en Efectivo en Caja: $0.00";
-                lblFondoQueda.Text = "Fondo que se queda: $0.00";
+                Reiniciar();
                 return;
             }
             AppRepository obj = new AppRepository();
@@ -172,34 +186,32 @@ namespace LinkCajaV2.Items
             decimal.TryParse(txtRetiro, out decimal vRetiro);
 
             decimal totalfinalreal = totalFinal + vInicio;
-            TotalReal = totalfinalreal - vRetiro;
-            lblVenta.Text = $"Venta Total: {totalGeneral:C2}";
-            lblTotalDevolucion.Text = $"Devolucion Total: {devoluciones:C2}";
-            lblSaldoTotal.Text = $"Saldo en Efectivo en Caja: {totalfinalreal:C2}";
-            lblFondoQueda.Text = $"Fondo que se queda: {TotalReal:C2}";
+            TotalCaja = totalfinalreal - vRetiro;
+            lblSaldoEfectivoCaja.Text = $"Saldo en efectivo en caja: {totalfinalreal:C2}";
+            lblFondoQueda.Text = $"Fondo que se queda: {TotalCaja:C2}";
         }
         public async void BuscarTickets()
         {
             try
             {
                 AppRepository obj = new AppRepository();
-                var Tickets = await obj.GetTicketsbyDates((int)CBCajas.SelectedValue, dtFechaApertura.Value, dtFechaCierre.Value);
-                var listaFinal = Tickets?.ToList() ?? new List<ListTicketModel>();
-                totalGeneral = listaFinal.Sum(item => item.Total);
-                devoluciones = listaFinal.Sum(item => item.TotalReturn);
-                totalFinal = listaFinal.Sum(item => item.TotalEnd);
+                var Tickets = await obj.GetCashDropbyIdBox((int)CBCajas.SelectedValue, dtFechaApertura.Value, dtFechaCierre.Value,false);
+                totalGeneral = Tickets.Where(x => x.Concepto == "Ventas en efectivo").Sum(y => y.Monto);
+                totalGeneralTarjeta = Tickets.Where(x => x.Concepto == "Ventas con tarjeta").Sum(y => y.Monto);
+                devoluciones = Tickets.Where(x => x.Concepto == "Devoluciones en efectivo").Sum(y => y.Monto);
+                devolucionesTarjeta = Tickets.Where(x => x.Concepto == "Devoluciones en tarjeta").Sum(y => y.Monto);
+                totalFinal = Tickets.Where(x => x.Concepto == "Venta total en efectivo").Sum(y => y.Monto);
+                totalFinalTarjeta = Tickets.Where(x => x.Concepto == "Venta total en tarjeta").Sum(y => y.Monto);
+                lblVenta.Text = "Venta total en efectivo: $" + totalGeneral.ToString();
+                lblVentaContarjeta.Text = "Venta total con tarjeta: $"+totalGeneralTarjeta.ToString();
+                lblTotalDevolucion.Text = "Devolución total en efectivo: $"+devoluciones.ToString();
+                lbTotallDevolucionTarjeta.Text = "Devolución total en tarjeta: $"+devolucionesTarjeta.ToString();
+                lblSaldoTotalTarjeta.Text = "Saldo en tarjeta: $" + totalFinalTarjeta.ToString();
                 Calcular();
             }
             catch (Exception ex)
             {
-                totalGeneral = 0m;
-                devoluciones = 0m;
-                totalFinal = 0m;
-                TotalReal = 0m;
-                lblVenta.Text = "Venta total: $0.00";
-                lblTotalDevolucion.Text = "Devolucion Total: $0.00";
-                lblSaldoTotal.Text = "Saldo en Efectivo en Caja: $0.00";
-                lblFondoQueda.Text = "Fondo que se queda: $0.00";
+                Reiniciar();
             }
         }
         private void dtFechaApertura_ValueChanged(object sender, EventArgs e)
@@ -222,7 +234,7 @@ namespace LinkCajaV2.Items
             cash.CheckOut = dtFechaCierre.Value;
             cash.CashIn = nudInicio.Value;
             cash.CashOut = NudRetiro.Value;
-            cash.CashFinish = TotalReal;
+            cash.CashFinish = TotalCaja;
             var result = obj.SaveCashFund(cash).Result;
             if (result)
             {
@@ -260,7 +272,7 @@ namespace LinkCajaV2.Items
                 MessageBox.Show("La fecha de apertura no puede ser menor a la fecha de cierre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (TotalReal < 0)
+            if (TotalCaja < 0)
             {
                 MessageBox.Show("El fondo de caja no puede quedar en negativo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

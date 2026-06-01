@@ -14,5 +14,7 @@ namespace LinkCajaV2.Model
         public decimal Total { get; set; }
         public decimal TotalReturn { get; set; }
         public bool Send { get; set; }
+        public string TypePay {  get; set; }
+        public string Folio {  get; set; }
     }
 }

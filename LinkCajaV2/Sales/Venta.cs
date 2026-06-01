@@ -105,7 +105,7 @@ namespace LinkCajaV2.Sales
                 this.Close();
                 return;
             }
-            var fund = obj.GetCashFundbyIdBox(box.Id).Result;
+            var fund = obj.GetCashfundbyHardwareID(Hard).Result;
             if (fund == null)
             {
                 MessageBox.Show("Fondo de caja no encontrado para esta máquina. Contacta al administrador.", "Fondo de caja no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -595,115 +595,134 @@ namespace LinkCajaV2.Sales
                 MessageBox.Show("No hay artículos para vender.");
                 return;
             }
-
-            ConfirmPay c = new ConfirmPay();
-            c.Total = bindingList.Sum(x => x.Total);
-            if (c.ShowDialog() == DialogResult.OK)
+            decimal TotalReal = bindingList.Sum(x => x.Total);
+            string TipoPago = "01";
+            decimal Recibido = 0;
+            string Folio = string.Empty;
+            TypePay tp = new TypePay();
+            if(tp.ShowDialog() != DialogResult.OK)
             {
-                decimal TotalReal = bindingList.Sum(x => x.Total);
+                ConfirmPay c = new ConfirmPay();
+                c.Total = TotalReal;
+                if (c.ShowDialog() != DialogResult.OK)
+                { return; }
+                Recibido = c.Recibido;
+            }
+            else
+            {
+                ConfirmPayTarjet ct = new ConfirmPayTarjet();
+                ct.Total = TotalReal;
+                if (ct.ShowDialog() != DialogResult.OK)
+                { return; }
+                TipoPago = ct.TipoPago;
+                Recibido = TotalReal;
+                Folio = ct.Folio;
+            }
+
                 VentaModel venta = new VentaModel
                 {
                     Articles = bindingList,
                     Copias = NUDCopias.Value,
                     Company = Empresa,
                     Imprimir = CBImprimir.Checked,
-                    Recibido = c.Recibido,
+                    Recibido = Recibido,
                     IdTicket = 0,
                     Cliente = "Publico General",
                     BoxName = BoxName,
                     Total = TotalReal,
                     Title = string.Empty
                 };
-  
-                TicketModel Ticket = new TicketModel
-                {
-                    Id = 0,
-                    IdUser = IdUsuario,
-                    IdClient = 1,//Clliente general por ahora                  
-                    CreateDate = DateTime.Now,
-                    Lastmodification = DateTime.Now,    
-                    Status = true,
-                    IdBox = IdBox,
-                    Total = TotalReal,
-                    TotalReturn = 0,
-                    Send = false,
-                };
 
-                AppRepository obj = new AppRepository();
-                Ticket.Id = obj.SaveTicket(Ticket).Result;
-                if (Ticket.Id == 0)
-                {
-                    MessageBox.Show("Error al guardar la venta. Intenta de nuevo.");
-                    return;
-                }
-                venta.IdTicket = Ticket.Id;
-                DetailsTicketModel Details = new DetailsTicketModel();
-                BillingDetails billing = new BillingDetails();
-                venta.Title= "TKT" + Empresa.BillingName.Trim() + "-" + DateTime.Now.Year.ToString() + "-" + Ticket.Id.ToString();
-                billing.pos_ticket_id = venta.Title;
-                billing.form_payment = "01"; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
-                billing.total = TotalReal.ToString();//venta.Articles.Sum(x => x.Total).ToString("F2");
-                billing.serie = "A";
-                billing.folio = Ticket.Id.ToString();
-                billing.currency = "MXN";
-                billing.exchange_rate = null;
-                billing.exportacion = "01"; // Ejemplo: 01 = No exportación, 02 = Exportación definitiva, 03 = Exportación temporal
-                billing.payment_method = "PUE"; // Ejemplo: PUE = Pago en una sola exhibición, PPD = Pago en parcialidades o diferido
-                billing.payment_conditions = null;
-                billing.issuing_location = Empresa.CP.ToString();
-                billing.sold_at = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+            TicketModel Ticket = new TicketModel
+            {
+                Id = 0,
+                IdUser = IdUsuario,
+                IdClient = 1,//Clliente general por ahora                  
+                CreateDate = DateTime.Now,
+                Lastmodification = DateTime.Now,
+                Status = true,
+                IdBox = IdBox,
+                Total = TotalReal,
+                TotalReturn = 0,
+                Send = false,
+                TypePay = TipoPago,
+                Folio = Folio
+            };
 
-                billing.concepts = new List<concepts>();
-                foreach (var item in venta.Articles)
-                {
-                    Details.Id = 0;
-                    Details.IdTicket = Ticket.Id;
-                    Details.IdArticle = item.IdArticle;
-                    Details.IdPresentation = item.IdPresentation;
-                    Details.StockSold = item.Stock;//Cantidad vendida
-                    Details.PriceSold = item.Price;//Valor unitario
-                    Details.TotalSold = item.Total;
-                    Details.Rate = item.Medicine == false ? "0.160000" : "0.000000";
-                    Details.Amount = item.Medicine == false ? item.Total * 0.16m : 0m;
-                    await obj.SaveDetailsTicket(Details);
-                    List<taxes> Listtaxes = new List<taxes>();
-                    Listtaxes.Add(new taxes
-                    {
-                        tax_type = "traslado",
-                        @base = item.Total,
-                        tax = "002",
-                        type_factor = "Tasa",
-                        rate = item.Medicine == false ? "0.160000" : "0.000000",
-                        amount = item.Medicine == false ? item.Total * 0.16m : 0m   
-                    });
-                    billing.concepts.Add(
-                    new concepts
-                    {
-                        clave_prod_serv = item.CodeSAT,
-                        no_identificacion = "Id" + item.IdArticle.ToString(),
-                        quantity = item.Stock,
-                        clave_unidad = item.UnitSAT,
-                        unit = item.NamePresentation,
-                        description = item.Name,
-                        unit_value = item.Price,
-                        amount = item.Total,
-                        discount = null,
-                        object_tax = "02",
-                        taxes=Listtaxes
-                    });
-                }
-                ImpressionsGeneral im = new ImpressionsGeneral();
-                im.GenerarTicket(venta);
-
-                //BillingMethods Facturacion = new BillingMethods();
-                //string mensaje = string.Empty;
-                //RespuestaFactureModel Enviado = await Facturacion.EnviarFactura(billing);
-                //bool result = obj.ConfirmSend(Ticket.Id, Enviado).Result;
-                //if (Enviado.Exito == true)
-                    MessageBox.Show("Venta realizada con éxito.");
-                //else MessageBox.Show("Venta realizada con éxito. Pero fallo el envio consultar con soporte");
-                NuevaVenta();
+            AppRepository obj = new AppRepository();
+            Ticket.Id = obj.SaveTicket(Ticket).Result;
+            if (Ticket.Id == 0)
+            {
+                MessageBox.Show("Error al guardar la venta. Intenta de nuevo.");
+                return;
             }
+            venta.IdTicket = Ticket.Id;
+            DetailsTicketModel Details = new DetailsTicketModel();
+            BillingDetails billing = new BillingDetails();
+            venta.Title = "TKT" + Empresa.BillingName.Trim() + "-" + DateTime.Now.Year.ToString() + "-" + Ticket.Id.ToString();
+            billing.pos_ticket_id = venta.Title;
+            billing.form_payment = TipoPago; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
+            billing.total = TotalReal.ToString();//venta.Articles.Sum(x => x.Total).ToString("F2");
+            billing.serie = "A";
+            billing.folio = Ticket.Id.ToString();
+            billing.currency = "MXN";
+            billing.exchange_rate = null;
+            billing.exportacion = "01"; // Ejemplo: 01 = No exportación, 02 = Exportación definitiva, 03 = Exportación temporal
+            billing.payment_method = "PUE"; // Ejemplo: PUE = Pago en una sola exhibición, PPD = Pago en parcialidades o diferido
+            billing.payment_conditions = null;
+            billing.issuing_location = Empresa.CP.ToString();
+            billing.sold_at = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+
+            billing.concepts = new List<concepts>();
+            foreach (var item in venta.Articles)
+            {
+                Details.Id = 0;
+                Details.IdTicket = Ticket.Id;
+                Details.IdArticle = item.IdArticle;
+                Details.IdPresentation = item.IdPresentation;
+                Details.StockSold = item.Stock;//Cantidad vendida
+                Details.PriceSold = item.Price;//Valor unitario
+                Details.TotalSold = item.Total;
+                Details.Rate = item.Medicine == false ? "0.160000" : "0.000000";
+                Details.Amount = item.Medicine == false ? item.Total * 0.16m : 0m;
+                await obj.SaveDetailsTicket(Details);
+                List<taxes> Listtaxes = new List<taxes>();
+                Listtaxes.Add(new taxes
+                {
+                    tax_type = "traslado",
+                    @base = item.Total,
+                    tax = "002",
+                    type_factor = "Tasa",
+                    rate = item.Medicine == false ? "0.160000" : "0.000000",
+                    amount = item.Medicine == false ? item.Total * 0.16m : 0m
+                });
+                billing.concepts.Add(
+                new concepts
+                {
+                    clave_prod_serv = item.CodeSAT,
+                    no_identificacion = "Id" + item.IdArticle.ToString(),
+                    quantity = item.Stock,
+                    clave_unidad = item.UnitSAT,
+                    unit = item.NamePresentation,
+                    description = item.Name,
+                    unit_value = item.Price,
+                    amount = item.Total,
+                    discount = null,
+                    object_tax = "02",
+                    taxes = Listtaxes
+                });
+            }
+            ImpressionsGeneral im = new ImpressionsGeneral();
+            im.GenerarTicket(venta);
+
+            //BillingMethods Facturacion = new BillingMethods();
+            string mensaje = string.Empty;
+            //RespuestaFactureModel Enviado = await Facturacion.EnviarFactura(billing);
+            //bool result = obj.ConfirmSend(Ticket.Id, Enviado).Result;
+            //if (Enviado.Exito == true)
+                MessageBox.Show("Venta realizada con éxito.");
+            //else MessageBox.Show("Venta realizada con éxito. Pero fallo el envio consultar con soporte");
+            NuevaVenta();
         }
      
         private void btnVerTickets_Click(object sender, EventArgs e)

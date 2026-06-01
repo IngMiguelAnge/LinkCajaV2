@@ -121,5 +121,6 @@ namespace LinkCajaV2.Items
 
         private void btnConfirmar_Click(object sender, EventArgs e) => Confirmacion();
         private void btnCancelar_Click(object sender, EventArgs e) => this.Close();
+
     }
 }

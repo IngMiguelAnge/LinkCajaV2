@@ -43,12 +43,16 @@
             this.lblVenta = new System.Windows.Forms.Label();
             this.lblEgresos = new System.Windows.Forms.Label();
             this.lblTotalDevolucion = new System.Windows.Forms.Label();
-            this.lblSaldoTotal = new System.Windows.Forms.Label();
+            this.lblSaldoEfectivoCaja = new System.Windows.Forms.Label();
             this.lblRetiro = new System.Windows.Forms.Label();
             this.NudRetiro = new System.Windows.Forms.NumericUpDown();
             this.lblFondoQueda = new System.Windows.Forms.Label();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.panelEspaciador = new System.Windows.Forms.Panel();
+            this.lblVentaContarjeta = new System.Windows.Forms.Label();
+            this.lbTotallDevolucionTarjeta = new System.Windows.Forms.Label();
+            this.lbltotales = new System.Windows.Forms.Label();
+            this.lblSaldoTotalTarjeta = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudInicio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudRetiro)).BeginInit();
             this.SuspendLayout();
@@ -83,7 +87,7 @@
             this.btnGuardar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
             this.btnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("btnGuardar.Image")));
-            this.btnGuardar.Location = new System.Drawing.Point(297, 865);
+            this.btnGuardar.Location = new System.Drawing.Point(298, 929);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(200, 48);
             this.btnGuardar.TabIndex = 16;
@@ -167,9 +171,9 @@
             this.lblInicio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.lblInicio.Location = new System.Drawing.Point(49, 409);
             this.lblInicio.Name = "lblInicio";
-            this.lblInicio.Size = new System.Drawing.Size(182, 25);
+            this.lblInicio.Size = new System.Drawing.Size(181, 25);
             this.lblInicio.TabIndex = 7;
-            this.lblInicio.Text = "Saldo Inicial del día:";
+            this.lblInicio.Text = "Saldo inicial del día:";
             // 
             // nudInicio
             // 
@@ -193,16 +197,16 @@
             this.lblVenta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.lblVenta.Location = new System.Drawing.Point(45, 498);
             this.lblVenta.Name = "lblVenta";
-            this.lblVenta.Size = new System.Drawing.Size(168, 25);
+            this.lblVenta.Size = new System.Drawing.Size(261, 25);
             this.lblVenta.TabIndex = 9;
-            this.lblVenta.Text = "Venta Total $: 0.00";
+            this.lblVenta.Text = "Venta total en efectivo: $0.00";
             // 
             // lblEgresos
             // 
             this.lblEgresos.AutoSize = true;
             this.lblEgresos.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEgresos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblEgresos.Location = new System.Drawing.Point(44, 548);
+            this.lblEgresos.Location = new System.Drawing.Point(45, 577);
             this.lblEgresos.Name = "lblEgresos";
             this.lblEgresos.Size = new System.Drawing.Size(82, 25);
             this.lblEgresos.TabIndex = 10;
@@ -213,39 +217,39 @@
             this.lblTotalDevolucion.AutoSize = true;
             this.lblTotalDevolucion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalDevolucion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblTotalDevolucion.Location = new System.Drawing.Point(44, 599);
+            this.lblTotalDevolucion.Location = new System.Drawing.Point(45, 611);
             this.lblTotalDevolucion.Name = "lblTotalDevolucion";
-            this.lblTotalDevolucion.Size = new System.Drawing.Size(215, 25);
+            this.lblTotalDevolucion.Size = new System.Drawing.Size(308, 25);
             this.lblTotalDevolucion.TabIndex = 11;
-            this.lblTotalDevolucion.Text = "Devolución Total $: 0.00";
+            this.lblTotalDevolucion.Text = "Devolución total en efectivo: $0.00";
             // 
-            // lblSaldoTotal
+            // lblSaldoEfectivoCaja
             // 
-            this.lblSaldoTotal.AutoSize = true;
-            this.lblSaldoTotal.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSaldoTotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblSaldoTotal.Location = new System.Drawing.Point(43, 648);
-            this.lblSaldoTotal.Name = "lblSaldoTotal";
-            this.lblSaldoTotal.Size = new System.Drawing.Size(281, 25);
-            this.lblSaldoTotal.TabIndex = 12;
-            this.lblSaldoTotal.Text = "Saldo en Efectivo en Caja: $0.00";
+            this.lblSaldoEfectivoCaja.AutoSize = true;
+            this.lblSaldoEfectivoCaja.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSaldoEfectivoCaja.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblSaldoEfectivoCaja.Location = new System.Drawing.Point(48, 713);
+            this.lblSaldoEfectivoCaja.Name = "lblSaldoEfectivoCaja";
+            this.lblSaldoEfectivoCaja.Size = new System.Drawing.Size(279, 25);
+            this.lblSaldoEfectivoCaja.TabIndex = 12;
+            this.lblSaldoEfectivoCaja.Text = "Saldo en efectivo en caja: $0.00";
             // 
             // lblRetiro
             // 
             this.lblRetiro.AutoSize = true;
             this.lblRetiro.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRetiro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblRetiro.Location = new System.Drawing.Point(49, 704);
+            this.lblRetiro.Location = new System.Drawing.Point(50, 784);
             this.lblRetiro.Name = "lblRetiro";
-            this.lblRetiro.Size = new System.Drawing.Size(164, 25);
+            this.lblRetiro.Size = new System.Drawing.Size(214, 25);
             this.lblRetiro.TabIndex = 13;
-            this.lblRetiro.Text = "Efectivo Retirado:";
+            this.lblRetiro.Text = "Retirar efectivo de caja:";
             // 
             // NudRetiro
             // 
             this.NudRetiro.DecimalPlaces = 2;
             this.NudRetiro.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NudRetiro.Location = new System.Drawing.Point(54, 748);
+            this.NudRetiro.Location = new System.Drawing.Point(55, 823);
             this.NudRetiro.Maximum = new decimal(new int[] {
             10000000,
             0,
@@ -261,11 +265,11 @@
             this.lblFondoQueda.AutoSize = true;
             this.lblFondoQueda.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFondoQueda.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblFondoQueda.Location = new System.Drawing.Point(49, 812);
+            this.lblFondoQueda.Location = new System.Drawing.Point(50, 876);
             this.lblFondoQueda.Name = "lblFondoQueda";
-            this.lblFondoQueda.Size = new System.Drawing.Size(238, 25);
+            this.lblFondoQueda.Size = new System.Drawing.Size(338, 25);
             this.lblFondoQueda.TabIndex = 15;
-            this.lblFondoQueda.Text = "Fondo que se queda: $0.00";
+            this.lblFondoQueda.Text = "Fondo en efectivo que se queda: $0.00";
             // 
             // btnCerrar
             // 
@@ -274,7 +278,7 @@
             this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCerrar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
-            this.btnCerrar.Location = new System.Drawing.Point(52, 865);
+            this.btnCerrar.Location = new System.Drawing.Point(53, 929);
             this.btnCerrar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(200, 48);
@@ -286,10 +290,54 @@
             // 
             // panelEspaciador
             // 
-            this.panelEspaciador.Location = new System.Drawing.Point(52, 915);
+            this.panelEspaciador.Location = new System.Drawing.Point(53, 979);
             this.panelEspaciador.Name = "panelEspaciador";
             this.panelEspaciador.Size = new System.Drawing.Size(445, 35);
             this.panelEspaciador.TabIndex = 18;
+            // 
+            // lblVentaContarjeta
+            // 
+            this.lblVentaContarjeta.AutoSize = true;
+            this.lblVentaContarjeta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVentaContarjeta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblVentaContarjeta.Location = new System.Drawing.Point(45, 532);
+            this.lblVentaContarjeta.Name = "lblVentaContarjeta";
+            this.lblVentaContarjeta.Size = new System.Drawing.Size(258, 25);
+            this.lblVentaContarjeta.TabIndex = 25;
+            this.lblVentaContarjeta.Text = "Venta total con tarjeta: $0.00";
+            // 
+            // lbTotallDevolucionTarjeta
+            // 
+            this.lbTotallDevolucionTarjeta.AutoSize = true;
+            this.lbTotallDevolucionTarjeta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTotallDevolucionTarjeta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lbTotallDevolucionTarjeta.Location = new System.Drawing.Point(45, 643);
+            this.lbTotallDevolucionTarjeta.Name = "lbTotallDevolucionTarjeta";
+            this.lbTotallDevolucionTarjeta.Size = new System.Drawing.Size(295, 25);
+            this.lbTotallDevolucionTarjeta.TabIndex = 26;
+            this.lbTotallDevolucionTarjeta.Text = "Devolución total en tarjeta: $0.00";
+            // 
+            // lbltotales
+            // 
+            this.lbltotales.AutoSize = true;
+            this.lbltotales.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltotales.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lbltotales.Location = new System.Drawing.Point(45, 679);
+            this.lbltotales.Name = "lbltotales";
+            this.lbltotales.Size = new System.Drawing.Size(77, 25);
+            this.lbltotales.TabIndex = 27;
+            this.lbltotales.Text = "Totales:";
+            // 
+            // lblSaldoTotalTarjeta
+            // 
+            this.lblSaldoTotalTarjeta.AutoSize = true;
+            this.lblSaldoTotalTarjeta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSaldoTotalTarjeta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblSaldoTotalTarjeta.Location = new System.Drawing.Point(48, 749);
+            this.lblSaldoTotalTarjeta.Name = "lblSaldoTotalTarjeta";
+            this.lblSaldoTotalTarjeta.Size = new System.Drawing.Size(201, 25);
+            this.lblSaldoTotalTarjeta.TabIndex = 28;
+            this.lblSaldoTotalTarjeta.Text = "Saldo en tarjeta: $0.00";
             // 
             // Fund
             // 
@@ -298,13 +346,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(540, 955);
+            this.ClientSize = new System.Drawing.Size(540, 1042);
+            this.Controls.Add(this.lblSaldoTotalTarjeta);
+            this.Controls.Add(this.lbltotales);
+            this.Controls.Add(this.lbTotallDevolucionTarjeta);
+            this.Controls.Add(this.lblVentaContarjeta);
             this.Controls.Add(this.panelEspaciador);
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.lblFondoQueda);
             this.Controls.Add(this.NudRetiro);
             this.Controls.Add(this.lblRetiro);
-            this.Controls.Add(this.lblSaldoTotal);
+            this.Controls.Add(this.lblSaldoEfectivoCaja);
             this.Controls.Add(this.lblTotalDevolucion);
             this.Controls.Add(this.lblEgresos);
             this.Controls.Add(this.lblVenta);
@@ -348,11 +400,15 @@
         private System.Windows.Forms.Label lblVenta;
         private System.Windows.Forms.Label lblEgresos;
         private System.Windows.Forms.Label lblTotalDevolucion;
-        private System.Windows.Forms.Label lblSaldoTotal;
+        private System.Windows.Forms.Label lblSaldoEfectivoCaja;
         private System.Windows.Forms.Label lblRetiro;
         private System.Windows.Forms.NumericUpDown NudRetiro;
         private System.Windows.Forms.Label lblFondoQueda;
         private System.Windows.Forms.Button btnCerrar;
         private System.Windows.Forms.Panel panelEspaciador; // Definición del objeto espaciador
+        private System.Windows.Forms.Label lblVentaContarjeta;
+        private System.Windows.Forms.Label lbTotallDevolucionTarjeta;
+        private System.Windows.Forms.Label lbltotales;
+        private System.Windows.Forms.Label lblSaldoTotalTarjeta;
     }
 }
