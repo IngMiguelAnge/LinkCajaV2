@@ -187,10 +187,9 @@
             this.btnLogo.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnLogo.Location = new System.Drawing.Point(774, 312);
             this.btnLogo.Name = "btnLogo";
-            this.btnLogo.Size = new System.Drawing.Size(200, 49);
+            this.btnLogo.Size = new System.Drawing.Size(256, 49);
             this.btnLogo.TabIndex = 18;
             this.btnLogo.Text = "Cargar Logotipo";
-            this.btnLogo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLogo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLogo.UseVisualStyleBackColor = true;
             this.btnLogo.Click += new System.EventHandler(this.btnLogo_Click);
@@ -198,7 +197,7 @@
             // PBLogo
             // 
             this.PBLogo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PBLogo.Location = new System.Drawing.Point(774, 91);
+            this.PBLogo.Location = new System.Drawing.Point(804, 91);
             this.PBLogo.Name = "PBLogo";
             this.PBLogo.Size = new System.Drawing.Size(200, 200);
             this.PBLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -215,7 +214,7 @@
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
             this.btnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("btnGuardar.Image")));
             this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.btnGuardar.Location = new System.Drawing.Point(774, 581);
+            this.btnGuardar.Location = new System.Drawing.Point(830, 578);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(200, 48);
             this.btnGuardar.TabIndex = 19;
@@ -327,7 +326,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1012, 664);
+            this.ClientSize = new System.Drawing.Size(1059, 664);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.CBRegimen);
             this.Controls.Add(this.lblNombreF);
