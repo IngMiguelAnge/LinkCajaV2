@@ -140,6 +140,7 @@
             // dtFechaCierre
             // 
             this.dtFechaCierre.CustomFormat = "dd/MM/yyyy hh:mm tt";
+            this.dtFechaCierre.Enabled = false;
             this.dtFechaCierre.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtFechaCierre.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtFechaCierre.Location = new System.Drawing.Point(54, 321);
@@ -225,9 +226,9 @@
             this.lblSaldoTotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.lblSaldoTotal.Location = new System.Drawing.Point(43, 648);
             this.lblSaldoTotal.Name = "lblSaldoTotal";
-            this.lblSaldoTotal.Size = new System.Drawing.Size(248, 25);
+            this.lblSaldoTotal.Size = new System.Drawing.Size(281, 25);
             this.lblSaldoTotal.TabIndex = 12;
-            this.lblSaldoTotal.Text = "Saldo Teorico en Caja: $0.00";
+            this.lblSaldoTotal.Text = "Saldo en Efectivo en Caja: $0.00";
             // 
             // lblRetiro
             // 

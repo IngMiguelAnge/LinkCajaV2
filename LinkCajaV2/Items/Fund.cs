@@ -105,7 +105,7 @@ namespace LinkCajaV2.Items
                 CBCajas.Enabled = false;
                 var result = obj.GetCashFundbyId(Id).Result;
                 dtFechaApertura.Value = result.CheckIn;
-                dtFechaCierre.Value = result.CheckOut;
+                dtFechaCierre.Value = DateTime.Now;
                 nudInicio.Value = result.CashIn;
                 NudRetiro.Value = result.CashOut;
                 lblFondoQueda.Text = "Fondo que se queda: " + result.CashFinish.ToString("C2");
@@ -115,6 +115,7 @@ namespace LinkCajaV2.Items
                     btnCerrar.Visible = true;
                 }
                 else {
+                    dtFechaCierre.Value = result.CheckOut;
                     btnGuardar.Visible = false;
                     btnCerrar.Visible = false;
                 }
@@ -130,7 +131,7 @@ namespace LinkCajaV2.Items
                 NudRetiro.Value = 0m;
                 lblVenta.Text = "Venta total: $0.00";
                 lblTotalDevolucion.Text = "Devolucion Total: $0.00";
-                lblSaldoTotal.Text = "Saldo Teorico en Caja: $0.00";
+                lblSaldoTotal.Text = "Saldo en Efectivo en Caja: $0.00";
                 lblFondoQueda.Text = "Fondo que se queda: $0.00";
                 return;
             }
@@ -151,9 +152,9 @@ namespace LinkCajaV2.Items
                     {                        
                             btnGuardar.Visible = true;
                             dtFechaApertura.MinDate = result.CheckOut.AddMinutes(1);
-                            dtFechaCierre.MinDate = result.CheckOut.AddMinutes(1);
-                            dtFechaApertura.Value = result.CheckIn.AddDays(1);
-                            dtFechaCierre.Value = result.CheckOut.AddDays(1);
+                            dtFechaCierre.MinDate = result.CheckOut.AddMinutes(2);
+                            dtFechaApertura.Value = DateTime.Now;
+                            dtFechaCierre.Value = DateTime.Now.AddMinutes(1);
                             nudInicio.Value = result.CashFinish;
                             NudRetiro.Value = 0m;
                     }
@@ -174,7 +175,7 @@ namespace LinkCajaV2.Items
             TotalReal = totalfinalreal - vRetiro;
             lblVenta.Text = $"Venta Total: {totalGeneral:C2}";
             lblTotalDevolucion.Text = $"Devolucion Total: {devoluciones:C2}";
-            lblSaldoTotal.Text = $"Saldo Teorico en Caja: {totalfinalreal:C2}";
+            lblSaldoTotal.Text = $"Saldo en Efectivo en Caja: {totalfinalreal:C2}";
             lblFondoQueda.Text = $"Fondo que se queda: {TotalReal:C2}";
         }
         public async void BuscarTickets()
@@ -197,7 +198,7 @@ namespace LinkCajaV2.Items
                 TotalReal = 0m;
                 lblVenta.Text = "Venta total: $0.00";
                 lblTotalDevolucion.Text = "Devolucion Total: $0.00";
-                lblSaldoTotal.Text = "Saldo Teorico en Caja: $0.00";
+                lblSaldoTotal.Text = "Saldo en Efectivo en Caja: $0.00";
                 lblFondoQueda.Text = "Fondo que se queda: $0.00";
             }
         }
