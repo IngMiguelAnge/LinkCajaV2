@@ -8,5 +8,6 @@ namespace LinkCajaV2.Model
         public decimal Monto { get; set; }
         public string Articulo {  get; set; }
         public DateTime Fecha { get; set; }
+        public string VerConcepto { get; set; }
     }
 }

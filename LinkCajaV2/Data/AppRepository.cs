@@ -237,7 +237,8 @@ namespace LinkCajaV2.Data
                 Concepto = (string)reader["Concepto"],
                 Monto = (decimal)reader["Monto"],
                 Articulo = (string)reader["Articulo"],
-                Fecha = (DateTime)reader["Fecha"]
+                Fecha = (DateTime)reader["Fecha"],
+                VerConcepto = (string)reader["VerConcepto"],
             };
         }
         #endregion

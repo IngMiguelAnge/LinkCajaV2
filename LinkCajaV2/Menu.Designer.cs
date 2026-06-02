@@ -549,7 +549,7 @@
             this.btnResumen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
             this.btnResumen.Image = ((System.Drawing.Image)(resources.GetObject("btnResumen.Image")));
             this.btnResumen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnResumen.Location = new System.Drawing.Point(271, 56);
+            this.btnResumen.Location = new System.Drawing.Point(251, 56);
             this.btnResumen.Name = "btnResumen";
             this.btnResumen.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
             this.btnResumen.Size = new System.Drawing.Size(207, 80);

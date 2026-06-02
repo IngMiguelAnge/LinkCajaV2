@@ -134,6 +134,7 @@
             this.dgvCorte.RowTemplate.Height = 28;
             this.dgvCorte.Size = new System.Drawing.Size(1173, 334);
             this.dgvCorte.TabIndex = 0;
+            this.dgvCorte.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCorte_CellContentClick);
             // 
             // btnBuscar
             // 

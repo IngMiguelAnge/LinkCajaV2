@@ -1,4 +1,5 @@
 ﻿using LinkCajaV2.Data;
+using LinkCajaV2.Items;
 using LinkCajaV2.Model;
 using System;
 using System.Collections.Generic;
@@ -60,6 +61,29 @@ namespace LinkCajaV2.Reports
             {
                 dgvCorte.Columns.Add(new DataGridViewTextBoxColumn
                 {
+                    Name = "VerConcepto",
+                    HeaderText = "Ver Concepto",
+                    DataPropertyName = "VerConcepto",
+                    ReadOnly = true,
+                    Visible = false,
+                    Width = 300
+                });
+                DataGridViewButtonColumn btnVer = new DataGridViewButtonColumn
+                {
+                    Name = "Ver",
+                    HeaderText = "Acción",
+                    Text = "Ver motivo",
+                    UseColumnTextForButtonValue = true,                
+                    Width = 90,
+                    FlatStyle = FlatStyle.Flat
+                };
+
+                btnVer.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+                btnVer.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
+
+                dgvCorte.Columns.Add(btnVer);
+                dgvCorte.Columns.Add(new DataGridViewTextBoxColumn
+                {
                     Name = "Articulo",
                     HeaderText = "Articulo",
                     DataPropertyName = "Articulo",
@@ -84,6 +108,21 @@ namespace LinkCajaV2.Reports
                 Width = 300
             });
             dgvCorte.AllowUserToAddRows = false;
+        }
+
+        private void dgvCorte_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            switch (dgvCorte.Columns[e.ColumnIndex].Name)
+            {
+                case "Ver":
+                    string c = Convert.ToString(dgvCorte.Rows[e.RowIndex].Cells["VerConcepto"].Value);
+                    MessageBox.Show(c, "Concepto", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+                default:
+                    break;
+            }
+
         }
     }
 }
