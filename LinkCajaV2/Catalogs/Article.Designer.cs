@@ -165,7 +165,7 @@
             this.CBDevoluciones.Name = "CBDevoluciones";
             this.CBDevoluciones.Size = new System.Drawing.Size(246, 32);
             this.CBDevoluciones.TabIndex = 6;
-            this.CBDevoluciones.Text = "¿Acepta devolusiones?";
+            this.CBDevoluciones.Text = "¿Acepta devoluciones?";
             this.CBDevoluciones.UseVisualStyleBackColor = true;
             // 
             // lblClaveSAT

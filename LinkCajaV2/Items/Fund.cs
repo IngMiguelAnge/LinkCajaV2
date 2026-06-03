@@ -23,6 +23,7 @@ namespace LinkCajaV2.Items
         private decimal totalFinal = 0;
         private decimal totalFinalTarjeta = 0;  
         private decimal TotalCaja = 0;
+        private bool Primeracarga = false;
         public Fund()
         {
             InitializeComponent();
@@ -98,6 +99,7 @@ namespace LinkCajaV2.Items
             btnGuardar.Visible = true;
             if (Id != 0)
             {
+                Primeracarga = true;
                 if (ListBox.Where(x => x.Id == IdBox).FirstOrDefault() == null)
                 {
                     MessageBox.Show("Caja no activa.", "Caja no encontrada", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -108,12 +110,12 @@ namespace LinkCajaV2.Items
                 CBCajas.Enabled = false;
                 var result = obj.GetCashFundbyId(Id).Result;
                 dtFechaApertura.Value = result.CheckIn;
-                dtFechaCierre.Value = DateTime.Now;
                 nudInicio.Value = result.CashIn;
                 NudRetiro.Value = result.CashOut;
                 lblFondoQueda.Text = "Fondo que se queda: " + result.CashFinish.ToString("C2");
                 if (result.StatusOpen == true)
                 {
+                    dtFechaCierre.Value = DateTime.Now;
                     btnGuardar.Visible = true;
                     btnCerrar.Visible = true;
                 }
@@ -122,7 +124,8 @@ namespace LinkCajaV2.Items
                     btnGuardar.Visible = false;
                     btnCerrar.Visible = false;
                 }
-                //BuscarTickets();
+                Primeracarga = false;
+                BuscarTickets();
             }
         }
         public void Reiniciar()
@@ -194,6 +197,10 @@ namespace LinkCajaV2.Items
         {
             try
             {
+                if(Primeracarga == true)
+                {
+                    return;
+                }
                 AppRepository obj = new AppRepository();
                 var Tickets = await obj.GetCashDropbyIdBox((int)CBCajas.SelectedValue, dtFechaApertura.Value, dtFechaCierre.Value,false);
                 totalGeneral = Tickets.Where(x => x.Concepto == "Ventas en efectivo").Sum(y => y.Monto);
