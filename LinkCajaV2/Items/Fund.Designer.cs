@@ -77,7 +77,7 @@ namespace LinkCajaV2.Items
             this.dtFechaApertura.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtFechaApertura.Location = new System.Drawing.Point(35, 225);
             this.dtFechaApertura.Name = "dtFechaApertura";
-            this.dtFechaApertura.Size = new System.Drawing.Size(250, 37);
+            this.dtFechaApertura.Size = new System.Drawing.Size(266, 37);
             this.dtFechaApertura.TabIndex = 3;
             this.dtFechaApertura.ValueChanged += new System.EventHandler(this.dtFechaApertura_ValueChanged);
             // 
@@ -150,7 +150,7 @@ namespace LinkCajaV2.Items
             this.dtFechaCierre.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtFechaCierre.Location = new System.Drawing.Point(35, 325);
             this.dtFechaCierre.Name = "dtFechaCierre";
-            this.dtFechaCierre.Size = new System.Drawing.Size(250, 37);
+            this.dtFechaCierre.Size = new System.Drawing.Size(266, 37);
             this.dtFechaCierre.TabIndex = 5;
             this.dtFechaCierre.ValueChanged += new System.EventHandler(this.dtFechaCierre_ValueChanged);
             // 
