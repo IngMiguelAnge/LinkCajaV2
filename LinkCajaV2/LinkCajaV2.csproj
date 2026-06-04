@@ -562,6 +562,7 @@
     <Content Include="Icons\Inicio.png" />
     <Content Include="Icons\Inicio2.png" />
     <Content Include="Icons\Inventario.png" />
+    <Content Include="Icons\Key.png" />
     <Content Include="Icons\Licencias.png" />
     <Content Include="Icons\LogoLink.jpeg" />
     <Content Include="Icons\Lupa.png" />

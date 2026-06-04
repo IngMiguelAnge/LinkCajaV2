@@ -59,17 +59,6 @@ namespace LinkCajaV2.Items
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if ((int)CBCajas.SelectedValue <= 0)
-            {
-                MessageBox.Show("Se requiere una caja.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (dtFechaApertura.Value > dtFechaCierre.Value)
-            {
-                MessageBox.Show("La fecha de apertura no puede ser mayor a la fecha de cierre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
             if (TotalCaja < 0)
             {
                 MessageBox.Show("El fondo de caja no puede quedar en negativo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -96,7 +85,9 @@ namespace LinkCajaV2.Items
             CBCajas.DataSource = ListBox;
             CBCajas.SelectedIndex = 0;
             btnCerrar.Visible = false;
-            btnGuardar.Visible = true;
+            btnGuardar.Visible = false;
+            BtnAbrir.Visible = false;
+            dtFechaApertura.Enabled = false;
             if (Id != 0)
             {
                 Primeracarga = true;
@@ -106,6 +97,9 @@ namespace LinkCajaV2.Items
                     this.Close();
                     return;
                 }
+                btnGuardar.Visible=true;
+                btnCerrar.Visible=true;
+
                 CBCajas.SelectedValue = IdBox;
                 CBCajas.Enabled = false;
                 var result = obj.GetCashFundbyId(Id).Result;
@@ -116,13 +110,9 @@ namespace LinkCajaV2.Items
                 if (result.StatusOpen == true)
                 {
                     dtFechaCierre.Value = DateTime.Now;
-                    btnGuardar.Visible = true;
-                    btnCerrar.Visible = true;
                 }
                 else {
                     dtFechaCierre.Value = result.CheckOut;
-                    btnGuardar.Visible = false;
-                    btnCerrar.Visible = false;
                 }
                 Primeracarga = false;
                 BuscarTickets();
@@ -130,6 +120,9 @@ namespace LinkCajaV2.Items
             else
             {
                 dtFechaCierre.Value = dtFechaApertura.Value.AddSeconds(1);
+                BtnAbrir.Visible = true;
+                dtFechaApertura.Enabled = true;
+                dtFechaApertura.Enabled = true;
             }
         }
         public void Reiniciar()
@@ -178,6 +171,7 @@ namespace LinkCajaV2.Items
                             dtFechaCierre.Value = DateTime.Now.AddSeconds(1);
                             nudInicio.Value = result.CashFinish;
                             NudRetiro.Value = 0m;
+                            nudInicio.Enabled = false;
                     }
                 }
             }
@@ -350,6 +344,22 @@ namespace LinkCajaV2.Items
             {
                 Calcular();
             }
+        }
+
+        private void BtnAbrir_Click(object sender, EventArgs e)
+        {
+            if ((int)CBCajas.SelectedValue <= 0)
+            {
+                MessageBox.Show("Se requiere una caja.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (dtFechaApertura.Value > dtFechaCierre.Value)
+            {
+                MessageBox.Show("La fecha de apertura no puede ser mayor a la fecha de cierre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            Guardar(false);
         }
     }
 }

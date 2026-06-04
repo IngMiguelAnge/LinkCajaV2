@@ -55,6 +55,7 @@ namespace LinkCajaV2.Items
             this.lbTotallDevolucionTarjeta = new System.Windows.Forms.Label();
             this.lbltotales = new System.Windows.Forms.Label();
             this.lblSaldoTotalTarjeta = new System.Windows.Forms.Label();
+            this.BtnAbrir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudInicio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudRetiro)).BeginInit();
             this.SuspendLayout();
@@ -73,6 +74,7 @@ namespace LinkCajaV2.Items
             // dtFechaApertura
             // 
             this.dtFechaApertura.CustomFormat = "dd/MM/yyyy hh:mm tt";
+            this.dtFechaApertura.Enabled = false;
             this.dtFechaApertura.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtFechaApertura.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtFechaApertura.Location = new System.Drawing.Point(35, 225);
@@ -86,16 +88,17 @@ namespace LinkCajaV2.Items
             this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
             this.btnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGuardar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
             this.btnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("btnGuardar.Image")));
-            this.btnGuardar.Location = new System.Drawing.Point(1010, 411);
+            this.btnGuardar.Location = new System.Drawing.Point(800, 390);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(178, 48);
+            this.btnGuardar.Size = new System.Drawing.Size(250, 48);
             this.btnGuardar.TabIndex = 16;
-            this.btnGuardar.Text = "GUARDAR";
+            this.btnGuardar.Text = "GUARDAR RETIRO";
             this.btnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnGuardar.UseVisualStyleBackColor = false;
+            this.btnGuardar.Visible = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // lblTitulo
@@ -279,13 +282,14 @@ namespace LinkCajaV2.Items
             this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCerrar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
-            this.btnCerrar.Location = new System.Drawing.Point(800, 411);
+            this.btnCerrar.Location = new System.Drawing.Point(800, 460);
             this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(178, 48);
+            this.btnCerrar.Size = new System.Drawing.Size(250, 48);
             this.btnCerrar.TabIndex = 17;
-            this.btnCerrar.Text = "CERRAR";
+            this.btnCerrar.Text = "CERRAR CORTE";
             this.btnCerrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCerrar.UseVisualStyleBackColor = true;
+            this.btnCerrar.Visible = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
             // lblVentaContarjeta
@@ -332,13 +336,32 @@ namespace LinkCajaV2.Items
             this.lblSaldoTotalTarjeta.TabIndex = 28;
             this.lblSaldoTotalTarjeta.Text = "Saldo en tarjeta: $0.00";
             // 
+            // BtnAbrir
+            // 
+            this.BtnAbrir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
+            this.BtnAbrir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnAbrir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnAbrir.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAbrir.ForeColor = System.Drawing.Color.White;
+            this.BtnAbrir.Image = ((System.Drawing.Image)(resources.GetObject("BtnAbrir.Image")));
+            this.BtnAbrir.Location = new System.Drawing.Point(800, 325);
+            this.BtnAbrir.Name = "BtnAbrir";
+            this.BtnAbrir.Size = new System.Drawing.Size(250, 48);
+            this.BtnAbrir.TabIndex = 29;
+            this.BtnAbrir.Text = "ABRIR CORTE";
+            this.BtnAbrir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnAbrir.UseVisualStyleBackColor = false;
+            this.BtnAbrir.Visible = false;
+            this.BtnAbrir.Click += new System.EventHandler(this.BtnAbrir_Click);
+            // 
             // Fund
             // 
             this.AcceptButton = this.btnGuardar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1266, 520);
+            this.ClientSize = new System.Drawing.Size(1179, 557);
+            this.Controls.Add(this.BtnAbrir);
             this.Controls.Add(this.lblSaldoTotalTarjeta);
             this.Controls.Add(this.lbltotales);
             this.Controls.Add(this.lbTotallDevolucionTarjeta);
@@ -400,5 +423,6 @@ namespace LinkCajaV2.Items
         private System.Windows.Forms.Label lbTotallDevolucionTarjeta;
         private System.Windows.Forms.Label lbltotales;
         private System.Windows.Forms.Label lblSaldoTotalTarjeta;
+        private Button BtnAbrir;
     }
 }
