@@ -119,7 +119,7 @@ namespace LinkCajaV2.Catalogs
         private void Article_Load(object sender, EventArgs e)
         {
             AppRepository obj = new AppRepository();
-            var ListCategories = obj.GetCategoriesActives().Result;
+            var ListCategories = obj.GetCategoriesActives().Result.OrderBy(x => x.Name).ToList();
             // Insertamos un objeto "fantasma" al inicio para el placeholder
             ListCategories.Insert(0, new CategorieModel { Id = 0, Name = "Seleccione" });
             cbCategoria.Items.Clear();

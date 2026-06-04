@@ -1,5 +1,6 @@
 ﻿using ImageMagick;
 using LinkCajaV2.Data;
+using LinkCajaV2.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,7 +37,13 @@ namespace LinkCajaV2.Catalogs
                 return;
             }
             AppRepository obj = new AppRepository();
-            if (obj.SaveCategorie(Id,txtNombre.Text).Result)
+            List<ListCategoriesModel> exist = obj.GetCategories(txtNombre.Text).Result;
+            if (exist.Where(x => x.Id != Id).Count() > 0)
+            {
+                MessageBox.Show("Ya existe una categoria con ese nombre", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (obj.SaveCategorie(Id, txtNombre.Text).Result)
             {
                 MessageBox.Show("Categoria guardada correctamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();

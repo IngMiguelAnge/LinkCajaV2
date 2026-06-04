@@ -62,7 +62,7 @@ namespace LinkCajaV2.Catalogs
         {
             AppRepository obj = new AppRepository();
             
-            var ListProveedores = obj.GetSuppliersActives().Result;
+            var ListProveedores = obj.GetSuppliersActives().Result.OrderBy(x => x.Name).ToList();
             // Insertamos un objeto "fantasma" al inicio para el placeholder
             ListProveedores.Insert(0, new ListSuppliersActivesModel { Id = 0, Name = "Seleccione" });
             cbProveedores.Items.Clear();

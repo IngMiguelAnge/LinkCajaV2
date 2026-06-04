@@ -21,7 +21,7 @@ namespace LinkCajaV2.Items
         private decimal devoluciones = 0;
         private decimal devolucionesTarjeta = 0;
         private decimal totalFinal = 0;
-        private decimal totalFinalTarjeta = 0;  
+        private decimal totalFinalTarjeta = 0;
         private decimal TotalCaja = 0;
         private bool Primeracarga = false;
         public Fund()
@@ -87,6 +87,7 @@ namespace LinkCajaV2.Items
             btnCerrar.Visible = false;
             btnGuardar.Visible = false;
             BtnAbrir.Visible = false;
+            nudInicio.Enabled = false;
             dtFechaApertura.Enabled = false;
             if (Id != 0)
             {
@@ -97,8 +98,8 @@ namespace LinkCajaV2.Items
                     this.Close();
                     return;
                 }
-                btnGuardar.Visible=true;
-                btnCerrar.Visible=true;
+                btnGuardar.Visible = true;
+                btnCerrar.Visible = true;
 
                 CBCajas.SelectedValue = IdBox;
                 CBCajas.Enabled = false;
@@ -111,7 +112,8 @@ namespace LinkCajaV2.Items
                 {
                     dtFechaCierre.Value = DateTime.Now;
                 }
-                else {
+                else
+                {
                     dtFechaCierre.Value = result.CheckOut;
                 }
                 Primeracarga = false;
@@ -121,6 +123,7 @@ namespace LinkCajaV2.Items
             {
                 dtFechaCierre.Value = dtFechaApertura.Value.AddSeconds(1);
                 BtnAbrir.Visible = true;
+                nudInicio.Enabled = true;
                 dtFechaApertura.Enabled = true;
                 dtFechaApertura.Enabled = true;
             }
@@ -150,7 +153,7 @@ namespace LinkCajaV2.Items
                 return;
             }
             AppRepository obj = new AppRepository();
-            if(Id == 0)
+            if (Id == 0)
             {
                 var result = obj.GetCashFundbyIdBox((int)CBCajas.SelectedValue).Result;
                 if (result != null && result.Id != 0)
@@ -160,18 +163,22 @@ namespace LinkCajaV2.Items
                         MessageBox.Show("La caja tiene un corte de abierto pendiente del " + result.CheckIn.ToString(), "Caja no valida", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         btnGuardar.Visible = false;
                         btnCerrar.Visible = false;
+                        BtnAbrir.Visible = false;
+                        nudInicio.Enabled = false;
                         return;
                     }
                     else
-                    {                        
-                            btnGuardar.Visible = true;
-                            dtFechaApertura.MinDate = result.CheckOut.AddSeconds(1);
-                            dtFechaCierre.MinDate = result.CheckOut.AddSeconds(2);
-                            dtFechaApertura.Value = DateTime.Now;
-                            dtFechaCierre.Value = DateTime.Now.AddSeconds(1);
-                            nudInicio.Value = result.CashFinish;
-                            NudRetiro.Value = 0m;
-                            nudInicio.Enabled = false;
+                    {
+                        btnGuardar.Visible = false;
+                        BtnAbrir.Visible = true;
+                        nudInicio.Enabled = false;
+                        btnCerrar.Visible = false;
+                        dtFechaApertura.MinDate = result.CheckOut.AddSeconds(1);
+                        dtFechaCierre.MinDate = result.CheckOut.AddSeconds(2);
+                        dtFechaApertura.Value = DateTime.Now;
+                        dtFechaCierre.Value = DateTime.Now.AddSeconds(1);
+                        nudInicio.Value = result.CashFinish;
+                        NudRetiro.Value = 0m;
                     }
                 }
             }
@@ -195,12 +202,12 @@ namespace LinkCajaV2.Items
         {
             try
             {
-                if(Primeracarga == true)
+                if (Primeracarga == true)
                 {
                     return;
                 }
                 AppRepository obj = new AppRepository();
-                var Tickets = await obj.GetCashDropbyIdBox((int)CBCajas.SelectedValue, dtFechaApertura.Value, dtFechaCierre.Value,false);
+                var Tickets = await obj.GetCashDropbyIdBox((int)CBCajas.SelectedValue, dtFechaApertura.Value, dtFechaCierre.Value, false);
                 totalGeneral = Tickets.Where(x => x.Concepto == "Ventas en efectivo").Sum(y => y.Monto);
                 totalGeneralTarjeta = Tickets.Where(x => x.Concepto == "Ventas con tarjeta").Sum(y => y.Monto);
                 devoluciones = Tickets.Where(x => x.Concepto == "Devoluciones en efectivo").Sum(y => y.Monto);
@@ -208,9 +215,9 @@ namespace LinkCajaV2.Items
                 totalFinal = Tickets.Where(x => x.Concepto == "Venta total en efectivo").Sum(y => y.Monto);
                 totalFinalTarjeta = Tickets.Where(x => x.Concepto == "Venta total en tarjeta").Sum(y => y.Monto);
                 lblVenta.Text = "Venta total en efectivo: $" + totalGeneral.ToString();
-                lblVentaContarjeta.Text = "Venta total con tarjeta: $"+totalGeneralTarjeta.ToString();
-                lblTotalDevolucion.Text = "Devolución total en efectivo: $"+devoluciones.ToString();
-                lbTotallDevolucionTarjeta.Text = "Devolución total en tarjeta: $"+devolucionesTarjeta.ToString();
+                lblVentaContarjeta.Text = "Venta total con tarjeta: $" + totalGeneralTarjeta.ToString();
+                lblTotalDevolucion.Text = "Devolución total en efectivo: $" + devoluciones.ToString();
+                lbTotallDevolucionTarjeta.Text = "Devolución total en tarjeta: $" + devolucionesTarjeta.ToString();
                 lblSaldoTotalTarjeta.Text = "Saldo en tarjeta: $" + totalFinalTarjeta.ToString();
                 Calcular();
             }
