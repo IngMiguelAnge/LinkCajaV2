@@ -549,6 +549,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BaseDatos\LinkcajaV2.sql" />
+    <Content Include="BaseDatos\ReinicioDTablas.sql" />
     <Content Include="Icons\All.png" />
     <Content Include="Icons\Cajero.png" />
     <Content Include="Icons\Categorias.png" />
