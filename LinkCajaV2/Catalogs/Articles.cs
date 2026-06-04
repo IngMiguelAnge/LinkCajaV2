@@ -304,6 +304,7 @@ namespace LinkCajaV2.Catalogs
             }
             Impresion = true;
             await BuscarArticulos();
+            Impresion = false;
             try
             {
                 if (ListaImprimir == null || ListaImprimir.Count == 0)

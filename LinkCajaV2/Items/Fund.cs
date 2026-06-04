@@ -65,9 +65,9 @@ namespace LinkCajaV2.Items
                 return;
             }
 
-            if (dtFechaApertura.Value >= dtFechaCierre.Value)
+            if (dtFechaApertura.Value > dtFechaCierre.Value)
             {
-                MessageBox.Show("La fecha de apertura no puede ser mayor o igual a la fecha de cierre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("La fecha de apertura no puede ser mayor a la fecha de cierre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (TotalCaja < 0)
@@ -126,6 +126,10 @@ namespace LinkCajaV2.Items
                 }
                 Primeracarga = false;
                 BuscarTickets();
+            }
+            else
+            {
+                dtFechaCierre.Value = dtFechaApertura.Value.AddSeconds(1);
             }
         }
         public void Reiniciar()

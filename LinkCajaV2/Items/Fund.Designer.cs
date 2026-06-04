@@ -77,7 +77,7 @@ namespace LinkCajaV2.Items
             this.dtFechaApertura.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtFechaApertura.Location = new System.Drawing.Point(35, 225);
             this.dtFechaApertura.Name = "dtFechaApertura";
-            this.dtFechaApertura.Size = new System.Drawing.Size(266, 37);
+            this.dtFechaApertura.Size = new System.Drawing.Size(307, 37);
             this.dtFechaApertura.TabIndex = 3;
             this.dtFechaApertura.ValueChanged += new System.EventHandler(this.dtFechaApertura_ValueChanged);
             // 
@@ -89,7 +89,7 @@ namespace LinkCajaV2.Items
             this.btnGuardar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
             this.btnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("btnGuardar.Image")));
-            this.btnGuardar.Location = new System.Drawing.Point(850, 415);
+            this.btnGuardar.Location = new System.Drawing.Point(1010, 411);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(178, 48);
             this.btnGuardar.TabIndex = 16;
@@ -150,7 +150,7 @@ namespace LinkCajaV2.Items
             this.dtFechaCierre.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtFechaCierre.Location = new System.Drawing.Point(35, 325);
             this.dtFechaCierre.Name = "dtFechaCierre";
-            this.dtFechaCierre.Size = new System.Drawing.Size(266, 37);
+            this.dtFechaCierre.Size = new System.Drawing.Size(307, 37);
             this.dtFechaCierre.TabIndex = 5;
             this.dtFechaCierre.ValueChanged += new System.EventHandler(this.dtFechaCierre_ValueChanged);
             // 
@@ -159,7 +159,7 @@ namespace LinkCajaV2.Items
             this.lblIngresos.AutoSize = true;
             this.lblIngresos.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIngresos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.lblIngresos.Location = new System.Drawing.Point(330, 95);
+            this.lblIngresos.Location = new System.Drawing.Point(412, 98);
             this.lblIngresos.Name = "lblIngresos";
             this.lblIngresos.Size = new System.Drawing.Size(183, 30);
             this.lblIngresos.TabIndex = 6;
@@ -170,7 +170,7 @@ namespace LinkCajaV2.Items
             this.lblInicio.AutoSize = true;
             this.lblInicio.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInicio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblInicio.Location = new System.Drawing.Point(330, 140);
+            this.lblInicio.Location = new System.Drawing.Point(414, 138);
             this.lblInicio.Name = "lblInicio";
             this.lblInicio.Size = new System.Drawing.Size(181, 25);
             this.lblInicio.TabIndex = 7;
@@ -180,7 +180,7 @@ namespace LinkCajaV2.Items
             // 
             this.nudInicio.DecimalPlaces = 2;
             this.nudInicio.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudInicio.Location = new System.Drawing.Point(330, 170);
+            this.nudInicio.Location = new System.Drawing.Point(419, 174);
             this.nudInicio.Maximum = new decimal(new int[] {
             10000000,
             0,
@@ -196,7 +196,7 @@ namespace LinkCajaV2.Items
             this.lblVenta.AutoSize = true;
             this.lblVenta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVenta.ForeColor = System.Drawing.Color.Black;
-            this.lblVenta.Location = new System.Drawing.Point(325, 225);
+            this.lblVenta.Location = new System.Drawing.Point(414, 225);
             this.lblVenta.Name = "lblVenta";
             this.lblVenta.Size = new System.Drawing.Size(241, 25);
             this.lblVenta.TabIndex = 9;
@@ -207,7 +207,7 @@ namespace LinkCajaV2.Items
             this.lblEgresos.AutoSize = true;
             this.lblEgresos.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEgresos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblEgresos.Location = new System.Drawing.Point(325, 259);
+            this.lblEgresos.Location = new System.Drawing.Point(414, 259);
             this.lblEgresos.Name = "lblEgresos";
             this.lblEgresos.Size = new System.Drawing.Size(82, 25);
             this.lblEgresos.TabIndex = 10;
@@ -218,7 +218,7 @@ namespace LinkCajaV2.Items
             this.lblTotalDevolucion.AutoSize = true;
             this.lblTotalDevolucion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalDevolucion.ForeColor = System.Drawing.Color.Black;
-            this.lblTotalDevolucion.Location = new System.Drawing.Point(325, 295);
+            this.lblTotalDevolucion.Location = new System.Drawing.Point(414, 295);
             this.lblTotalDevolucion.Name = "lblTotalDevolucion";
             this.lblTotalDevolucion.Size = new System.Drawing.Size(286, 25);
             this.lblTotalDevolucion.TabIndex = 11;
@@ -229,7 +229,7 @@ namespace LinkCajaV2.Items
             this.lblSaldoEfectivoCaja.AutoSize = true;
             this.lblSaldoEfectivoCaja.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSaldoEfectivoCaja.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
-            this.lblSaldoEfectivoCaja.Location = new System.Drawing.Point(325, 334);
+            this.lblSaldoEfectivoCaja.Location = new System.Drawing.Point(414, 334);
             this.lblSaldoEfectivoCaja.Name = "lblSaldoEfectivoCaja";
             this.lblSaldoEfectivoCaja.Size = new System.Drawing.Size(313, 28);
             this.lblSaldoEfectivoCaja.TabIndex = 12;
@@ -240,7 +240,7 @@ namespace LinkCajaV2.Items
             this.lblRetiro.AutoSize = true;
             this.lblRetiro.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRetiro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblRetiro.Location = new System.Drawing.Point(325, 387);
+            this.lblRetiro.Location = new System.Drawing.Point(414, 380);
             this.lblRetiro.Name = "lblRetiro";
             this.lblRetiro.Size = new System.Drawing.Size(214, 25);
             this.lblRetiro.TabIndex = 13;
@@ -250,7 +250,7 @@ namespace LinkCajaV2.Items
             // 
             this.NudRetiro.DecimalPlaces = 2;
             this.NudRetiro.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NudRetiro.Location = new System.Drawing.Point(326, 415);
+            this.NudRetiro.Location = new System.Drawing.Point(419, 422);
             this.NudRetiro.Maximum = new decimal(new int[] {
             10000000,
             0,
@@ -266,7 +266,7 @@ namespace LinkCajaV2.Items
             this.lblFondoQueda.AutoSize = true;
             this.lblFondoQueda.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFondoQueda.ForeColor = System.Drawing.Color.DimGray;
-            this.lblFondoQueda.Location = new System.Drawing.Point(325, 471);
+            this.lblFondoQueda.Location = new System.Drawing.Point(414, 486);
             this.lblFondoQueda.Name = "lblFondoQueda";
             this.lblFondoQueda.Size = new System.Drawing.Size(313, 25);
             this.lblFondoQueda.TabIndex = 15;
@@ -279,7 +279,7 @@ namespace LinkCajaV2.Items
             this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCerrar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
-            this.btnCerrar.Location = new System.Drawing.Point(650, 415);
+            this.btnCerrar.Location = new System.Drawing.Point(800, 411);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(178, 48);
             this.btnCerrar.TabIndex = 17;
@@ -293,7 +293,7 @@ namespace LinkCajaV2.Items
             this.lblVentaContarjeta.AutoSize = true;
             this.lblVentaContarjeta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVentaContarjeta.ForeColor = System.Drawing.Color.Black;
-            this.lblVentaContarjeta.Location = new System.Drawing.Point(650, 140);
+            this.lblVentaContarjeta.Location = new System.Drawing.Point(795, 138);
             this.lblVentaContarjeta.Name = "lblVentaContarjeta";
             this.lblVentaContarjeta.Size = new System.Drawing.Size(238, 25);
             this.lblVentaContarjeta.TabIndex = 25;
@@ -304,7 +304,7 @@ namespace LinkCajaV2.Items
             this.lbTotallDevolucionTarjeta.AutoSize = true;
             this.lbTotallDevolucionTarjeta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotallDevolucionTarjeta.ForeColor = System.Drawing.Color.Black;
-            this.lbTotallDevolucionTarjeta.Location = new System.Drawing.Point(650, 180);
+            this.lbTotallDevolucionTarjeta.Location = new System.Drawing.Point(795, 180);
             this.lbTotallDevolucionTarjeta.Name = "lbTotallDevolucionTarjeta";
             this.lbTotallDevolucionTarjeta.Size = new System.Drawing.Size(273, 25);
             this.lbTotallDevolucionTarjeta.TabIndex = 26;
@@ -315,7 +315,7 @@ namespace LinkCajaV2.Items
             this.lbltotales.AutoSize = true;
             this.lbltotales.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbltotales.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lbltotales.Location = new System.Drawing.Point(650, 95);
+            this.lbltotales.Location = new System.Drawing.Point(795, 98);
             this.lbltotales.Name = "lbltotales";
             this.lbltotales.Size = new System.Drawing.Size(181, 30);
             this.lbltotales.TabIndex = 27;
@@ -326,7 +326,7 @@ namespace LinkCajaV2.Items
             this.lblSaldoTotalTarjeta.AutoSize = true;
             this.lblSaldoTotalTarjeta.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSaldoTotalTarjeta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.lblSaldoTotalTarjeta.Location = new System.Drawing.Point(650, 225);
+            this.lblSaldoTotalTarjeta.Location = new System.Drawing.Point(795, 225);
             this.lblSaldoTotalTarjeta.Name = "lblSaldoTotalTarjeta";
             this.lblSaldoTotalTarjeta.Size = new System.Drawing.Size(226, 28);
             this.lblSaldoTotalTarjeta.TabIndex = 28;
@@ -338,7 +338,7 @@ namespace LinkCajaV2.Items
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1030, 520);
+            this.ClientSize = new System.Drawing.Size(1266, 520);
             this.Controls.Add(this.lblSaldoTotalTarjeta);
             this.Controls.Add(this.lbltotales);
             this.Controls.Add(this.lbTotallDevolucionTarjeta);
