@@ -115,6 +115,8 @@ namespace LinkCajaV2.Items
                 else
                 {
                     dtFechaCierre.Value = result.CheckOut;
+                    btnGuardar.Visible = false;
+                    btnCerrar.Visible = false;
                 }
                 Primeracarga = false;
                 BuscarTickets();
