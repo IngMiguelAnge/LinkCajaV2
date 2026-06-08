@@ -1,4 +1,5 @@
 ﻿using LinkCajaV2.Catalogs;
+using LinkCajaV2.Configurations;
 using LinkCajaV2.Model;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,92 @@ namespace LinkCajaV2.Data
         {
             GC.Collect();
         }
+        #region Retirements
+        public async Task<bool> SaveRetirement(RetirementModel retirement)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveRetirement", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", retirement.Id));
+                        cmd.Parameters.Add(new SqlParameter("@IdCashfund", retirement.IdCashfund));
+                        cmd.Parameters.Add(new SqlParameter("@Concept", retirement.Concept));
+                        cmd.Parameters.Add(new SqlParameter("@Amount", retirement.Amount));
+                        cmd.Parameters.Add(new SqlParameter("@Created", retirement.Created));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<bool> UpdateStatusRetirement(int Id)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("UpdateStatusRetirement", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<List<ListRetirementsModel>> GetRetirementsByIdCashfund(int IdCashfund)
+        {
+            List<ListRetirementsModel> list = new List<ListRetirementsModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetRetirementsByIdCashfund", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@IdCashfund", IdCashfund));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToRetirements(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
+        private ListRetirementsModel MapToRetirements(SqlDataReader reader)
+        {
+            return new ListRetirementsModel()
+            {
+                Id = (int)reader["Id"],
+                Concept = (string)reader["Concept"],
+                Amount = (decimal)reader["Amount"],
+                Created = (DateTime)reader["Created"],
+                Status = (string)reader["Status"],
+            };
+        }
+        #endregion
         #region Categories
         public async Task<List<CategorieModel>> GetCategoriesActives()
         {

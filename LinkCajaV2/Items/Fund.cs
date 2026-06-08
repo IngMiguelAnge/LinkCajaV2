@@ -1,4 +1,5 @@
-﻿using LinkCajaV2.Data;
+﻿using LinkCajaV2.Catalogs;
+using LinkCajaV2.Data;
 using LinkCajaV2.Model;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace LinkCajaV2.Items
         private decimal totalFinal = 0;
         private decimal totalFinalTarjeta = 0;
         private decimal TotalCaja = 0;
+        private decimal totalfinalreal = 0;
         private bool Primeracarga = false;
         public Fund()
         {
@@ -57,16 +59,6 @@ namespace LinkCajaV2.Items
             }
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-            if (TotalCaja < 0)
-            {
-                MessageBox.Show("El fondo de caja no puede quedar en negativo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            Guardar(false);
-        }
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
@@ -75,7 +67,6 @@ namespace LinkCajaV2.Items
         private void Fund_Load(object sender, EventArgs e)
         {
             AppRepository obj = new AppRepository();
-
             var ListBox = obj.GetBoxsActives().Result;
             // Insertamos un objeto "fantasma" al inicio para el placeholder
             ListBox.Insert(0, new ListBoxModel { Id = 0, Nombre = "Seleccione", Estatus = "Inactivo" });
@@ -87,6 +78,7 @@ namespace LinkCajaV2.Items
             btnCerrar.Visible = false;
             btnGuardar.Visible = false;
             BtnAbrir.Visible = false;
+            BtnAgregar.Visible = false;
             nudInicio.Enabled = false;
             dtFechaApertura.Enabled = false;
             if (Id != 0)
@@ -100,7 +92,7 @@ namespace LinkCajaV2.Items
                 }
                 btnGuardar.Visible = true;
                 btnCerrar.Visible = true;
-
+                BtnAgregar.Visible = true;
                 CBCajas.SelectedValue = IdBox;
                 CBCajas.Enabled = false;
                 var result = obj.GetCashFundbyId(Id).Result;
@@ -117,6 +109,7 @@ namespace LinkCajaV2.Items
                     dtFechaCierre.Value = result.CheckOut;
                     btnGuardar.Visible = false;
                     btnCerrar.Visible = false;
+                    BtnAgregar.Visible = false;
                 }
                 Primeracarga = false;
                 BuscarTickets();
@@ -167,6 +160,7 @@ namespace LinkCajaV2.Items
                         btnCerrar.Visible = false;
                         BtnAbrir.Visible = false;
                         nudInicio.Enabled = false;
+                        BtnAgregar.Visible = false;
                         return;
                     }
                     else
@@ -175,6 +169,7 @@ namespace LinkCajaV2.Items
                         BtnAbrir.Visible = true;
                         nudInicio.Enabled = false;
                         btnCerrar.Visible = false;
+                        BtnAgregar.Visible = false;
                         dtFechaApertura.MinDate = result.CheckOut.AddSeconds(1);
                         dtFechaCierre.MinDate = result.CheckOut.AddSeconds(2);
                         dtFechaApertura.Value = DateTime.Now;
@@ -195,7 +190,7 @@ namespace LinkCajaV2.Items
             decimal.TryParse(txtInicio, out decimal vInicio);
             decimal.TryParse(txtRetiro, out decimal vRetiro);
 
-            decimal totalfinalreal = totalFinal + vInicio;
+            totalfinalreal = totalFinal + vInicio;
             TotalCaja = totalfinalreal - vRetiro;
             lblSaldoEfectivoCaja.Text = $"Saldo en efectivo en caja: {totalfinalreal:C2}";
             lblFondoQueda.Text = $"Fondo que se queda: {TotalCaja:C2}";
@@ -301,30 +296,30 @@ namespace LinkCajaV2.Items
 
         private void NudRetiro_KeyUp(object sender, KeyEventArgs e)
         {
-            DomainUpDown dud = sender as DomainUpDown;
-            if (dud == null) return;
+            //DomainUpDown dud = sender as DomainUpDown;
+            //if (dud == null) return;
 
-            // Buscamos el TextBox interno de forma segura
-            TextBox tb = null;
-            foreach (Control c in dud.Controls)
-            {
-                if (c is TextBox)
-                {
-                    tb = (TextBox)c;
-                    break;
-                }
-            }
+            //// Buscamos el TextBox interno de forma segura
+            //TextBox tb = null;
+            //foreach (Control c in dud.Controls)
+            //{
+            //    if (c is TextBox)
+            //    {
+            //        tb = (TextBox)c;
+            //        break;
+            //    }
+            //}
 
-            if (tb != null)
-            {
-                int cursorPosition = tb.SelectionStart;
-                Calcular();
-                tb.SelectionStart = cursorPosition;
-            }
-            else
-            {
-                Calcular();
-            }
+            //if (tb != null)
+            //{
+            //    int cursorPosition = tb.SelectionStart;
+            //    Calcular();
+            //    tb.SelectionStart = cursorPosition;
+            //}
+            //else
+            //{
+            //    Calcular();
+            //}
         }
 
         private void nudInicio_KeyUp(object sender, KeyEventArgs e)
@@ -369,6 +364,21 @@ namespace LinkCajaV2.Items
                 return;
             }
             Guardar(false);
+        }
+
+        private void BtnAgregar_Click(object sender, EventArgs e)
+        {
+            RetirementConcept retiros = new RetirementConcept();
+            retiros.FechaMinima = dtFechaApertura.Value;
+            retiros.IdCashfund = Id;
+            retiros.TotalMax = totalfinalreal;
+            retiros.ShowDialog();
+            if (retiros.sicambio)
+            {
+                NudRetiro.Value = retiros.TotalGeneral;
+                Calcular();
+                Guardar(false);
+            }
         }
     }
 }

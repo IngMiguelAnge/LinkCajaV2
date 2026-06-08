@@ -192,6 +192,12 @@
     <Compile Include="Catalogs\Recipes.Designer.cs">
       <DependentUpon>Recipes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Catalogs\RetirementConcept.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\RetirementConcept.Designer.cs">
+      <DependentUpon>RetirementConcept.cs</DependentUpon>
+    </Compile>
     <Compile Include="Catalogs\Stock.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -362,6 +368,7 @@
     <Compile Include="Model\ListCashFundModel.cs" />
     <Compile Include="Model\ListCategoriesModel.cs" />
     <Compile Include="Model\ListDetailsTicketModel.cs" />
+    <Compile Include="Model\ListRetirementsModel.cs" />
     <Compile Include="Model\ListTicketModel.cs" />
     <Compile Include="Model\PrinterPricesModel.cs" />
     <Compile Include="Model\ItemModel.cs" />
@@ -382,6 +389,7 @@
     <Compile Include="Model\RecipeModel.cs" />
     <Compile Include="Model\RegimenModel.cs" />
     <Compile Include="Model\RespuestaFactureModel.cs" />
+    <Compile Include="Model\RetirementModel.cs" />
     <Compile Include="Model\StockModel.cs" />
     <Compile Include="Model\SuppliersModel.cs" />
     <Compile Include="Model\TicketModel.cs" />
@@ -435,6 +443,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\Recipes.resx">
       <DependentUpon>Recipes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\RetirementConcept.resx">
+      <DependentUpon>RetirementConcept.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\Stock.resx">
       <DependentUpon>Stock.cs</DependentUpon>

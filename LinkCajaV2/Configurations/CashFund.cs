@@ -1,4 +1,5 @@
-﻿using LinkCajaV2.Data;
+﻿using LinkCajaV2.Catalogs;
+using LinkCajaV2.Data;
 using LinkCajaV2.Items;
 using System;
 using System.Drawing;
@@ -20,14 +21,23 @@ namespace LinkCajaV2.Configurations
         private void AgregarBotones()
         {
             DataGridViewButtonColumn btnEditar = new DataGridViewButtonColumn();
-            btnEditar.Name = "btnVer";
+            btnEditar.Name = "btnEditar";
             btnEditar.HeaderText = "Acción";
             btnEditar.Text = "Ver";
             btnEditar.UseColumnTextForButtonValue = true;
             btnEditar.FlatStyle = FlatStyle.Flat;
             btnEditar.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
             btnEditar.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
-            dgvFondoCaja.Columns.Add(btnEditar);           
+            dgvFondoCaja.Columns.Add(btnEditar);
+            DataGridViewButtonColumn btnRetiros = new DataGridViewButtonColumn();
+            btnRetiros.Name = "btnRetiros";
+            btnRetiros.HeaderText = "Acción";
+            btnRetiros.Text = "Retiros";
+            btnRetiros.UseColumnTextForButtonValue = true;
+            btnRetiros.FlatStyle = FlatStyle.Flat;
+            btnRetiros.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
+            btnRetiros.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
+            dgvFondoCaja.Columns.Add(btnRetiros);
         }
         private async void Buscar() {
             progressBar1.Style = ProgressBarStyle.Marquee; // La barra empieza a moverse sola
@@ -91,13 +101,19 @@ namespace LinkCajaV2.Configurations
 
             switch (dgvFondoCaja.Columns[e.ColumnIndex].Name)
             {
-                case "btnVer":
+                case "btnEditar":
                     Fund fund = new Fund();
                     fund.Id = Id;
                     fund.IdBox = (int)dgvFondoCaja.Rows[e.RowIndex].Cells["IdBox"].Value;
                     fund.ShowDialog();
                     Buscar();
-                    break;            
+                    break;
+                case "btnRetiros":
+                    RetirementConcept r = new RetirementConcept();
+                    r.IdCashfund = Id;
+                    r.Close = true;
+                    r.Show();
+                    break;
             }
         }
 
