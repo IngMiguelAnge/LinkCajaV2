@@ -69,7 +69,8 @@ namespace LinkCajaV2.Catalogs
             if (lista != null && lista.Count > 0)
             {
                 TotalGeneral = lista.Where(x => x.Status == "Activo").Sum(x => x.Amount);
-                dgvRetiros.DataSource = lista;
+                var bindingList = new BindingList<ListRetirementsModel>(lista);
+                dgvRetiros.DataSource = bindingList;
             }
         }
         public void CrearGridView()
@@ -123,19 +124,21 @@ namespace LinkCajaV2.Catalogs
             btnVer.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
             dgvRetiros.Columns.Add(btnVer);
 
-            if (Close) return;
-            DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn
+            if (Close == false)
             {
-                Name = "Cambiar",
-                HeaderText = "Acción",
-                Text = "Cambiar Estatus",
-                UseColumnTextForButtonValue = true, // Para que todos los botones digan "Quitar"
-                Width = 130,
-                FlatStyle = FlatStyle.Flat,
-            };
-            btnEliminar.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
-            btnEliminar.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
-            dgvRetiros.Columns.Add(btnEliminar);
+                DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn
+                {
+                    Name = "Cambiar",
+                    HeaderText = "Acción",
+                    Text = "Cambiar Estatus",
+                    UseColumnTextForButtonValue = true, // Para que todos los botones digan "Quitar"
+                    Width = 130,
+                    FlatStyle = FlatStyle.Flat,
+                };
+                btnEliminar.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+                btnEliminar.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
+                dgvRetiros.Columns.Add(btnEliminar);
+            }
             dgvRetiros.AllowUserToAddRows = false;
         }
 
