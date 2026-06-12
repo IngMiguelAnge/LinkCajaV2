@@ -9,5 +9,6 @@ namespace LinkCajaV2.Model
         public string Concept { get; set; }
         public decimal Amount { get; set; }
         public DateTime Created { get; set; }
+        public bool Retire { get; set; }
     }
 }

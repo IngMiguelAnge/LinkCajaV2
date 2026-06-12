@@ -57,6 +57,7 @@ namespace LinkCajaV2.Items
             this.lblSaldoTotalTarjeta = new System.Windows.Forms.Label();
             this.BtnAbrir = new System.Windows.Forms.Button();
             this.BtnAgregar = new System.Windows.Forms.Button();
+            this.BtnAgregar2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudInicio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudRetiro)).BeginInit();
             this.SuspendLayout();
@@ -172,6 +173,7 @@ namespace LinkCajaV2.Items
             // nudInicio
             // 
             this.nudInicio.DecimalPlaces = 2;
+            this.nudInicio.Enabled = false;
             this.nudInicio.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudInicio.Location = new System.Drawing.Point(419, 174);
             this.nudInicio.Maximum = new decimal(new int[] {
@@ -357,6 +359,18 @@ namespace LinkCajaV2.Items
             this.BtnAgregar.Visible = false;
             this.BtnAgregar.Click += new System.EventHandler(this.BtnAgregar_Click);
             // 
+            // BtnAgregar2
+            // 
+            this.BtnAgregar2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnAgregar2.Image = ((System.Drawing.Image)(resources.GetObject("BtnAgregar2.Image")));
+            this.BtnAgregar2.Location = new System.Drawing.Point(682, 164);
+            this.BtnAgregar2.Name = "BtnAgregar2";
+            this.BtnAgregar2.Size = new System.Drawing.Size(45, 47);
+            this.BtnAgregar2.TabIndex = 26;
+            this.BtnAgregar2.UseVisualStyleBackColor = true;
+            this.BtnAgregar2.Visible = false;
+            this.BtnAgregar2.Click += new System.EventHandler(this.BtnAgregar2_Click);
+            // 
             // Fund
             // 
             this.AcceptButton = this.btnGuardar;
@@ -364,6 +378,7 @@ namespace LinkCajaV2.Items
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1179, 557);
+            this.Controls.Add(this.BtnAgregar2);
             this.Controls.Add(this.BtnAgregar);
             this.Controls.Add(this.BtnAbrir);
             this.Controls.Add(this.lblSaldoTotalTarjeta);
@@ -429,5 +444,6 @@ namespace LinkCajaV2.Items
         private System.Windows.Forms.Label lblSaldoTotalTarjeta;
         private Button BtnAbrir;
         private Button BtnAgregar;
+        private Button BtnAgregar2;
     }
 }

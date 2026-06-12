@@ -38,6 +38,15 @@ namespace LinkCajaV2.Configurations
             btnRetiros.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
             btnRetiros.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
             dgvFondoCaja.Columns.Add(btnRetiros);
+            DataGridViewButtonColumn btnIngresos = new DataGridViewButtonColumn();
+            btnIngresos.Name = "btnIngresos";
+            btnIngresos.HeaderText = "Acción";
+            btnIngresos.Text = "Ingresos";
+            btnIngresos.UseColumnTextForButtonValue = true;
+            btnIngresos.FlatStyle = FlatStyle.Flat;
+            btnIngresos.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
+            btnIngresos.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
+            dgvFondoCaja.Columns.Add(btnIngresos);
         }
         private async void Buscar() {
             progressBar1.Style = ProgressBarStyle.Marquee; // La barra empieza a moverse sola
@@ -111,8 +120,16 @@ namespace LinkCajaV2.Configurations
                 case "btnRetiros":
                     RetirementConcept r = new RetirementConcept();
                     r.IdCashfund = Id;
-                    r.Close = true;
+                    r.Closse = true;
+                    r.Retire = true;
                     r.Show();
+                    break;
+                case "btnIngresos":
+                    RetirementConcept ing = new RetirementConcept();
+                    ing.IdCashfund = Id;
+                    ing.Closse = true;
+                    ing.Retire = false;
+                    ing.Show();
                     break;
             }
         }

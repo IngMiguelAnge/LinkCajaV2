@@ -26,6 +26,7 @@ namespace LinkCajaV2.Items
         private decimal TotalCaja = 0;
         private decimal totalfinalreal = 0;
         private bool Primeracarga = false;
+        private decimal InicioSaldo = 0;
         public Fund()
         {
             InitializeComponent();
@@ -79,7 +80,7 @@ namespace LinkCajaV2.Items
             btnGuardar.Visible = false;
             BtnAbrir.Visible = false;
             BtnAgregar.Visible = false;
-            nudInicio.Enabled = false;
+            BtnAgregar2.Visible = false;
             dtFechaApertura.Enabled = false;
             if (Id != 0)
             {
@@ -93,11 +94,13 @@ namespace LinkCajaV2.Items
                 btnGuardar.Visible = true;
                 btnCerrar.Visible = true;
                 BtnAgregar.Visible = true;
+                BtnAgregar2.Visible = true;
                 CBCajas.SelectedValue = IdBox;
                 CBCajas.Enabled = false;
                 var result = obj.GetCashFundbyId(Id).Result;
                 dtFechaApertura.Value = result.CheckIn;
                 nudInicio.Value = result.CashIn;
+                InicioSaldo = result.CashIn;
                 NudRetiro.Value = result.CashOut;
                 lblFondoQueda.Text = "Fondo que se queda: " + result.CashFinish.ToString("C2");
                 if (result.StatusOpen == true)
@@ -110,6 +113,7 @@ namespace LinkCajaV2.Items
                     btnGuardar.Visible = false;
                     btnCerrar.Visible = false;
                     BtnAgregar.Visible = false;
+                    BtnAgregar2.Visible = false;
                 }
                 Primeracarga = false;
                 BuscarTickets();
@@ -118,7 +122,6 @@ namespace LinkCajaV2.Items
             {
                 dtFechaCierre.Value = dtFechaApertura.Value.AddSeconds(1);
                 BtnAbrir.Visible = true;
-                nudInicio.Enabled = true;
                 dtFechaApertura.Enabled = true;
                 dtFechaApertura.Enabled = true;
             }
@@ -159,17 +162,17 @@ namespace LinkCajaV2.Items
                         btnGuardar.Visible = false;
                         btnCerrar.Visible = false;
                         BtnAbrir.Visible = false;
-                        nudInicio.Enabled = false;
                         BtnAgregar.Visible = false;
+                        BtnAgregar2.Visible = false;
                         return;
                     }
                     else
                     {
                         btnGuardar.Visible = false;
                         BtnAbrir.Visible = true;
-                        nudInicio.Enabled = false;
                         btnCerrar.Visible = false;
                         BtnAgregar.Visible = false;
+                        BtnAgregar2.Visible = false;
                         dtFechaApertura.MinDate = result.CheckOut.AddSeconds(1);
                         dtFechaCierre.MinDate = result.CheckOut.AddSeconds(2);
                         dtFechaApertura.Value = DateTime.Now;
@@ -261,7 +264,6 @@ namespace LinkCajaV2.Items
                 else
                 {
                     MessageBox.Show("Corte guardado correctamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
                 }
             }
             else
@@ -372,10 +374,27 @@ namespace LinkCajaV2.Items
             retiros.FechaMinima = dtFechaApertura.Value;
             retiros.IdCashfund = Id;
             retiros.TotalMax = totalfinalreal;
+            retiros.Retire = true;
             retiros.ShowDialog();
             if (retiros.sicambio)
             {
                 NudRetiro.Value = retiros.TotalGeneral;
+                Calcular();
+                Guardar(false);
+            }
+        }
+
+        private void BtnAgregar2_Click(object sender, EventArgs e)
+        {
+            RetirementConcept retiros = new RetirementConcept();
+            retiros.FechaMinima = dtFechaApertura.Value;
+            retiros.IdCashfund = Id;
+            retiros.TotalMax = nudInicio.Value;
+            retiros.Retire = false;
+            retiros.ShowDialog();
+            if (retiros.sicambio)
+            {
+                nudInicio.Value = InicioSaldo + retiros.TotalGeneral;
                 Calcular();
                 Guardar(false);
             }

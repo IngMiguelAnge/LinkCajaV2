@@ -20,7 +20,10 @@ namespace LinkCajaV2.Catalogs
         private int Id { get; set; }
         public DateTime FechaMinima { get; set; }
         public bool sicambio { get; set; } = false;
-        public bool Close { get; set; } = false;
+        public bool Closse { get; set; } = false;
+        public bool Retire { get; set; } = false;
+        public bool loaded { get; set; } = false;
+        public decimal Inicio { get; set; } = 0;
         public RetirementConcept()
         {
             InitializeComponent();
@@ -51,24 +54,32 @@ namespace LinkCajaV2.Catalogs
 
         private void RetirementConcept_Load(object sender, EventArgs e)
         {
-            if(Close)
+            if(Closse)
             {
                 btnActualizar.Visible = false;
                 btnNuevo.Visible = false;
+            }
+            if(Retire == false)
+            {
+              lblFecha.Text = "Fecha del ingreso";
+              lblRetiro.Text = "Ingreso";
             }
             dtpRetiro.MinDate = FechaMinima;
             dtpRetiro.MaxDate = DateTime.Now;
             CrearGridView();
             BuscarRetiros();
+            loaded = true;
         }
         public async void BuscarRetiros()
         {
             AppRepository obj = new AppRepository();
-            var lista = await Task.Run(() => obj.GetRetirementsByIdCashfund(IdCashfund));
+            var lista = await Task.Run(() => obj.GetRetirementsByIdCashfund(IdCashfund,Retire));
 
             if (lista != null && lista.Count > 0)
             {
                 TotalGeneral = lista.Where(x => x.Status == "Activo").Sum(x => x.Amount);
+                if(loaded == false)
+                Inicio = TotalGeneral;
                 var bindingList = new BindingList<ListRetirementsModel>(lista);
                 dgvRetiros.DataSource = bindingList;
             }
@@ -111,6 +122,15 @@ namespace LinkCajaV2.Catalogs
                 Visible = false,
                 Width = 100
             });
+            dgvRetiros.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Status",
+                HeaderText = "Estatus",
+                DataPropertyName = "Status",
+                ReadOnly = true,
+                Visible = true,
+                Width = 100
+            });
             DataGridViewButtonColumn btnVer = new DataGridViewButtonColumn
             {
                 Name = "Ver",
@@ -124,7 +144,7 @@ namespace LinkCajaV2.Catalogs
             btnVer.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
             dgvRetiros.Columns.Add(btnVer);
 
-            if (Close == false)
+            if (Closse == false)
             {
                 DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn
                 {
@@ -149,15 +169,23 @@ namespace LinkCajaV2.Catalogs
                 MessageBox.Show("Debe ingresar una cantidad mayor a cero", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            string mensaje = Retire == true ? "Debe ingresar un motivo para el retiro" : "Debe ingresar un motivo para el ingreso";
             if (txtMotivo.Text.Trim() == string.Empty )
             {
-                MessageBox.Show("Debe ingresar un motivo para el retiro", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(mensaje, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if(TotalGeneral + NudRetiro.Value > TotalMax)
+            if (Retire)
             {
-                MessageBox.Show("El monto del retiro no puede ser mayor al total disponible", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                if (TotalGeneral + NudRetiro.Value > TotalMax)
+                {
+                    MessageBox.Show("El monto del retiro no puede ser mayor al total disponible", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            else
+            { 
+            TotalGeneral = TotalGeneral - Inicio <0 ? TotalGeneral : TotalGeneral - Inicio;
             }
             btnActualizar.Visible = false;
             AppRepository obj = new AppRepository();
@@ -167,15 +195,17 @@ namespace LinkCajaV2.Catalogs
                 IdCashfund = IdCashfund,
                 Amount = NudRetiro.Value,
                 Concept = txtMotivo.Text,
-                Created = dtpRetiro.Value
+                Created = dtpRetiro.Value,
+                Retire = Retire
             };
             Id = 0;
             var result = obj.SaveRetirement(retiro).Result;
+            mensaje = Retire == true ? "Retiro guardado correctamente" : "Ingreso guardado correctamente";
             if (result)
-                MessageBox.Show("Retiro guardado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(mensaje, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
             {
-                MessageBox.Show("Error al guardar el retiro", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al guardar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }        
           
@@ -190,17 +220,23 @@ namespace LinkCajaV2.Catalogs
                 MessageBox.Show("Debe ingresar una cantidad mayor a cero", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            string mensaje = Retire == true ? "Debe ingresar un motivo para el retiro" : "Debe ingresar un motivo para el ingreso";
+
             if (txtMotivo.Text.Trim() == string.Empty)
             {
-                MessageBox.Show("Debe ingresar un motivo para el retiro", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(mensaje, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             TotalGeneral = TotalGeneral - (decimal)dgvRetiros.Rows.Cast<DataGridViewRow>().Where(x => (int)x.Cells["Id"].Value == Id).Select(x => x.Cells["Amount"].Value).FirstOrDefault();
-            if (TotalGeneral + NudRetiro.Value > TotalMax)
+            if (Retire)
             {
-                MessageBox.Show("El monto del retiro no puede ser mayor al total disponible", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                if (TotalGeneral + NudRetiro.Value > TotalMax)
+                {
+                    MessageBox.Show("El monto del retiro no puede ser mayor al total disponible", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
             }
+            
             AppRepository obj = new AppRepository();
             var retiro = new RetirementModel
             {
@@ -208,14 +244,17 @@ namespace LinkCajaV2.Catalogs
                 IdCashfund = IdCashfund,
                 Amount = NudRetiro.Value,
                 Concept = txtMotivo.Text,
-                Created = dtpRetiro.Value
+                Created = dtpRetiro.Value,
+                Retire = Retire
             };
             var result = obj.SaveRetirement(retiro).Result;
+            mensaje = Retire == true ? "Retiro guardado correctamente" : "Ingreso guardado correctamente";
+
             if (result)
-                MessageBox.Show("Retiro guardado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(mensaje, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
             {
-                MessageBox.Show("Error al guardar el retiro", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al guardar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             sicambio = true;
@@ -230,11 +269,12 @@ namespace LinkCajaV2.Catalogs
             {
                 case "Cambiar":
                     AppRepository obj = new AppRepository();
-                    await obj.UpdateStatusArticle(Convert.ToInt32(Id));
+                    await obj.UpdateStatusRetirement(Convert.ToInt32(Id));
+                    sicambio = true;
                     BuscarRetiros();
                     break;
                 case "Ver":
-                    if(Close == false)
+                    if(Closse == false)
                     btnActualizar.Visible = true;
                     NudRetiro.Value = (decimal)dgvRetiros.Rows[e.RowIndex].Cells["Amount"].Value;
                     txtMotivo.Text = dgvRetiros.Rows[e.RowIndex].Cells["Concept"].Value.ToString();

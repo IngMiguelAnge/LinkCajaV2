@@ -36,6 +36,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Concept", retirement.Concept));
                         cmd.Parameters.Add(new SqlParameter("@Amount", retirement.Amount));
                         cmd.Parameters.Add(new SqlParameter("@Created", retirement.Created));
+                        cmd.Parameters.Add(new SqlParameter("@Retire", retirement.Retire));
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;
@@ -68,7 +69,7 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
-        public async Task<List<ListRetirementsModel>> GetRetirementsByIdCashfund(int IdCashfund)
+        public async Task<List<ListRetirementsModel>> GetRetirementsByIdCashfund(int IdCashfund, bool Retire)
         {
             List<ListRetirementsModel> list = new List<ListRetirementsModel>();
             try
@@ -79,6 +80,7 @@ namespace LinkCajaV2.Data
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@IdCashfund", IdCashfund));
+                        cmd.Parameters.Add(new SqlParameter("@Retire", Retire));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
