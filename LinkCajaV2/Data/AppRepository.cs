@@ -2446,7 +2446,7 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
-        public async Task<List<ListArticlesModel>> GetArticles(string Code, string Nombre, bool IsReceta, int IdCategory, bool Agotados)
+        public async Task<List<ListArticlesModel>> GetArticles(string Code, string Nombre, bool IsReceta, int IdCategory, bool Agotados, int IdProveedor)
         {
             List<ListArticlesModel> list = new List<ListArticlesModel>();
             try
@@ -2461,6 +2461,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@IsReceta", IsReceta));
                         cmd.Parameters.Add(new SqlParameter("@IdCategory", IdCategory));
                         cmd.Parameters.Add(new SqlParameter("@Outstock", Agotados));
+                        cmd.Parameters.Add(new SqlParameter("@IdSupplier", IdProveedor));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
@@ -2478,7 +2479,7 @@ namespace LinkCajaV2.Data
             }
             return list;
         }
-        public async Task<List<ListArticlesActivesModel>> GetArticlesActives(string Code, string Nombre, int IdCategory)
+        public async Task<List<ListArticlesActivesModel>> GetArticlesActives(string Code, string Nombre, int IdCategory, int IdProveedor)
         {
             List<ListArticlesActivesModel> list = new List<ListArticlesActivesModel>();
             try
@@ -2491,6 +2492,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Code", Code));
                         cmd.Parameters.Add(new SqlParameter("@Name", Nombre));
                         cmd.Parameters.Add(new SqlParameter("@IdCategory", IdCategory));
+                        cmd.Parameters.Add(new SqlParameter("@IdSupplier", IdProveedor));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
@@ -2566,13 +2568,15 @@ namespace LinkCajaV2.Data
                 Codigo = (string)reader["Code"],
                 ClaveSAT = Convert.IsDBNull(reader["CodeSAT"]) ? string.Empty : (string)reader["CodeSAT"],
                 Articulo = (string)reader["Name"],
-                Categoria = (string)reader["Categoria"],
+                Categoria = (string)reader["Category"],
                 Existencias = (string)reader["Stock"],
                 ExistenciasMinimas = (string)reader["StockMin"],
                 Precio = Convert.IsDBNull(reader["Price"]) ? 0 : (decimal)reader["Price"],
+                PrecioProveedor = Convert.IsDBNull(reader["PriceSuppliers"]) ? 0 : (decimal)reader["PriceSuppliers"],
                 PorCada = (string)reader["PorCada"],
                 Medicamento = (string)reader["Medicine"],
                 Estatus = (string)reader["Status"],
+                Stock = Convert.IsDBNull(reader["Stocks"]) ? 0 : (decimal)reader["Stocks"],
             };
         }
         private ListArticlesActivesModel MapToListArticlesActives(SqlDataReader reader)

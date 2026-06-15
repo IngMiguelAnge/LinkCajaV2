@@ -103,16 +103,26 @@ namespace LinkCajaV2.Catalogs
             {
                 AppRepository obj = new AppRepository();
                 int IdCategory = cbCategoria.SelectedIndex > 0 ? (int)cbCategoria.SelectedValue : 0;
+                int IdProveedor = cbProveedor.SelectedIndex > 0 ? (int)cbProveedor.SelectedValue : 0;
+
                 var lista1 = new List<ListArticlesModel>();
                 var lista2 = new List<ListArticlesActivesModel>();
+                bool Agotados = CBImprimir.SelectedIndex == 2 && Impresion == true ? true :
+                    CBBuscaren.SelectedIndex == 1 && Impresion == false ? true :
+                    false;
                 if (IsVenta == false)
-                    lista1 = await Task.Run(()=>obj.GetArticles(txtCodigo.Text, txtNombre.Text, IsReceta, IdCategory,CBAgotados.Checked));
+                    lista1 = await Task.Run(()=>obj.GetArticles(txtCodigo.Text, txtNombre.Text, IsReceta, IdCategory, Agotados, IdProveedor));
                 else
-                    lista2 = await Task.Run(()=>obj.GetArticlesActives(txtCodigo.Text, txtNombre.Text,IdCategory));
-
+                    lista2 = await Task.Run(()=>obj.GetArticlesActives(txtCodigo.Text, txtNombre.Text,IdCategory, IdProveedor));
                 if (Impresion == false)
                     if (IsVenta == false)
+                    {
                         dgvArticulos.DataSource = lista1 != null && lista1.Count > 0 ? lista1 : null;
+                        if (dgvArticulos.Columns["Stock"] != null)
+                        {
+                            dgvArticulos.Columns["Stock"].Visible = false;
+                        }
+                    }                        
                     else
                     {
                         dgvArticulos.DataSource = lista2 != null && lista2.Count > 0 ? lista2 : null;
@@ -123,8 +133,13 @@ namespace LinkCajaV2.Catalogs
                 {
                     dgvArticulos.Columns["Id"].Visible = false;
                 }
+               
                 if ((lista1 == null || lista1.Count == 0) && (lista2 == null || lista2.Count == 0))
                 {
+                    lblTotalInvertido.Text = "Total de inversión: $0.00";
+                    lblTotalVenta.Text = "Total de venta: $0.00";
+                    lblTotalGanancia.Text = "Total de ganancia: $0.00";
+
                     MessageBox.Show("No se encontraron articulos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -132,6 +147,10 @@ namespace LinkCajaV2.Catalogs
                 {
                     if (Impresion == false)
                     {
+                        lblTotalInvertido.Text = "Total de inversión: $" + (lista1 != null && lista1.Count > 0 ? lista1.Sum(x => x.PrecioProveedor * Convert.ToDecimal(x.Stock)) : 0).ToString("N2");
+                        lblTotalVenta.Text = "Total de venta: $" + (lista1 != null && lista1.Count > 0 ? lista1.Sum(x => x.Precio * Convert.ToDecimal(x.Stock)) : 0).ToString("N2");
+                        lblTotalGanancia.Text = "Total de ganancia: $" + (lista1 != null && lista1.Count > 0 ? lista1.Sum(x => (x.Precio - x.PrecioProveedor) * Convert.ToDecimal(x.Stock)) : 0).ToString("N2");
+
                         AgregarBotones();
                         //MessageBox.Show("Carga completa", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -253,6 +272,8 @@ namespace LinkCajaV2.Catalogs
         }
         private void Articles_Load(object sender, EventArgs e)
         {
+            CBImprimir.SelectedIndex = 0;
+            CBBuscaren.SelectedIndex = 0;
             if (IdTypeUser == 2)//Vendedor
             {
                 //Menu lateral
@@ -277,10 +298,10 @@ namespace LinkCajaV2.Catalogs
                 btnPanelMenu.Visible = false;
                 BtnPanelSalir.Visible = false;
                 btnPanelVentas.Visible = false;
-                RBEtiquetas.Visible = false;
-                RBListaPrecios.Visible = false;
-                CBAgotados.Visible = false;
+                CBImprimir.Visible = false;
                 BtnSAT.Visible = false;
+                lblTotalGanancia.Visible = false;
+                lblTotalInvertido.Visible = false;
             }
             AppRepository obj = new AppRepository();
             var ListCategories = obj.GetCategoriesActives().Result.OrderBy(x => x.Name).ToList();
@@ -291,6 +312,14 @@ namespace LinkCajaV2.Catalogs
             cbCategoria.ValueMember = "Id";
             cbCategoria.DataSource = ListCategories;
             cbCategoria.SelectedIndex = 0;
+            var ListProveedores = obj.GetSuppliersActives().Result.OrderBy(x => x.Name).ToList();
+            // Insertamos un objeto "fantasma" al inicio para el placeholder
+            ListProveedores.Insert(0, new ListSuppliersActivesModel { Id = 0, Name = "Seleccione" });
+            cbProveedor.Items.Clear();
+            cbProveedor.DisplayMember = "Name";
+            cbProveedor.ValueMember = "Id";
+            cbProveedor.DataSource = ListProveedores;
+            cbProveedor.SelectedIndex = 0;
         }
         private async void BtnImpresion_Click(object sender, EventArgs e)
         {
@@ -324,12 +353,19 @@ namespace LinkCajaV2.Catalogs
                 })
                 .ToList();
                 ImpressionsGeneral im = new ImpressionsGeneral();
-                if(RBEtiquetas.Checked && !CBAgotados.Checked)
-                    im.ImpresionEtiquetas(articulos);
-                if(RBListaPrecios.Checked && !CBAgotados.Checked)
-                    im.ImpresionListaPrecios(articulos);
-                if (CBAgotados.Checked)
-                    im.ImpresionListaAgotados(articulos);
+                switch (CBImprimir.SelectedIndex)
+                {
+                    case 0:
+                        im.ImpresionEtiquetas(articulos);
+                        break;
+                    case 1:
+                        im.ImpresionListaPrecios(articulos);
+                        break;
+                    case 2:
+                        im.ImpresionListaAgotados(articulos);
+                        break;
+                }
+   
             }
             catch (Exception ex)
             {
@@ -370,18 +406,5 @@ namespace LinkCajaV2.Catalogs
             await BuscarArticulos();
         }
 
-        private void CBAgotados_CheckedChanged(object sender, EventArgs e)
-        {
-            if (CBAgotados.Checked)
-            { 
-            RBEtiquetas.Enabled = false;
-            RBListaPrecios.Enabled = false;
-            }
-            else
-            {
-                RBEtiquetas.Enabled = true;
-                RBListaPrecios.Enabled = true;
-            }
-        }
     }
 }
