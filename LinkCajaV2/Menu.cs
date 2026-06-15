@@ -126,7 +126,11 @@ namespace LinkCajaV2
         private void btnResumen_Click(object sender, EventArgs e)
         {
             CashDrop c = new CashDrop();
+            c.IdUsuario = IdUsuario;
+            c.NameUser = NameUser;
+            c.IdTypeUser = IdTypeUser;
             c.Show();
+            this.Hide();
         }
 
         private void btnImpresiones_Click(object sender, EventArgs e)
