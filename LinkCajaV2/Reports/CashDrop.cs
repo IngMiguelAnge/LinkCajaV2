@@ -30,7 +30,8 @@ namespace LinkCajaV2.Reports
             AppRepository obj = new AppRepository();
             try
             {
-                var detalles = await obj.GetCashDrop(dtDesde.Value, dtHasta.Value,CBEntradas.Checked);
+                bool Entradas = CBResumen.Text == "Ver Resumen" ? false : true;
+                var detalles = await obj.GetCashDrop(dtDesde.Value, dtHasta.Value, Entradas);
                 var listaFinal = detalles?.ToList() ?? new List<CashDropModel>();
                 dgvCorte.DataSource = new BindingList<CashDropModel>(listaFinal);
             }
@@ -41,7 +42,7 @@ namespace LinkCajaV2.Reports
         }
         private void CashDrop_Load(object sender, EventArgs e)
         {
-           
+            CBResumen.SelectedIndex = 0;
         }
         public void CrearGridView()
         {
@@ -57,7 +58,7 @@ namespace LinkCajaV2.Reports
                 Width = 300
             });
            
-            if(CBEntradas.Checked)
+            if(CBResumen.Text == "Ver Resumen")
             {
                 dgvCorte.Columns.Add(new DataGridViewTextBoxColumn
                 {

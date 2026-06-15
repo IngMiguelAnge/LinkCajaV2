@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CashDrop));
             this.dtHasta = new System.Windows.Forms.DateTimePicker();
             this.lblHasta = new System.Windows.Forms.Label();
@@ -40,8 +40,8 @@
             this.dgvCorte = new System.Windows.Forms.DataGridView();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.CBEntradas = new System.Windows.Forms.CheckBox();
             this.lblOpciones = new System.Windows.Forms.Label();
+            this.CBResumen = new System.Windows.Forms.ComboBox();
             this.gbDatos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCorte)).BeginInit();
             this.SuspendLayout();
@@ -97,42 +97,42 @@
             this.gbDatos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.gbDatos.Location = new System.Drawing.Point(24, 283);
             this.gbDatos.Name = "gbDatos";
-            this.gbDatos.Size = new System.Drawing.Size(1179, 372);
+            this.gbDatos.Size = new System.Drawing.Size(1201, 495);
             this.gbDatos.TabIndex = 4;
             this.gbDatos.TabStop = false;
             this.gbDatos.Text = "Resumen del sistema";
             // 
             // dgvCorte
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
-            this.dgvCorte.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.dgvCorte.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvCorte.BackgroundColor = System.Drawing.Color.White;
             this.dgvCorte.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvCorte.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCorte.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCorte.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvCorte.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCorte.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCorte.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvCorte.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCorte.EnableHeadersVisualStyles = false;
             this.dgvCorte.Location = new System.Drawing.Point(3, 35);
             this.dgvCorte.Name = "dgvCorte";
             this.dgvCorte.RowHeadersWidth = 62;
             this.dgvCorte.RowTemplate.Height = 28;
-            this.dgvCorte.Size = new System.Drawing.Size(1173, 334);
+            this.dgvCorte.Size = new System.Drawing.Size(1195, 457);
             this.dgvCorte.TabIndex = 0;
             this.dgvCorte.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCorte_CellContentClick);
             // 
@@ -164,21 +164,6 @@
             this.lblTitulo.TabIndex = 25;
             this.lblTitulo.Text = "Resumen";
             // 
-            // CBEntradas
-            // 
-            this.CBEntradas.AutoSize = true;
-            this.CBEntradas.Checked = true;
-            this.CBEntradas.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CBEntradas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CBEntradas.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CBEntradas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.CBEntradas.Location = new System.Drawing.Point(41, 219);
-            this.CBEntradas.Name = "CBEntradas";
-            this.CBEntradas.Size = new System.Drawing.Size(225, 32);
-            this.CBEntradas.TabIndex = 34;
-            this.CBEntradas.Text = "Ver entradas/salidas";
-            this.CBEntradas.UseVisualStyleBackColor = true;
-            // 
             // lblOpciones
             // 
             this.lblOpciones.AutoSize = true;
@@ -190,13 +175,26 @@
             this.lblOpciones.TabIndex = 33;
             this.lblOpciones.Text = "Opciones:";
             // 
+            // CBResumen
+            // 
+            this.CBResumen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBResumen.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CBResumen.FormattingEnabled = true;
+            this.CBResumen.Items.AddRange(new object[] {
+            "Ver Resumen",
+            "Ver Entradas/Salidas"});
+            this.CBResumen.Location = new System.Drawing.Point(41, 219);
+            this.CBResumen.Name = "CBResumen";
+            this.CBResumen.Size = new System.Drawing.Size(272, 38);
+            this.CBResumen.TabIndex = 35;
+            // 
             // CashDrop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1237, 790);
-            this.Controls.Add(this.CBEntradas);
+            this.Controls.Add(this.CBResumen);
             this.Controls.Add(this.lblOpciones);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.btnBuscar);
@@ -207,10 +205,10 @@
             this.Controls.Add(this.dtDesde);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "CashDrop";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.CashDrop_Load);
             this.gbDatos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCorte)).EndInit();
@@ -229,7 +227,7 @@
         private System.Windows.Forms.DataGridView dgvCorte;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.CheckBox CBEntradas;
         private System.Windows.Forms.Label lblOpciones;
+        private System.Windows.Forms.ComboBox CBResumen;
     }
 }
