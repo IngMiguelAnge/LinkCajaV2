@@ -200,12 +200,37 @@ namespace LinkCajaV2.Reports
                 MessageBox.Show("Seleccione una opción válida para la gráfica.", "Selección Inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            AppRepository obj = new AppRepository();
             switch (cbGraficas.Text)
             {
                 case "Ventas":
+                    try
+                    {
+                        var detalles = await obj.GetSolds(dtDesde.Value, dtHasta.Value);
+                        if (detalles != null && detalles.Any())
+                        {
+                            var listaFinal = detalles.ToList();
+                            Graph1 g = new Graph1()
+                            {
+                                Datos = listaFinal,
+                                Titulo = "VENTAS REALIZADAS",
+                                TituloProductos = "FECHAS",
+                                TituloCantidad = "CANTIDAD VENDIDA DEL " + dtDesde.Value.ToString("dd/MM/yyyy") + " AL " + dtHasta.Value.ToString("dd/MM/yyyy")
+                            };
+                            g.Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se encontraron datos para el rango seleccionado.", "Sin Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al cargar los articulos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     break;
                 default:
-                    AppRepository obj = new AppRepository();
+      
                     try
                     {
                         var detalles = await obj.GetArticlesSolds(dtDesde.Value, dtHasta.Value, (int)cbGraficas.SelectedValue);
@@ -215,7 +240,7 @@ namespace LinkCajaV2.Reports
                             Graph1 g = new Graph1()
                             {
                                 Datos = listaFinal,
-                                Titulo = $"PRODUCTOS MÁS VENDIDOS",
+                                Titulo = "PRODUCTOS MÁS VENDIDOS",
                                 TituloProductos = "PRODUCTOS",
                                 TituloCantidad = "CANTIDAD VENDIDA DEL " + dtDesde.Value.ToString("dd/MM/yyyy") + " AL " + dtHasta.Value.ToString("dd/MM/yyyy")
                             };

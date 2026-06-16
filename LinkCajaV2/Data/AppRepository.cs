@@ -22,6 +22,34 @@ namespace LinkCajaV2.Data
             GC.Collect();
         }
         #region Grafics
+        public async Task<List<GraphModel>> GetSolds(DateTime Desde, DateTime Hasta)
+        {
+            List<GraphModel> list = new List<GraphModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetSolds", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@CheckIn", Desde));
+                        cmd.Parameters.Add(new SqlParameter("@CheckOut", Hasta));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToArticlesSolds(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
         public async Task<List<GraphModel>> GetArticlesSolds(DateTime Desde, DateTime Hasta, int IdPresentation)
         {
             List<GraphModel> list = new List<GraphModel>();
