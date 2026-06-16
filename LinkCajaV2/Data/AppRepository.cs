@@ -21,6 +21,45 @@ namespace LinkCajaV2.Data
         {
             GC.Collect();
         }
+        #region Grafics
+        public async Task<List<GraphModel>> GetArticlesSolds(DateTime Desde, DateTime Hasta, int IdPresentation)
+        {
+            List<GraphModel> list = new List<GraphModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetArticlesSolds", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@CheckIn", Desde));
+                        cmd.Parameters.Add(new SqlParameter("@CheckOut", Hasta));
+                        cmd.Parameters.Add(new SqlParameter("@IdPresentation", IdPresentation));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToArticlesSolds(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
+        private GraphModel MapToArticlesSolds(SqlDataReader reader)
+        {
+            return new GraphModel()
+            {
+                CordY = (string)reader["Name"],
+                CordX = (decimal)reader["Total"],
+            };
+        }
+        #endregion
         #region Retirements
         public async Task<bool> SaveRetirement(RetirementModel retirement)
         {

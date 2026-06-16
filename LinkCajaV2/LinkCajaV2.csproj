@@ -86,6 +86,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HarfBuzzSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\HarfBuzzSharp.8.3.1.1\lib\net462\HarfBuzzSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Magick.NET-Q8-AnyCPU, Version=14.13.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
       <HintPath>..\packages\Magick.NET-Q8-AnyCPU.14.13.1\lib\netstandard20\Magick.NET-Q8-AnyCPU.dll</HintPath>
     </Reference>
@@ -95,6 +98,24 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=10.0.0.8, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.10.0.8\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="OpenTK, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.3.1.0\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.GLControl.3.1.0\lib\net20\OpenTK.GLControl.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot, Version=2.2.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Core.2.2.0\lib\net462\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.WindowsForms, Version=2.2.0.0, Culture=neutral, PublicKeyToken=245eacd6b5d2d338, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.WindowsForms.2.2.0\lib\net462\OxyPlot.WindowsForms.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf, Version=2.2.0.0, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Wpf.2.2.0\lib\net462\OxyPlot.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf.Shared, Version=2.2.0.0, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Wpf.Shared.2.2.0\lib\net462\OxyPlot.Wpf.Shared.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="QRCoder, Version=1.8.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
@@ -103,6 +124,7 @@
     <Reference Include="QuestPDF, Version=2026.2.4.0, Culture=neutral, PublicKeyToken=0f3c2b2315ff52c8, processorArchitecture=MSIL">
       <HintPath>..\packages\QuestPDF.2026.2.4\lib\netstandard2.0\QuestPDF.dll</HintPath>
     </Reference>
+    <Reference Include="ReachFramework" />
     <Reference Include="Spire.Pdf, Version=12.4.0.0, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
       <HintPath>..\packages\FreeSpire.PDF.12.4.0\lib\net48\Spire.Pdf.dll</HintPath>
     </Reference>
@@ -125,6 +147,7 @@
     <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
     </Reference>
+    <Reference Include="System.Printing" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
@@ -275,6 +298,12 @@
     <Compile Include="Data\EncrypDesencryp.cs" />
     <Compile Include="Data\HardwareID.cs" />
     <Compile Include="Data\ImpressionsGeneral.cs" />
+    <Compile Include="Graphs\Graph1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Graphs\Graph1.Designer.cs">
+      <DependentUpon>Graph1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Items\Adjustment.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -362,6 +391,7 @@
     <Compile Include="Model\BillingDetails.cs" />
     <Compile Include="Model\DetailsTicketModel.cs" />
     <Compile Include="Model\DetailsforFactureModel.cs" />
+    <Compile Include="Model\GraphModel.cs" />
     <Compile Include="Model\HighPriceModel.cs" />
     <Compile Include="Model\ImpressionsModel.cs" />
     <Compile Include="Model\ListArticlesActivesModel.cs" />
@@ -483,6 +513,9 @@
     <EmbeddedResource Include="Configurations\Impressions.resx">
       <DependentUpon>Impressions.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Graphs\Graph1.resx">
+      <DependentUpon>Graph1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Items\Adjustment.resx">
       <DependentUpon>Adjustment.cs</DependentUpon>
     </EmbeddedResource>
@@ -545,6 +578,7 @@
     <None Include="Impresiones\Lista de precios.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -569,6 +603,7 @@
     <Content Include="Icons\Clientes.png" />
     <Content Include="Icons\Corte.png" />
     <Content Include="Icons\CorteCaja.png" />
+    <Content Include="Icons\grafic.png" />
     <Content Include="Icons\Guardar.png" />
     <Content Include="Icons\Impresiones.png" />
     <Content Include="Icons\Impresora.png" />
@@ -613,8 +648,10 @@
     <Error Condition="!Exists('..\packages\QuestPDF.2026.2.4\build\net4\QuestPDF.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\QuestPDF.2026.2.4\build\net4\QuestPDF.targets'))" />
     <Error Condition="!Exists('..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets'))" />
     <Error Condition="!Exists('..\packages\Magick.NET-Q8-AnyCPU.14.13.1\build\netstandard20\Magick.NET-Q8-AnyCPU.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Magick.NET-Q8-AnyCPU.14.13.1\build\netstandard20\Magick.NET-Q8-AnyCPU.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.NETFramework.ReferenceAssemblies.net48.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net48.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NETFramework.ReferenceAssemblies.net48.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net48.targets'))" />
   </Target>
   <Import Project="..\packages\QuestPDF.2026.2.4\build\net4\QuestPDF.targets" Condition="Exists('..\packages\QuestPDF.2026.2.4\build\net4\QuestPDF.targets')" />
   <Import Project="..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets')" />
   <Import Project="..\packages\Magick.NET-Q8-AnyCPU.14.13.1\build\netstandard20\Magick.NET-Q8-AnyCPU.targets" Condition="Exists('..\packages\Magick.NET-Q8-AnyCPU.14.13.1\build\netstandard20\Magick.NET-Q8-AnyCPU.targets')" />
+  <Import Project="..\packages\Microsoft.NETFramework.ReferenceAssemblies.net48.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net48.targets" Condition="Exists('..\packages\Microsoft.NETFramework.ReferenceAssemblies.net48.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net48.targets')" />
 </Project>

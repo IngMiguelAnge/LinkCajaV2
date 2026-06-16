@@ -1,6 +1,7 @@
 ﻿using LinkCajaV2.Catalogs;
 using LinkCajaV2.Configuraciones;
 using LinkCajaV2.Data;
+using LinkCajaV2.Graphs;
 using LinkCajaV2.Items;
 using LinkCajaV2.Model;
 using LinkCajaV2.Sales;
@@ -93,6 +94,22 @@ namespace LinkCajaV2.Reports
         private void CashDrop_Load(object sender, EventArgs e)
         {
             CBResumen.SelectedIndex = 0;
+            AppRepository obj = new AppRepository();
+            var ListPresentation = obj.GetPresentations().Result;
+            ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione", Presentation = string.Empty, Decimals = 0 });
+            ListPresentation.Add(new ListPresentationsModel
+            {
+                Id = ListPresentation.Count, // El ID dinámico basado en el tamaño actual
+                Name = "Ventas",
+                Presentation = string.Empty,
+                Decimals = 0
+            });
+            cbGraficas.DataSource = null;
+            // Configuramos el ComboBox
+            cbGraficas.DisplayMember = "Name";
+            cbGraficas.ValueMember = "Id";
+            cbGraficas.DataSource = ListPresentation;
+            cbGraficas.SelectedIndex = 0;
         }
         public void CrearGridView()
         {
@@ -175,5 +192,57 @@ namespace LinkCajaV2.Reports
             }
 
         }
+
+        private async void BtnGrafica_Click(object sender, EventArgs e)
+        {
+            if(cbGraficas.SelectedIndex <= 0)
+            {
+                MessageBox.Show("Seleccione una opción válida para la gráfica.", "Selección Inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            switch (cbGraficas.Text)
+            {
+                case "Ventas":
+                    break;
+                default:
+                    AppRepository obj = new AppRepository();
+                    try
+                    {
+                        var detalles = await obj.GetArticlesSolds(dtDesde.Value, dtHasta.Value, (int)cbGraficas.SelectedValue);
+                        if(detalles != null && detalles.Any())
+                        {
+                            var listaFinal = detalles.ToList();
+                            Graph1 g = new Graph1()
+                            {
+                                Datos = listaFinal,
+                                Titulo = $"PRODUCTOS MÁS VENDIDOS",
+                                TituloProductos = "PRODUCTOS",
+                                TituloCantidad = "CANTIDAD VENDIDA DEL " + dtDesde.Value.ToString("dd/MM/yyyy") + " AL " + dtHasta.Value.ToString("dd/MM/yyyy")
+                            };
+                            g.Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se encontraron datos para el rango seleccionado.", "Sin Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al cargar los articulos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                break;
+            }
+        }
+
+        private void CashDrop_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Menu m = new Menu();
+            m.IdUsuario = IdUsuario;
+            m.NameUser = NameUser;
+            m.IdTypeUser = IdTypeUser;
+            m.Show();
+            this.Hide();
+        }
+
     }
 }
