@@ -418,6 +418,7 @@
     <Compile Include="Model\PricesSuppliersModel.cs" />
     <Compile Include="Model\RecipeModel.cs" />
     <Compile Include="Model\RegimenModel.cs" />
+    <Compile Include="Model\ResponseFactureModel.cs" />
     <Compile Include="Model\RespuestaFactureModel.cs" />
     <Compile Include="Model\RetirementModel.cs" />
     <Compile Include="Model\StockModel.cs" />

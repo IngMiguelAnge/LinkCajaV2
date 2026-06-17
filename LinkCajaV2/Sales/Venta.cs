@@ -652,10 +652,9 @@ namespace LinkCajaV2.Sales
             venta.IdTicket = Ticket.Id;
             DetailsTicketModel Details = new DetailsTicketModel();
             BillingDetails billing = new BillingDetails();
-            //para pruebas quita billingname
-            venta.Title = "TKT" + "-" + DateTime.Now.Year.ToString() + "-" + Ticket.Id.ToString();
-            //venta.Title = "TKT" + Empresa.BillingName.Trim() + "-" + DateTime.Now.Year.ToString() + "-" + Ticket.Id.ToString();
-
+            //No se deja a que el cliente elija el nombre por que si lo cambia ya no se encontrara en las facturas emitas
+            venta.Title = "TKT-TEST-MINO-" + DateTime.Now.Year.ToString() + "-" + Ticket.Id.ToString();
+            
             billing.pos_ticket_id = venta.Title;
             billing.form_payment = TipoPago; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
             billing.total = TotalReal.ToString();//venta.Articles.Sum(x => x.Total).ToString("F2");
@@ -711,13 +710,13 @@ namespace LinkCajaV2.Sales
             ImpressionsGeneral im = new ImpressionsGeneral();
             im.GenerarTicket(venta);
 
-            //BillingMethods Facturacion = new BillingMethods();
-            //string mensaje = string.Empty;
-            //RespuestaFactureModel Enviado = await Facturacion.EnviarFactura(billing);
-            //bool result = obj.ConfirmSend(Ticket.Id, Enviado).Result;
-            //if (Enviado.Exito == true)
+            BillingMethods Facturacion = new BillingMethods();
+            string mensaje = string.Empty;
+            RespuestaFactureModel Enviado = await Facturacion.EnviarFactura(billing);
+            bool result = obj.ConfirmSend(Ticket.Id, Enviado).Result;
+            if (Enviado.Exito == true)
                 MessageBox.Show("Venta realizada con éxito.");
-            //else MessageBox.Show("Venta realizada con éxito. Pero fallo el envio consultar con soporte");
+            else MessageBox.Show("Venta realizada con éxito. Pero fallo el envio consultar con soporte");
             NuevaVenta();
         }
      

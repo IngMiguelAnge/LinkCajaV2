@@ -851,7 +851,7 @@ namespace LinkCajaV2.Data
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Id", Id));
                         cmd.Parameters.Add(new SqlParameter("@Send", Send.Exito));
-                        cmd.Parameters.Add(new SqlParameter("@Note", Send.Mensaje));
+                        cmd.Parameters.Add(new SqlParameter("@Note", Send.Data.message));
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;

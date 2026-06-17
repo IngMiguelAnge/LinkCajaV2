@@ -3,6 +3,6 @@
     public class RespuestaFactureModel
     {
         public bool Exito { get; set; }
-        public string Mensaje { get; set; }
+        public ResponseFactureModel Data { get; set; }
     }
 }

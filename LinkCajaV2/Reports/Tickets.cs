@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Forms;
 using static QuestPDF.Helpers.Colors;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace LinkCajaV2.Reports
@@ -28,6 +29,7 @@ namespace LinkCajaV2.Reports
         public string NameUser { get; set; }
         public int IdTypeUser { get; set; }
         private CompanyModel Empresa { get; set; }
+        private bool _procesandoAccion = false;
         public Tickets()
         {
             InitializeComponent();
@@ -80,6 +82,7 @@ namespace LinkCajaV2.Reports
 
         public async void Buscar()
         {
+            CrearGridView();
             bool fechaCreacion = RBCreacion.Checked;
             AppRepository obj = new AppRepository();
 
@@ -105,7 +108,6 @@ namespace LinkCajaV2.Reports
         }
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            CrearGridView();
             Buscar();
         }
         public void CrearGridView()
@@ -228,15 +230,15 @@ namespace LinkCajaV2.Reports
             dgvTickets.Columns.Add(btnCancelar);
             DataGridViewButtonColumn btnEnviar = new DataGridViewButtonColumn
             {
-                Name = "Send",
+                Name = "Enviar",
                 HeaderText = "Acción",
                 Text = "Enviar a Facturación",
                 UseColumnTextForButtonValue = true,
                 Width = 90,
                 FlatStyle = FlatStyle.Flat
             };
-            btnCancelar.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
-            btnCancelar.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
+            btnEnviar.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+            btnEnviar.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
 
             dgvTickets.Columns.Add(btnEnviar);
             dgvTickets.AllowUserToAddRows = false;
@@ -284,135 +286,172 @@ namespace LinkCajaV2.Reports
         private async void dgvTickets_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-            int IdTicket = Convert.ToInt32(dgvTickets.Rows[e.RowIndex].Cells["Id"].Value);
-
-
-            switch (dgvTickets.Columns[e.ColumnIndex].Name)
+            if (_procesandoAccion) return;
+            if (dgvTickets.Columns[e.ColumnIndex].Name != "Ver" && dgvTickets.Columns[e.ColumnIndex].Name != "Cancelar"
+                && dgvTickets.Columns[e.ColumnIndex].Name != "Enviar") return;
+            try
             {
-                case "Ver":
-                    ItemsTicket itemsForm = new ItemsTicket();
-                    itemsForm.IdTicket = IdTicket;
-                    itemsForm.ShowDialog();
-                    Buscar();
-                    break;
-                case "Cancelar":
-                    DateTime Created = Convert.ToDateTime(dgvTickets.Rows[e.RowIndex].Cells["Created"].Value);
-                    string Status = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["Status"].Value);
-                    if (Status == "Cancelado")
-                    {
-                        MessageBox.Show("El ticket ya se encuentra cancelado.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                    if (Created.AddDays(2) < DateTime.Now)
-                    {
-                        MessageBox.Show("No se puede cancelar un ticket creado hace más de 48 hrs.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                    DialogResult resultado = MessageBox.Show("Si cancela el ticket se devolveran todos los articulos que tengan la opción de permitir devolver.¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (resultado == DialogResult.No)
-                    {
-                        return;
-                    }
-                    Note n = new Note();
-                    if (n.ShowDialog() != DialogResult.OK)
-                    {
-                        MessageBox.Show("Cancelación del ticket cancelada por el usuario.", "Cancelación Cancelada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                    AppRepository obj = new AppRepository();
-                    try
-                    {
-                        var Details = await obj.GetDetailsTicket(IdTicket);
-                        bool nosend = false;
-                        decimal sumaTotal = Details.Where(x => x.SendBack == true).Sum(d => d.TotalSold);
-                        foreach (var detail in Details)
-                        {
-                            if (detail.SendBack)
-                            {
-                                if (await obj.ReturnArticle(detail.Id, n.NoteText) == false)
-                                {
-                                    MessageBox.Show($"Error al devolver el articulo {detail.Name}.", "Error de Devolución", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    break;
-                                }
-                            }
-                            else nosend = true;
-                        }
-                        if (nosend)
-                        {
-                            await obj.CancelTicket(IdTicket, "Se cancela ticket pero este producto no se devolvera a inventario es un producto que no acepta devoluciones, motivo de cancelación: " + n.NoteText);
-                        }
-                        MessageBox.Show($"Ticket cancelado exitosamente. Total ha devolver: {sumaTotal:C2}", "Cancelación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Buscar();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error al cargar los articulos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    break;
-                case "Send":
-                    MessageBox.Show("En mantenimiento espere información de soporte.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                    string Send = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["Send"].Value);
-                    if (Send == "Enviado")
-                    {
-                        MessageBox.Show("El ticket ya se encuentra enviado a facturación.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                    AppRepository obj2 = new AppRepository();
-                    var Venta = await obj2.GetTicketsbyId(IdTicket);
-                    var DetaillsVenta = await obj2.GetDetailsforFacture(IdTicket);
-                    BillingDetails billing = new BillingDetails();                    
-                    billing.pos_ticket_id = "TKT" + Empresa.BillingName.Trim() + "-" + DateTime.Now.Year.ToString() + "-" + IdTicket.ToString();
-                    billing.form_payment = Venta.TypePay; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
-                    billing.total = Venta.Total.ToString("F2");
-                    billing.serie = "A";
-                    billing.folio = Venta.Id.ToString();
-                    billing.currency = "MXN";
-                    billing.exchange_rate = null;
-                    billing.exportacion = "01"; // Ejemplo: 01 = No exportación, 02 = Exportación definitiva, 03 = Exportación temporal
-                    billing.payment_method = "PUE"; // Ejemplo: PUE = Pago en una sola exhibición, PPD = Pago en parcialidades o diferido
-                    billing.payment_conditions = null;
-                    billing.issuing_location = Empresa.CP.ToString();
-                    billing.sold_at = Venta.CreateDate.ToString("yyyy-MM-ddTHH:mm:ss");
-                    billing.concepts = new List<concepts>();
-                    foreach (var item in DetaillsVenta)
-                    {
-                        List<taxes> listtaxes = new List<taxes>();
-                        listtaxes.Add(new taxes
-                        {
-                            tax_type = "traslado",
-                            @base = item.Total,
-                            tax = "002",
-                            type_factor = "Tasa",
-                            rate = item.Rate,
-                            amount = item.Amount
-                        });
-                        billing.concepts.Add(
-                        new concepts
-                        {
-                            clave_prod_serv = item.CodeSAT,
-                            no_identificacion = item.Code,
-                            quantity = item.Stock,
-                            clave_unidad = item.UnitSAT,
-                            unit = item.NamePresentation,
-                            description = item.Name,
-                            unit_value = item.Price,
-                            amount = item.Total,
-                            discount = null,
-                            object_tax = "02",
-                            taxes = listtaxes
-                        });
-                    }
-                    BillingMethods Facturacion = new BillingMethods();
-                    RespuestaFactureModel Enviado = await Facturacion.EnviarFactura(billing);
-                    bool result = obj2.ConfirmSend(IdTicket, Enviado).Result;
-                    if (Enviado.Exito == true)
-                        MessageBox.Show("Envio con éxito.");
-                    else MessageBox.Show("Fallo el envio consultar con soporte");
+                _procesandoAccion = true;
+                this.Cursor = Cursors.WaitCursor; // Cambia el cursor a la "redondita" de carga
+                dgvTickets.Enabled = false;
 
-                    break;
-                default:
-                    break;
+                int IdTicket = Convert.ToInt32(dgvTickets.Rows[e.RowIndex].Cells["Id"].Value);
+
+                switch (dgvTickets.Columns[e.ColumnIndex].Name)
+                {
+                    case "Ver":
+                        ItemsTicket itemsForm = new ItemsTicket();
+                        itemsForm.IdTicket = IdTicket;
+                        itemsForm.ShowDialog();
+                        Buscar();
+                        break;
+                    case "Cancelar":
+                        DateTime Created = Convert.ToDateTime(dgvTickets.Rows[e.RowIndex].Cells["Created"].Value);
+                        string Status = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["Status"].Value);
+                        if (Status == "Cancelado")
+                        {
+                            MessageBox.Show("El ticket ya se encuentra cancelado.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        if (Created.AddDays(2) < DateTime.Now)
+                        {
+                            MessageBox.Show("No se puede cancelar un ticket creado hace más de 48 hrs.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        DialogResult resultado = MessageBox.Show("Si cancela el ticket se devolveran todos los articulos que tengan la opción de permitir devolver.¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (resultado == DialogResult.No)
+                        {
+                            return;
+                        }
+                        Note n = new Note();
+                        if (n.ShowDialog() != DialogResult.OK)
+                        {
+                            MessageBox.Show("Cancelación del ticket cancelada por el usuario.", "Cancelación Cancelada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        AppRepository obj = new AppRepository();
+                        try
+                        {
+                            var Details = await obj.GetDetailsTicket(IdTicket);
+                            bool nosend = false;
+                            decimal sumaTotal = Details.Where(x => x.SendBack == true).Sum(d => d.TotalSold);
+                            foreach (var detail in Details)
+                            {
+                                if (detail.SendBack)
+                                {
+                                    if (await obj.ReturnArticle(detail.Id, n.NoteText) == false)
+                                    {
+                                        MessageBox.Show($"Error al devolver el articulo {detail.Name}.", "Error de Devolución", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        break;
+                                    }
+                                }
+                                else nosend = true;
+                            }
+                            if (nosend)
+                            {
+                                await obj.CancelTicket(IdTicket, "Se cancela ticket pero este producto no se devolvera a inventario es un producto que no acepta devoluciones, motivo de cancelación: " + n.NoteText);
+                            }
+                            MessageBox.Show($"Ticket cancelado exitosamente. Total ha devolver: {sumaTotal:C2}", "Cancelación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            Buscar();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error al cargar los articulos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        break;
+                    case "Enviar":
+                        //MessageBox.Show("En mantenimiento espere información de soporte.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //return;
+                        string Send = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["Send"].Value);
+                        if (Send == "Enviado")
+                        {
+                            MessageBox.Show("El ticket ya se encuentra enviado a facturación.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        string Cancelado = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["Status"].Value);
+                        if (Cancelado == "Cancelado")
+                        {
+                            MessageBox.Show("El ticket ya se encuentra Cancelado.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        BillingMethods Facturacion = new BillingMethods();
+                        AppRepository obj2 = new AppRepository();
+                        var Venta = await obj2.GetTicketsbyId(IdTicket);
+                        BillingDetails billing = new BillingDetails();
+                        billing.pos_ticket_id = "TKT-TEST-MINO-" + Venta.CreateDate.Year.ToString() + "-" + IdTicket.ToString();
+                        RespuestaFactureModel StatusFactura = await Facturacion.EstatusFactura(billing.pos_ticket_id);
+                        if (StatusFactura.Exito == false && StatusFactura.Data.message != "No existe un ticket con ese identificador.")
+                        {
+                            MessageBox.Show("Error en el servidor, consultar con soporte técnico.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        var DetaillsVenta = await obj2.GetDetailsforFacture(IdTicket);
+                        billing.form_payment = Venta.TypePay; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
+                        billing.total = Venta.Total.ToString("F2");
+                        billing.serie = "A";
+                        billing.folio = Venta.Id.ToString();
+                        billing.currency = "MXN";
+                        billing.exchange_rate = null;
+                        billing.exportacion = "01"; // Ejemplo: 01 = No exportación, 02 = Exportación definitiva, 03 = Exportación temporal
+                        billing.payment_method = "PUE"; // Ejemplo: PUE = Pago en una sola exhibición, PPD = Pago en parcialidades o diferido
+                        billing.payment_conditions = null;
+                        billing.issuing_location = Empresa.CP.ToString();
+                        billing.sold_at = Venta.CreateDate.ToString("yyyy-MM-ddTHH:mm:ss");
+                        billing.concepts = new List<concepts>();
+                        foreach (var item in DetaillsVenta)
+                        {
+                            List<taxes> listtaxes = new List<taxes>();
+                            listtaxes.Add(new taxes
+                            {
+                                tax_type = "traslado",
+                                @base = item.Total,
+                                tax = "002",
+                                type_factor = "Tasa",
+                                rate = item.Rate,
+                                amount = item.Amount
+                            });
+                            billing.concepts.Add(
+                            new concepts
+                            {
+                                clave_prod_serv = item.CodeSAT,
+                                no_identificacion = item.Code,
+                                quantity = item.Stock,
+                                clave_unidad = item.UnitSAT,
+                                unit = item.NamePresentation,
+                                description = item.Name,
+                                unit_value = item.Price,
+                                amount = item.Total,
+                                discount = null,
+                                object_tax = "02",
+                                taxes = listtaxes
+                            });
+                        }
+
+                        RespuestaFactureModel Enviado = await Facturacion.EnviarFactura(billing);
+                        bool result = obj2.ConfirmSend(IdTicket, Enviado).Result;
+                        if (Enviado.Exito == true)
+                        {
+                            MessageBox.Show("Envio con éxito.");
+                            Buscar();
+                        }
+                        else MessageBox.Show("Fallo el envio consultar con soporte");
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un error: {ex.Message}");
+            }
+            finally
+            {
+                // 4. LIBERAR BLOQUEO: Pase lo que pase (éxito o error), volvemos a habilitar todo
+                _procesandoAccion = false;
+                this.Cursor = Cursors.Default;
+                dgvTickets.Enabled = true;
             }
         }
         private void RBCreacion_CheckedChanged(object sender, EventArgs e)
