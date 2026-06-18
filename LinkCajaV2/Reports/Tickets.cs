@@ -241,6 +241,20 @@ namespace LinkCajaV2.Reports
             btnEnviar.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
 
             dgvTickets.Columns.Add(btnEnviar);
+            DataGridViewButtonColumn btnEstatusFactura = new DataGridViewButtonColumn
+            {
+                Name = "CheckFacture",
+                HeaderText = "Acción",
+                Text = "Checar Facturación",
+                UseColumnTextForButtonValue = true,
+                Width = 90,
+                FlatStyle = FlatStyle.Flat
+            };
+            btnEstatusFactura.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+            btnEstatusFactura.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
+
+            dgvTickets.Columns.Add(btnEstatusFactura);
+
             dgvTickets.AllowUserToAddRows = false;
         }
         private void CBBuscar_CheckedChanged(object sender, EventArgs e)
@@ -288,7 +302,7 @@ namespace LinkCajaV2.Reports
             if (e.RowIndex < 0) return;
             if (_procesandoAccion) return;
             if (dgvTickets.Columns[e.ColumnIndex].Name != "Ver" && dgvTickets.Columns[e.ColumnIndex].Name != "Cancelar"
-                && dgvTickets.Columns[e.ColumnIndex].Name != "Enviar") return;
+                && dgvTickets.Columns[e.ColumnIndex].Name != "Enviar" && dgvTickets.Columns[e.ColumnIndex].Name != "CheckFacture") return;
             try
             {
                 _procesandoAccion = true;
@@ -438,6 +452,25 @@ namespace LinkCajaV2.Reports
                         }
                         else MessageBox.Show("Fallo el envio consultar con soporte");
                         break;
+                    case "CheckFacture":
+                        AppRepository obj3 = new AppRepository();
+                        var Ticket = await obj3.GetTicketsbyId(IdTicket);
+                        BillingDetails Facture = new BillingDetails();
+                        BillingMethods Facturacion2 = new BillingMethods();
+                        Facture.pos_ticket_id = "TKT-TEST-MINO-" + Ticket.CreateDate.Year.ToString() + "-" + IdTicket.ToString();
+                        RespuestaFactureModel StatusF = await Facturacion2.EstatusFactura(Facture.pos_ticket_id);
+                        if (StatusF.Exito == false && StatusF.Data.message != "No existe un ticket con ese identificador.")
+                        {
+                            MessageBox.Show("Error en el servidor, consultar con soporte técnico.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            string Mensaje = StatusF.Data.facturado == true ? "Ya se encuentra facturado." : "Falta facturación.";
+                            Mensaje += StatusF.Data.expires_at != null ? $" La fecha de expiración para facturar es: {StatusF.Data.expires_at}." : string.Empty;
+                            Mensaje += StatusF.Data.message;
+                            MessageBox.Show(Mensaje, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                            break;
                     default:
                         break;
                 }
