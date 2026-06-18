@@ -294,6 +294,7 @@ namespace LinkCajaV2.Items
                 return;
             }
             Guardar(true);
+            this.Close();
         }
 
         private void NudRetiro_KeyUp(object sender, KeyEventArgs e)
@@ -366,6 +367,7 @@ namespace LinkCajaV2.Items
                 return;
             }
             Guardar(false);
+            this.Close();
         }
 
         private void BtnAgregar_Click(object sender, EventArgs e)
