@@ -5,6 +5,7 @@ namespace LinkCajaV2.Model
     public class ListDetailsTicketModel
     {
         public int Id { get; set; }
+        public int IdArticle { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public string Stock { get; set; }

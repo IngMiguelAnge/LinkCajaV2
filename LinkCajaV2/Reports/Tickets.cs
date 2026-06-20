@@ -8,18 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.Odbc;
 using System.Drawing;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
 using System.Windows.Forms;
-using static QuestPDF.Helpers.Colors;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LinkCajaV2.Reports
 {
@@ -311,11 +303,20 @@ namespace LinkCajaV2.Reports
 
                 int IdTicket = Convert.ToInt32(dgvTickets.Rows[e.RowIndex].Cells["Id"].Value);
 
+                AppRepository obj = new AppRepository();
+                var Ticket = await obj.GetTicketsbyId(IdTicket);
+                BillingDetails Facture = new BillingDetails();
+                BillingMethods Facturacion = new BillingMethods();
+                string Cancelado = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["Status"].Value);
+                string Send = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["Send"].Value);
+
                 switch (dgvTickets.Columns[e.ColumnIndex].Name)
                 {
                     case "Ver":
                         ItemsTicket itemsForm = new ItemsTicket();
                         itemsForm.IdTicket = IdTicket;
+                        itemsForm.Year = Ticket.CreateDate.Year;
+                        itemsForm.Send = Send;
                         itemsForm.ShowDialog();
                         Buscar();
                         break;
@@ -332,20 +333,65 @@ namespace LinkCajaV2.Reports
                             MessageBox.Show("No se puede cancelar un ticket creado hace más de 48 hrs.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
-                        DialogResult resultado = MessageBox.Show("Si cancela el ticket se devolveran todos los articulos que tengan la opción de permitir devolver.¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (resultado == DialogResult.No)
+                        if (Send != "Enviado")
                         {
-                            return;
+                            DialogResult continuar = MessageBox.Show("El ticket no se encuentra en el portal.¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (continuar == DialogResult.No)
+                            {
+                                return;
+                            }
                         }
-                        Note n = new Note();
-                        if (n.ShowDialog() != DialogResult.OK)
-                        {
-                            MessageBox.Show("Cancelación del ticket cancelada por el usuario.", "Cancelación Cancelada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
-                        AppRepository obj = new AppRepository();
+
                         try
                         {
+                            DialogResult resultado = MessageBox.Show("Si cancela el ticket se devolveran todos los articulos que tengan la opción de permitir devolver.¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (resultado == DialogResult.No)
+                            {
+                                return;
+                            }
+                            RespuestaFactureModel RStatusF = new RespuestaFactureModel();
+                            if (Send == "Enviado")
+                            {
+                                Facture.pos_ticket_id = "TKT-TEST-MINO-" + Ticket.CreateDate.Year.ToString() + "-" + IdTicket.ToString();
+                                RStatusF = await Facturacion.EstatusFactura(Facture.pos_ticket_id);
+                                if (RStatusF.Exito == false && RStatusF.Data.message != "No existe un ticket con ese identificador.")
+                                {
+                                    MessageBox.Show($"Error en el servidor,{RStatusF.Data.message}, consultar con soporte técnico.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
+                                }
+                                else
+                                {
+                                    if (RStatusF.Data.facturado == true)
+                                    {
+                                        MessageBox.Show("No se puede cancelar un ticket que ya se encuentra facturado.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return;
+                                    }
+                                }
+
+                            }
+
+                            Note n = new Note();
+                            if (n.ShowDialog() != DialogResult.OK)
+                            {
+                                MessageBox.Show("Cancelación del ticket cancelada por el usuario.", "Cancelación Cancelada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+
+                            string MensajeFacturacion = string.Empty;
+                            if (Send == "Enviado")
+                            {
+                                if (RStatusF.Data.message != "No existe un ticket con ese identificador.")
+                                {
+                                    RespuestaFactureModel CancelarFactura = await Facturacion.CancelarFactura(Facture.pos_ticket_id);
+                                    MensajeFacturacion = "Portal de facturación:" + CancelarFactura.Data.message;
+                                }
+                                if(MensajeFacturacion != "Ticket eliminado correctamente.")
+                                {
+                                    MessageBox.Show("Portal:"+MensajeFacturacion, "Cancelación Cancelada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
+                                }
+                            }
+
                             var Details = await obj.GetDetailsTicket(IdTicket);
                             bool nosend = false;
                             decimal sumaTotal = Details.Where(x => x.SendBack == true).Sum(d => d.TotalSold);
@@ -364,7 +410,8 @@ namespace LinkCajaV2.Reports
                             if (nosend)
                             {
                                 await obj.CancelTicket(IdTicket, "Se cancela ticket pero este producto no se devolvera a inventario es un producto que no acepta devoluciones, motivo de cancelación: " + n.NoteText);
-                            }
+                            }                            
+                             
                             MessageBox.Show($"Ticket cancelado exitosamente. Total ha devolver: {sumaTotal:C2}", "Cancelación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             Buscar();
                         }
@@ -374,46 +421,38 @@ namespace LinkCajaV2.Reports
                         }
                         break;
                     case "Enviar":
-                        //MessageBox.Show("En mantenimiento espere información de soporte.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        //return;
-                        string Send = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["Send"].Value);
                         if (Send == "Enviado")
                         {
-                            MessageBox.Show("El ticket ya se encuentra enviado a facturación.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("El ticket ya se envio al portal de facturación.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
-                        string Cancelado = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["Status"].Value);
                         if (Cancelado == "Cancelado")
                         {
                             MessageBox.Show("El ticket ya se encuentra Cancelado.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
 
-                        BillingMethods Facturacion = new BillingMethods();
-                        AppRepository obj2 = new AppRepository();
-                        var Venta = await obj2.GetTicketsbyId(IdTicket);
-                        BillingDetails billing = new BillingDetails();
-                        billing.pos_ticket_id = "TKT-TEST-MINO-" + Venta.CreateDate.Year.ToString() + "-" + IdTicket.ToString();
-                        RespuestaFactureModel StatusFactura = await Facturacion.EstatusFactura(billing.pos_ticket_id);
+                        Facture.pos_ticket_id = "TKT-TEST-MINO-" + Ticket.CreateDate.Year.ToString() + "-" + IdTicket.ToString();
+                        RespuestaFactureModel StatusFactura = await Facturacion.EstatusFactura(Facture.pos_ticket_id);
                         if (StatusFactura.Exito == false && StatusFactura.Data.message != "No existe un ticket con ese identificador.")
                         {
-                            MessageBox.Show("Error en el servidor, consultar con soporte técnico.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show($"Error en el servidor,{StatusFactura.Data.message}, consultar con soporte técnico.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
 
-                        var DetaillsVenta = await obj2.GetDetailsforFacture(IdTicket);
-                        billing.form_payment = Venta.TypePay; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
-                        billing.total = Venta.Total.ToString("F2");
-                        billing.serie = "A";
-                        billing.folio = Venta.Id.ToString();
-                        billing.currency = "MXN";
-                        billing.exchange_rate = null;
-                        billing.exportacion = "01"; // Ejemplo: 01 = No exportación, 02 = Exportación definitiva, 03 = Exportación temporal
-                        billing.payment_method = "PUE"; // Ejemplo: PUE = Pago en una sola exhibición, PPD = Pago en parcialidades o diferido
-                        billing.payment_conditions = null;
-                        billing.issuing_location = Empresa.CP.ToString();
-                        billing.sold_at = Venta.CreateDate.ToString("yyyy-MM-ddTHH:mm:ss");
-                        billing.concepts = new List<concepts>();
+                        var DetaillsVenta = await obj.GetDetailsforFacture(IdTicket);
+                        Facture.form_payment = Ticket.TypePay; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
+                        Facture.total = Ticket.Total.ToString("F2");
+                        Facture.serie = "A";
+                        Facture.folio = Ticket.Id.ToString();
+                        Facture.currency = "MXN";
+                        Facture.exchange_rate = null;
+                        Facture.exportacion = "01"; // Ejemplo: 01 = No exportación, 02 = Exportación definitiva, 03 = Exportación temporal
+                        Facture.payment_method = "PUE"; // Ejemplo: PUE = Pago en una sola exhibición, PPD = Pago en parcialidades o diferido
+                        Facture.payment_conditions = null;
+                        Facture.issuing_location = Empresa.CP.ToString();
+                        Facture.sold_at = Ticket.CreateDate.ToString("yyyy-MM-ddTHH:mm:ss");
+                        Facture.concepts = new List<conceptsfacture>();
                         foreach (var item in DetaillsVenta)
                         {
                             List<taxes> listtaxes = new List<taxes>();
@@ -426,8 +465,8 @@ namespace LinkCajaV2.Reports
                                 rate = item.Rate,
                                 amount = item.Amount
                             });
-                            billing.concepts.Add(
-                            new concepts
+                            Facture.concepts.Add(
+                            new conceptsfacture
                             {
                                 clave_prod_serv = item.CodeSAT,
                                 no_identificacion = item.Code,
@@ -443,8 +482,8 @@ namespace LinkCajaV2.Reports
                             });
                         }
 
-                        RespuestaFactureModel Enviado = await Facturacion.EnviarFactura(billing);
-                        bool result = obj2.ConfirmSend(IdTicket, Enviado).Result;
+                        RespuestaFactureModel Enviado = await Facturacion.EnviarFactura(Facture);
+                        bool result = obj.ConfirmSend(IdTicket, Enviado).Result;
                         if (Enviado.Exito == true)
                         {
                             MessageBox.Show("Envio con éxito.");
@@ -453,15 +492,18 @@ namespace LinkCajaV2.Reports
                         else MessageBox.Show("Fallo el envio consultar con soporte");
                         break;
                     case "CheckFacture":
-                        AppRepository obj3 = new AppRepository();
-                        var Ticket = await obj3.GetTicketsbyId(IdTicket);
-                        BillingDetails Facture = new BillingDetails();
-                        BillingMethods Facturacion2 = new BillingMethods();
+                        //MessageBox.Show("En mantenimiento espere información de soporte.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //return;
+                        if (Cancelado == "Cancelado")
+                        {
+                            MessageBox.Show("El ticket ya se encuentra Cancelado.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
                         Facture.pos_ticket_id = "TKT-TEST-MINO-" + Ticket.CreateDate.Year.ToString() + "-" + IdTicket.ToString();
-                        RespuestaFactureModel StatusF = await Facturacion2.EstatusFactura(Facture.pos_ticket_id);
+                        RespuestaFactureModel StatusF = await Facturacion.EstatusFactura(Facture.pos_ticket_id);
                         if (StatusF.Exito == false && StatusF.Data.message != "No existe un ticket con ese identificador.")
                         {
-                            MessageBox.Show("Error en el servidor, consultar con soporte técnico.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show($"Error en el servidor,{StatusF.Data.message}, consultar con soporte técnico.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                         else
                         {
@@ -470,7 +512,7 @@ namespace LinkCajaV2.Reports
                             Mensaje += StatusF.Data.message;
                             MessageBox.Show(Mensaje, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                            break;
+                        break;
                     default:
                         break;
                 }

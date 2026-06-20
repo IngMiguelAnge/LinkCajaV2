@@ -668,7 +668,7 @@ namespace LinkCajaV2.Sales
             billing.issuing_location = Empresa.CP.ToString();
             billing.sold_at = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
 
-            billing.concepts = new List<concepts>();
+            billing.concepts = new List<conceptsfacture>();
             foreach (var item in venta.Articles)
             {
                 Details.Id = 0;
@@ -692,10 +692,10 @@ namespace LinkCajaV2.Sales
                     amount = item.Medicine == false ? item.Total * 0.16m : 0m
                 });
                 billing.concepts.Add(
-                new concepts
+                new conceptsfacture
                 {
                     clave_prod_serv = item.CodeSAT,
-                    no_identificacion = "Id" + item.IdArticle.ToString(),
+                    no_identificacion = item.IdArticle.ToString(),
                     quantity = item.Stock,
                     clave_unidad = item.UnitSAT,
                     unit = item.NamePresentation,

@@ -1,4 +1,6 @@
-﻿namespace LinkCajaV2.Model
+﻿using System.Collections.Generic;
+
+namespace LinkCajaV2.Model
 {
     public class ResponseFactureModel
     {
@@ -10,5 +12,14 @@
         public string issued_at { get; set; }
         public string expires_at { get; set; }
         public string total { get; set; }
+        public List<concepts> concepts { get; set; }
+    }
+    public class concepts
+    {
+        public int id { get; set; }
+        public string no_identificacion { get; set; }
+        public string description { get; set; }
+        public string quantity { get; set; }
+        public string amount { get; set; }
     }
 }

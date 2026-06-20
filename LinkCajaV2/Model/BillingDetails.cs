@@ -19,15 +19,9 @@ namespace LinkCajaV2.Model
         public string issuing_location { get; set; } //Lugar de expedición
         public string sold_at { get; set; } //Fecha de creación
         //public Sender Sender { get; set; } //Emisor
-        public List<concepts> concepts { get; set; } //Conceptos
+        public List<conceptsfacture> concepts { get; set; } //Conceptos
     }
-    //public class Sender
-    //{
-    //    public string RFC { get; set; }
-    //    public string Name { get; set; }
-    //    public string TaxRegime { get; set; } //Régimen fiscal
-    //}
-    public class concepts
+    public class conceptsfacture
     {
         public string clave_prod_serv { get; set; }//Clave SAT
         public string no_identificacion { get; set; }//Clave producto o servicio

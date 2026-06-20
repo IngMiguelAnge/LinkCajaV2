@@ -714,6 +714,7 @@ namespace LinkCajaV2.Data
             return new ListDetailsTicketModel()
             {
                 Id = (int)reader["Id"],
+                IdArticle = (int)reader["IdArticle"],
                 Code = (string)reader["Code"],
                 Name = (string)reader["Name"],
                 Stock = (string)reader["Stock"],

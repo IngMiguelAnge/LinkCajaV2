@@ -87,7 +87,7 @@
             this.btnConfirmar.ForeColor = System.Drawing.Color.White;
             this.btnConfirmar.Location = new System.Drawing.Point(664, 277);
             this.btnConfirmar.Name = "btnConfirmar";
-            this.btnConfirmar.Size = new System.Drawing.Size(240, 45);
+            this.btnConfirmar.Size = new System.Drawing.Size(240, 48);
             this.btnConfirmar.TabIndex = 1;
             this.btnConfirmar.Text = "CONFIRMAR";
             this.btnConfirmar.UseVisualStyleBackColor = false;
