@@ -215,7 +215,7 @@ namespace LinkCajaV2.Reports
                                 Datos = listaFinal,
                                 Titulo = "VENTAS REALIZADAS",
                                 TituloProductos = "FECHAS",
-                                TituloCantidad = "CANTIDAD VENDIDA DEL " + dtDesde.Value.ToString("dd/MM/yyyy") + " AL " + dtHasta.Value.ToString("dd/MM/yyyy")
+                                TituloCantidad = "VENTA TOTAL DEL " + dtDesde.Value.ToString("dd/MM/yyyy") + " AL " + dtHasta.Value.ToString("dd/MM/yyyy")
                             };
                             g.Show();
                         }

@@ -321,6 +321,8 @@ namespace LinkCajaV2.Reports
                         Buscar();
                         break;
                     case "Cancelar":
+                        //MessageBox.Show("En mantenimiento espere información de soporte.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //return;
                         DateTime Created = Convert.ToDateTime(dgvTickets.Rows[e.RowIndex].Cells["Created"].Value);
                         string Status = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["Status"].Value);
                         if (Status == "Cancelado")
@@ -385,7 +387,7 @@ namespace LinkCajaV2.Reports
                                     RespuestaFactureModel CancelarFactura = await Facturacion.CancelarFactura(Facture.pos_ticket_id);
                                     MensajeFacturacion = "Portal de facturación:" + CancelarFactura.Data.message;
                                 }
-                                if(MensajeFacturacion != "Ticket eliminado correctamente.")
+                                if(MensajeFacturacion != "Portal de facturación:Ticket eliminado correctamente.")
                                 {
                                     MessageBox.Show("Portal:"+MensajeFacturacion, "Cancelación Cancelada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     return;
@@ -421,6 +423,8 @@ namespace LinkCajaV2.Reports
                         }
                         break;
                     case "Enviar":
+                        //MessageBox.Show("En mantenimiento espere información de soporte.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //return;
                         if (Send == "Enviado")
                         {
                             MessageBox.Show("El ticket ya se envio al portal de facturación.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);

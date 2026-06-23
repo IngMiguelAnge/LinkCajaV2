@@ -716,10 +716,10 @@ namespace LinkCajaV2.Sales
             bool result = obj.ConfirmSend(Ticket.Id, Enviado).Result;
             if (Enviado.Exito == true)
                 MessageBox.Show("Venta realizada con éxito.");
-            else MessageBox.Show("Venta realizada con éxito. Pero fallo el envio consultar con soporte");
+            else MessageBox.Show("Venta realizada con éxito. Portal no recibio factura");
             NuevaVenta();
         }
-     
+
         private void btnVerTickets_Click(object sender, EventArgs e)
         {
            
