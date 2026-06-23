@@ -45,6 +45,7 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.lblCategoria = new System.Windows.Forms.Label();
             this.cbCategoria = new System.Windows.Forms.ComboBox();
+            this.btnBuscar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PBProducto)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,7 +74,7 @@
             this.lblDescripcion.AutoSize = true;
             this.lblDescripcion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDescripcion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblDescripcion.Location = new System.Drawing.Point(355, 190);
+            this.lblDescripcion.Location = new System.Drawing.Point(355, 284);
             this.lblDescripcion.Name = "lblDescripcion";
             this.lblDescripcion.Size = new System.Drawing.Size(124, 25);
             this.lblDescripcion.TabIndex = 9;
@@ -82,7 +83,7 @@
             // txtDescripcion
             // 
             this.txtDescripcion.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescripcion.Location = new System.Drawing.Point(360, 225);
+            this.txtDescripcion.Location = new System.Drawing.Point(360, 319);
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -163,7 +164,7 @@
             this.CBDevoluciones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.CBDevoluciones.Location = new System.Drawing.Point(45, 372);
             this.CBDevoluciones.Name = "CBDevoluciones";
-            this.CBDevoluciones.Size = new System.Drawing.Size(246, 32);
+            this.CBDevoluciones.Size = new System.Drawing.Size(247, 32);
             this.CBDevoluciones.TabIndex = 6;
             this.CBDevoluciones.Text = "¿Acepta devoluciones?";
             this.CBDevoluciones.UseVisualStyleBackColor = true;
@@ -181,6 +182,7 @@
             // 
             // txtClaveSAT
             // 
+            this.txtClaveSAT.Enabled = false;
             this.txtClaveSAT.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtClaveSAT.Location = new System.Drawing.Point(360, 126);
             this.txtClaveSAT.MaxLength = 50;
@@ -194,7 +196,7 @@
             this.cbMedicine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbMedicine.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbMedicine.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.cbMedicine.Location = new System.Drawing.Point(360, 372);
+            this.cbMedicine.Location = new System.Drawing.Point(45, 430);
             this.cbMedicine.Name = "cbMedicine";
             this.cbMedicine.Size = new System.Drawing.Size(206, 32);
             this.cbMedicine.TabIndex = 11;
@@ -233,12 +235,28 @@
             this.cbCategoria.Size = new System.Drawing.Size(250, 38);
             this.cbCategoria.TabIndex = 5;
             // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBuscar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.btnBuscar.Location = new System.Drawing.Point(360, 213);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(200, 49);
+            this.btnBuscar.TabIndex = 24;
+            this.btnBuscar.Text = "BUSCAR CLAVE";
+            this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
             // Article
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(939, 514);
+            this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.cbCategoria);
             this.Controls.Add(this.lblCategoria);
             this.Controls.Add(this.lblTitulo);
@@ -286,5 +304,6 @@
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Label lblCategoria;
         private System.Windows.Forms.ComboBox cbCategoria;
+        private System.Windows.Forms.Button btnBuscar;
     }
 }

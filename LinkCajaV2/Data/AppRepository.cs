@@ -3,9 +3,12 @@ using LinkCajaV2.Configurations;
 using LinkCajaV2.Model;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Threading.Tasks;
 
 namespace LinkCajaV2.Data
@@ -21,6 +24,47 @@ namespace LinkCajaV2.Data
         {
             GC.Collect();
         }
+        #region SearchSAT       
+        private CodeSatModel MapToSAT(SqlDataReader reader)
+        {
+            return new CodeSatModel()
+            {
+                Id = (string)reader["id"],
+                Descripcion = (string)reader["descripcion"],
+                Similares = (string)reader["similares"],
+            };
+        }
+        //Método auxiliar para extraer todo de SQL e indexarlo en Lucene(Solo se corre una vez)
+        public async Task<List<CodeSatModel>> GetCodeSAT(string descripcion)
+        {
+            List<CodeSatModel> list = new List<CodeSatModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetCodeSAT", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Description", descripcion));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToSAT(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Tu manejo de errores
+            }
+            return list;
+        }
+
+        #endregion
         #region Grafics
         public async Task<List<GraphModel>> GetSolds(DateTime Desde, DateTime Hasta)
         {
@@ -816,7 +860,7 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
-        public async Task<bool> CancelTicket(int Id,string NoteText)
+        public async Task<bool> CancelTicket(int Id, string NoteText)
         {
             try
             {
@@ -893,7 +937,7 @@ namespace LinkCajaV2.Data
                 }
             }
             catch (Exception ex)
-            {                
+            {
                 return 0;
             }
         }
@@ -1202,7 +1246,7 @@ namespace LinkCajaV2.Data
             }
             catch (Exception ex)
             {
-                Result= null;
+                Result = null;
             }
             return Result;
         }
@@ -1427,7 +1471,7 @@ namespace LinkCajaV2.Data
                 return 0;
             }
         }
-         #endregion
+        #endregion
         #region ActionsBox
         public async Task<List<ListBoxModel>> GetBoxsActives()
         {
@@ -2152,7 +2196,7 @@ namespace LinkCajaV2.Data
                     using (SqlCommand cmd = new SqlCommand("SaveClient", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                       cmd.Parameters.Add(new SqlParameter("@Id", obj.Id));
+                        cmd.Parameters.Add(new SqlParameter("@Id", obj.Id));
                         cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
                         cmd.Parameters.Add(new SqlParameter("@Address", obj.Address));
                         cmd.Parameters.Add(new SqlParameter("@Phone1", obj.Phone1));

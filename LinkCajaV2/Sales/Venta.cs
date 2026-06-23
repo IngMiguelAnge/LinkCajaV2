@@ -710,13 +710,13 @@ namespace LinkCajaV2.Sales
             ImpressionsGeneral im = new ImpressionsGeneral();
             im.GenerarTicket(venta);
 
-            BillingMethods Facturacion = new BillingMethods();
-            string mensaje = string.Empty;
-            RespuestaFactureModel Enviado = await Facturacion.EnviarFactura(billing);
-            bool result = obj.ConfirmSend(Ticket.Id, Enviado).Result;
-            if (Enviado.Exito == true)
+            //BillingMethods Facturacion = new BillingMethods();
+            //string mensaje = string.Empty;
+            //RespuestaFactureModel Enviado = await Facturacion.EnviarFactura(billing);
+            //bool result = obj.ConfirmSend(Ticket.Id, Enviado).Result;
+            //if (Enviado.Exito == true)
                 MessageBox.Show("Venta realizada con éxito.");
-            else MessageBox.Show("Venta realizada con éxito. Portal no recibio factura");
+            //else MessageBox.Show("Venta realizada con éxito. Portal no recibio factura");
             NuevaVenta();
         }
 

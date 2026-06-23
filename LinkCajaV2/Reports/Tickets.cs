@@ -321,8 +321,8 @@ namespace LinkCajaV2.Reports
                         Buscar();
                         break;
                     case "Cancelar":
-                        //MessageBox.Show("En mantenimiento espere información de soporte.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        //return;
+                        MessageBox.Show("En mantenimiento espere información de soporte.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
                         DateTime Created = Convert.ToDateTime(dgvTickets.Rows[e.RowIndex].Cells["Created"].Value);
                         string Status = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["Status"].Value);
                         if (Status == "Cancelado")
@@ -423,8 +423,8 @@ namespace LinkCajaV2.Reports
                         }
                         break;
                     case "Enviar":
-                        //MessageBox.Show("En mantenimiento espere información de soporte.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        //return;
+                        MessageBox.Show("En mantenimiento espere información de soporte.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
                         if (Send == "Enviado")
                         {
                             MessageBox.Show("El ticket ya se envio al portal de facturación.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -496,8 +496,8 @@ namespace LinkCajaV2.Reports
                         else MessageBox.Show("Fallo el envio consultar con soporte");
                         break;
                     case "CheckFacture":
-                        //MessageBox.Show("En mantenimiento espere información de soporte.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        //return;
+                        MessageBox.Show("En mantenimiento espere información de soporte.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
                         if (Cancelado == "Cancelado")
                         {
                             MessageBox.Show("El ticket ya se encuentra Cancelado.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);

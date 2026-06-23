@@ -6,6 +6,7 @@ using LinkCajaV2.Items;
 using LinkCajaV2.Reports;
 using LinkCajaV2.Sales;
 using System;
+using System.Security.Permissions;
 using System.Windows.Forms;
 
 namespace LinkCajaV2
@@ -21,7 +22,7 @@ namespace LinkCajaV2
         }
 
         private void Menu_Load(object sender, EventArgs e)
-        {
+        {           
             lblBienvenido.Text = "Bienvenido al sistema " + NameUser;
             AppRepository app = new AppRepository();
             if (app.GetStockOut().Result > 0)

@@ -1,5 +1,6 @@
 ﻿using ImageMagick;
 using LinkCajaV2.Data;
+using LinkCajaV2.Items;
 using LinkCajaV2.Model;
 using System;
 using System.Collections.Generic;
@@ -144,6 +145,17 @@ namespace LinkCajaV2.Catalogs
             txtClaveSAT.Text = Article.CodeSAT;
             CBDevoluciones.Checked = Article.SendBack;
             cbMedicine.Checked = Article.Medicine;
-        }      
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            SAT s = new SAT();
+            if (s.ShowDialog() != DialogResult.OK)
+            {
+                MessageBox.Show("Introducción de clave cancelada por el usuario.", "Clave Cancelada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            txtClaveSAT.Text = s.Clave;
+        }
     }
 }

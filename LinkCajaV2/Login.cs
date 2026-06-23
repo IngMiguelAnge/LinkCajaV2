@@ -47,5 +47,11 @@ namespace LinkCajaV2
         {
             Application.Exit();
         }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+            SearchSAT ss = new SearchSAT();
+            ss.CrearIndiceLocal();
+        }
     }
 }
