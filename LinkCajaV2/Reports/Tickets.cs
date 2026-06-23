@@ -354,7 +354,7 @@ namespace LinkCajaV2.Reports
                             RespuestaFactureModel RStatusF = new RespuestaFactureModel();
                             if (Send == "Enviado")
                             {
-                                Facture.pos_ticket_id = "TKT-TEST-MINO-" + Ticket.CreateDate.Year.ToString() + "-" + IdTicket.ToString();
+                                Facture.pos_ticket_id = "TEST-TKT-MINO-" + Ticket.CreateDate.Year.ToString() + "-" + IdTicket.ToString();
                                 RStatusF = await Facturacion.EstatusFactura(Facture.pos_ticket_id);
                                 if (RStatusF.Exito == false && RStatusF.Data.message != "No existe un ticket con ese identificador.")
                                 {
@@ -436,7 +436,7 @@ namespace LinkCajaV2.Reports
                             return;
                         }
 
-                        Facture.pos_ticket_id = "TKT-TEST-MINO-" + Ticket.CreateDate.Year.ToString() + "-" + IdTicket.ToString();
+                        Facture.pos_ticket_id = "TEST-TKT-MINO-" + Ticket.CreateDate.Year.ToString() + "-" + IdTicket.ToString();
                         RespuestaFactureModel StatusFactura = await Facturacion.EstatusFactura(Facture.pos_ticket_id);
                         if (StatusFactura.Exito == false && StatusFactura.Data.message != "No existe un ticket con ese identificador.")
                         {
@@ -503,7 +503,7 @@ namespace LinkCajaV2.Reports
                             MessageBox.Show("El ticket ya se encuentra Cancelado.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
-                        Facture.pos_ticket_id = "TKT-TEST-MINO-" + Ticket.CreateDate.Year.ToString() + "-" + IdTicket.ToString();
+                        Facture.pos_ticket_id = "TEST-TKT-MINO-" + Ticket.CreateDate.Year.ToString() + "-" + IdTicket.ToString();
                         RespuestaFactureModel StatusF = await Facturacion.EstatusFactura(Facture.pos_ticket_id);
                         if (StatusF.Exito == false && StatusF.Data.message != "No existe un ticket con ese identificador.")
                         {

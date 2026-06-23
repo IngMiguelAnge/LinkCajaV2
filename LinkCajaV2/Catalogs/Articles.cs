@@ -302,6 +302,7 @@ namespace LinkCajaV2.Catalogs
                 BtnSAT.Visible = false;
                 lblTotalGanancia.Visible = false;
                 lblTotalInvertido.Visible = false;
+                lblTotalVenta.Visible = false;
             }
             AppRepository obj = new AppRepository();
             var ListCategories = obj.GetCategoriesActives().Result.OrderBy(x => x.Name).ToList();

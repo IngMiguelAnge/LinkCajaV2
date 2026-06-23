@@ -52,7 +52,7 @@ namespace LinkCajaV2.Reports
             {
                 BillingDetails Facture = new BillingDetails();
                 BillingMethods Facturacion = new BillingMethods();
-                Facture.pos_ticket_id = "TKT-TEST-MINO-" + Year.ToString() + "-" + IdTicket.ToString();
+                Facture.pos_ticket_id = "TEST-TKT-MINO-" + Year.ToString() + "-" + IdTicket.ToString();
                 RespuestaFactureModel RStatusF = await Facturacion.EstatusFactura(Facture.pos_ticket_id);
                 ListConceptos = new List<concepts>();
                 if (RStatusF.Exito == false && RStatusF.Data.message != "No existe un ticket con ese identificador.")
@@ -64,7 +64,7 @@ namespace LinkCajaV2.Reports
                 {
                     if (RStatusF.Data.facturado == true)
                     {
-                        MessageBox.Show("No se puede cancelar los articulos de este ticket por que que ya se encuentra facturado.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("No podra cancelar los articulos de este ticket, por que ya se encuentra facturado.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         permitircancelar = false;
                     }
                     ListConceptos.AddRange(RStatusF.Data.concepts);
@@ -242,7 +242,7 @@ namespace LinkCajaV2.Reports
                                 {
                                     BillingDetails Facture = new BillingDetails();
                                     BillingMethods Facturacion = new BillingMethods();
-                                    Facture.pos_ticket_id = "TKT-TEST-MINO-" + Year.ToString() + "-" + IdTicket.ToString();
+                                    Facture.pos_ticket_id = "TEST-TKT-MINO-" + Year.ToString() + "-" + IdTicket.ToString();
                                     RespuestaFactureModel CancelarFactura = await Facturacion.CancelarUnArticulo(Facture.pos_ticket_id, IdArticle.ToString());
                                     if (CancelarFactura.Data.message != "Artículo devuelto correctamente.")
                                     {

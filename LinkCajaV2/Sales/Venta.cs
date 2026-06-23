@@ -653,7 +653,7 @@ namespace LinkCajaV2.Sales
             DetailsTicketModel Details = new DetailsTicketModel();
             BillingDetails billing = new BillingDetails();
             //No se deja a que el cliente elija el nombre por que si lo cambia ya no se encontrara en las facturas emitas
-            venta.Title = "TKT-TEST-MINO-" + DateTime.Now.Year.ToString() + "-" + Ticket.Id.ToString();
+            venta.Title = "TEST-TKT-MINO-" + DateTime.Now.Year.ToString() + "-" + Ticket.Id.ToString();
             
             billing.pos_ticket_id = venta.Title;
             billing.form_payment = TipoPago; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
