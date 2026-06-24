@@ -87,6 +87,7 @@ namespace LinkCajaV2.Catalogs
             btnCambiar.FlatStyle = FlatStyle.Flat;
             btnCambiar.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
             btnCambiar.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
+            dgvCategorias.Columns.Add(btnCambiar);
         }
 
         private async void dgvCategorias_CellContentClick(object sender, DataGridViewCellEventArgs e)
