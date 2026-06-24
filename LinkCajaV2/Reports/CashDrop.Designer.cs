@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CashDrop));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelLateral = new System.Windows.Forms.Panel();
             this.BtnPanelSalir = new System.Windows.Forms.Button();
             this.btnPanelMenu = new System.Windows.Forms.Button();
@@ -51,9 +51,11 @@
             this.lblOpciones = new System.Windows.Forms.Label();
             this.CBResumen = new System.Windows.Forms.ComboBox();
             this.PanelPrincipal = new System.Windows.Forms.Panel();
-            this.BtnGrafica = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.cbGraficas = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.BtnGrafica = new System.Windows.Forms.Button();
+            this.cbProveedor = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.panelLateral.SuspendLayout();
             this.gbDatos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCorte)).BeginInit();
@@ -234,28 +236,28 @@
             // 
             // dgvCorte
             // 
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
-            this.dgvCorte.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.dgvCorte.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvCorte.BackgroundColor = System.Drawing.Color.White;
             this.dgvCorte.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvCorte.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCorte.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCorte.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvCorte.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCorte.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCorte.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvCorte.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCorte.EnableHeadersVisualStyles = false;
             this.dgvCorte.Location = new System.Drawing.Point(3, 35);
@@ -323,6 +325,8 @@
             this.PanelPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelPrincipal.Controls.Add(this.cbProveedor);
+            this.PanelPrincipal.Controls.Add(this.label2);
             this.PanelPrincipal.Controls.Add(this.cbGraficas);
             this.PanelPrincipal.Controls.Add(this.label1);
             this.PanelPrincipal.Controls.Add(this.BtnGrafica);
@@ -340,23 +344,16 @@
             this.PanelPrincipal.Size = new System.Drawing.Size(1847, 773);
             this.PanelPrincipal.TabIndex = 36;
             // 
-            // BtnGrafica
+            // cbGraficas
             // 
-            this.BtnGrafica.BackColor = System.Drawing.Color.White;
-            this.BtnGrafica.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.BtnGrafica.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnGrafica.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnGrafica.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.BtnGrafica.Image = ((System.Drawing.Image)(resources.GetObject("BtnGrafica.Image")));
-            this.BtnGrafica.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.BtnGrafica.Location = new System.Drawing.Point(337, 223);
-            this.BtnGrafica.Name = "BtnGrafica";
-            this.BtnGrafica.Size = new System.Drawing.Size(120, 41);
-            this.BtnGrafica.TabIndex = 11;
-            this.BtnGrafica.Text = "Gráficar";
-            this.BtnGrafica.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.BtnGrafica.UseVisualStyleBackColor = false;
-            this.BtnGrafica.Click += new System.EventHandler(this.BtnGrafica_Click);
+            this.cbGraficas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbGraficas.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbGraficas.FormattingEnabled = true;
+            this.cbGraficas.Location = new System.Drawing.Point(34, 226);
+            this.cbGraficas.Name = "cbGraficas";
+            this.cbGraficas.Size = new System.Drawing.Size(272, 38);
+            this.cbGraficas.TabIndex = 10;
+            this.cbGraficas.SelectedIndexChanged += new System.EventHandler(this.cbGraficas_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -369,15 +366,45 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "Gráficar:";
             // 
-            // cbGraficas
+            // BtnGrafica
             // 
-            this.cbGraficas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbGraficas.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbGraficas.FormattingEnabled = true;
-            this.cbGraficas.Location = new System.Drawing.Point(34, 226);
-            this.cbGraficas.Name = "cbGraficas";
-            this.cbGraficas.Size = new System.Drawing.Size(272, 38);
-            this.cbGraficas.TabIndex = 10;
+            this.BtnGrafica.BackColor = System.Drawing.Color.White;
+            this.BtnGrafica.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.BtnGrafica.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnGrafica.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnGrafica.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.BtnGrafica.Image = ((System.Drawing.Image)(resources.GetObject("BtnGrafica.Image")));
+            this.BtnGrafica.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.BtnGrafica.Location = new System.Drawing.Point(675, 221);
+            this.BtnGrafica.Name = "BtnGrafica";
+            this.BtnGrafica.Size = new System.Drawing.Size(120, 41);
+            this.BtnGrafica.TabIndex = 11;
+            this.BtnGrafica.Text = "Gráficar";
+            this.BtnGrafica.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnGrafica.UseVisualStyleBackColor = false;
+            this.BtnGrafica.Click += new System.EventHandler(this.BtnGrafica_Click);
+            // 
+            // cbProveedor
+            // 
+            this.cbProveedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProveedor.Enabled = false;
+            this.cbProveedor.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbProveedor.FormattingEnabled = true;
+            this.cbProveedor.Location = new System.Drawing.Point(343, 224);
+            this.cbProveedor.Name = "cbProveedor";
+            this.cbProveedor.Size = new System.Drawing.Size(250, 38);
+            this.cbProveedor.TabIndex = 42;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.label2.Location = new System.Drawing.Point(338, 178);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 25);
+            this.label2.TabIndex = 41;
+            this.label2.Text = "Proveedor:";
             // 
             // CashDrop
             // 
@@ -428,5 +455,7 @@
         private System.Windows.Forms.Button BtnGrafica;
         private System.Windows.Forms.ComboBox cbGraficas;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cbProveedor;
+        private System.Windows.Forms.Label label2;
     }
 }

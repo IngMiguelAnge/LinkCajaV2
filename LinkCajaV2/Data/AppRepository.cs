@@ -94,7 +94,7 @@ namespace LinkCajaV2.Data
             }
             return list;
         }
-        public async Task<List<GraphModel>> GetArticlesSolds(DateTime Desde, DateTime Hasta, int IdPresentation)
+        public async Task<List<GraphModel>> GetArticlesSolds(DateTime Desde, DateTime Hasta, int IdPresentation,int IdProveedor)
         {
             List<GraphModel> list = new List<GraphModel>();
             try
@@ -107,6 +107,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@CheckIn", Desde));
                         cmd.Parameters.Add(new SqlParameter("@CheckOut", Hasta));
                         cmd.Parameters.Add(new SqlParameter("@IdPresentation", IdPresentation));
+                        cmd.Parameters.Add(new SqlParameter("@IdProveedor", IdProveedor));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {

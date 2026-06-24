@@ -110,6 +110,14 @@ namespace LinkCajaV2.Reports
             cbGraficas.ValueMember = "Id";
             cbGraficas.DataSource = ListPresentation;
             cbGraficas.SelectedIndex = 0;
+            var ListProveedores = obj.GetSuppliersActives().Result.OrderBy(x => x.Name).ToList();
+            // Insertamos un objeto "fantasma" al inicio para el placeholder
+            ListProveedores.Insert(0, new ListSuppliersActivesModel { Id = 0, Name = "Seleccione" });
+            cbProveedor.Items.Clear();
+            cbProveedor.DisplayMember = "Name";
+            cbProveedor.ValueMember = "Id";
+            cbProveedor.DataSource = ListProveedores;
+            cbProveedor.SelectedIndex = 0;
         }
         public void CrearGridView()
         {
@@ -233,7 +241,8 @@ namespace LinkCajaV2.Reports
       
                     try
                     {
-                        var detalles = await obj.GetArticlesSolds(dtDesde.Value, dtHasta.Value, (int)cbGraficas.SelectedValue);
+                        int IdProveedor = cbProveedor.SelectedIndex > 0 ? (int)cbProveedor.SelectedValue : 0;
+                        var detalles = await obj.GetArticlesSolds(dtDesde.Value, dtHasta.Value, (int)cbGraficas.SelectedValue, IdProveedor);
                         if(detalles != null && detalles.Any())
                         {
                             var listaFinal = detalles.ToList();
@@ -269,5 +278,17 @@ namespace LinkCajaV2.Reports
             this.Hide();
         }
 
+        private void cbGraficas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbGraficas.Text != "Seleccione" && cbGraficas.Text != "Ventas")
+            {
+                cbProveedor.Enabled = true;
+            }
+            else {
+                if(cbProveedor.Items.Count > 0)
+                cbProveedor.SelectedIndex = 0;
+                cbProveedor.Enabled = false;
+            }
+        }
     }
 }
