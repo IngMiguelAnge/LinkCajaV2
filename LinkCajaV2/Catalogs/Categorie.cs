@@ -25,8 +25,8 @@ namespace LinkCajaV2.Catalogs
         {
             if (Id == 0) return;
             AppRepository obj = new AppRepository();
-            var Client = obj.GetCategoriebyId(Id).Result;
-            txtNombre.Text = Client.Name;
+            var Categoria = obj.GetCategoriebyId(Id).Result;
+            txtNombre.Text = Categoria.Name;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -37,13 +37,13 @@ namespace LinkCajaV2.Catalogs
                 return;
             }
             AppRepository obj = new AppRepository();
-            List<ListCategoriesModel> exist = obj.GetCategories(txtNombre.Text).Result;
+            List<ListCategoriesModel> exist = obj.GetCategories(txtNombre.Text.Trim()).Result;
             if (exist.Where(x => x.Id != Id).Count() > 0)
             {
                 MessageBox.Show("Ya existe una categoria con ese nombre", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (obj.SaveCategorie(Id, txtNombre.Text).Result)
+            if (obj.SaveCategorie(Id, txtNombre.Text.Trim()).Result)
             {
                 MessageBox.Show("Categoria guardada correctamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
