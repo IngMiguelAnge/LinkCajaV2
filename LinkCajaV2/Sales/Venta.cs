@@ -76,6 +76,19 @@ namespace LinkCajaV2.Sales
 
         private void Venta_Load(object sender, EventArgs e)
         {
+            Advertisement ad = new Advertisement();
+            ad.ShowDialog();
+            string urlImagen = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4qP0E3T-xiaZ2ZIINq0AGs94O8pkNGVuhLCKOSuC-O5XjVEtx7JFZOpQ&s=10";
+
+            try
+            {
+                PBPublicidad.ImageLocation = urlImagen;
+                PBPublicidad.Load();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al cargar la publicidad: " + ex.Message);
+            }
             if (IdTypeUser == 2)//Vendedor
             {
                 //Menu lateral
@@ -431,6 +444,8 @@ namespace LinkCajaV2.Sales
         }
         public void NuevaVenta()
         {
+            Advertisement ad = new Advertisement();
+            ad.ShowDialog();
             var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
             bindingList?.Clear();
             ActualizarTotalGeneral();
@@ -784,6 +799,12 @@ namespace LinkCajaV2.Sales
             m.IdTypeUser = IdTypeUser;
             m.Show();
             this.Hide();
+        }
+
+        private void PBPublicidad_Click(object sender, EventArgs e)
+        {
+            Advertisement ad = new Advertisement();
+            ad.ShowDialog();
         }
     }
 }

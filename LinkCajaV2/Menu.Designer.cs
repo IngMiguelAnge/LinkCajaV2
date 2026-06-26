@@ -36,6 +36,7 @@
             this.btnVentaMostrador = new System.Windows.Forms.Button();
             this.lblTituloVentas = new System.Windows.Forms.Label();
             this.panelCatalogos = new System.Windows.Forms.Panel();
+            this.btnPremios = new System.Windows.Forms.Button();
             this.btnArticules = new System.Windows.Forms.Button();
             this.btnCategorias = new System.Windows.Forms.Button();
             this.btnProveedores = new System.Windows.Forms.Button();
@@ -53,7 +54,6 @@
             this.lblTituloOperacionesCaja = new System.Windows.Forms.Label();
             this.panelAlertaStock = new System.Windows.Forms.Panel();
             this.lblAlertaMensaje = new System.Windows.Forms.Label();
-            this.btnPremios = new System.Windows.Forms.Button();
             this.panelLateral.SuspendLayout();
             this.panelSuperior.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -321,6 +321,25 @@
             this.panelCatalogos.Name = "panelCatalogos";
             this.panelCatalogos.Size = new System.Drawing.Size(534, 340);
             this.panelCatalogos.TabIndex = 1;
+            // 
+            // btnPremios
+            // 
+            this.btnPremios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(251)))), ((int)(((byte)(252)))));
+            this.btnPremios.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(235)))), ((int)(((byte)(240)))));
+            this.btnPremios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPremios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
+            this.btnPremios.Image = ((System.Drawing.Image)(resources.GetObject("btnPremios.Image")));
+            this.btnPremios.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPremios.Location = new System.Drawing.Point(328, 59);
+            this.btnPremios.Name = "btnPremios";
+            this.btnPremios.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
+            this.btnPremios.Size = new System.Drawing.Size(128, 80);
+            this.btnPremios.TabIndex = 8;
+            this.btnPremios.Text = "Premios";
+            this.btnPremios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPremios.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPremios.UseVisualStyleBackColor = false;
+            this.btnPremios.Click += new System.EventHandler(this.btnPremios_Click);
             // 
             // btnArticules
             // 
@@ -594,25 +613,6 @@
             this.lblAlertaMensaje.Text = "⚠ Aviso: Se han detectado artículos con existencias agotadas o por debajo del mín" +
     "imo.";
             this.lblAlertaMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // btnPremios
-            // 
-            this.btnPremios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(251)))), ((int)(((byte)(252)))));
-            this.btnPremios.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(235)))), ((int)(((byte)(240)))));
-            this.btnPremios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPremios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
-            this.btnPremios.Image = ((System.Drawing.Image)(resources.GetObject("btnPremios.Image")));
-            this.btnPremios.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPremios.Location = new System.Drawing.Point(328, 59);
-            this.btnPremios.Name = "btnPremios";
-            this.btnPremios.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
-            this.btnPremios.Size = new System.Drawing.Size(128, 80);
-            this.btnPremios.TabIndex = 8;
-            this.btnPremios.Text = "Premios";
-            this.btnPremios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPremios.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnPremios.UseVisualStyleBackColor = false;
-            this.btnPremios.Click += new System.EventHandler(this.btnPremios_Click);
             // 
             // Menu
             // 

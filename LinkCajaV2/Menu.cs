@@ -6,6 +6,7 @@ using LinkCajaV2.Items;
 using LinkCajaV2.Reports;
 using LinkCajaV2.Sales;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Permissions;
 using System.Threading.Tasks;
@@ -219,5 +220,6 @@ namespace LinkCajaV2
             Premios pr = new Premios();
             pr.Show();
         }
+
     }
 }
