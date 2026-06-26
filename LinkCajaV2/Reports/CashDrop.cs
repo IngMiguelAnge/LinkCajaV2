@@ -133,7 +133,7 @@ namespace LinkCajaV2.Reports
                 Width = 300
             });
            
-            if(CBResumen.Text == "Ver Resumen")
+            if(CBResumen.Text != "Ver Resumen")
             {
                 dgvCorte.Columns.Add(new DataGridViewTextBoxColumn
                 {

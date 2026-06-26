@@ -197,7 +197,6 @@ namespace LinkCajaV2.Catalogs
                 {
                     var r = obj.SaveTransactionHistory(t).Result;
                 }                    
-                MessageBox.Show("Stock guardado correctamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             else

@@ -102,9 +102,9 @@
             this.lblMensaje3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.lblMensaje3.Location = new System.Drawing.Point(12, 53);
             this.lblMensaje3.Name = "lblMensaje3";
-            this.lblMensaje3.Size = new System.Drawing.Size(320, 25);
+            this.lblMensaje3.Size = new System.Drawing.Size(296, 25);
             this.lblMensaje3.TabIndex = 4;
-            this.lblMensaje3.Text = "Porfavor de poner la cantidad a vender";
+            this.lblMensaje3.Text = "Favor de poner la cantidad a vender";
             // 
             // btnCancelar
             // 

@@ -53,6 +53,7 @@
             this.lblTituloOperacionesCaja = new System.Windows.Forms.Label();
             this.panelAlertaStock = new System.Windows.Forms.Panel();
             this.lblAlertaMensaje = new System.Windows.Forms.Label();
+            this.btnPremios = new System.Windows.Forms.Button();
             this.panelLateral.SuspendLayout();
             this.panelSuperior.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -308,6 +309,7 @@
             // 
             this.panelCatalogos.BackColor = System.Drawing.Color.White;
             this.panelCatalogos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelCatalogos.Controls.Add(this.btnPremios);
             this.panelCatalogos.Controls.Add(this.btnArticules);
             this.panelCatalogos.Controls.Add(this.btnCategorias);
             this.panelCatalogos.Controls.Add(this.btnProveedores);
@@ -328,10 +330,10 @@
             this.btnArticules.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
             this.btnArticules.Image = ((System.Drawing.Image)(resources.GetObject("btnArticules.Image")));
             this.btnArticules.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnArticules.Location = new System.Drawing.Point(246, 59);
+            this.btnArticules.Location = new System.Drawing.Point(168, 59);
             this.btnArticules.Name = "btnArticules";
             this.btnArticules.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
-            this.btnArticules.Size = new System.Drawing.Size(207, 80);
+            this.btnArticules.Size = new System.Drawing.Size(154, 80);
             this.btnArticules.TabIndex = 7;
             this.btnArticules.Text = "Articulos";
             this.btnArticules.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -350,7 +352,7 @@
             this.btnCategorias.Location = new System.Drawing.Point(21, 59);
             this.btnCategorias.Name = "btnCategorias";
             this.btnCategorias.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
-            this.btnCategorias.Size = new System.Drawing.Size(207, 80);
+            this.btnCategorias.Size = new System.Drawing.Size(141, 80);
             this.btnCategorias.TabIndex = 6;
             this.btnCategorias.Text = "Categorias";
             this.btnCategorias.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -366,10 +368,10 @@
             this.btnProveedores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
             this.btnProveedores.Image = ((System.Drawing.Image)(resources.GetObject("btnProveedores.Image")));
             this.btnProveedores.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProveedores.Location = new System.Drawing.Point(246, 149);
+            this.btnProveedores.Location = new System.Drawing.Point(168, 146);
             this.btnProveedores.Name = "btnProveedores";
             this.btnProveedores.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
-            this.btnProveedores.Size = new System.Drawing.Size(207, 80);
+            this.btnProveedores.Size = new System.Drawing.Size(154, 80);
             this.btnProveedores.TabIndex = 5;
             this.btnProveedores.Text = "Proveedores";
             this.btnProveedores.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -385,10 +387,10 @@
             this.btnUsuarios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
             this.btnUsuarios.Image = ((System.Drawing.Image)(resources.GetObject("btnUsuarios.Image")));
             this.btnUsuarios.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUsuarios.Location = new System.Drawing.Point(21, 149);
+            this.btnUsuarios.Location = new System.Drawing.Point(21, 145);
             this.btnUsuarios.Name = "btnUsuarios";
             this.btnUsuarios.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
-            this.btnUsuarios.Size = new System.Drawing.Size(207, 80);
+            this.btnUsuarios.Size = new System.Drawing.Size(141, 80);
             this.btnUsuarios.TabIndex = 4;
             this.btnUsuarios.Text = "Usuarios";
             this.btnUsuarios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -593,6 +595,25 @@
     "imo.";
             this.lblAlertaMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // btnPremios
+            // 
+            this.btnPremios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(251)))), ((int)(((byte)(252)))));
+            this.btnPremios.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(235)))), ((int)(((byte)(240)))));
+            this.btnPremios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPremios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
+            this.btnPremios.Image = ((System.Drawing.Image)(resources.GetObject("btnPremios.Image")));
+            this.btnPremios.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPremios.Location = new System.Drawing.Point(328, 59);
+            this.btnPremios.Name = "btnPremios";
+            this.btnPremios.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
+            this.btnPremios.Size = new System.Drawing.Size(128, 80);
+            this.btnPremios.TabIndex = 8;
+            this.btnPremios.Text = "Premios";
+            this.btnPremios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPremios.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPremios.UseVisualStyleBackColor = false;
+            this.btnPremios.Click += new System.EventHandler(this.btnPremios_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
@@ -669,5 +690,6 @@
         private System.Windows.Forms.Button btnLicencias;
         private System.Windows.Forms.Button btnPanelMenu;
         private System.Windows.Forms.Button BtnCorte;
+        private System.Windows.Forms.Button btnPremios;
     }
 }

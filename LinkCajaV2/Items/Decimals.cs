@@ -6,8 +6,9 @@ namespace LinkCajaV2.Items
     public partial class Decimals : System.Windows.Forms.Form
     {
         public decimal Kilos { get; set; }
+        public int Decimales { get; set; }
         public string Presentation { get; set; }
-        public string Name { get; set; }
+        public string Nombre { get; set; }
         bool primerIngreso = true;
         public Decimals()
         {
@@ -85,8 +86,14 @@ namespace LinkCajaV2.Items
 
         private void Decimals_Load(object sender, EventArgs e)
         {
-            lblMensaje1.Text = "Este articulo se vende por " + Name;
+            lblMensaje1.Text = "Este articulo se vende por " + Nombre;
             lblMensaje2.Text = Presentation;
+            if(Decimales < 3)
+            {
+                NUDKilos.DecimalPlaces = 0;
+                NUDKilos.Increment = 1M;
+                NUDKilos.Maximum = 1000000;
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

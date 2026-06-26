@@ -203,6 +203,12 @@
     <Compile Include="Catalogs\Categories.Designer.cs">
       <DependentUpon>Categories.cs</DependentUpon>
     </Compile>
+    <Compile Include="Catalogs\Premios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\Premios.Designer.cs">
+      <DependentUpon>Premios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Catalogs\PricesSuppliers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -359,6 +365,18 @@
     <Compile Include="Items\Note.Designer.cs">
       <DependentUpon>Note.cs</DependentUpon>
     </Compile>
+    <Compile Include="Items\Resultado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Items\Resultado.Designer.cs">
+      <DependentUpon>Resultado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Items\Ruleta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Items\Ruleta.Designer.cs">
+      <DependentUpon>Ruleta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Items\SAT.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -406,6 +424,7 @@
     <Compile Include="Model\ListCashFundModel.cs" />
     <Compile Include="Model\ListCategoriesModel.cs" />
     <Compile Include="Model\ListDetailsTicketModel.cs" />
+    <Compile Include="Model\ListPrizesModel.cs" />
     <Compile Include="Model\ListRetirementsModel.cs" />
     <Compile Include="Model\ListTicketModel.cs" />
     <Compile Include="Model\PrinterPricesModel.cs" />
@@ -424,6 +443,7 @@
     <Compile Include="Model\OpcionComboModel.cs" />
     <Compile Include="Model\PresentationModel.cs" />
     <Compile Include="Model\PricesSuppliersModel.cs" />
+    <Compile Include="Model\PrizeModel.cs" />
     <Compile Include="Model\RecipeModel.cs" />
     <Compile Include="Model\RegimenModel.cs" />
     <Compile Include="Model\ResponseFactureModel.cs" />
@@ -473,6 +493,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\Categories.resx">
       <DependentUpon>Categories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\Premios.resx">
+      <DependentUpon>Premios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\PricesSuppliers.resx">
       <DependentUpon>PricesSuppliers.cs</DependentUpon>
@@ -549,6 +572,12 @@
     <EmbeddedResource Include="Items\Note.resx">
       <DependentUpon>Note.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Items\Resultado.resx">
+      <DependentUpon>Resultado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Items\Ruleta.resx">
+      <DependentUpon>Ruleta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Items\SAT.resx">
       <DependentUpon>SAT.cs</DependentUpon>
     </EmbeddedResource>
@@ -612,6 +641,9 @@
     <Content Include="Icons\Clientes.png" />
     <Content Include="Icons\Corte.png" />
     <Content Include="Icons\CorteCaja.png" />
+    <Content Include="Icons\Felicidades.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icons\grafic.png" />
     <Content Include="Icons\Guardar.png" />
     <Content Include="Icons\Impresiones.png" />
@@ -626,8 +658,12 @@
     <Content Include="Icons\Mi Empresa.png" />
     <Content Include="Icons\minus.png" />
     <Content Include="Icons\Nuevo.png" />
+    <Content Include="Icons\Perdiste.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icons\Proveedores.png" />
     <Content Include="Icons\Recetas.png" />
+    <Content Include="Icons\Regalo.png" />
     <Content Include="Icons\Salir.png" />
     <Content Include="Icons\Subir.png" />
     <Content Include="Icons\Tickets.png" />

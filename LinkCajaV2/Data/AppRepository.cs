@@ -24,6 +24,130 @@ namespace LinkCajaV2.Data
         {
             GC.Collect();
         }
+        #region Prize
+        public async Task<List<PrizeModel>> GetPrizesValids()
+        {
+            List<PrizeModel> list = new List<PrizeModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetPrizesValids", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToPrizeModel(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+        public async Task<List<ListPrizesModel>> GetPrizes(int Id, string Nombre)
+        {
+            List<ListPrizesModel> list = new List<ListPrizesModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetPrizes", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        cmd.Parameters.Add(new SqlParameter("@Name", Nombre));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToListPrizes(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+        private ListPrizesModel MapToListPrizes(SqlDataReader reader)
+        {
+            return new ListPrizesModel()
+            {
+                Id = (int)reader["Id"],
+                IdArticle = (int)reader["IdArticle"],
+                Nombre = (string)reader["Article"],
+                Cantidad = (string)reader["Stock"],
+                Estatus = (string)reader["Status"],
+            };
+        }
+        private PrizeModel MapToPrizeModel(SqlDataReader reader)
+        {
+            return new PrizeModel()
+            {
+                Id = (int)reader["Id"],
+                IdArticle = (int)reader["IdArticle"],
+                Stock = (decimal)reader["Stock"],
+                Status = (bool)reader["Status"],
+            };
+        }
+        public async Task<bool> SavePrize(PrizeModel Prize)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SavePrize", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Prize.Id));
+                        cmd.Parameters.Add(new SqlParameter("@IdArticle", Prize.IdArticle));
+                        cmd.Parameters.Add(new SqlParameter("@Stock", Prize.Stock));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<bool> UpdateStatusPrize(int Id)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("UpdateStatusPrize", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        #endregion
         #region SearchSAT       
         private CodeSatModel MapToSAT(SqlDataReader reader)
         {
@@ -2781,6 +2905,7 @@ namespace LinkCajaV2.Data
                 Id = (int)reader["Id"],
                 Name = (string)reader["Name"],
                 Decimals = (int)reader["Decimals"],
+                Presentation = (string)reader["Presentation"],
                 UnitSAT = (string)reader["UnitSAT"],
             };
         }

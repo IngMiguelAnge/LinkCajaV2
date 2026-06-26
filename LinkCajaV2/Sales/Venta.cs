@@ -13,6 +13,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Media;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Color = System.Drawing.Color;
 
@@ -327,7 +328,8 @@ namespace LinkCajaV2.Sales
             {
                 Decimals d = new Decimals();
                 d.Presentation = presentacion.Presentation;
-                d.Name = presentacion.Name;
+                d.Nombre = presentacion.Name;
+                d.Decimales = presentacion.Decimals;
                 if (d.ShowDialog() == DialogResult.OK) // Asumiendo que devuelve OK
                 {
                     cantidadEntrante = d.Kilos;
@@ -716,6 +718,17 @@ namespace LinkCajaV2.Sales
             //bool result = obj.ConfirmSend(Ticket.Id, Enviado).Result;
             //if (Enviado.Exito == true)
                 MessageBox.Show("Venta realizada con éxito.");
+            if(TotalReal >= 100)
+            {
+                var listaPremios = await Task.Run(() => obj.GetPrizesValids());
+                if (listaPremios.Count() > 0)
+                {
+                    Ruleta r = new Ruleta();
+                    r.listaPremios = listaPremios;
+                    r.Show();
+                }
+            }
+
             //else MessageBox.Show("Venta realizada con éxito. Portal no recibio factura");
             NuevaVenta();
         }
