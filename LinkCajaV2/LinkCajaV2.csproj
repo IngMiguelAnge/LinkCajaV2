@@ -323,12 +323,6 @@
     <Compile Include="Items\Adjustment.Designer.cs">
       <DependentUpon>Adjustment.cs</DependentUpon>
     </Compile>
-    <Compile Include="Items\Advertisement.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Items\Advertisement.Designer.cs">
-      <DependentUpon>Advertisement.cs</DependentUpon>
-    </Compile>
     <Compile Include="Items\ConfirmPay.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -556,9 +550,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Items\Adjustment.resx">
       <DependentUpon>Adjustment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Items\Advertisement.resx">
-      <DependentUpon>Advertisement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Items\ConfirmPay.resx">
       <DependentUpon>ConfirmPay.cs</DependentUpon>

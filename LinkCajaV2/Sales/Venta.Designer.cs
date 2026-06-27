@@ -31,17 +31,13 @@ namespace LinkCajaV2.Sales
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Venta));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelLateral = new System.Windows.Forms.Panel();
+            this.PBPublicidad = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.BtnPanelSalir = new System.Windows.Forms.Button();
             this.btnPanelMenu = new System.Windows.Forms.Button();
-            this.btnPanelCorte = new System.Windows.Forms.Button();
-            this.btnPanelEmpresa = new System.Windows.Forms.Button();
-            this.btnPanelArticulos = new System.Windows.Forms.Button();
-            this.btnPanelVentas = new System.Windows.Forms.Button();
             this.lblPanelTituloApp = new System.Windows.Forms.Label();
             this.lblCodigo = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
@@ -64,8 +60,8 @@ namespace LinkCajaV2.Sales
             this.btnPagar = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lblNombreEmpresa = new System.Windows.Forms.Label();
-            this.PBPublicidad = new System.Windows.Forms.PictureBox();
             this.panelLateral.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PBPublicidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDCantidad)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
@@ -75,7 +71,6 @@ namespace LinkCajaV2.Sales
             ((System.ComponentModel.ISupportInitialize)(this.PBProducto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDCopias)).BeginInit();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PBPublicidad)).BeginInit();
             this.SuspendLayout();
             // 
             // panelLateral
@@ -83,18 +78,23 @@ namespace LinkCajaV2.Sales
             this.panelLateral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
             this.panelLateral.Controls.Add(this.PBPublicidad);
             this.panelLateral.Controls.Add(this.label1);
-            this.panelLateral.Controls.Add(this.BtnPanelSalir);
             this.panelLateral.Controls.Add(this.btnPanelMenu);
-            this.panelLateral.Controls.Add(this.btnPanelCorte);
-            this.panelLateral.Controls.Add(this.btnPanelEmpresa);
-            this.panelLateral.Controls.Add(this.btnPanelArticulos);
-            this.panelLateral.Controls.Add(this.btnPanelVentas);
             this.panelLateral.Controls.Add(this.lblPanelTituloApp);
             this.panelLateral.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelLateral.Location = new System.Drawing.Point(0, 0);
             this.panelLateral.Name = "panelLateral";
             this.panelLateral.Size = new System.Drawing.Size(264, 1050);
             this.panelLateral.TabIndex = 0;
+            // 
+            // PBPublicidad
+            // 
+            this.PBPublicidad.Location = new System.Drawing.Point(13, 203);
+            this.PBPublicidad.Name = "PBPublicidad";
+            this.PBPublicidad.Size = new System.Drawing.Size(229, 176);
+            this.PBPublicidad.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PBPublicidad.TabIndex = 29;
+            this.PBPublicidad.TabStop = false;
+            this.PBPublicidad.Click += new System.EventHandler(this.PBPublicidad_Click);
             // 
             // label1
             // 
@@ -106,22 +106,6 @@ namespace LinkCajaV2.Sales
             this.label1.TabIndex = 28;
             this.label1.Text = "PUNTO DE VENTA";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // BtnPanelSalir
-            // 
-            this.BtnPanelSalir.FlatAppearance.BorderSize = 0;
-            this.BtnPanelSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnPanelSalir.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.BtnPanelSalir.ForeColor = System.Drawing.Color.White;
-            this.BtnPanelSalir.Image = ((System.Drawing.Image)(resources.GetObject("BtnPanelSalir.Image")));
-            this.BtnPanelSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnPanelSalir.Location = new System.Drawing.Point(12, 500);
-            this.BtnPanelSalir.Name = "BtnPanelSalir";
-            this.BtnPanelSalir.Size = new System.Drawing.Size(249, 45);
-            this.BtnPanelSalir.TabIndex = 28;
-            this.BtnPanelSalir.Text = "Salir";
-            this.BtnPanelSalir.UseVisualStyleBackColor = true;
-            this.BtnPanelSalir.Click += new System.EventHandler(this.BtnPanelSalir_Click);
             // 
             // btnPanelMenu
             // 
@@ -136,67 +120,7 @@ namespace LinkCajaV2.Sales
             this.btnPanelMenu.Size = new System.Drawing.Size(249, 82);
             this.btnPanelMenu.TabIndex = 26;
             this.btnPanelMenu.Text = "Menu";
-            this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click_1);
-            // 
-            // btnPanelCorte
-            // 
-            this.btnPanelCorte.FlatAppearance.BorderSize = 0;
-            this.btnPanelCorte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPanelCorte.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnPanelCorte.ForeColor = System.Drawing.Color.White;
-            this.btnPanelCorte.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelCorte.Image")));
-            this.btnPanelCorte.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelCorte.Location = new System.Drawing.Point(9, 430);
-            this.btnPanelCorte.Name = "btnPanelCorte";
-            this.btnPanelCorte.Size = new System.Drawing.Size(249, 45);
-            this.btnPanelCorte.TabIndex = 7;
-            this.btnPanelCorte.Text = "Resumen";
-            this.btnPanelCorte.Click += new System.EventHandler(this.btnPanelCorte_Click);
-            // 
-            // btnPanelEmpresa
-            // 
-            this.btnPanelEmpresa.FlatAppearance.BorderSize = 0;
-            this.btnPanelEmpresa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPanelEmpresa.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnPanelEmpresa.ForeColor = System.Drawing.Color.White;
-            this.btnPanelEmpresa.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelEmpresa.Image")));
-            this.btnPanelEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelEmpresa.Location = new System.Drawing.Point(12, 365);
-            this.btnPanelEmpresa.Name = "btnPanelEmpresa";
-            this.btnPanelEmpresa.Size = new System.Drawing.Size(249, 45);
-            this.btnPanelEmpresa.TabIndex = 0;
-            this.btnPanelEmpresa.Text = "Mi Empresa";
-            this.btnPanelEmpresa.Click += new System.EventHandler(this.btnPanelEmpresa_Click);
-            // 
-            // btnPanelArticulos
-            // 
-            this.btnPanelArticulos.FlatAppearance.BorderSize = 0;
-            this.btnPanelArticulos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPanelArticulos.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnPanelArticulos.ForeColor = System.Drawing.Color.White;
-            this.btnPanelArticulos.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelArticulos.Image")));
-            this.btnPanelArticulos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelArticulos.Location = new System.Drawing.Point(13, 296);
-            this.btnPanelArticulos.Name = "btnPanelArticulos";
-            this.btnPanelArticulos.Size = new System.Drawing.Size(248, 45);
-            this.btnPanelArticulos.TabIndex = 1;
-            this.btnPanelArticulos.Text = "Articulos";
-            this.btnPanelArticulos.Click += new System.EventHandler(this.btnPanelArticulos_Click);
-            // 
-            // btnPanelVentas
-            // 
-            this.btnPanelVentas.FlatAppearance.BorderSize = 0;
-            this.btnPanelVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPanelVentas.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnPanelVentas.ForeColor = System.Drawing.Color.White;
-            this.btnPanelVentas.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelVentas.Image")));
-            this.btnPanelVentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelVentas.Location = new System.Drawing.Point(12, 208);
-            this.btnPanelVentas.Name = "btnPanelVentas";
-            this.btnPanelVentas.Size = new System.Drawing.Size(249, 82);
-            this.btnPanelVentas.TabIndex = 2;
-            this.btnPanelVentas.Text = " Ventas";
-            this.btnPanelVentas.Click += new System.EventHandler(this.btnPanelVentas_Click);
+            this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click);
             // 
             // lblPanelTituloApp
             // 
@@ -295,29 +219,29 @@ namespace LinkCajaV2.Sales
             // 
             // dgvArticulos
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
-            this.dgvArticulos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.dgvArticulos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvArticulos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvArticulos.BackgroundColor = System.Drawing.Color.White;
             this.dgvArticulos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvArticulos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvArticulos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvArticulos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvArticulos.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvArticulos.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvArticulos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvArticulos.EnableHeadersVisualStyles = false;
             this.dgvArticulos.Location = new System.Drawing.Point(3, 34);
@@ -521,16 +445,6 @@ namespace LinkCajaV2.Sales
             this.lblNombreEmpresa.Text = "Nombre Empresa";
             this.lblNombreEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // PBPublicidad
-            // 
-            this.PBPublicidad.Location = new System.Drawing.Point(13, 567);
-            this.PBPublicidad.Name = "PBPublicidad";
-            this.PBPublicidad.Size = new System.Drawing.Size(229, 148);
-            this.PBPublicidad.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PBPublicidad.TabIndex = 29;
-            this.PBPublicidad.TabStop = false;
-            this.PBPublicidad.Click += new System.EventHandler(this.PBPublicidad_Click);
-            // 
             // Venta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
@@ -561,6 +475,7 @@ namespace LinkCajaV2.Sales
             this.Load += new System.EventHandler(this.Venta_Load);
             this.Shown += new System.EventHandler(this.Venta_Shown);
             this.panelLateral.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PBPublicidad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDCantidad)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).EndInit();
@@ -571,7 +486,6 @@ namespace LinkCajaV2.Sales
             ((System.ComponentModel.ISupportInitialize)(this.PBProducto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDCopias)).EndInit();
             this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PBPublicidad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -581,11 +495,6 @@ namespace LinkCajaV2.Sales
 
         private System.Windows.Forms.Panel panelLateral;
         private System.Windows.Forms.Label lblPanelTituloApp;
-        private System.Windows.Forms.Button btnPanelVentas;
-        private System.Windows.Forms.Button btnPanelArticulos;
-        private System.Windows.Forms.Button btnPanelEmpresa;
-        private System.Windows.Forms.Button btnPanelCorte;
-        private System.Windows.Forms.Button BtnPanelSalir;
         private System.Windows.Forms.Button btnPanelMenu;
         private System.Windows.Forms.Label lblCodigo;
         private System.Windows.Forms.TextBox txtCodigo;

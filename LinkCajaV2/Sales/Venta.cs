@@ -15,6 +15,7 @@ using System.Linq;
 using System.Media;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 using Color = System.Drawing.Color;
 
 namespace LinkCajaV2.Sales
@@ -28,8 +29,12 @@ namespace LinkCajaV2.Sales
         private CompanyModel Empresa { get; set; }
         private int IdBox { get; set; }
         private string BoxName { get; set; }
-        private DateTime HoraEntrada { get; set; }
-        private DateTime HoraCierre { get; set; }
+
+        private Dictionary<int, string> urlsPublicidad = new Dictionary<int, string>();
+        private int bannerActualIndex = 0;
+        private System.Windows.Forms.Timer timerPublicidad;
+        // Lista simple para las rutas de tus imágenes (pueden ser URLs de internet o rutas locales de tu PC)
+        private List<string> imagenesPublicidad = new List<string>();
         public Venta()
         {
             InitializeComponent();
@@ -38,70 +43,33 @@ namespace LinkCajaV2.Sales
         {
             NuevaVenta();
         }
-        private void btnPanelArticulos_Click(object sender, EventArgs e)
+        private void TimerPublicidad_Tick(object sender, EventArgs e)
         {
-            Articles a = new Articles();
-            a.IdUsuario = IdUsuario;
-            a.NameUser = NameUser;
-            a.IsVenta = false;
-            a.Show();
-            this.Hide();
+            // Cada vez que pasen 5 segundos, este evento se dispara solo
+            MostrarSiguienteBanner();
         }
 
-        private void btnPanelEmpresa_Click(object sender, EventArgs e)
+        private void MostrarSiguienteBanner()
         {
-            Company m = new Company();
-            m.Show();
-        }
-
-        private void btnPanelCorte_Click(object sender, EventArgs e)
-        {
-            CashDrop c = new CashDrop();
-            c.Show();
-        }
-        private void BtnPanelSalir_Click(object sender, EventArgs e)
-        {
-            Login login = new Login();
-            login.Show();
-            this.Hide();
-        }
-        private void btnPanelMenu_Click(object sender, EventArgs e)
-        {
-            Menu m = new Menu();
-            m.IdUsuario = IdUsuario;
-            m.NameUser = NameUser;
-            m.Show();
-            this.Hide();
-        }
-
-        private void Venta_Load(object sender, EventArgs e)
-        {
-            Advertisement ad = new Advertisement();
-            ad.ShowDialog();
-            string urlImagen = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4qP0E3T-xiaZ2ZIINq0AGs94O8pkNGVuhLCKOSuC-O5XjVEtx7JFZOpQ&s=10";
+            if (imagenesPublicidad.Count == 0) return;
 
             try
             {
-                PBPublicidad.ImageLocation = urlImagen;
-                PBPublicidad.Load();
+                PBPublicidad.ImageLocation = imagenesPublicidad[bannerActualIndex];
+
+                bannerActualIndex++;
+                if (bannerActualIndex >= imagenesPublicidad.Count)
+                {
+                    bannerActualIndex = 0;
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al cargar la publicidad: " + ex.Message);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            if (IdTypeUser == 2)//Vendedor
-            {
-                //Menu lateral
-                btnPanelEmpresa.Visible = false;
-                btnPanelCorte.Visible = false;
-            }
-            if (IdTypeUser == 3)//Almacenista
-            {
-                //Menu lateral
-                btnPanelEmpresa.Visible = false;
-                btnPanelCorte.Visible = false;
-                btnPanelVentas.Visible = false;
-            }
+        }
+        private void Venta_Load(object sender, EventArgs e)
+        {
             AppRepository obj = new AppRepository();
             KeysModel ListKeys = obj.GetKeys().Result.FirstOrDefault();
             if (ListKeys == null)
@@ -126,15 +94,36 @@ namespace LinkCajaV2.Sales
                 this.Close();
                 return;
             }
-            if(fund.CheckIn > DateTime.Now)
+
+            //inicio de banner
+            string urlImagen = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4qP0E3T-xiaZ2ZIINq0AGs94O8pkNGVuhLCKOSuC-O5XjVEtx7JFZOpQ&s=10";
+            string urlImagen2 = "https://imgs.search.brave.com/f0orOhJBTV3mnLShovIhMvezaDpUfFSMEGX4U3U4ANg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/YW50ZXZlbmlvLmNv/bS93cC1jb250ZW50/L3VwbG9hZHMvMjAx/NS8xMi9iYW5uZXIt/YmFua29hLmpwZw";
+            try
             {
-                MessageBox.Show("Aun no inicia la hora de entrada para esta máquina.", "Inicio", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-                return;
+                imagenesPublicidad.Add(urlImagen);
+                imagenesPublicidad.Add(urlImagen2);
+                imagenesPublicidad.Add(urlImagen);
+
+                // 2. Asocia cada posición (0, 1, 2...) con la URL que debe abrir
+                urlsPublicidad[0] = "https://www.youtube.com/watch?v=XmINpDkUx7I&list=RDXmINpDkUx7I&start_radio=1";
+                urlsPublicidad[1] = "https://www.youtube.com/watch?v=Tuhmv2vgeF0&list=RDTuhmv2vgeF0&start_radio=1";
+                urlsPublicidad[2] = "https://www.youtube.com/watch?v=XmINpDkUx7I&list=RDXmINpDkUx7I&start_radio=1";
+
+                // Cargar la primera imagen del carrusel
+                MostrarSiguienteBanner();
+
+                // 3. Configurar el movimiento automático (cada 5 segundos)
+                timerPublicidad = new System.Windows.Forms.Timer();
+                timerPublicidad.Interval = 5000;
+                timerPublicidad.Tick += TimerPublicidad_Tick;
+                timerPublicidad.Start();
             }
-          
-            HoraEntrada = fund.CheckIn;
-            HoraCierre = fund.CheckOut;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            //fin de banner
+
             IdBox = box.Id;
             BoxName = box.Name;
             string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sounds", "beep.wav");
@@ -444,8 +433,6 @@ namespace LinkCajaV2.Sales
         }
         public void NuevaVenta()
         {
-            Advertisement ad = new Advertisement();
-            ad.ShowDialog();
             var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
             bindingList?.Clear();
             ActualizarTotalGeneral();
@@ -791,7 +778,7 @@ namespace LinkCajaV2.Sales
             this.Hide();
         }
 
-        private void btnPanelMenu_Click_1(object sender, EventArgs e)
+        private void btnPanelMenu_Click(object sender, EventArgs e)
         {
             Menu m = new Menu();
             m.IdUsuario = IdUsuario;
@@ -803,8 +790,34 @@ namespace LinkCajaV2.Sales
 
         private void PBPublicidad_Click(object sender, EventArgs e)
         {
-            Advertisement ad = new Advertisement();
-            ad.ShowDialog();
+            if (imagenesPublicidad.Count == 0) return;
+
+            // Calculamos el índice exacto de la imagen que se está viendo en este segundo
+            int indexActual = bannerActualIndex - 1;
+            if (indexActual < 0) indexActual = imagenesPublicidad.Count - 1;
+
+            // Si esa imagen tiene una URL registrada, la abrimos en el navegador
+            if (urlsPublicidad.ContainsKey(indexActual))
+            {
+                string urlDestino = urlsPublicidad[indexActual];
+
+                if (!string.IsNullOrEmpty(urlDestino))
+                {
+                    try
+                    {
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = urlDestino,
+                            UseShellExecute = true 
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("No se pudo abrir el enlace: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    }
+                }
+            }
         }
     }
 }
