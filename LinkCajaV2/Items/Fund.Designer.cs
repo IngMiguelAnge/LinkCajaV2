@@ -34,7 +34,6 @@ namespace LinkCajaV2.Items
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Fund));
             this.lblFechaApertura = new System.Windows.Forms.Label();
             this.dtFechaApertura = new System.Windows.Forms.DateTimePicker();
-            this.btnGuardar = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.CBCajas = new System.Windows.Forms.ComboBox();
             this.lblCaja = new System.Windows.Forms.Label();
@@ -84,13 +83,6 @@ namespace LinkCajaV2.Items
             this.dtFechaApertura.Size = new System.Drawing.Size(307, 37);
             this.dtFechaApertura.TabIndex = 3;
             this.dtFechaApertura.ValueChanged += new System.EventHandler(this.dtFechaApertura_ValueChanged);
-            // 
-            // btnGuardar
-            // 
-            this.btnGuardar.Location = new System.Drawing.Point(0, 0);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardar.TabIndex = 25;
             // 
             // lblTitulo
             // 
@@ -373,7 +365,6 @@ namespace LinkCajaV2.Items
             // 
             // Fund
             // 
-            this.AcceptButton = this.btnGuardar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
@@ -401,7 +392,6 @@ namespace LinkCajaV2.Items
             this.Controls.Add(this.lblCaja);
             this.Controls.Add(this.CBCajas);
             this.Controls.Add(this.lblTitulo);
-            this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.lblFechaApertura);
             this.Controls.Add(this.dtFechaApertura);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -421,7 +411,6 @@ namespace LinkCajaV2.Items
 
         private System.Windows.Forms.Label lblFechaApertura;
         private System.Windows.Forms.DateTimePicker dtFechaApertura;
-        private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.ComboBox CBCajas;
         private System.Windows.Forms.Label lblCaja;
