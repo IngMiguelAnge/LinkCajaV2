@@ -77,7 +77,6 @@ namespace LinkCajaV2.Items
             CBCajas.DataSource = ListBox;
             CBCajas.SelectedIndex = 0;
             btnCerrar.Visible = false;
-            btnGuardar.Visible = false;
             BtnAbrir.Visible = false;
             BtnAgregar.Visible = false;
             BtnAgregar2.Visible = false;
@@ -91,7 +90,6 @@ namespace LinkCajaV2.Items
                     this.Close();
                     return;
                 }
-                btnGuardar.Visible = true;
                 btnCerrar.Visible = true;
                 BtnAgregar.Visible = true;
                 BtnAgregar2.Visible = true;
@@ -110,7 +108,6 @@ namespace LinkCajaV2.Items
                 else
                 {
                     dtFechaCierre.Value = result.CheckOut;
-                    btnGuardar.Visible = false;
                     btnCerrar.Visible = false;
                     BtnAgregar.Visible = false;
                     BtnAgregar2.Visible = false;
@@ -159,7 +156,6 @@ namespace LinkCajaV2.Items
                     if (result.StatusOpen == true)
                     {
                         MessageBox.Show("La caja tiene un corte de abierto pendiente del " + result.CheckIn.ToString(), "Caja no valida", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        btnGuardar.Visible = false;
                         btnCerrar.Visible = false;
                         BtnAbrir.Visible = false;
                         BtnAgregar.Visible = false;
@@ -168,7 +164,6 @@ namespace LinkCajaV2.Items
                     }
                     else
                     {
-                        btnGuardar.Visible = false;
                         BtnAbrir.Visible = true;
                         btnCerrar.Visible = false;
                         BtnAgregar.Visible = false;
