@@ -184,6 +184,7 @@ namespace LinkCajaV2.Reports
                 HeaderText = "Enviado",
                 DataPropertyName = "Send",
                 ReadOnly = true,
+                Visible = false,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             });
             dgvTickets.Columns.Add(new DataGridViewTextBoxColumn
@@ -227,6 +228,7 @@ namespace LinkCajaV2.Reports
                 Text = "Enviar a Facturación",
                 UseColumnTextForButtonValue = true,
                 Width = 90,
+                Visible = false,
                 FlatStyle = FlatStyle.Flat
             };
             btnEnviar.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
@@ -240,6 +242,7 @@ namespace LinkCajaV2.Reports
                 Text = "Checar Facturación",
                 UseColumnTextForButtonValue = true,
                 Width = 90,
+                Visible = false,
                 FlatStyle = FlatStyle.Flat
             };
             btnEstatusFactura.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
@@ -321,8 +324,6 @@ namespace LinkCajaV2.Reports
                         Buscar();
                         break;
                     case "Cancelar":
-                        MessageBox.Show("En mantenimiento espere información de soporte.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
                         DateTime Created = Convert.ToDateTime(dgvTickets.Rows[e.RowIndex].Cells["Created"].Value);
                         string Status = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["Status"].Value);
                         if (Status == "Cancelado")
@@ -335,14 +336,14 @@ namespace LinkCajaV2.Reports
                             MessageBox.Show("No se puede cancelar un ticket creado hace más de 48 hrs.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
-                        if (Send != "Enviado")
-                        {
-                            DialogResult continuar = MessageBox.Show("El ticket no se encuentra en el portal.¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                            if (continuar == DialogResult.No)
-                            {
-                                return;
-                            }
-                        }
+                        //if (Send != "Enviado")
+                        //{
+                        //    DialogResult continuar = MessageBox.Show("El ticket no se encuentra en el portal.¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        //    if (continuar == DialogResult.No)
+                        //    {
+                        //        return;
+                        //    }
+                        //}
 
                         try
                         {
@@ -351,26 +352,26 @@ namespace LinkCajaV2.Reports
                             {
                                 return;
                             }
-                            RespuestaFactureModel RStatusF = new RespuestaFactureModel();
-                            if (Send == "Enviado")
-                            {
-                                Facture.pos_ticket_id = "TEST-TKT-MINO-" + Ticket.CreateDate.Year.ToString() + "-" + IdTicket.ToString();
-                                RStatusF = await Facturacion.EstatusFactura(Facture.pos_ticket_id);
-                                if (RStatusF.Exito == false && RStatusF.Data.message != "No existe un ticket con ese identificador.")
-                                {
-                                    MessageBox.Show($"Error en el servidor,{RStatusF.Data.message}, consultar con soporte técnico.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    return;
-                                }
-                                else
-                                {
-                                    if (RStatusF.Data.facturado == true)
-                                    {
-                                        MessageBox.Show("No se puede cancelar un ticket que ya se encuentra facturado.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                        return;
-                                    }
-                                }
-
-                            }
+                            //Descomentar cuando este lo de facturacion
+                            //RespuestaFactureModel RStatusF = new RespuestaFactureModel();
+                            //if (Send == "Enviado")
+                            //{
+                            //    Facture.pos_ticket_id = "TEST-TKT-MINO-" + Ticket.CreateDate.Year.ToString() + "-" + IdTicket.ToString();
+                            //    RStatusF = await Facturacion.EstatusFactura(Facture.pos_ticket_id);
+                            //    if (RStatusF.Exito == false && RStatusF.Data.message != "No existe un ticket con ese identificador.")
+                            //    {
+                            //        MessageBox.Show($"Error en el servidor,{RStatusF.Data.message}, consultar con soporte técnico.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            //        return;
+                            //    }
+                            //    else
+                            //    {
+                            //        if (RStatusF.Data.facturado == true)
+                            //        {
+                            //            MessageBox.Show("No se puede cancelar un ticket que ya se encuentra facturado.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            //            return;
+                            //        }
+                            //    }
+                            //}
 
                             Note n = new Note();
                             if (n.ShowDialog() != DialogResult.OK)
@@ -380,19 +381,20 @@ namespace LinkCajaV2.Reports
                             }
 
                             string MensajeFacturacion = string.Empty;
-                            if (Send == "Enviado")
-                            {
-                                if (RStatusF.Data.message != "No existe un ticket con ese identificador.")
-                                {
-                                    RespuestaFactureModel CancelarFactura = await Facturacion.CancelarFactura(Facture.pos_ticket_id);
-                                    MensajeFacturacion = "Portal de facturación:" + CancelarFactura.Data.message;
-                                }
-                                if(MensajeFacturacion != "Portal de facturación:Ticket eliminado correctamente.")
-                                {
-                                    MessageBox.Show("Portal:"+MensajeFacturacion, "Cancelación Cancelada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    return;
-                                }
-                            }
+                            //Descomentar cuando este lo de facturacion
+                            //if (Send == "Enviado")
+                            //{
+                            //    if (RStatusF.Data.message != "No existe un ticket con ese identificador.")
+                            //    {
+                            //        RespuestaFactureModel CancelarFactura = await Facturacion.CancelarFactura(Facture.pos_ticket_id);
+                            //        MensajeFacturacion = "Portal de facturación:" + CancelarFactura.Data.message;
+                            //    }
+                            //    if(MensajeFacturacion != "Portal de facturación:Ticket eliminado correctamente.")
+                            //    {
+                            //        MessageBox.Show("Portal:"+MensajeFacturacion, "Cancelación Cancelada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            //        return;
+                            //    }
+                            //}
 
                             var Details = await obj.GetDetailsTicket(IdTicket);
                             bool nosend = false;
@@ -423,8 +425,6 @@ namespace LinkCajaV2.Reports
                         }
                         break;
                     case "Enviar":
-                        MessageBox.Show("En mantenimiento espere información de soporte.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
                         if (Send == "Enviado")
                         {
                             MessageBox.Show("El ticket ya se envio al portal de facturación.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -496,8 +496,6 @@ namespace LinkCajaV2.Reports
                         else MessageBox.Show("Fallo el envio consultar con soporte");
                         break;
                     case "CheckFacture":
-                        MessageBox.Show("En mantenimiento espere información de soporte.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
                         if (Cancelado == "Cancelado")
                         {
                             MessageBox.Show("El ticket ya se encuentra Cancelado.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);

@@ -713,14 +713,15 @@ namespace LinkCajaV2.Sales
             }
             ImpressionsGeneral im = new ImpressionsGeneral();
             im.GenerarTicket(venta);
-
+            //Descomentar cuando este lo de facturacion
             //BillingMethods Facturacion = new BillingMethods();
             //string mensaje = string.Empty;
             //RespuestaFactureModel Enviado = await Facturacion.EnviarFactura(billing);
             //bool result = obj.ConfirmSend(Ticket.Id, Enviado).Result;
             //if (Enviado.Exito == true)
-                MessageBox.Show("Venta realizada con éxito.");
-            if(TotalReal >= 100)
+            MessageBox.Show("Venta realizada con éxito.");
+            //else MessageBox.Show("Venta realizada con éxito. Portal no recibio factura");
+            if (TotalReal >= 100)
             {
                 var listaPremios = await Task.Run(() => obj.GetPrizesValids());
                 if (listaPremios.Count() > 0)
@@ -731,7 +732,6 @@ namespace LinkCajaV2.Sales
                 }
             }
 
-            //else MessageBox.Show("Venta realizada con éxito. Portal no recibio factura");
             NuevaVenta();
         }
 

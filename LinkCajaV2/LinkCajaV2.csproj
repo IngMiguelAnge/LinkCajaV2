@@ -616,6 +616,7 @@
     </EmbeddedResource>
     <None Include=".gitignore" />
     <None Include="app.manifest" />
+    <None Include="BaseDatos\LinkCaja.bak" />
     <None Include="Impresiones\Lista de precios.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
