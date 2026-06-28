@@ -85,6 +85,9 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>LogoLink.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="HarfBuzzSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\HarfBuzzSharp.8.3.1.1\lib\net462\HarfBuzzSharp.dll</HintPath>
@@ -653,6 +656,7 @@
     <Content Include="Icons\Inventario.png" />
     <Content Include="Icons\Key.png" />
     <Content Include="Icons\Licencias.png" />
+    <Content Include="Icons\LogoLink.ico" />
     <Content Include="Icons\LogoLink.jpeg" />
     <Content Include="Icons\Lupa.png" />
     <Content Include="Icons\marketing.png" />
@@ -670,6 +674,7 @@
     <Content Include="Icons\Tickets.png" />
     <Content Include="Icons\Usuarios.png" />
     <Content Include="Icons\Venta.png" />
+    <Content Include="LogoLink.ico" />
     <Content Include="Sounds\beep.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
