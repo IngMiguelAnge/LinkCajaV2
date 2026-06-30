@@ -1716,7 +1716,8 @@ namespace LinkCajaV2.Data
                 Id = (int)reader["Id"],
                 Name = (string)reader["Name"],
                 HardwareID = (string)reader["HardwareID"],
-                Estatus = (string)reader["Estatus"],
+                Status = (string)reader["Status"],
+                Publicity = (bool)reader["Publicity"],
             };
         }
         private ListBoxModel MapToListBox(SqlDataReader reader)
@@ -1725,7 +1726,8 @@ namespace LinkCajaV2.Data
             {
                 Id = (int)reader["Id"],
                 Nombre = (string)reader["Name"],
-                Estatus = (string)reader["Estatus"],
+                Publicidad = (string)reader["Publicity"],
+                Estatus = (string)reader["Status"],
             };
         }
         public async Task<bool> SaveBox(BoxModel obj)
@@ -1739,6 +1741,7 @@ namespace LinkCajaV2.Data
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
                         cmd.Parameters.Add(new SqlParameter("@HardwareID", obj.HardwareID));
+                        cmd.Parameters.Add(new SqlParameter("@Publicity", obj.Publicity));
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;

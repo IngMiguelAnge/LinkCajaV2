@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlTypes;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -43,32 +44,23 @@ namespace LinkCajaV2.Sales
         {
             NuevaVenta();
         }
-        private void TimerPublicidad_Tick(object sender, EventArgs e)
+        private void WebView21_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)
         {
-            // Cada vez que pasen 5 segundos, este evento se dispara solo
-            MostrarSiguienteBanner();
-        }
+            string mensaje = e.TryGetWebMessageAsString();
 
-        private void MostrarSiguienteBanner()
-        {
-            if (imagenesPublicidad.Count == 0) return;
-
-            try
+            if (mensaje == "abrir_enlace")
             {
-                PBPublicidad.ImageLocation = imagenesPublicidad[bannerActualIndex];
+                // Aquí pones la URL que quieres que se abra al dar clic
+                string urlA_Abrir = "http://publicidad.tiendasmino.com/";
 
-                bannerActualIndex++;
-                if (bannerActualIndex >= imagenesPublicidad.Count)
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
                 {
-                    bannerActualIndex = 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    FileName = urlA_Abrir,
+                    UseShellExecute = true
+                });
             }
         }
-        private void Venta_Load(object sender, EventArgs e)
+        private async void Venta_Load(object sender, EventArgs e)
         {
             AppRepository obj = new AppRepository();
             KeysModel ListKeys = obj.GetKeys().Result.FirstOrDefault();
@@ -81,7 +73,7 @@ namespace LinkCajaV2.Sales
             HardwareID hardwareID = new HardwareID();
             string Hard = hardwareID.ObtenerHardwareID();
             var box = obj.GetBoxsbyHardwareID(Hard).Result;
-            if (box == null || box.Estatus == "Inactivo")
+            if (box == null || box.Status == "Inactivo")
             {
                 MessageBox.Show("Licencia no válida para esta máquina. Contacta al soporte.", "Licencia no válida", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
@@ -96,34 +88,31 @@ namespace LinkCajaV2.Sales
             }
 
             //inicio de banner
-            string urlImagen = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4qP0E3T-xiaZ2ZIINq0AGs94O8pkNGVuhLCKOSuC-O5XjVEtx7JFZOpQ&s=10";
-            string urlImagen2 = "https://imgs.search.brave.com/f0orOhJBTV3mnLShovIhMvezaDpUfFSMEGX4U3U4ANg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/YW50ZXZlbmlvLmNv/bS93cC1jb250ZW50/L3VwbG9hZHMvMjAx/NS8xMi9iYW5uZXIt/YmFua29hLmpwZw";
             try
             {
-                imagenesPublicidad.Add(urlImagen);
-                imagenesPublicidad.Add(urlImagen2);
-                imagenesPublicidad.Add(urlImagen);
+                await webView21.EnsureCoreWebView2Async(null);
+                webView21.ZoomFactor = 0.4f;
+                webView21.CoreWebView2.Settings.IsZoomControlEnabled = false;
 
-                // 2. Asocia cada posición (0, 1, 2...) con la URL que debe abrir
-                urlsPublicidad[0] = "https://www.youtube.com/watch?v=XmINpDkUx7I&list=RDXmINpDkUx7I&start_radio=1";
-                urlsPublicidad[1] = "https://www.youtube.com/watch?v=Tuhmv2vgeF0&list=RDTuhmv2vgeF0&start_radio=1";
-                urlsPublicidad[2] = "https://www.youtube.com/watch?v=XmINpDkUx7I&list=RDXmINpDkUx7I&start_radio=1";
+                // 2. AGREGAMOS ESTO: Escucha el clic antes de navegar
+                webView21.WebMessageReceived += WebView21_WebMessageReceived;
 
-                // Cargar la primera imagen del carrusel
-                MostrarSiguienteBanner();
+                await webView21.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync(
+                    "window.addEventListener('click', function() { window.chrome.webview.postMessage('abrir_enlace'); });"
+                );
 
-                // 3. Configurar el movimiento automático (cada 5 segundos)
-                timerPublicidad = new System.Windows.Forms.Timer();
-                timerPublicidad.Interval = 5000;
-                timerPublicidad.Tick += TimerPublicidad_Tick;
-                timerPublicidad.Start();
+                // 3. Tu navegación original
+                webView21.CoreWebView2.Navigate("http://publicidad.tiendasmino.com/");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            if (box.Publicity == false)
+            {
+                webView21.Visible = true;
+            }
             //fin de banner
-
             IdBox = box.Id;
             BoxName = box.Name;
             string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sounds", "beep.wav");
@@ -819,5 +808,6 @@ namespace LinkCajaV2.Sales
                 }
             }
         }
+
     }
 }

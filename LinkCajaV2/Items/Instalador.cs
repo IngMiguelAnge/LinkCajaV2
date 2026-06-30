@@ -64,25 +64,13 @@ namespace LinkCajaV2.Items
                 ListKeys = new List<KeysModel>();
                 KeysModel defaultKey = new KeysModel
                 {
-                    Name = "Licencia simple",
+                    Name = "Licencia gratuita",
                     Key = "1",
                 };
                 ListKeys.Add(defaultKey);
                 defaultKey = new KeysModel
                 {
-                    Name = "Licencia basica",
-                    Key = "3",
-                };
-                ListKeys.Add(defaultKey);
-                defaultKey = new KeysModel
-                {
-                    Name = "Licencia plus",
-                    Key = "6",
-                };
-                ListKeys.Add(defaultKey);
-                defaultKey = new KeysModel
-                {
-                    Name = "Licencia plus +",
+                    Name = "Licencia empresarial",
                     Key = "10000",
                 };
                 ListKeys.Add(defaultKey);

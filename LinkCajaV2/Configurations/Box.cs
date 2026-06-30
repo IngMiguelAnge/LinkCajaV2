@@ -33,30 +33,45 @@ namespace LinkCajaV2.Catalogs
                 this.Close();
                 return;
             }
-
             EncrypDesencryp objEncryp = new EncrypDesencryp();
             string Key = objEncryp.Desencriptar(ListKeys.Key);
             string[] partes = Key.Split(new string[] { "Box", "box" }, StringSplitOptions.None);
             CantidadCajas = int.Parse(partes[1]);
+            if (CantidadCajas > 1)
+            {
+                CBPublicidad.Enabled = true;
+            }
+            else CBPublicidad.SelectedIndex = 2;
             if (Id == 0)
             {
                 HardwareID h = new HardwareID();
                 txtHard.Text = h.ObtenerHardwareID();
                 return;
             }
+        
             var model = obj.GetBoxsbyId(Id).Result;
+            if (model.Publicity == true)
+                CBPublicidad.SelectedIndex = 2;
+            else
+                CBPublicidad.SelectedIndex = 1;
             txtHard.Text = model.HardwareID;
             txtNombre.Text = model.Name;
+         
         }
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
+                if (CBPublicidad.SelectedIndex == 0) {
+                    MessageBox.Show("Se requiere información sobre la publicidad", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 AppRepository obj = new AppRepository();
                 BoxModel model = new BoxModel
                 {
                     HardwareID = txtHard.Text,
                     Name = txtNombre.Text,
+                    Publicity = CBPublicidad.SelectedIndex == 1 ? false : true
                 };
 
                 if (Id == 0)

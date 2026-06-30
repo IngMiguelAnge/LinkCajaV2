@@ -35,6 +35,8 @@
             this.txtHard = new System.Windows.Forms.TextBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.lblPublicidad = new System.Windows.Forms.Label();
+            this.CBPublicidad = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lblNombre
@@ -86,7 +88,7 @@
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
             this.btnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("btnGuardar.Image")));
             this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGuardar.Location = new System.Drawing.Point(190, 319);
+            this.btnGuardar.Location = new System.Drawing.Point(113, 418);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(200, 48);
             this.btnGuardar.TabIndex = 4;
@@ -101,16 +103,43 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.lblTitulo.Location = new System.Drawing.Point(33, 23);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(357, 48);
+            this.lblTitulo.Size = new System.Drawing.Size(226, 48);
             this.lblTitulo.TabIndex = 24;
-            this.lblTitulo.Text = "Información de Caja";
+            this.lblTitulo.Text = "Información";
+            // 
+            // lblPublicidad
+            // 
+            this.lblPublicidad.AutoSize = true;
+            this.lblPublicidad.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPublicidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblPublicidad.Location = new System.Drawing.Point(36, 315);
+            this.lblPublicidad.Name = "lblPublicidad";
+            this.lblPublicidad.Size = new System.Drawing.Size(106, 25);
+            this.lblPublicidad.TabIndex = 25;
+            this.lblPublicidad.Text = "Publicidad:";
+            // 
+            // CBPublicidad
+            // 
+            this.CBPublicidad.Enabled = false;
+            this.CBPublicidad.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CBPublicidad.FormattingEnabled = true;
+            this.CBPublicidad.Items.AddRange(new object[] {
+            "Seleccione",
+            "No ver publicidad",
+            "Ver publicidad"});
+            this.CBPublicidad.Location = new System.Drawing.Point(41, 354);
+            this.CBPublicidad.Name = "CBPublicidad";
+            this.CBPublicidad.Size = new System.Drawing.Size(272, 38);
+            this.CBPublicidad.TabIndex = 26;
             // 
             // Box
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(446, 408);
+            this.ClientSize = new System.Drawing.Size(346, 478);
+            this.Controls.Add(this.CBPublicidad);
+            this.Controls.Add(this.lblPublicidad);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.txtHard);
@@ -137,5 +166,7 @@
         private System.Windows.Forms.TextBox txtHard;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Label lblPublicidad;
+        private System.Windows.Forms.ComboBox CBPublicidad;
     }
 }
