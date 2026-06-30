@@ -177,11 +177,11 @@
             // lblSimbolo
             // 
             this.lblSimbolo.AutoSize = true;
-            this.lblSimbolo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSimbolo.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSimbolo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.lblSimbolo.Location = new System.Drawing.Point(356, 358);
             this.lblSimbolo.Name = "lblSimbolo";
-            this.lblSimbolo.Size = new System.Drawing.Size(22, 25);
+            this.lblSimbolo.Size = new System.Drawing.Size(26, 30);
             this.lblSimbolo.TabIndex = 30;
             this.lblSimbolo.Text = "$";
             // 

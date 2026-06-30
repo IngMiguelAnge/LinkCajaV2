@@ -128,11 +128,11 @@
             // 
             // txtDescripcionSat
             // 
-            this.txtDescripcionSat.Enabled = false;
             this.txtDescripcionSat.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDescripcionSat.Location = new System.Drawing.Point(31, 354);
             this.txtDescripcionSat.Multiline = true;
             this.txtDescripcionSat.Name = "txtDescripcionSat";
+            this.txtDescripcionSat.ReadOnly = true;
             this.txtDescripcionSat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDescripcionSat.Size = new System.Drawing.Size(432, 84);
             this.txtDescripcionSat.TabIndex = 7;

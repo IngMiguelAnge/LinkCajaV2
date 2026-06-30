@@ -89,7 +89,7 @@ namespace LinkCajaV2.Catalogs
                     HardwareID = txtHard.Text,
                     Name = txtNombre.Text,
                     Publicity = CBPublicidad.SelectedIndex == 1 ? false : true,
-                    Rulet = CBPublicidad.SelectedIndex == 1 ? true : false,
+                    Rulet = CBRuleta.SelectedIndex == 1 ? true : false,
                     Amount = nudCantidad.Value
                 };
 

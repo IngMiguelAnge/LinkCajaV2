@@ -277,6 +277,7 @@ namespace LinkCajaV2.Catalogs
             if (IdTypeUser == 2)//Vendedor
             {
                 //Menu lateral
+                btnPanelArticulos.Visible = false;
                 btnPanelEmpresa.Visible = false;
                 btnPanelCorte.Visible = false;
             }

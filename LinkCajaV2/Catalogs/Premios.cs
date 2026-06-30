@@ -27,11 +27,11 @@ namespace LinkCajaV2.Catalogs
             article.IsVenta = true;
             if (article.ShowDialog() == DialogResult.OK)
             {
-                AgregarArticulo(0, article.IdSeleccionado);
+                await AgregarArticulo(0, article.IdSeleccionado);
                 await BuscarPremios();
             }   
         }
-        public async void AgregarArticulo(int id, int idarticle)
+        public async Task AgregarArticulo(int id, int idarticle)
         {
             if (lista != null)
             {

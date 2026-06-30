@@ -38,6 +38,26 @@ namespace LinkCajaV2
             }
             else
                 panelAlertaStock.Visible = false;
+
+            if(IdTypeUser == 2)
+            {
+                panelCatalogos.Visible = false;
+                panelConfiguraciones.Visible = false;
+                panelOperacionesCaja.Visible = false;
+                btnPanelArticulos.Visible = false;
+                btnPanelEmpresa.Visible = false;
+                btnPanelReusmen.Visible = false;
+            }
+            if (IdTypeUser == 3)
+            {
+                panelVentas.Visible = false;
+                panelConfiguraciones.Visible = false;
+                panelOperacionesCaja.Visible = false;
+                btnPanelEmpresa.Visible = false;
+                btnPanelReusmen.Visible = false;
+                btnPanelVentas.Visible = false;
+                btnUsuarios.Visible = false;
+            }
         }
         private void btnPanelVentas_Click(object sender, EventArgs e)
         {
