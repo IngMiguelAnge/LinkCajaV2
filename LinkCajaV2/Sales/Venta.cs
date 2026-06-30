@@ -14,6 +14,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Media;
+using System.Printing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.WebRequestMethods;
@@ -30,6 +31,8 @@ namespace LinkCajaV2.Sales
         private CompanyModel Empresa { get; set; }
         private int IdBox { get; set; }
         private string BoxName { get; set; }
+        private bool Rulet;
+        private decimal AmountRulet;
 
         private Dictionary<int, string> urlsPublicidad = new Dictionary<int, string>();
         private int bannerActualIndex = 0;
@@ -73,7 +76,7 @@ namespace LinkCajaV2.Sales
             HardwareID hardwareID = new HardwareID();
             string Hard = hardwareID.ObtenerHardwareID();
             var box = obj.GetBoxsbyHardwareID(Hard).Result;
-            if (box == null || box.Status == "Inactivo")
+            if (box == null || box.Status == false)
             {
                 MessageBox.Show("Licencia no válida para esta máquina. Contacta al soporte.", "Licencia no válida", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
@@ -86,7 +89,8 @@ namespace LinkCajaV2.Sales
                 this.Close();
                 return;
             }
-
+            Rulet = box.Rulet;
+            AmountRulet = box.Amount;
             //inicio de banner
             try
             {
@@ -710,7 +714,7 @@ namespace LinkCajaV2.Sales
             //if (Enviado.Exito == true)
             MessageBox.Show("Venta realizada con éxito.");
             //else MessageBox.Show("Venta realizada con éxito. Portal no recibio factura");
-            if (TotalReal >= 100)
+            if (Rulet == true && TotalReal >= AmountRulet)
             {
                 var listaPremios = await Task.Run(() => obj.GetPrizesValids());
                 if (listaPremios.Count() > 0)

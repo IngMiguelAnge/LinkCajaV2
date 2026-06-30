@@ -37,6 +37,12 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.lblPublicidad = new System.Windows.Forms.Label();
             this.CBPublicidad = new System.Windows.Forms.ComboBox();
+            this.CBRuleta = new System.Windows.Forms.ComboBox();
+            this.lblRuleta = new System.Windows.Forms.Label();
+            this.lblCantidad = new System.Windows.Forms.Label();
+            this.lblSimbolo = new System.Windows.Forms.Label();
+            this.nudCantidad = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
             this.SuspendLayout();
             // 
             // lblNombre
@@ -88,7 +94,7 @@
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
             this.btnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("btnGuardar.Image")));
             this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGuardar.Location = new System.Drawing.Point(113, 418);
+            this.btnGuardar.Location = new System.Drawing.Point(433, 431);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(200, 48);
             this.btnGuardar.TabIndex = 4;
@@ -112,7 +118,7 @@
             this.lblPublicidad.AutoSize = true;
             this.lblPublicidad.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPublicidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblPublicidad.Location = new System.Drawing.Point(36, 315);
+            this.lblPublicidad.Location = new System.Drawing.Point(356, 96);
             this.lblPublicidad.Name = "lblPublicidad";
             this.lblPublicidad.Size = new System.Drawing.Size(106, 25);
             this.lblPublicidad.TabIndex = 25;
@@ -127,17 +133,85 @@
             "Seleccione",
             "No ver publicidad",
             "Ver publicidad"});
-            this.CBPublicidad.Location = new System.Drawing.Point(41, 354);
+            this.CBPublicidad.Location = new System.Drawing.Point(361, 143);
             this.CBPublicidad.Name = "CBPublicidad";
             this.CBPublicidad.Size = new System.Drawing.Size(272, 38);
             this.CBPublicidad.TabIndex = 26;
+            // 
+            // CBRuleta
+            // 
+            this.CBRuleta.Enabled = false;
+            this.CBRuleta.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CBRuleta.FormattingEnabled = true;
+            this.CBRuleta.Items.AddRange(new object[] {
+            "Seleccione",
+            "Activar",
+            "Desactivar"});
+            this.CBRuleta.Location = new System.Drawing.Point(361, 251);
+            this.CBRuleta.Name = "CBRuleta";
+            this.CBRuleta.Size = new System.Drawing.Size(272, 38);
+            this.CBRuleta.TabIndex = 28;
+            this.CBRuleta.SelectedIndexChanged += new System.EventHandler(this.CBRuleta_SelectedIndexChanged);
+            // 
+            // lblRuleta
+            // 
+            this.lblRuleta.AutoSize = true;
+            this.lblRuleta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRuleta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblRuleta.Location = new System.Drawing.Point(356, 204);
+            this.lblRuleta.Name = "lblRuleta";
+            this.lblRuleta.Size = new System.Drawing.Size(72, 25);
+            this.lblRuleta.TabIndex = 27;
+            this.lblRuleta.Text = "Ruleta:";
+            // 
+            // lblCantidad
+            // 
+            this.lblCantidad.AutoSize = true;
+            this.lblCantidad.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCantidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblCantidad.Location = new System.Drawing.Point(356, 320);
+            this.lblCantidad.Name = "lblCantidad";
+            this.lblCantidad.Size = new System.Drawing.Size(222, 25);
+            this.lblCantidad.TabIndex = 29;
+            this.lblCantidad.Text = "Activar ruleta apartir de:";
+            // 
+            // lblSimbolo
+            // 
+            this.lblSimbolo.AutoSize = true;
+            this.lblSimbolo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSimbolo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblSimbolo.Location = new System.Drawing.Point(356, 358);
+            this.lblSimbolo.Name = "lblSimbolo";
+            this.lblSimbolo.Size = new System.Drawing.Size(22, 25);
+            this.lblSimbolo.TabIndex = 30;
+            this.lblSimbolo.Text = "$";
+            // 
+            // nudCantidad
+            // 
+            this.nudCantidad.DecimalPlaces = 2;
+            this.nudCantidad.Enabled = false;
+            this.nudCantidad.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudCantidad.Location = new System.Drawing.Point(397, 358);
+            this.nudCantidad.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nudCantidad.Name = "nudCantidad";
+            this.nudCantidad.Size = new System.Drawing.Size(236, 37);
+            this.nudCantidad.TabIndex = 31;
             // 
             // Box
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(346, 478);
+            this.ClientSize = new System.Drawing.Size(685, 491);
+            this.Controls.Add(this.nudCantidad);
+            this.Controls.Add(this.lblSimbolo);
+            this.Controls.Add(this.lblCantidad);
+            this.Controls.Add(this.CBRuleta);
+            this.Controls.Add(this.lblRuleta);
             this.Controls.Add(this.CBPublicidad);
             this.Controls.Add(this.lblPublicidad);
             this.Controls.Add(this.lblTitulo);
@@ -153,6 +227,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Box_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -168,5 +243,10 @@
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Label lblPublicidad;
         private System.Windows.Forms.ComboBox CBPublicidad;
+        private System.Windows.Forms.ComboBox CBRuleta;
+        private System.Windows.Forms.Label lblRuleta;
+        private System.Windows.Forms.Label lblCantidad;
+        private System.Windows.Forms.Label lblSimbolo;
+        private System.Windows.Forms.NumericUpDown nudCantidad;
     }
 }

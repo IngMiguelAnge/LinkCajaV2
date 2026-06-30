@@ -33,6 +33,7 @@ namespace LinkCajaV2.Catalogs
                 this.Close();
                 return;
             }
+            CBRuleta.SelectedIndex = 0;
             EncrypDesencryp objEncryp = new EncrypDesencryp();
             string Key = objEncryp.Desencriptar(ListKeys.Key);
             string[] partes = Key.Split(new string[] { "Box", "box" }, StringSplitOptions.None);
@@ -48,7 +49,7 @@ namespace LinkCajaV2.Catalogs
                 txtHard.Text = h.ObtenerHardwareID();
                 return;
             }
-        
+
             var model = obj.GetBoxsbyId(Id).Result;
             if (model.Publicity == true)
                 CBPublicidad.SelectedIndex = 2;
@@ -56,14 +57,30 @@ namespace LinkCajaV2.Catalogs
                 CBPublicidad.SelectedIndex = 1;
             txtHard.Text = model.HardwareID;
             txtNombre.Text = model.Name;
-         
+            if (model.Rulet == true)
+                CBPublicidad.SelectedIndex = 1;
+            else
+                CBPublicidad.SelectedIndex = 2;
+            nudCantidad.Value = model.Amount;
+
         }
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                if (CBPublicidad.SelectedIndex == 0) {
+                if (CBPublicidad.SelectedIndex == 0)
+                {
                     MessageBox.Show("Se requiere información sobre la publicidad", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if(CBRuleta.SelectedIndex == 0)
+                {
+                    MessageBox.Show("Se requiere información sobre la ruleta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (CBRuleta.SelectedIndex == 1 && nudCantidad.Value <= 0)
+                {
+                    MessageBox.Show("Se requiere una cantidad minima, para la ruleta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 AppRepository obj = new AppRepository();
@@ -71,7 +88,9 @@ namespace LinkCajaV2.Catalogs
                 {
                     HardwareID = txtHard.Text,
                     Name = txtNombre.Text,
-                    Publicity = CBPublicidad.SelectedIndex == 1 ? false : true
+                    Publicity = CBPublicidad.SelectedIndex == 1 ? false : true,
+                    Rulet = CBPublicidad.SelectedIndex == 1 ? true : false,
+                    Amount = nudCantidad.Value
                 };
 
                 if (Id == 0)
@@ -88,15 +107,16 @@ namespace LinkCajaV2.Catalogs
                     }
                     else
                     {
-                        if(Id != exit.Id)
+                        if (Id != exit.Id)
                         {
                             MessageBox.Show("Ya existe una caja registrada con este hardware ID. Verifica que no estés registrando la misma caja nuevamente.", "Caja duplicada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
                     }
                 }
+                
                 var res = obj.SaveBox(model).Result;
-                if(res)
+                if (res)
                 {
                     MessageBox.Show("Caja guardada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
@@ -112,6 +132,18 @@ namespace LinkCajaV2.Catalogs
                 MessageBox.Show("No se encontraron licencia activa. Contacta al soporte.", "Licencia no encontrada", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
                 return;
+            }
+        }
+
+        private void CBRuleta_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CBRuleta.SelectedIndex == 1)
+            {
+                nudCantidad.Enabled = true;
+            }
+            else
+            {
+                nudCantidad.Enabled = false;
             }
         }
     }

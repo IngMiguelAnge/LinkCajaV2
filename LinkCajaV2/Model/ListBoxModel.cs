@@ -6,5 +6,6 @@
         public string Nombre { get; set; }
         public string Publicidad { get; set; }
         public string Estatus { get; set; }
+        public string Ruleta { get; set; }
     }
 }

@@ -1716,8 +1716,10 @@ namespace LinkCajaV2.Data
                 Id = (int)reader["Id"],
                 Name = (string)reader["Name"],
                 HardwareID = (string)reader["HardwareID"],
-                Status = (string)reader["Status"],
+                Status = (bool)reader["Status"],
                 Publicity = (bool)reader["Publicity"],
+                Rulet = (bool)reader["Rulet"],
+                Amount = (decimal)reader["Amount"],
             };
         }
         private ListBoxModel MapToListBox(SqlDataReader reader)
@@ -1728,6 +1730,7 @@ namespace LinkCajaV2.Data
                 Nombre = (string)reader["Name"],
                 Publicidad = (string)reader["Publicity"],
                 Estatus = (string)reader["Status"],
+                Ruleta = (string)reader["Rulet"]
             };
         }
         public async Task<bool> SaveBox(BoxModel obj)
@@ -1742,6 +1745,8 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
                         cmd.Parameters.Add(new SqlParameter("@HardwareID", obj.HardwareID));
                         cmd.Parameters.Add(new SqlParameter("@Publicity", obj.Publicity));
+                        cmd.Parameters.Add(new SqlParameter("@Rulet", obj.Rulet));
+                        cmd.Parameters.Add(new SqlParameter("@Amount", obj.Amount));
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;
