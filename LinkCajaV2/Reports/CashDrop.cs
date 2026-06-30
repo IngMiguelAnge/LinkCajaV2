@@ -83,7 +83,7 @@ namespace LinkCajaV2.Reports
             {
                 bool Entradas = CBResumen.Text == "Ver Resumen" ? false : true;
                 var detalles = await obj.GetCashDrop(dtDesde.Value, dtHasta.Value, Entradas);
-                var listaFinal = detalles?.ToList() ?? new List<CashDropModel>();
+                var listaFinal = detalles?.OrderBy(x => x.Fecha).ToList()?? new List<CashDropModel>();
                 dgvCorte.DataSource = new BindingList<CashDropModel>(listaFinal);
             }
             catch (Exception ex)

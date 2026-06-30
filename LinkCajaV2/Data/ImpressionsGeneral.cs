@@ -470,7 +470,7 @@ namespace LinkCajaV2.Data
                 byte[] qrBytes = null;
                 using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
                 {
-                    string datosQr = $"https://facturacion.tiendasmino.com/facturar?ticket={venta.Title}\n&total={venta.Total.ToString()}";
+                    string datosQr = $"https://facturacion.tiendasmino.com";///facturar?ticket={venta.Title}\n&total={venta.Total.ToString()}";
 
                     using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(datosQr, QRCodeGenerator.ECCLevel.Q))
                     using (PngByteQRCode qrCode = new PngByteQRCode(qrCodeData))
