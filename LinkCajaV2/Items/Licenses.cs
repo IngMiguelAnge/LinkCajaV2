@@ -36,7 +36,7 @@ namespace LinkCajaV2.Items
             i.ShowDialog();
             if(i.NameLicense != null && i.NameLicense != string.Empty)
             {
-                string complement = i.Box == "10000" ? "Cajas sin limite" : i.Box + " caja(s)";
+                string complement = i.Box == "10000" ? "Cajas sin limite." : "una caja.";
                 lblMensaje1.Text = "Licencia activa: " + i.NameLicense + " para " + complement;
             }
         }

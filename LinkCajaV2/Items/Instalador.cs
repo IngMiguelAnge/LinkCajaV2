@@ -16,6 +16,8 @@ namespace LinkCajaV2.Items
 {
     public partial class Instalador : System.Windows.Forms.Form
     {
+        public string NameLicense {  get; set; }
+        public string Box {  get; set; }
         public Instalador()
         {
             InitializeComponent();
@@ -25,27 +27,29 @@ namespace LinkCajaV2.Items
         {
             AppRepository obj = new AppRepository();
             EncrypDesencryp encry = new EncrypDesencryp();
-            string Cantidad = "0";
+            Box = "0";
             switch (txtContraseña.Text.Trim())
             {
                 case "Gratis":
-                    Cantidad = "1";
+                    NameLicense = "Gratis";
+                    Box = "1";
                     break;
 
                 case "LinkCajaV2Emp":
-                    Cantidad = "9999";
+                    NameLicense = "Empresarial";
+                    Box = "10000";
                     break;
 
                 default:
                     MessageBox.Show("Contraseña incorrecta. Intente nuevamente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
             }
-            if (Cantidad == "0")
+            if (Box == "0")
                 return;
             KeysModel licencia = new KeysModel
             {
-                Name = txtContraseña.Text.Trim(),
-                Key = encry.Encriptar(Name + "Box"+ Cantidad)
+                Name = NameLicense,
+                Key = encry.Encriptar(Name + "Box"+ Box)
             };
             if (obj.SaveKey(licencia).Result)
             {
@@ -60,6 +64,7 @@ namespace LinkCajaV2.Items
 
         private void Instalador_Load(object sender, EventArgs e)
         {
+            NameLicense = string.Empty;
         }
     }
 }
