@@ -140,7 +140,6 @@
             // 
             // CBRuleta
             // 
-            this.CBRuleta.Enabled = false;
             this.CBRuleta.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBRuleta.FormattingEnabled = true;
             this.CBRuleta.Items.AddRange(new object[] {

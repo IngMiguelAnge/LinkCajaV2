@@ -10,13 +10,12 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static QuestPDF.Helpers.Colors;
 
 namespace LinkCajaV2.Items
 {
     public partial class Instalador : System.Windows.Forms.Form
     {
-        public string NameLicense { get; set; }
-        public string Box { get; set; }
         public Instalador()
         {
             InitializeComponent();
@@ -24,65 +23,43 @@ namespace LinkCajaV2.Items
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            if (txtContraseña.Text.Trim() == "LinkCajaV2")
+            AppRepository obj = new AppRepository();
+            EncrypDesencryp encry = new EncrypDesencryp();
+            string Cantidad = "0";
+            switch (txtContraseña.Text.Trim())
             {
-                if(cbLicencias.Enabled == true && cbLicencias.SelectedIndex == 0)
-                {
-                    MessageBox.Show("Seleccione una licencia.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-                if (cbLicencias.Enabled == true)
-                {
-                    NameLicense = cbLicencias.Text;
-                    Box = cbLicencias.SelectedValue.ToString();
-                    AppRepository obj = new AppRepository();
-                    EncrypDesencryp encry = new EncrypDesencryp();
-                    KeysModel licencia = new KeysModel
-                    {
-                        Name = NameLicense,
-                        Key = encry.Encriptar(Name + "Box" + Box)
-                    };
-                    if (obj.SaveKey(licencia).Result)
-                    { 
-                       MessageBox.Show("Licencia guardada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                       this.Close();
-                    }        
-                }
-                cbLicencias.Enabled = true;               
+                case "Gratis":
+                    Cantidad = "1";
+                    break;
+
+                case "LinkCajaV2Emp":
+                    Cantidad = "9999";
+                    break;
+
+                default:
+                    MessageBox.Show("Contraseña incorrecta. Intente nuevamente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
+            if (Cantidad == "0")
+                return;
+            KeysModel licencia = new KeysModel
+            {
+                Name = txtContraseña.Text.Trim(),
+                Key = encry.Encriptar(Name + "Box"+ Cantidad)
+            };
+            if (obj.SaveKey(licencia).Result)
+            {
+                MessageBox.Show("Licencia guardada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
             }
             else
             {
-                MessageBox.Show("Contraseña incorrecta. Intente nuevamente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al guardar. Intente nuevamente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void Instalador_Load(object sender, EventArgs e)
         {
-            List<KeysModel> ListKeys = new List<KeysModel>();
-            if (ListKeys == null || ListKeys.Count == 0)
-            {
-                ListKeys = new List<KeysModel>();
-                KeysModel defaultKey = new KeysModel
-                {
-                    Name = "Licencia gratuita",
-                    Key = "1",
-                };
-                ListKeys.Add(defaultKey);
-                defaultKey = new KeysModel
-                {
-                    Name = "Licencia empresarial",
-                    Key = "10000",
-                };
-                ListKeys.Add(defaultKey);
-            }
-            // Insertamos un objeto "fantasma" al inicio para el placeholder
-            ListKeys.Insert(0, new KeysModel { Id = 0, Name = "Seleccione" });
-
-            // Configuramos el ComboBox
-            cbLicencias.DisplayMember = "Name"; // Lo que el usuario VE
-            cbLicencias.ValueMember = "Key";      // El dato que procesas por DETRÁS
-            cbLicencias.DataSource = ListKeys;
-            cbLicencias.SelectedIndex = 0;
         }
     }
 }

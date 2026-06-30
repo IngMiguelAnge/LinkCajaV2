@@ -1731,6 +1731,7 @@ namespace LinkCajaV2.Data
                 Publicidad = (string)reader["Publicity"],
                 Estatus = (string)reader["Status"],
                 Ruleta = (string)reader["Rulet"]
+                
             };
         }
         public async Task<bool> SaveBox(BoxModel obj)

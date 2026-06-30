@@ -58,9 +58,9 @@ namespace LinkCajaV2.Catalogs
             txtHard.Text = model.HardwareID;
             txtNombre.Text = model.Name;
             if (model.Rulet == true)
-                CBPublicidad.SelectedIndex = 1;
+                CBRuleta.SelectedIndex = 1;
             else
-                CBPublicidad.SelectedIndex = 2;
+                CBRuleta.SelectedIndex = 2;
             nudCantidad.Value = model.Amount;
 
         }
