@@ -144,7 +144,7 @@
             this.lblCodigo.Name = "lblCodigo";
             this.lblCodigo.Size = new System.Drawing.Size(85, 25);
             this.lblCodigo.TabIndex = 0;
-            this.lblCodigo.Text = "*Codigo:";
+            this.lblCodigo.Text = "*Código:";
             // 
             // txtCodigo
             // 
