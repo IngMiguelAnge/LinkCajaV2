@@ -309,7 +309,6 @@
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.BtnNuevo);
             this.Controls.Add(this.panelLateral);
-            this.MaximizeBox = false;
             this.Name = "Boxs";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

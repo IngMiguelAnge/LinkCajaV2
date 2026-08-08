@@ -309,7 +309,6 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnNuevo);
             this.Controls.Add(this.panelLateral);
-            this.MaximizeBox = false;
             this.Name = "Suppliers";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

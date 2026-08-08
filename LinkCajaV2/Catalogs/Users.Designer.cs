@@ -358,7 +358,6 @@
             this.Controls.Add(this.lblUsuario);
             this.Controls.Add(this.BtnNuevo);
             this.Controls.Add(this.panelLateral);
-            this.MaximizeBox = false;
             this.Name = "Users";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
