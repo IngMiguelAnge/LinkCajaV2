@@ -255,6 +255,7 @@
             this.panelVentas.Name = "panelVentas";
             this.panelVentas.Size = new System.Drawing.Size(534, 340);
             this.panelVentas.TabIndex = 0;
+            this.panelVentas.Paint += new System.Windows.Forms.PaintEventHandler(this.panelVentas_Paint);
             // 
             // btnTicket
             // 
@@ -333,7 +334,7 @@
             this.btnPremios.Location = new System.Drawing.Point(328, 59);
             this.btnPremios.Name = "btnPremios";
             this.btnPremios.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
-            this.btnPremios.Size = new System.Drawing.Size(128, 80);
+            this.btnPremios.Size = new System.Drawing.Size(142, 80);
             this.btnPremios.TabIndex = 8;
             this.btnPremios.Text = "Premios";
             this.btnPremios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -596,11 +597,12 @@
             this.panelAlertaStock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(243)))), ((int)(((byte)(205)))));
             this.panelAlertaStock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelAlertaStock.Controls.Add(this.lblAlertaMensaje);
+            this.panelAlertaStock.Cursor = System.Windows.Forms.Cursors.Hand;
             this.panelAlertaStock.Location = new System.Drawing.Point(290, 85);
             this.panelAlertaStock.Name = "panelAlertaStock";
             this.panelAlertaStock.Size = new System.Drawing.Size(1079, 50);
             this.panelAlertaStock.TabIndex = 5;
-            this.panelAlertaStock.Visible = false;
+            this.panelAlertaStock.Click += new System.EventHandler(this.panelAlertaStock_Click);
             // 
             // lblAlertaMensaje
             // 
@@ -613,10 +615,11 @@
             this.lblAlertaMensaje.Text = "⚠ Aviso: Se han detectado artículos con existencias agotadas o por debajo del mín" +
     "imo.";
             this.lblAlertaMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblAlertaMensaje.Click += new System.EventHandler(this.lblAlertaMensaje_Click);
             // 
             // Menu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1408, 836);

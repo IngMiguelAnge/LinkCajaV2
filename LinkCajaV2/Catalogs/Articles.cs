@@ -408,5 +408,9 @@ namespace LinkCajaV2.Catalogs
             await BuscarArticulos();
         }
 
+        private void cbCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
