@@ -19,15 +19,11 @@ namespace LinkCajaV2.Catalogs
             InitializeComponent();
         }
 
-        // Una sola vez declaro para todo el archivo 
-        private LinkCajaV2.Data.AppRepository app = new LinkCajaV2.Data.AppRepository();
-
         private async void StockOut_Load(object sender, EventArgs e)
         {
             try
             {
-                // Usamos app
-                this.AcceptButton = BtnBuscar;
+                AppRepository app = new AppRepository();
                 var ListCategories = await app.GetCategoriesActives();
                 ListCategories.Insert(0, new CategorieModel { Id = 0, Name = "Seleccione" });
                 cbCategoria.DataSource = null;
@@ -35,32 +31,21 @@ namespace LinkCajaV2.Catalogs
                 cbCategoria.ValueMember = "Id";
                 cbCategoria.DataSource = ListCategories;
                 cbCategoria.SelectedIndex = 0;
-
                 // De nuevo uso app
                 var ListProveedores = app.GetSuppliersActives().Result.OrderBy(x => x.Name).ToList();
-                ListProveedores.Insert(0, new LinkCajaV2.Model.ListSuppliersActivesModel { Id = 0, Name = "Seleccione" });
+                ListProveedores.Insert(0, new ListSuppliersActivesModel { Id = 0, Name = "Seleccione" });
                 cbProveedor.Items.Clear();
                 cbProveedor.DisplayMember = "Name";
                 cbProveedor.ValueMember = "Id";
                 cbProveedor.DataSource = ListProveedores;
                 cbProveedor.SelectedIndex = 0;
 
-                // Creo la estructura de la tabla 
-                CrearGridView();
-
-                // Esta es la busqueda Unificada
                 await EjecutarBusqueda();
             }
             catch (Exception ex)
             {
                 // Por si pasa algo raro
             }
-        }
-
-        // Cargar Articulos que estan Agotados y la busqueda o el cerebro
-        private async Task CargarAgotados()
-        {
-            await EjecutarBusqueda();
         }
 
         private async void BtnBuscar_Click(object sender, EventArgs e)
@@ -71,15 +56,16 @@ namespace LinkCajaV2.Catalogs
         // Aca es la pura busqueda
         private async Task EjecutarBusqueda()
         {
+            CrearGridView();
             // Esto es lo de la barra y que se bloqueen los botones
             progressBar1.Style = ProgressBarStyle.Marquee;
             progressBar1.MarqueeAnimationSpeed = 30;
             BtnBuscar.Enabled = false;
             BtnImpresion.Enabled = false;
-            dgvArticulos.DataSource = null;
 
             try
             {
+                AppRepository app = new AppRepository();
                 // Aca se llama directo con el .text
                 var lista = await app.GetArticles(
                     txtCodigo.Text,
@@ -120,6 +106,7 @@ namespace LinkCajaV2.Catalogs
         {
             try
             {
+                AppRepository app = new AppRepository();
                 // Imprimimos y uso de nuevo a app 
                 var lista = await app.GetArticles(txtCodigo.Text, txtNombre.Text, txtDescripcion.Text, false, 0, true, 0);
 
@@ -147,10 +134,6 @@ namespace LinkCajaV2.Catalogs
                 MessageBox.Show("Error al generar el PDF: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        // Son eventos vacios 
-        private void txtDescripcion_TextChanged(object sender, EventArgs e) { }
-        private void dgvArticulos_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
 
         // Reutilizar el codigo de creacion de tablas
         public void CrearGridView()
