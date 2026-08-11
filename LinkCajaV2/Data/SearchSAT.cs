@@ -68,7 +68,7 @@ public class SearchSAT
                 try
                 {
                     Query query = queryParser.Parse(queryFuzzy);
-                    TopDocs hits = searcher.Search(query, 5);
+                    TopDocs hits = searcher.Search(query, 20000);
 
                     foreach (ScoreDoc scoreDoc in hits.ScoreDocs)
                     {

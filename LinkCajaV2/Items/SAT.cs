@@ -43,7 +43,7 @@ namespace LinkCajaV2.Items
                 CBClaves.Items.Clear();
                 CBClaves.DisplayMember = "Descripcion";
                 CBClaves.ValueMember = "Id";
-                CBClaves.DataSource = sugerenciasFuzzy;
+                CBClaves.DataSource = sugerenciasFuzzy.OrderBy(X=> X.Descripcion).ToList();
                 CBClaves.SelectedIndex = 0;
             }
             else
