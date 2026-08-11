@@ -37,6 +37,17 @@ namespace LinkCajaV2.Catalogs
                 cbCategoria.DataSource = ListCategories;
                 cbCategoria.SelectedIndex = 0;
 
+                //Lista de provedores 
+                AppRepository obj = new AppRepository();
+                var ListProveedores = obj.GetSuppliersActives().Result.OrderBy(x => x.Name).ToList();
+                ListProveedores.Insert(0, new LinkCajaV2.Model.ListSuppliersActivesModel { Id = 0, Name = "Seleccione" });
+                cbProveedor.Items.Clear();
+                cbProveedor.DisplayMember = "Name";
+                cbProveedor.ValueMember = "Id";
+                cbProveedor.DataSource = ListProveedores;
+                cbProveedor.SelectedIndex = 0;
+
+
                 //Esta cosa carga la lista de cosas 
                 await CargarAgotados();
             }
@@ -58,6 +69,7 @@ namespace LinkCajaV2.Catalogs
 
                 // Mostrar solo lo que queremos lo demas lo oculto y ocupa todo el ancho de el cuadro 
                 dgvArticulos.DataSource = lista;
+                if (dgvArticulos.Columns["ExistenciasMinimas"] != null) dgvArticulos.Columns["ExistenciasMinimas"].HeaderText = "Existencias Mínimas";
                 dgvArticulos.Columns["Id"].Visible = false;
                 dgvArticulos.Columns["ClaveSAT"].Visible = false;
                 dgvArticulos.Columns["Precio"].Visible = false;
@@ -124,26 +136,91 @@ namespace LinkCajaV2.Catalogs
 
         private async void BtnBuscar_Click(object sender, EventArgs e)
         {
+            // Uso de string.Empty 
+            if (txtNombre.Text.Trim() == string.Empty && txtCodigo.Text.Trim() == string.Empty && txtDescripcion.Text.Trim() == string.Empty)
+            {
+                DialogResult resultado = MessageBox.Show("Ha dejado el campo vacio, esto buscara a todos los articulos pero puede demorar ¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resultado == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
+            // Encender barra de progreso y bloquear botones
+            progressBar1.Style = ProgressBarStyle.Marquee;
+            progressBar1.MarqueeAnimationSpeed = 30;
+            BtnBuscar.Enabled = false;
+            BtnImpresion.Enabled = false;
+            dgvArticulos.DataSource = null; // Limpiar la tabla 
+
             try
             {
-                //Busca y quita espacios en blanco 
-              
-                string codigoBuscar = txtCodigo.Text.Trim();
-                string nombreBuscar = txtNombre.Text.Trim();
+                // limpiar las variables 
+                string codigoBuscar = string.IsNullOrWhiteSpace(txtCodigo.Text) ? string.Empty : txtCodigo.Text.Trim();
+                string nombreBuscar = string.IsNullOrWhiteSpace(txtNombre.Text) ? string.Empty : txtNombre.Text.Trim();
+                string descBuscar = string.IsNullOrWhiteSpace(txtDescripcion.Text) ? string.Empty : txtDescripcion.Text.Trim();
 
-               
-                LinkCajaV2.Data.AppRepository app = new LinkCajaV2.Data.AppRepository();
+                // Id de categoria
+                int idCategoria = cbCategoria.SelectedIndex > 0 ? (int)cbCategoria.SelectedValue : 0;
+                int idProveedor = cbProveedor.SelectedIndex > 0 ? (int)cbProveedor.SelectedValue : 0;
 
-              
-                var lista = await app.GetArticles(codigoBuscar, nombreBuscar, string.Empty,false, 0, true, 0);
+                // Estructura de AppRepository igual a Articles.cs recuperdo de el mismo codigo
+                AppRepository obj = new AppRepository();
 
-                
-                dgvArticulos.DataSource = lista;
+                // Búsqueda por descripcion
+                var lista = await Task.Run(() => obj.GetArticles(codigoBuscar, nombreBuscar, descBuscar, false, idCategoria, true, idProveedor));
+
+                if (lista != null && lista.Count > 0)
+                {
+                    dgvArticulos.DataSource = lista;
+                    if (dgvArticulos.Columns["Id"] != null)
+                    {
+                        dgvArticulos.Columns["Id"].Visible = false;
+                        // Todo esto de aca es para ponerle acentos en la tabla 
+                        if (dgvArticulos.Columns["Codigo"] != null) dgvArticulos.Columns["Codigo"].HeaderText = "Código";
+                        if (dgvArticulos.Columns["Articulo"] != null) dgvArticulos.Columns["Articulo"].HeaderText = "Artículo";
+                        if (dgvArticulos.Columns["Categoria"] != null) dgvArticulos.Columns["Categoria"].HeaderText = "Categoría";
+                        if (dgvArticulos.Columns["ExistenciasMinimas"] != null) dgvArticulos.Columns["ExistenciasMinimas"].HeaderText = "Existencias Mínimas";
+                        if (dgvArticulos.Columns["PrecioProveedor"] != null) dgvArticulos.Columns["PrecioProveedor"].HeaderText = "Precio Proveedor";
+
+                        // Todo esto de aca es para filtrar en la tabla 
+                        if (dgvArticulos.Columns["ClaveSAT"] != null) dgvArticulos.Columns["ClaveSAT"].Visible = false;
+                        if (dgvArticulos.Columns["Precio"] != null) dgvArticulos.Columns["Precio"].Visible = false;
+                        if (dgvArticulos.Columns["PrecioProveed"] != null) dgvArticulos.Columns["PrecioProveed"].Visible = false;
+                        if (dgvArticulos.Columns["PorCada"] != null) dgvArticulos.Columns["PorCada"].Visible = false;
+                        if (dgvArticulos.Columns["Medicamento"] != null) dgvArticulos.Columns["Medicamento"].Visible = false;
+                        if (dgvArticulos.Columns["Medicine"] != null) dgvArticulos.Columns["Medicine"].Visible = false;
+                        if (dgvArticulos.Columns["Estatus"] != null) dgvArticulos.Columns["Estatus"].Visible = false;
+                        if (dgvArticulos.Columns["Status"] != null) dgvArticulos.Columns["Status"].Visible = false;
+                        if (dgvArticulos.Columns["Stock"] != null) dgvArticulos.Columns["Stock"].Visible = false;
+                        if (dgvArticulos.Columns["Stocks"] != null) dgvArticulos.Columns["Stocks"].Visible = false;
+                    }
+                }
+                else
+                {
+                    // Mensaje mas simple y corto 
+                    MessageBox.Show("No se encontraron articulos agotados.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Hubo un error al buscar: " + ex.Message);
+                // mensaje de error mas corto
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            finally
+            {
+                // Cerrar todo con finallmente 
+                progressBar1.Style = ProgressBarStyle.Blocks;
+                progressBar1.Value = 0;
+                progressBar1.MarqueeAnimationSpeed = 0;
+                BtnBuscar.Enabled = true;
+                BtnImpresion.Enabled = true;
+            }
+        }
+
+        private void txtDescripcion_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

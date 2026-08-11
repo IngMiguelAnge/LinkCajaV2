@@ -18,7 +18,7 @@ namespace LinkCajaV2.Data
         public string Connection { get; set; }
         public AppRepository(bool isUnitOfWork = false)
         {
-            Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
         }
         public void Dispose()
         {

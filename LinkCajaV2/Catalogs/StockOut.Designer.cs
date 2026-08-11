@@ -41,11 +41,16 @@
             this.lblNombre = new System.Windows.Forms.Label();
             this.BtnBuscar = new System.Windows.Forms.Button();
             this.BtnImpresion = new System.Windows.Forms.Button();
-            this.CBImprimir = new System.Windows.Forms.ComboBox();
+            this.cbProveedor = new System.Windows.Forms.ComboBox();
             this.lblOpciones = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvArticulos = new System.Windows.Forms.DataGridView();
-            this.groupBox1.SuspendLayout();
+            this.txtDescripcion = new System.Windows.Forms.TextBox();
+            this.Descripcion = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,7 +70,7 @@
             this.cbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCategoria.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbCategoria.FormattingEnabled = true;
-            this.cbCategoria.Location = new System.Drawing.Point(554, 116);
+            this.cbCategoria.Location = new System.Drawing.Point(806, 121);
             this.cbCategoria.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbCategoria.Name = "cbCategoria";
             this.cbCategoria.Size = new System.Drawing.Size(223, 33);
@@ -76,11 +81,11 @@
             this.lblCategoria.AutoSize = true;
             this.lblCategoria.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCategoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblCategoria.Location = new System.Drawing.Point(549, 88);
+            this.lblCategoria.Location = new System.Drawing.Point(802, 88);
             this.lblCategoria.Name = "lblCategoria";
             this.lblCategoria.Size = new System.Drawing.Size(80, 20);
             this.lblCategoria.TabIndex = 31;
-            this.lblCategoria.Text = "Categoria:";
+            this.lblCategoria.Text = "Categoría:";
             // 
             // txtCodigo
             // 
@@ -129,7 +134,7 @@
             this.BtnBuscar.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnBuscar.ForeColor = System.Drawing.Color.White;
             this.BtnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("BtnBuscar.Image")));
-            this.BtnBuscar.Location = new System.Drawing.Point(810, 117);
+            this.BtnBuscar.Location = new System.Drawing.Point(626, 171);
             this.BtnBuscar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnBuscar.Name = "BtnBuscar";
             this.BtnBuscar.Size = new System.Drawing.Size(107, 33);
@@ -149,7 +154,7 @@
             this.BtnImpresion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.BtnImpresion.Image = ((System.Drawing.Image)(resources.GetObject("BtnImpresion.Image")));
             this.BtnImpresion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnImpresion.Location = new System.Drawing.Point(938, 119);
+            this.BtnImpresion.Location = new System.Drawing.Point(748, 172);
             this.BtnImpresion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnImpresion.Name = "BtnImpresion";
             this.BtnImpresion.Size = new System.Drawing.Size(120, 30);
@@ -159,54 +164,56 @@
             this.BtnImpresion.UseVisualStyleBackColor = false;
             this.BtnImpresion.Click += new System.EventHandler(this.BtnImpresion_Click);
             // 
-            // CBImprimir
+            // cbProveedor
             // 
-            this.CBImprimir.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CBImprimir.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CBImprimir.FormattingEnabled = true;
-            this.CBImprimir.Items.AddRange(new object[] {
+            this.cbProveedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProveedor.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbProveedor.FormattingEnabled = true;
+            this.cbProveedor.Items.AddRange(new object[] {
             "Imprimir Etiquetas",
             "Imprimir Lista de Precios",
             "Imprimir Agotados"});
-            this.CBImprimir.Location = new System.Drawing.Point(974, 169);
-            this.CBImprimir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.CBImprimir.Name = "CBImprimir";
-            this.CBImprimir.Size = new System.Drawing.Size(223, 33);
-            this.CBImprimir.TabIndex = 36;
-            this.CBImprimir.Visible = false;
+            this.cbProveedor.Location = new System.Drawing.Point(1047, 121);
+            this.cbProveedor.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cbProveedor.Name = "cbProveedor";
+            this.cbProveedor.Size = new System.Drawing.Size(223, 33);
+            this.cbProveedor.TabIndex = 36;
             // 
             // lblOpciones
             // 
             this.lblOpciones.AutoSize = true;
             this.lblOpciones.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOpciones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblOpciones.Location = new System.Drawing.Point(1108, 147);
+            this.lblOpciones.Location = new System.Drawing.Point(1043, 88);
             this.lblOpciones.Name = "lblOpciones";
-            this.lblOpciones.Size = new System.Drawing.Size(76, 20);
+            this.lblOpciones.Size = new System.Drawing.Size(78, 20);
             this.lblOpciones.TabIndex = 35;
-            this.lblOpciones.Text = "Imprimir:";
-            this.lblOpciones.Visible = false;
+            this.lblOpciones.Text = "Provedor:";
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.dgvArticulos);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.groupBox1.Location = new System.Drawing.Point(-101, 227);
+            this.groupBox1.Location = new System.Drawing.Point(-101, 518);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(1195, 316);
+            this.groupBox1.Size = new System.Drawing.Size(135, 33);
             this.groupBox1.TabIndex = 37;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Articulos";
+            this.groupBox1.Visible = false;
             // 
             // dgvArticulos
             // 
+            this.dgvArticulos.AllowUserToAddRows = false;
+            this.dgvArticulos.AllowUserToDeleteRows = false;
+            this.dgvArticulos.AllowUserToResizeColumns = false;
+            this.dgvArticulos.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.dgvArticulos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvArticulos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -218,7 +225,7 @@
             this.dgvArticulos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -227,31 +234,100 @@
             this.dgvArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvArticulos.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvArticulos.EnableHeadersVisualStyles = false;
-            this.dgvArticulos.Location = new System.Drawing.Point(109, 3);
+            this.dgvArticulos.GridColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.dgvArticulos.Location = new System.Drawing.Point(19, 254);
             this.dgvArticulos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvArticulos.Name = "dgvArticulos";
             this.dgvArticulos.ReadOnly = true;
             this.dgvArticulos.RowHeadersVisible = false;
             this.dgvArticulos.RowHeadersWidth = 62;
             this.dgvArticulos.RowTemplate.Height = 28;
-            this.dgvArticulos.Size = new System.Drawing.Size(1086, 285);
+            this.dgvArticulos.Size = new System.Drawing.Size(1238, 260);
             this.dgvArticulos.TabIndex = 9;
             this.dgvArticulos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvArticulos_CellContentClick);
+            // 
+            // txtDescripcion
+            // 
+            this.txtDescripcion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDescripcion.Location = new System.Drawing.Point(540, 120);
+            this.txtDescripcion.Multiline = true;
+            this.txtDescripcion.Name = "txtDescripcion";
+            this.txtDescripcion.Size = new System.Drawing.Size(242, 32);
+            this.txtDescripcion.TabIndex = 38;
+            this.txtDescripcion.TextChanged += new System.EventHandler(this.txtDescripcion_TextChanged);
+            // 
+            // Descripcion
+            // 
+            this.Descripcion.AutoSize = true;
+            this.Descripcion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.Descripcion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.Descripcion.Location = new System.Drawing.Point(536, 88);
+            this.Descripcion.Name = "Descripcion";
+            this.Descripcion.Size = new System.Drawing.Size(94, 20);
+            this.Descripcion.TabIndex = 27;
+            this.Descripcion.Text = "Descripcion:";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(20, 193);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(579, 11);
+            this.progressBar1.TabIndex = 39;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.groupBox2.Location = new System.Drawing.Point(1058, 22);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(142, 32);
+            this.groupBox2.TabIndex = 40;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Artículos";
+            this.groupBox2.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.label1.Location = new System.Drawing.Point(17, 225);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(114, 29);
+            this.label1.TabIndex = 41;
+            this.label1.Text = "Articulos";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.label2.Location = new System.Drawing.Point(618, 266);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(80, 20);
+            this.label2.TabIndex = 42;
+            this.label2.Text = "Categoría:";
             // 
             // StockOut
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1209, 545);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(1317, 553);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.dgvArticulos);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.Descripcion);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.txtDescripcion);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.CBImprimir);
+            this.Controls.Add(this.cbProveedor);
             this.Controls.Add(this.lblOpciones);
             this.Controls.Add(this.BtnImpresion);
             this.Controls.Add(this.BtnBuscar);
@@ -262,10 +338,11 @@
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.lblTitulo);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "StockOut";
             this.Text = "StockOut";
             this.Load += new System.EventHandler(this.StockOut_Load);
-            this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -283,9 +360,15 @@
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Button BtnBuscar;
         private System.Windows.Forms.Button BtnImpresion;
-        private System.Windows.Forms.ComboBox CBImprimir;
+        private System.Windows.Forms.ComboBox cbProveedor;
         private System.Windows.Forms.Label lblOpciones;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dgvArticulos;
+        private System.Windows.Forms.TextBox txtDescripcion;
+        private System.Windows.Forms.Label Descripcion;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
