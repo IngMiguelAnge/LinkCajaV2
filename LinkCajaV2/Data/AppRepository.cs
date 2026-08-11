@@ -2692,7 +2692,7 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
-        public async Task<List<ListArticlesModel>> GetArticles(string Code, string Nombre, bool IsReceta, int IdCategory, bool Agotados, int IdProveedor)
+        public async Task<List<ListArticlesModel>> GetArticles(string Code, string Nombre, string Descripcion, bool IsReceta, int IdCategory, bool Agotados, int IdProveedor)
         {
             List<ListArticlesModel> list = new List<ListArticlesModel>();
             try
@@ -2704,6 +2704,7 @@ namespace LinkCajaV2.Data
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Code", Code));
                         cmd.Parameters.Add(new SqlParameter("@Name", Nombre));
+                        cmd.Parameters.Add(new SqlParameter("@Description", Descripcion));
                         cmd.Parameters.Add(new SqlParameter("@IsReceta", IsReceta));
                         cmd.Parameters.Add(new SqlParameter("@IdCategory", IdCategory));
                         cmd.Parameters.Add(new SqlParameter("@Outstock", Agotados));
@@ -2725,7 +2726,7 @@ namespace LinkCajaV2.Data
             }
             return list;
         }
-        public async Task<List<ListArticlesActivesModel>> GetArticlesActives(string Code, string Nombre, int IdCategory, int IdProveedor)
+        public async Task<List<ListArticlesActivesModel>> GetArticlesActives(string Code, string Nombre, string Descripcion, int IdCategory, int IdProveedor)
         {
             List<ListArticlesActivesModel> list = new List<ListArticlesActivesModel>();
             try
@@ -2737,6 +2738,7 @@ namespace LinkCajaV2.Data
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Code", Code));
                         cmd.Parameters.Add(new SqlParameter("@Name", Nombre));
+                        cmd.Parameters.Add(new SqlParameter("@Description", Descripcion));
                         cmd.Parameters.Add(new SqlParameter("@IdCategory", IdCategory));
                         cmd.Parameters.Add(new SqlParameter("@IdSupplier", IdProveedor));
                         await sql.OpenAsync().ConfigureAwait(false);

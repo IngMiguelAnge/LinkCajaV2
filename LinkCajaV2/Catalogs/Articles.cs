@@ -75,7 +75,7 @@ namespace LinkCajaV2.Catalogs
         }
         private async void BtnBuscar_Click(object sender, EventArgs e)
         {
-            if (txtNombre.Text.Trim() == "" && txtCodigo.Text.Trim() == "")
+            if (txtNombre.Text.Trim() == "" && txtCodigo.Text.Trim() == "" && txtDescripcion.Text.Trim() == "")
             {
                 DialogResult resultado = MessageBox.Show("Ha dejado el campo vacio, esto buscara a todos los articulos pero puede demorar ¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (resultado == DialogResult.No)
@@ -111,9 +111,9 @@ namespace LinkCajaV2.Catalogs
                     CBBuscaren.SelectedIndex == 1 && Impresion == false ? true :
                     false;
                 if (IsVenta == false)
-                    lista1 = await Task.Run(()=>obj.GetArticles(txtCodigo.Text, txtNombre.Text, IsReceta, IdCategory, Agotados, IdProveedor));
+                    lista1 = await Task.Run(()=>obj.GetArticles(txtCodigo.Text, txtNombre.Text, txtDescripcion.Text, IsReceta, IdCategory, Agotados, IdProveedor));
                 else
-                    lista2 = await Task.Run(()=>obj.GetArticlesActives(txtCodigo.Text, txtNombre.Text,IdCategory, IdProveedor));
+                    lista2 = await Task.Run(()=>obj.GetArticlesActives(txtCodigo.Text, txtNombre.Text, txtDescripcion.Text, IdCategory, IdProveedor));
                 if (Impresion == false)
                     if (IsVenta == false)
                     {
@@ -408,9 +408,67 @@ namespace LinkCajaV2.Catalogs
             await BuscarArticulos();
         }
 
-        private void cbCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        private async void txtCodigo_KeyDown(object sender, KeyEventArgs e)
+        {
+        
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (txtNombre.Text.Trim() == "" && txtCodigo.Text.Trim() == "" && txtDescripcion.Text.Trim() == "")
+                {
+                    DialogResult resultado = MessageBox.Show("Ha dejado el campo vacio, esto buscara a todos los articulos pero puede demorar ¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (resultado == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+                Impresion = false;
+                await BuscarArticulos();
+
+                // Evita el sonido de pitido (beep) que hace Windows al dar Enter en un TextBox
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private async void txtNombre_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (txtNombre.Text.Trim() == "" && txtCodigo.Text.Trim() == "" && txtDescripcion.Text.Trim() == "")
+                {
+                    DialogResult resultado = MessageBox.Show("Ha dejado el campo vacio, esto buscara a todos los articulos pero puede demorar ¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (resultado == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+                Impresion = false;
+                await BuscarArticulos();
+
+                // Evita el sonido de pitido (beep) que hace Windows al dar Enter en un TextBox
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private async void txtDescripcion_KeyDown(object sender, KeyEventArgs e)
         {
 
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (txtNombre.Text.Trim() == "" && txtCodigo.Text.Trim() == "" && txtDescripcion.Text.Trim() == "") 
+                {
+                    DialogResult resultado = MessageBox.Show("Ha dejado el campo vacio, esto buscara a todos los articulos pero puede demorar ¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (resultado == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+                Impresion = false;
+                await BuscarArticulos();
+
+                // Evita el sonido de pitido (beep) que hace Windows al dar Enter en un TextBox
+                e.SuppressKeyPress = true;
+            }
         }
+
     }
 }
