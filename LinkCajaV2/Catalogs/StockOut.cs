@@ -54,7 +54,7 @@ namespace LinkCajaV2.Catalogs
 
                 LinkCajaV2.Data.AppRepository app = new LinkCajaV2.Data.AppRepository();
 
-                var lista = await app.GetArticles("", "", false, 0, true, 0);
+                var lista = await app.GetArticles("", "","", false, 0, true, 0);
 
                 // Mostrar solo lo que queremos lo demas lo oculto y ocupa todo el ancho de el cuadro 
                 dgvArticulos.DataSource = lista;
@@ -92,7 +92,7 @@ namespace LinkCajaV2.Catalogs
 
                 // Lista de Agostados desde SQL
                 LinkCajaV2.Data.AppRepository app = new LinkCajaV2.Data.AppRepository();
-                var lista = await app.GetArticles(codigoBuscar, nombreBuscar, false, 0, true, 0);
+                var lista = await app.GetArticles(codigoBuscar, nombreBuscar, "", false, 0, true, 0);
 
                 // Revisa si hay algo que imprimir
                 if (lista == null || lista.Count == 0)
@@ -135,7 +135,7 @@ namespace LinkCajaV2.Catalogs
                 LinkCajaV2.Data.AppRepository app = new LinkCajaV2.Data.AppRepository();
 
               
-                var lista = await app.GetArticles(codigoBuscar, nombreBuscar, false, 0, true, 0);
+                var lista = await app.GetArticles(codigoBuscar, nombreBuscar, string.Empty,false, 0, true, 0);
 
                 
                 dgvArticulos.DataSource = lista;
