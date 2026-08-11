@@ -31,7 +31,7 @@ namespace LinkCajaV2
             AppRepository app = new AppRepository();
             if (app.GetStockOut().Result > 0)
             {
-                lblAlertaMensaje.Text = $"⚠ Aviso: Se han detectado artículos con existencias agotadas...";
+                lblAlertaMensaje.Text = $"⚠ Aviso: Se han detectado artículos con existencias agotadas...(Da clic aquí para ver detalles)";
                 panelAlertaStock.Visible = true;
                 panelAlertaStock.BringToFront();
                 flowContenedorCentral.Padding = new System.Windows.Forms.Padding(16, 50, 16, 15);
@@ -241,5 +241,21 @@ namespace LinkCajaV2
             pr.Show();
         }
 
+        private void panelVentas_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panelAlertaStock_Click(object sender, EventArgs e)
+        {
+            StockOut frm = new StockOut();
+            frm.ShowDialog();
+        }
+
+        private void lblAlertaMensaje_Click(object sender, EventArgs e)
+        {
+            StockOut frm = new StockOut();
+            frm.ShowDialog();
+        }
     }
 }

@@ -82,8 +82,9 @@
             this.panelLateral.Controls.Add(this.lblPanelTituloApp);
             this.panelLateral.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelLateral.Location = new System.Drawing.Point(0, 0);
+            this.panelLateral.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelLateral.Name = "panelLateral";
-            this.panelLateral.Size = new System.Drawing.Size(264, 691);
+            this.panelLateral.Size = new System.Drawing.Size(235, 553);
             this.panelLateral.TabIndex = 0;
             // 
             // BtnPanelSalir
@@ -94,9 +95,10 @@
             this.BtnPanelSalir.ForeColor = System.Drawing.Color.White;
             this.BtnPanelSalir.Image = ((System.Drawing.Image)(resources.GetObject("BtnPanelSalir.Image")));
             this.BtnPanelSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnPanelSalir.Location = new System.Drawing.Point(13, 503);
+            this.BtnPanelSalir.Location = new System.Drawing.Point(12, 402);
+            this.BtnPanelSalir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnPanelSalir.Name = "BtnPanelSalir";
-            this.BtnPanelSalir.Size = new System.Drawing.Size(238, 45);
+            this.BtnPanelSalir.Size = new System.Drawing.Size(212, 36);
             this.BtnPanelSalir.TabIndex = 5;
             this.BtnPanelSalir.Text = "Salir";
             this.BtnPanelSalir.Click += new System.EventHandler(this.BtnPanelSalir_Click);
@@ -109,9 +111,10 @@
             this.btnPanelMenu.ForeColor = System.Drawing.Color.White;
             this.btnPanelMenu.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelMenu.Image")));
             this.btnPanelMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelMenu.Location = new System.Drawing.Point(11, 121);
+            this.btnPanelMenu.Location = new System.Drawing.Point(10, 97);
+            this.btnPanelMenu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPanelMenu.Name = "btnPanelMenu";
-            this.btnPanelMenu.Size = new System.Drawing.Size(246, 82);
+            this.btnPanelMenu.Size = new System.Drawing.Size(219, 66);
             this.btnPanelMenu.TabIndex = 26;
             this.btnPanelMenu.Text = "Menu";
             this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click);
@@ -124,9 +127,10 @@
             this.btnPanelCorte.ForeColor = System.Drawing.Color.White;
             this.btnPanelCorte.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelCorte.Image")));
             this.btnPanelCorte.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelCorte.Location = new System.Drawing.Point(9, 430);
+            this.btnPanelCorte.Location = new System.Drawing.Point(8, 344);
+            this.btnPanelCorte.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPanelCorte.Name = "btnPanelCorte";
-            this.btnPanelCorte.Size = new System.Drawing.Size(249, 45);
+            this.btnPanelCorte.Size = new System.Drawing.Size(221, 36);
             this.btnPanelCorte.TabIndex = 7;
             this.btnPanelCorte.Text = "Resumen";
             this.btnPanelCorte.Click += new System.EventHandler(this.btnPanelCorte_Click);
@@ -139,9 +143,10 @@
             this.btnPanelEmpresa.ForeColor = System.Drawing.Color.White;
             this.btnPanelEmpresa.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelEmpresa.Image")));
             this.btnPanelEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelEmpresa.Location = new System.Drawing.Point(12, 365);
+            this.btnPanelEmpresa.Location = new System.Drawing.Point(11, 292);
+            this.btnPanelEmpresa.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPanelEmpresa.Name = "btnPanelEmpresa";
-            this.btnPanelEmpresa.Size = new System.Drawing.Size(249, 45);
+            this.btnPanelEmpresa.Size = new System.Drawing.Size(221, 36);
             this.btnPanelEmpresa.TabIndex = 0;
             this.btnPanelEmpresa.Text = "Mi Empresa";
             this.btnPanelEmpresa.Click += new System.EventHandler(this.btnPanelEmpresa_Click);
@@ -154,9 +159,10 @@
             this.btnPanelArticulos.ForeColor = System.Drawing.Color.White;
             this.btnPanelArticulos.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelArticulos.Image")));
             this.btnPanelArticulos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelArticulos.Location = new System.Drawing.Point(13, 296);
+            this.btnPanelArticulos.Location = new System.Drawing.Point(12, 237);
+            this.btnPanelArticulos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPanelArticulos.Name = "btnPanelArticulos";
-            this.btnPanelArticulos.Size = new System.Drawing.Size(248, 45);
+            this.btnPanelArticulos.Size = new System.Drawing.Size(220, 36);
             this.btnPanelArticulos.TabIndex = 1;
             this.btnPanelArticulos.Text = "Articulos";
             this.btnPanelArticulos.Click += new System.EventHandler(this.btnPanelArticulos_Click);
@@ -169,9 +175,10 @@
             this.btnPanelVentas.ForeColor = System.Drawing.Color.White;
             this.btnPanelVentas.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelVentas.Image")));
             this.btnPanelVentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelVentas.Location = new System.Drawing.Point(12, 208);
+            this.btnPanelVentas.Location = new System.Drawing.Point(11, 166);
+            this.btnPanelVentas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPanelVentas.Name = "btnPanelVentas";
-            this.btnPanelVentas.Size = new System.Drawing.Size(249, 82);
+            this.btnPanelVentas.Size = new System.Drawing.Size(221, 66);
             this.btnPanelVentas.TabIndex = 2;
             this.btnPanelVentas.Text = " Ventas";
             this.btnPanelVentas.Click += new System.EventHandler(this.btnPanelVentas_Click);
@@ -180,9 +187,9 @@
             // 
             this.lblPanelTituloApp.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.lblPanelTituloApp.ForeColor = System.Drawing.Color.White;
-            this.lblPanelTituloApp.Location = new System.Drawing.Point(22, 20);
+            this.lblPanelTituloApp.Location = new System.Drawing.Point(20, 16);
             this.lblPanelTituloApp.Name = "lblPanelTituloApp";
-            this.lblPanelTituloApp.Size = new System.Drawing.Size(220, 87);
+            this.lblPanelTituloApp.Size = new System.Drawing.Size(196, 70);
             this.lblPanelTituloApp.TabIndex = 4;
             this.lblPanelTituloApp.Text = "PUNTO DE VENTA";
             // 
@@ -191,18 +198,19 @@
             this.lblNombre.AutoSize = true;
             this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblNombre.Location = new System.Drawing.Point(587, 94);
+            this.lblNombre.Location = new System.Drawing.Point(522, 75);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(86, 25);
+            this.lblNombre.Size = new System.Drawing.Size(71, 20);
             this.lblNombre.TabIndex = 2;
             this.lblNombre.Text = "Nombre:";
             // 
             // txtNombre
             // 
             this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(592, 131);
+            this.txtNombre.Location = new System.Drawing.Point(526, 105);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(272, 37);
+            this.txtNombre.Size = new System.Drawing.Size(242, 32);
             this.txtNombre.TabIndex = 3;
             this.txtNombre.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNombre_KeyDown);
             // 
@@ -213,7 +221,8 @@
             this.btnNuevo.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevo.ForeColor = System.Drawing.Color.White;
             this.btnNuevo.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevo.Image")));
-            this.btnNuevo.Location = new System.Drawing.Point(1371, 126);
+            this.btnNuevo.Location = new System.Drawing.Point(1219, 101);
+            this.btnNuevo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(120, 41);
             this.btnNuevo.TabIndex = 15;
@@ -230,7 +239,8 @@
             this.BtnBuscar.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnBuscar.ForeColor = System.Drawing.Color.White;
             this.BtnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("BtnBuscar.Image")));
-            this.BtnBuscar.Location = new System.Drawing.Point(1214, 127);
+            this.BtnBuscar.Location = new System.Drawing.Point(1079, 102);
+            this.BtnBuscar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnBuscar.Name = "BtnBuscar";
             this.BtnBuscar.Size = new System.Drawing.Size(120, 41);
             this.BtnBuscar.TabIndex = 14;
@@ -249,7 +259,8 @@
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.groupBox1.Location = new System.Drawing.Point(300, 382);
+            this.groupBox1.Location = new System.Drawing.Point(267, 304);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1587, 297);
             this.groupBox1.TabIndex = 21;
@@ -283,7 +294,8 @@
             this.dgvArticulos.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvArticulos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvArticulos.EnableHeadersVisualStyles = false;
-            this.dgvArticulos.Location = new System.Drawing.Point(3, 35);
+            this.dgvArticulos.Location = new System.Drawing.Point(3, 29);
+            this.dgvArticulos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvArticulos.Name = "dgvArticulos";
             this.dgvArticulos.ReadOnly = true;
             this.dgvArticulos.RowHeadersWidth = 62;
@@ -295,10 +307,11 @@
             // progressBar1
             // 
             this.progressBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.progressBar1.Location = new System.Drawing.Point(303, 348);
+            this.progressBar1.Location = new System.Drawing.Point(269, 278);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.progressBar1.MarqueeAnimationSpeed = 0;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(520, 6);
+            this.progressBar1.Size = new System.Drawing.Size(462, 5);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar1.TabIndex = 22;
             // 
@@ -307,9 +320,9 @@
             this.lblCodigo.AutoSize = true;
             this.lblCodigo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCodigo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblCodigo.Location = new System.Drawing.Point(296, 94);
+            this.lblCodigo.Location = new System.Drawing.Point(263, 75);
             this.lblCodigo.Name = "lblCodigo";
-            this.lblCodigo.Size = new System.Drawing.Size(77, 25);
+            this.lblCodigo.Size = new System.Drawing.Size(62, 20);
             this.lblCodigo.TabIndex = 0;
             this.lblCodigo.Text = "Código:";
             // 
@@ -318,7 +331,7 @@
             this.txtCodigo.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCodigo.Location = new System.Drawing.Point(301, 131);
             this.txtCodigo.Name = "txtCodigo";
-            this.txtCodigo.Size = new System.Drawing.Size(272, 37);
+            this.txtCodigo.Size = new System.Drawing.Size(242, 32);
             this.txtCodigo.TabIndex = 1;
             this.txtCodigo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodigo_KeyDown);
             // 
@@ -331,7 +344,8 @@
             this.BtnImpresion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.BtnImpresion.Image = ((System.Drawing.Image)(resources.GetObject("BtnImpresion.Image")));
             this.BtnImpresion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnImpresion.Location = new System.Drawing.Point(581, 296);
+            this.BtnImpresion.Location = new System.Drawing.Point(516, 237);
+            this.BtnImpresion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnImpresion.Name = "BtnImpresion";
             this.BtnImpresion.Size = new System.Drawing.Size(135, 37);
             this.BtnImpresion.TabIndex = 16;
@@ -345,9 +359,9 @@
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.lblTitulo.Location = new System.Drawing.Point(292, 27);
+            this.lblTitulo.Location = new System.Drawing.Point(260, 22);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(309, 48);
+            this.lblTitulo.Size = new System.Drawing.Size(261, 41);
             this.lblTitulo.TabIndex = 24;
             this.lblTitulo.Text = "Lista de Articulos";
             // 
@@ -381,7 +395,8 @@
             this.BtnSAT.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.BtnSAT.Image = ((System.Drawing.Image)(resources.GetObject("BtnSAT.Image")));
             this.BtnSAT.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnSAT.Location = new System.Drawing.Point(779, 296);
+            this.BtnSAT.Location = new System.Drawing.Point(692, 237);
+            this.BtnSAT.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnSAT.Name = "BtnSAT";
             this.BtnSAT.Size = new System.Drawing.Size(238, 37);
             this.BtnSAT.TabIndex = 17;
@@ -395,7 +410,7 @@
             this.lblOpciones.AutoSize = true;
             this.lblOpciones.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOpciones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblOpciones.Location = new System.Drawing.Point(298, 266);
+            this.lblOpciones.Location = new System.Drawing.Point(265, 213);
             this.lblOpciones.Name = "lblOpciones";
             this.lblOpciones.Size = new System.Drawing.Size(91, 25);
             this.lblOpciones.TabIndex = 12;
@@ -410,7 +425,8 @@
             "Imprimir Etiquetas",
             "Imprimir Lista de Precios",
             "Imprimir Agotados"});
-            this.CBImprimir.Location = new System.Drawing.Point(300, 296);
+            this.CBImprimir.Location = new System.Drawing.Point(267, 237);
+            this.CBImprimir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.CBImprimir.Name = "CBImprimir";
             this.CBImprimir.Size = new System.Drawing.Size(250, 38);
             this.CBImprimir.TabIndex = 13;
@@ -515,7 +531,7 @@
             // 
             // Articles
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1924, 691);
