@@ -19,27 +19,25 @@ namespace LinkCajaV2.Catalogs
             InitializeComponent();
         }
 
+        // Una sola vez declaro para todo el archivo 
+        private LinkCajaV2.Data.AppRepository app = new LinkCajaV2.Data.AppRepository();
+
         private async void StockOut_Load(object sender, EventArgs e)
         {
             try
             {
-             
-                AppRepository app = new AppRepository();
-
-                //Se conecta a SQL
+                // Usamos app
+                this.AcceptButton = BtnBuscar;
                 var ListCategories = await app.GetCategoriesActives();
-
-                // Llena la caja 
                 ListCategories.Insert(0, new CategorieModel { Id = 0, Name = "Seleccione" });
-                cbCategoria.DataSource = null; 
+                cbCategoria.DataSource = null;
                 cbCategoria.DisplayMember = "Name";
                 cbCategoria.ValueMember = "Id";
                 cbCategoria.DataSource = ListCategories;
                 cbCategoria.SelectedIndex = 0;
 
-                //Lista de provedores 
-                AppRepository obj = new AppRepository();
-                var ListProveedores = obj.GetSuppliersActives().Result.OrderBy(x => x.Name).ToList();
+                // De nuevo uso app
+                var ListProveedores = app.GetSuppliersActives().Result.OrderBy(x => x.Name).ToList();
                 ListProveedores.Insert(0, new LinkCajaV2.Model.ListSuppliersActivesModel { Id = 0, Name = "Seleccione" });
                 cbProveedor.Items.Clear();
                 cbProveedor.DisplayMember = "Name";
@@ -47,7 +45,11 @@ namespace LinkCajaV2.Catalogs
                 cbProveedor.DataSource = ListProveedores;
                 cbProveedor.SelectedIndex = 0;
 
-                 await CargarAgotados();
+                // Creo la estructura de la tabla 
+                CrearGridView();
+
+                // Esta es la busqueda Unificada
+                await EjecutarBusqueda();
             }
             catch (Exception ex)
             {
@@ -55,49 +57,72 @@ namespace LinkCajaV2.Catalogs
             }
         }
 
-
+        // Cargar Articulos que estan Agotados y la busqueda o el cerebro
         private async Task CargarAgotados()
         {
+            await EjecutarBusqueda();
+        }
+
+        private async void BtnBuscar_Click(object sender, EventArgs e)
+        {
+            await EjecutarBusqueda();
+        }
+
+        // Aca es la pura busqueda
+        private async Task EjecutarBusqueda()
+        {
+            // Esto es lo de la barra y que se bloqueen los botones
+            progressBar1.Style = ProgressBarStyle.Marquee;
+            progressBar1.MarqueeAnimationSpeed = 30;
+            BtnBuscar.Enabled = false;
+            BtnImpresion.Enabled = false;
+            dgvArticulos.DataSource = null;
+
             try
             {
+                // Aca se llama directo con el .text
+                var lista = await app.GetArticles(
+                    txtCodigo.Text,
+                    txtNombre.Text,
+                    txtDescripcion.Text,
+                    false,
+                    cbCategoria.SelectedIndex > 0 ? (int)cbCategoria.SelectedValue : 0,
+                    true,
+                    cbProveedor.SelectedIndex > 0 ? (int)cbProveedor.SelectedValue : 0
+                );
 
-                AppRepository app = new AppRepository();
+                if (lista != null && lista.Count > 0)
+                {
+                    dgvArticulos.DataSource = lista;
 
-                var lista = await app.GetArticles(string.Empty, string.Empty, string.Empty, false, 0, true, 0);
-
-                // Mostrar solo lo que queremos lo demas lo oculto y ocupa todo el ancho de el cuadro 
-                dgvArticulos.DataSource = lista;
-                if (dgvArticulos.Columns["ExistenciasMinimas"] != null) dgvArticulos.Columns["ExistenciasMinimas"].HeaderText = "Existencias Mínimas";
-                dgvArticulos.Columns["Id"].Visible = false;
-                dgvArticulos.Columns["ClaveSAT"].Visible = false;
-                dgvArticulos.Columns["Precio"].Visible = false;
-                dgvArticulos.Columns["PrecioProveedor"].Visible = false;
-                dgvArticulos.Columns["PorCada"].Visible = false;
-                dgvArticulos.Columns["Medicamento"].Visible = false;
-                dgvArticulos.Columns["Estatus"].Visible = false;
-                dgvArticulos.Columns["Stock"].Visible = false;
-                dgvArticulos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dgvArticulos.ReadOnly = true;
-                dgvArticulos.AllowUserToAddRows = false;
-                dgvArticulos.RowHeadersVisible = false;
+                }
+                else
+                {
+                    MessageBox.Show("No se encontraron artículos agotados.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
-        
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Cerrar todo con finalmente 
+                progressBar1.Style = ProgressBarStyle.Blocks;
+                progressBar1.Value = 0;
+                progressBar1.MarqueeAnimationSpeed = 0;
+                BtnBuscar.Enabled = true;
+                BtnImpresion.Enabled = true;
             }
         }
-
 
         private async void BtnImpresion_Click(object sender, EventArgs e)
         {
             try
             {
+                // Imprimimos y uso de nuevo a app 
+                var lista = await app.GetArticles(txtCodigo.Text, txtNombre.Text, txtDescripcion.Text, false, 0, true, 0);
 
-                // Lista de Agostados desde SQL
-                AppRepository app = new AppRepository();
-                var lista = await app.GetArticles(txtCodigo.Text, txtNombre.Text, "", false, 0, true, 0);
-
-                // Revisa si hay algo que imprimir
                 if (lista == null || lista.Count == 0)
                 {
                     MessageBox.Show("No hay artículos agotados para imprimir.");
@@ -114,99 +139,78 @@ namespace LinkCajaV2.Catalogs
                     StockMinimo = x.ExistenciasMinimas
                 }).ToList();
 
-                
                 ImpressionsGeneral im = new ImpressionsGeneral();
                 im.ImpresionListaAgotados(articulos);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al generar el PDF: " + ex.Message);
+                MessageBox.Show("Error al generar el PDF: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private async void BtnBuscar_Click(object sender, EventArgs e)
+        // Son eventos vacios 
+        private void txtDescripcion_TextChanged(object sender, EventArgs e) { }
+        private void dgvArticulos_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
+
+        // Reutilizar el codigo de creacion de tablas
+        public void CrearGridView()
         {
-            // Uso de string.Empty 
-            if (txtNombre.Text.Trim() == string.Empty && txtCodigo.Text.Trim() == string.Empty && txtDescripcion.Text.Trim() == string.Empty)
+            dgvArticulos.Columns.Clear();
+            dgvArticulos.AutoGenerateColumns = false;
+
+            dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DialogResult resultado = MessageBox.Show("Ha dejado el campo vacio, esto buscara a todos los articulos pero puede demorar ¿Quiere continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (resultado == DialogResult.No)
-                {
-                    return;
-                }
-            }
+                Name = "Codigo",
+                HeaderText = "Código",
+                DataPropertyName = "Codigo",
+                ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
 
-            // Encender barra de progreso y bloquear botones
-            progressBar1.Style = ProgressBarStyle.Marquee;
-            progressBar1.MarqueeAnimationSpeed = 30;
-            BtnBuscar.Enabled = false;
-            BtnImpresion.Enabled = false;
-            dgvArticulos.DataSource = null; // Limpiar la tabla 
-
-            try
+            dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
             {
-                // limpiar las variables 
-                string codigoBuscar = string.IsNullOrWhiteSpace(txtCodigo.Text) ? string.Empty : txtCodigo.Text.Trim();
-                string nombreBuscar = string.IsNullOrWhiteSpace(txtNombre.Text) ? string.Empty : txtNombre.Text.Trim();
-                string descBuscar = string.IsNullOrWhiteSpace(txtDescripcion.Text) ? string.Empty : txtDescripcion.Text.Trim();
+                Name = "Articulo",
+                HeaderText = "Artículo",
+                DataPropertyName = "Articulo",
+                ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            });
 
-                // Id de categoria
-                int idCategoria = cbCategoria.SelectedIndex > 0 ? (int)cbCategoria.SelectedValue : 0;
-                int idProveedor = cbProveedor.SelectedIndex > 0 ? (int)cbProveedor.SelectedValue : 0;
-
-                // Estructura de AppRepository igual a Articles.cs recuperdo de el mismo codigo
-                AppRepository obj = new AppRepository();
-
-                // Búsqueda por descripcion
-                var lista = await Task.Run(() => obj.GetArticles(codigoBuscar, nombreBuscar, descBuscar, false, idCategoria, true, idProveedor));
-
-                if (lista != null && lista.Count > 0)
-                {
-                    dgvArticulos.DataSource = lista;
-                    if (dgvArticulos.Columns["Id"] != null)
-                    {
-                        dgvArticulos.Columns["Id"].Visible = false;
-                        // Todo esto de aca es para ponerle acentos en la tabla 
-                        if (dgvArticulos.Columns["Codigo"] != null) dgvArticulos.Columns["Codigo"].HeaderText = "Código";
-                        if (dgvArticulos.Columns["Articulo"] != null) dgvArticulos.Columns["Articulo"].HeaderText = "Artículo";
-                        if (dgvArticulos.Columns["Categoria"] != null) dgvArticulos.Columns["Categoria"].HeaderText = "Categoría";
-                        if (dgvArticulos.Columns["ExistenciasMinimas"] != null) dgvArticulos.Columns["ExistenciasMinimas"].HeaderText = "Existencias Mínimas";
-                        if (dgvArticulos.Columns["PrecioProveedor"] != null) dgvArticulos.Columns["PrecioProveedor"].HeaderText = "Precio Proveedor";
-
-                        // Todo esto de aca es para filtrar en la tabla 
-                        if (dgvArticulos.Columns["ClaveSAT"] != null) dgvArticulos.Columns["ClaveSAT"].Visible = false;
-                        if (dgvArticulos.Columns["Precio"] != null) dgvArticulos.Columns["Precio"].Visible = false;
-                        if (dgvArticulos.Columns["PrecioProveed"] != null) dgvArticulos.Columns["PrecioProveed"].Visible = false;
-                        if (dgvArticulos.Columns["PorCada"] != null) dgvArticulos.Columns["PorCada"].Visible = false;
-                        if (dgvArticulos.Columns["Medicamento"] != null) dgvArticulos.Columns["Medicamento"].Visible = false;
-                        if (dgvArticulos.Columns["Medicine"] != null) dgvArticulos.Columns["Medicine"].Visible = false;
-                        if (dgvArticulos.Columns["Estatus"] != null) dgvArticulos.Columns["Estatus"].Visible = false;
-                        if (dgvArticulos.Columns["Status"] != null) dgvArticulos.Columns["Status"].Visible = false;
-                        if (dgvArticulos.Columns["Stock"] != null) dgvArticulos.Columns["Stock"].Visible = false;
-                        if (dgvArticulos.Columns["Stocks"] != null) dgvArticulos.Columns["Stocks"].Visible = false;
-                    }
-                }
-                else
-                {
-                    // Mensaje mas simple y corto 
-                    MessageBox.Show("No se encontraron articulos agotados.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
+            dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
             {
-                // mensaje de error mas corto
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
+                Name = "Categoria",
+                HeaderText = "Categoría",
+                DataPropertyName = "Categoria",
+                ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+
+            dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
             {
-                // Cerrar todo con finallmente 
-                progressBar1.Style = ProgressBarStyle.Blocks;
-                progressBar1.Value = 0;
-                progressBar1.MarqueeAnimationSpeed = 0;
-                BtnBuscar.Enabled = true;
-                BtnImpresion.Enabled = true;
-            }
+                Name = "Existencias",
+                HeaderText = "Existencias",
+                DataPropertyName = "Existencias",
+                ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+
+            dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "ExistenciasMinimas",
+                HeaderText = "Existencias Mínimas",
+                DataPropertyName = "ExistenciasMinimas",
+                ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+
+            dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "PrecioProveedor",
+                HeaderText = "Precio Proveedor",
+                DataPropertyName = "PrecioProveedor",
+                ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
         }
-
     }
 }
