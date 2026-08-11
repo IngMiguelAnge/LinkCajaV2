@@ -525,7 +525,34 @@ namespace LinkCajaV2.Data
             }
             return list;
         }
-
+        public async Task<List<CashDropModel>> GetCashDropCorte(DateTime Desde, DateTime Hasta)
+        {
+            List<CashDropModel> list = new List<CashDropModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetCashDropCorte", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Desde", Desde));
+                        cmd.Parameters.Add(new SqlParameter("@Hasta", Hasta));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToCashDrop(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
         public async Task<List<CashDropModel>> GetCashDrop(DateTime Desde, DateTime Hasta, bool Entradas)
         {
             List<CashDropModel> list = new List<CashDropModel>();

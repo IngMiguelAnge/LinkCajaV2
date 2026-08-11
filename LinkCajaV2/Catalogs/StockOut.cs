@@ -24,7 +24,7 @@ namespace LinkCajaV2.Catalogs
             try
             {
              
-                LinkCajaV2.Data.AppRepository app = new LinkCajaV2.Data.AppRepository();
+                AppRepository app = new AppRepository();
 
                 //Se conecta a SQL
                 var ListCategories = await app.GetCategoriesActives();
@@ -47,9 +47,7 @@ namespace LinkCajaV2.Catalogs
                 cbProveedor.DataSource = ListProveedores;
                 cbProveedor.SelectedIndex = 0;
 
-
-                //Esta cosa carga la lista de cosas 
-                await CargarAgotados();
+                 await CargarAgotados();
             }
             catch (Exception ex)
             {
@@ -63,9 +61,9 @@ namespace LinkCajaV2.Catalogs
             try
             {
 
-                LinkCajaV2.Data.AppRepository app = new LinkCajaV2.Data.AppRepository();
+                AppRepository app = new AppRepository();
 
-                var lista = await app.GetArticles("", "","", false, 0, true, 0);
+                var lista = await app.GetArticles(string.Empty, string.Empty, string.Empty, false, 0, true, 0);
 
                 // Mostrar solo lo que queremos lo demas lo oculto y ocupa todo el ancho de el cuadro 
                 dgvArticulos.DataSource = lista;
@@ -89,22 +87,15 @@ namespace LinkCajaV2.Catalogs
             }
         }
 
-        private void dgvArticulos_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
 
         private async void BtnImpresion_Click(object sender, EventArgs e)
         {
             try
             {
-                // Filtros
-                string codigoBuscar = txtCodigo.Text.Trim();
-                string nombreBuscar = txtNombre.Text.Trim();
 
                 // Lista de Agostados desde SQL
-                LinkCajaV2.Data.AppRepository app = new LinkCajaV2.Data.AppRepository();
-                var lista = await app.GetArticles(codigoBuscar, nombreBuscar, "", false, 0, true, 0);
+                AppRepository app = new AppRepository();
+                var lista = await app.GetArticles(txtCodigo.Text, txtNombre.Text, "", false, 0, true, 0);
 
                 // Revisa si hay algo que imprimir
                 if (lista == null || lista.Count == 0)
@@ -113,7 +104,6 @@ namespace LinkCajaV2.Catalogs
                     return;
                 }
 
-                // Codigo reciclado de el boton de imprimir de articulos
                 List<PrinterPricesModel> articulos = lista.Select(x => new PrinterPricesModel
                 {
                     Articulo = x.Articulo,
@@ -218,9 +208,5 @@ namespace LinkCajaV2.Catalogs
             }
         }
 
-        private void txtDescripcion_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
