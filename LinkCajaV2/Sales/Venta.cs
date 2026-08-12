@@ -17,6 +17,7 @@ using System.Media;
 using System.Printing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static QuestPDF.Helpers.Colors;
 using static System.Net.WebRequestMethods;
 using Color = System.Drawing.Color;
 
@@ -148,6 +149,7 @@ namespace LinkCajaV2.Sales
         {
             dgvArticulos.Columns.Clear();
             dgvArticulos.AutoGenerateColumns = false;
+            dgvArticulos.ReadOnly = false;
             dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Id",
@@ -267,6 +269,7 @@ namespace LinkCajaV2.Sales
 
             dgvArticulos.Columns.Add(btnEliminar);
             dgvArticulos.AllowUserToAddRows = false;
+
         }
         private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
         {
@@ -344,15 +347,20 @@ namespace LinkCajaV2.Sales
 
             if (articuloExistente != null)
             {
-                // Si existe, solo actualizamos la cantidad
-                articuloExistente.Stock += cantidadEntrante;
-                if (articulo.Stock < articuloExistente.Stock)
+                // 1. Calculamos la nueva cantidad de forma temporal
+                decimal nuevaCantidadProyectada = articuloExistente.Stock + cantidadEntrante;
+
+                // 2. Validamos SI SUPERA el stock real del artículo
+                if (nuevaCantidadProyectada > articulo.Stock)
                 {
                     MessageBox.Show($"Stock insuficiente.", "Error de stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    return; // Al salir aquí, el objeto 'articuloExistente' jamás se alteró
                 }
-                // La BindingList no avisa automáticamente si cambia una propiedad interna, 
-                // así que refrescamos el item.
+
+                // 3. Si pasa la validación, asignamos el nuevo valor
+                articuloExistente.Stock = nuevaCantidadProyectada;
+
+                // Refrescamos los datos para actualizar la UI
                 bindingList.ResetBindings();
             }
             else
@@ -440,38 +448,54 @@ namespace LinkCajaV2.Sales
             {
                 string valor = e.FormattedValue.ToString();
 
-                // 2. Si la celda está vacía, no hacemos nada (o podrías poner e.Cancel = true si es obligatorio)
-                if (string.IsNullOrEmpty(valor)) return;
-
-                // 3. Intentamos convertir a decimal
-                if (!decimal.TryParse(valor, out decimal resultado))
+                // 2. Si la celda está vacía, cancelamos o rellenamos
+                if (string.IsNullOrEmpty(valor))
                 {
-                    MessageBox.Show("Por favor, ingresa una cantidad válida", "Error de formato");
+                    MessageBox.Show("Ingresa una cantidad válida.", "Validación");
                     e.Cancel = true;
                     return;
                 }
 
-                // 4. VALIDACIÓN DE ORO: Miramos los decimales permitidos del OBJETO en esta fila
+                // 3. Convertir a decimal
+                if (!decimal.TryParse(valor, out decimal resultado) || resultado <= 0)
+                {
+                    MessageBox.Show("Por favor, ingresa un número válido mayor a 0", "Error de formato");
+                    e.Cancel = true;
+                    return;
+                }
+
+                // 4. Validaciones sobre el objeto de la fila
                 var item = (ArticlesSalesModel)dgvArticulos.Rows[e.RowIndex].DataBoundItem;
 
-                if (item != null && item.Decimals == 0) // Es modo piezas
+                if (item != null)
                 {
-                    // Verificamos si el número ingresado tiene parte decimal
-                    if (resultado % 1 != 0)
+                    // Validación de decimales
+                    if (item.Decimals == 0 && resultado % 1 != 0)
                     {
-                        MessageBox.Show("Este artículo no permite decimales.", "Validación");
+                        MessageBox.Show("Este artículo no permite decimales.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         e.Cancel = true;
                     }
                 }
             }
         }
-        private void dgvArticulos_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private async void dgvArticulos_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             // 1. Validaciones iniciales
             if (e.RowIndex < 0 || dgvArticulos.Columns[e.ColumnIndex].Name != "Cantidad") return;
 
+            AppRepository obj = new AppRepository();
+            var id = Convert.ToInt32(dgvArticulos.Rows[e.RowIndex].Cells["Id"].Value);
+            var codigo = dgvArticulos.Rows[e.RowIndex].Cells["Codigo"].Value?.ToString() ?? string.Empty;
+            var articulo = await obj.GetArticleActive(id, codigo);
             // 2. Manejo del punto inicial (".5" -> "0.5")
             string valor = dgvArticulos.Rows[e.RowIndex].Cells["Cantidad"].Value?.ToString() ?? "0";
+            if(Convert.ToDecimal(valor) > articulo.Stock)
+            {               
+                MessageBox.Show($"Stock insuficiente.", "Error de stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dgvArticulos.Rows[e.RowIndex].Cells["Cantidad"].Value = "1";
+                return; // Al salir aquí, el objeto 'articuloExistente' jamás se alteró
+            }
+
             if (valor.StartsWith("."))
             {
                 dgvArticulos.CellValueChanged -= dgvArticulos_CellValueChanged;

@@ -204,7 +204,6 @@ namespace LinkCajaV2.Catalogs
                 case "btnStock":
                     Stock s = new Stock();
                     s.IdArticle = Convert.ToInt32(Id);
-                    s.Nombre = dgvArticulos.Rows[e.RowIndex].Cells["Articulo"].Value.ToString();
                     s.ShowDialog();
                     await BuscarArticulos();
                     break;
@@ -231,35 +230,38 @@ namespace LinkCajaV2.Catalogs
 
                 dgvArticulos.Columns.Add(btnAsignar);
                 btnAsignar.DisplayIndex = 0;
-                return;
             }
-            DataGridViewButtonColumn btnEditar = new DataGridViewButtonColumn();
-            btnEditar.Name = "btnEditar";
-            btnEditar.HeaderText = "Acción";
-            btnEditar.Text = "Editar";
-            btnEditar.UseColumnTextForButtonValue = true;
-            btnEditar.FlatStyle = FlatStyle.Flat;
-            btnEditar.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
-            btnEditar.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
-            dgvArticulos.Columns.Add(btnEditar);
-            DataGridViewButtonColumn btnCambiar = new DataGridViewButtonColumn();
-            btnCambiar.Name = "btnCambiar";
-            btnCambiar.HeaderText = "Acción";
-            btnCambiar.Text = "Cambiar Estatus";
-            btnCambiar.UseColumnTextForButtonValue = true;
-            btnCambiar.FlatStyle = FlatStyle.Flat;
-            btnCambiar.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
-            btnCambiar.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
-            dgvArticulos.Columns.Add(btnCambiar);
-            DataGridViewButtonColumn btnProveedores = new DataGridViewButtonColumn();
-            btnProveedores.Name = "btnProveedores";
-            btnProveedores.HeaderText = "Acción";
-            btnProveedores.Text = "Proveedores";
-            btnProveedores.UseColumnTextForButtonValue = true;
-            btnProveedores.FlatStyle = FlatStyle.Flat;
-            btnProveedores.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
-            btnProveedores.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
-            dgvArticulos.Columns.Add(btnProveedores);
+            if (IsVenta==false && IsReceta == false)
+            {
+                DataGridViewButtonColumn btnEditar = new DataGridViewButtonColumn();
+                btnEditar.Name = "btnEditar";
+                btnEditar.HeaderText = "Acción";
+                btnEditar.Text = "Editar";
+                btnEditar.UseColumnTextForButtonValue = true;
+                btnEditar.FlatStyle = FlatStyle.Flat;
+                btnEditar.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
+                btnEditar.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
+                dgvArticulos.Columns.Add(btnEditar);
+                DataGridViewButtonColumn btnCambiar = new DataGridViewButtonColumn();
+                btnCambiar.Name = "btnCambiar";
+                btnCambiar.HeaderText = "Acción";
+                btnCambiar.Text = "Cambiar Estatus";
+                btnCambiar.UseColumnTextForButtonValue = true;
+                btnCambiar.FlatStyle = FlatStyle.Flat;
+                btnCambiar.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
+                btnCambiar.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
+                dgvArticulos.Columns.Add(btnCambiar);
+                DataGridViewButtonColumn btnProveedores = new DataGridViewButtonColumn();
+                btnProveedores.Name = "btnProveedores";
+                btnProveedores.HeaderText = "Acción";
+                btnProveedores.Text = "Proveedores";
+                btnProveedores.UseColumnTextForButtonValue = true;
+                btnProveedores.FlatStyle = FlatStyle.Flat;
+                btnProveedores.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
+                btnProveedores.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
+                dgvArticulos.Columns.Add(btnProveedores);
+
+            }
             DataGridViewButtonColumn btnStock = new DataGridViewButtonColumn();
             btnStock.Name = "btnStock";
             btnStock.HeaderText = "Acción";

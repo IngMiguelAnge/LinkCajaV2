@@ -126,6 +126,7 @@
             // 
             // CBPublicidad
             // 
+            this.CBPublicidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBPublicidad.Enabled = false;
             this.CBPublicidad.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBPublicidad.FormattingEnabled = true;
@@ -140,6 +141,7 @@
             // 
             // CBRuleta
             // 
+            this.CBRuleta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBRuleta.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBRuleta.FormattingEnabled = true;
             this.CBRuleta.Items.AddRange(new object[] {

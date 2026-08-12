@@ -259,7 +259,7 @@ namespace LinkCajaV2.Sales
             this.dgvArticulos.Location = new System.Drawing.Point(3, 34);
             this.dgvArticulos.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvArticulos.Name = "dgvArticulos";
-            this.dgvArticulos.ReadOnly = true;
+            this.dgvArticulos.ReadOnly = false;
             this.dgvArticulos.RowHeadersWidth = 62;
             this.dgvArticulos.RowTemplate.Height = 28;
             this.dgvArticulos.Size = new System.Drawing.Size(1207, 578);
