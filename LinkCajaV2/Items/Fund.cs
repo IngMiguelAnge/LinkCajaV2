@@ -136,8 +136,33 @@ namespace LinkCajaV2.Items
             lblTotalDevolucion.Text = "Devolución total en efectivo: $0.00";
             lbTotallDevolucionTarjeta.Text = "Devolución total en tarjeta: $0.00";
             lblSaldoTotalTarjeta.Text = "Saldo en tarjeta: $0.00";
+            CrearGridView();
             Calcular();
         }
+        public void CrearGridView()
+        {
+            dgvCorte.Columns.Clear();
+            dgvCorte.AutoGenerateColumns = false;
+            dgvCorte.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Concepto",
+                HeaderText = "Concepto",
+                DataPropertyName = "Concepto",
+                ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                Width = 300
+            });          
+            dgvCorte.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Monto",
+                HeaderText = "Monto",
+                DataPropertyName = "Monto",
+                ReadOnly = true,
+                Width = 300
+            });
+            dgvCorte.AllowUserToAddRows = false;
+        }
+
         private void CBCajas_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (CBCajas.SelectedIndex == 0)
@@ -215,10 +240,25 @@ namespace LinkCajaV2.Items
                 lbTotallDevolucionTarjeta.Text = "Devolución total en tarjeta: $" + devolucionesTarjeta.ToString();
                 lblSaldoTotalTarjeta.Text = "Saldo en tarjeta: $" + totalFinalTarjeta.ToString();
                 Calcular();
+                CargarDatos();
             }
             catch (Exception ex)
             {
                 Reiniciar();
+            }
+        }
+        public async void CargarDatos()
+        {
+            AppRepository obj = new AppRepository();
+            try
+            {
+                var detalles = await obj.GetCashDropCorte(dtFechaApertura.Value, dtFechaCierre.Value);
+                var listaFinal = detalles?.OrderBy(x => x.Fecha).ToList() ?? new List<CashDropModel>();
+                dgvCorte.DataSource = new BindingList<CashDropModel>(listaFinal);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar los articulos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void dtFechaApertura_ValueChanged(object sender, EventArgs e)
