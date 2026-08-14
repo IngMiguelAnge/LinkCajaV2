@@ -18,7 +18,7 @@ namespace LinkCajaV2.Data
         public string Connection { get; set; }
         public AppRepository(bool isUnitOfWork = false)
         {
-            Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
         }
         public void Dispose()
         {
@@ -1675,6 +1675,7 @@ namespace LinkCajaV2.Data
             }
             catch (Exception ex)
             {
+                throw new Exception($"Error al leer cajas: {ex.Message}");
             }
             return list;
         }
@@ -1753,12 +1754,18 @@ namespace LinkCajaV2.Data
         {
             return new ListBoxModel()
             {
-                Id = (int)reader["Id"],
-                Nombre = (string)reader["Name"],
-                Publicidad = (string)reader["Publicity"],
-                Estatus = (string)reader["Status"],
-                Ruleta = (string)reader["Rulet"]
-                
+                //Id = (int)reader["Id"],
+                //Nombre = (string)reader["Name"],
+                //Publicidad = (string)reader["Publicity"],
+                //Estatus = (string)reader["Status"],
+                //Ruleta = (string)reader["Rulet"]
+                //validación para que convierta los BIT de SQL (que llegan como True/False) a los textos que tu modelo de C#
+                Id = reader["Id"] != DBNull.Value ? Convert.ToInt32(reader["Id"]) : 0,
+                Nombre = reader["Name"] != DBNull.Value ? Convert.ToString(reader["Name"]) : string.Empty,
+                Publicidad = reader["Publicity"] != DBNull.Value ? (Convert.ToBoolean(reader["Publicity"]) ? "Sí" : "No") : "No",
+                Estatus = reader["Status"] != DBNull.Value ? (Convert.ToBoolean(reader["Status"]) ? "Activo" : "Inactivo") : "Inactivo",
+                Ruleta = reader["Rulet"] != DBNull.Value ? (Convert.ToBoolean(reader["Rulet"]) ? "Sí" : "No") : "No"
+
             };
         }
         public async Task<bool> SaveBox(BoxModel obj)
@@ -1769,6 +1776,7 @@ namespace LinkCajaV2.Data
                 {
                     using (SqlCommand cmd = new SqlCommand("SaveBox", sql))
                     {
+                        
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
                         cmd.Parameters.Add(new SqlParameter("@HardwareID", obj.HardwareID));
@@ -2781,7 +2789,7 @@ namespace LinkCajaV2.Data
             }
             catch (Exception ex)
             {
-
+                
             }
             return list;
         }
@@ -2948,10 +2956,64 @@ namespace LinkCajaV2.Data
             };
         }
         #endregion
-        
+        #region Reporte de Ventas
 
+        // El mapeador para convertir de SQL a la clase y regresamos los parametros 
+        private SalesReportModel MapToSalesReportModel(SqlDataReader reader)
+        {
+            return new SalesReportModel
+            {
+                Code = reader["Code"] != DBNull.Value ? Convert.ToString(reader["Code"]) : string.Empty,
+                Description = reader["Description"] != DBNull.Value ? Convert.ToString(reader["Description"]) : string.Empty,
+                Category = reader["Category"] != DBNull.Value ? Convert.ToString(reader["Category"]) : string.Empty,
+                QuantitySold = reader["QuantitySold"] != DBNull.Value ? Convert.ToDecimal(reader["QuantitySold"]) : 0,
+                Profit = reader["Profit"] != DBNull.Value ? Convert.ToDecimal(reader["Profit"]) : 0,
+                SalePrice = reader["SalePrice"] != DBNull.Value ? Convert.ToDecimal(reader["SalePrice"]) : 0,
+                SupplierPrice = reader["SupplierPrice"] != DBNull.Value ? Convert.ToDecimal(reader["SupplierPrice"]) : 0,
+                TotalInvestment = reader["TotalInvestment"] != DBNull.Value ? Convert.ToDecimal(reader["TotalInvestment"]) : 0,
+                TotalSale = reader["TotalSale"] != DBNull.Value ? Convert.ToDecimal(reader["TotalSale"]) : 0,
+            };
+        }
 
+        // Aca me conecto a SQL y ejecutamos el procedimiento almacenado 
+        public async Task<List<SalesReportModel>> GetSalesReportData(DateTime desde, DateTime hasta, string texto, int idProveedor, int idCategoria, int filtroEstado)
+        {
+            List<SalesReportModel> list = new List<SalesReportModel>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetSalesReport", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
+                        // Pasamos los 6 parámetros exactos que definimos ayer en SQL
+                        cmd.Parameters.Add(new SqlParameter("@Desde", desde));
+                        cmd.Parameters.Add(new SqlParameter("@Hasta", hasta));
+                        cmd.Parameters.Add(new SqlParameter("@Texto", texto));
+                        cmd.Parameters.Add(new SqlParameter("@IdProveedor", idProveedor));
+                        cmd.Parameters.Add(new SqlParameter("@IdCategoria", idCategoria));
+                        cmd.Parameters.Add(new SqlParameter("@FiltroEstado", filtroEstado));
+
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToSalesReportModel(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+               
+            }
+            return list;
+        }
+
+        #endregion
 
 
 

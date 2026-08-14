@@ -118,6 +118,7 @@ namespace LinkCajaV2.Reports
             cbProveedor.ValueMember = "Id";
             cbProveedor.DataSource = ListProveedores;
             cbProveedor.SelectedIndex = 0;
+            
         }
         public void CrearGridView()
         {
@@ -203,69 +204,75 @@ namespace LinkCajaV2.Reports
 
         private async void BtnGrafica_Click(object sender, EventArgs e)
         {
-            if(cbGraficas.SelectedIndex <= 0)
-            {
-                MessageBox.Show("Seleccione una opción válida para la gráfica.", "Selección Inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            AppRepository obj = new AppRepository();
-            switch (cbGraficas.Text)
-            {
-                case "Ventas":
-                    try
-                    {
-                        var detalles = await obj.GetSolds(dtDesde.Value, dtHasta.Value);
-                        if (detalles != null && detalles.Any())
-                        {
-                            var listaFinal = detalles.ToList();
-                            Graph1 g = new Graph1()
-                            {
-                                Datos = listaFinal,
-                                Titulo = "VENTAS REALIZADAS",
-                                TituloProductos = "FECHAS",
-                                TituloCantidad = "VENTA TOTAL DEL " + dtDesde.Value.ToString("dd/MM/yyyy") + " AL " + dtHasta.Value.ToString("dd/MM/yyyy")
-                            };
-                            g.Show();
-                        }
-                        else
-                        {
-                            MessageBox.Show("No se encontraron datos para el rango seleccionado.", "Sin Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error al cargar los articulos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    break;
-                default:
-      
-                    try
-                    {
-                        int IdProveedor = cbProveedor.SelectedIndex > 0 ? (int)cbProveedor.SelectedValue : 0;
-                        var detalles = await obj.GetArticlesSolds(dtDesde.Value, dtHasta.Value, (int)cbGraficas.SelectedValue, IdProveedor);
-                        if(detalles != null && detalles.Any())
-                        {
-                            var listaFinal = detalles.ToList();
-                            Graph1 g = new Graph1()
-                            {
-                                Datos = listaFinal,
-                                Titulo = "PRODUCTOS MÁS VENDIDOS",
-                                TituloProductos = "PRODUCTOS",
-                                TituloCantidad = "CANTIDAD VENDIDA DEL " + dtDesde.Value.ToString("dd/MM/yyyy") + " AL " + dtHasta.Value.ToString("dd/MM/yyyy")
-                            };
-                            g.Show();
-                        }
-                        else
-                        {
-                            MessageBox.Show("No se encontraron datos para el rango seleccionado.", "Sin Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error al cargar los articulos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                break;
-            }
+            //Nuevo Forms de reportes 
+            SalesReport reporteNuevo = new SalesReport();
+            reporteNuevo.Show();
+
+
+            // Este codigo de aqui es el de la grafica lo dejo por si algun dia se usa 
+            //    if(cbGraficas.SelectedIndex <= 0)
+            //    {
+            //        MessageBox.Show("Seleccione una opción válida para la gráfica.", "Selección Inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //        return;
+            //    }
+            //    AppRepository obj = new AppRepository();
+            //    switch (cbGraficas.Text)
+            //    {
+            //        case "Ventas":
+            //            try
+            //            {
+            //                var detalles = await obj.GetSolds(dtDesde.Value, dtHasta.Value);
+            //                if (detalles != null && detalles.Any())
+            //                {
+            //                    var listaFinal = detalles.ToList();
+            //                    Graph1 g = new Graph1()
+            //                    {
+            //                        Datos = listaFinal,
+            //                        Titulo = "VENTAS REALIZADAS",
+            //                        TituloProductos = "FECHAS",
+            //                        TituloCantidad = "VENTA TOTAL DEL " + dtDesde.Value.ToString("dd/MM/yyyy") + " AL " + dtHasta.Value.ToString("dd/MM/yyyy")
+            //                    };
+            //                    g.Show();
+            //                }
+            //                else
+            //                {
+            //                    MessageBox.Show("No se encontraron datos para el rango seleccionado.", "Sin Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //                }
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                MessageBox.Show($"Error al cargar los articulos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            }
+            //            break;
+            //        default:
+
+            //            try
+            //            {
+            //                int IdProveedor = cbProveedor.SelectedIndex > 0 ? (int)cbProveedor.SelectedValue : 0;
+            //                var detalles = await obj.GetArticlesSolds(dtDesde.Value, dtHasta.Value, (int)cbGraficas.SelectedValue, IdProveedor);
+            //                if(detalles != null && detalles.Any())
+            //                {
+            //                    var listaFinal = detalles.ToList();
+            //                    Graph1 g = new Graph1()
+            //                    {
+            //                        Datos = listaFinal,
+            //                        Titulo = "PRODUCTOS MÁS VENDIDOS",
+            //                        TituloProductos = "PRODUCTOS",
+            //                        TituloCantidad = "CANTIDAD VENDIDA DEL " + dtDesde.Value.ToString("dd/MM/yyyy") + " AL " + dtHasta.Value.ToString("dd/MM/yyyy")
+            //                    };
+            //                    g.Show();
+            //                }
+            //                else
+            //                {
+            //                    MessageBox.Show("No se encontraron datos para el rango seleccionado.", "Sin Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //                }
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                MessageBox.Show($"Error al cargar los articulos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            }
+            //        break;
+            //    }
         }
 
         private void CashDrop_FormClosed(object sender, FormClosedEventArgs e)
