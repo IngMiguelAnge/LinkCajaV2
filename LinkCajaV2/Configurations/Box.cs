@@ -64,7 +64,7 @@ namespace LinkCajaV2.Catalogs
             nudCantidad.Value = model.Amount;
 
         }
-        private void btnGuardar_Click(object sender, EventArgs e)
+        private async void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace LinkCajaV2.Catalogs
                     MessageBox.Show("Se requiere información sobre la publicidad", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                if(CBRuleta.SelectedIndex == 0)
+                if (CBRuleta.SelectedIndex == 0)
                 {
                     MessageBox.Show("Se requiere información sobre la ruleta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -86,6 +86,7 @@ namespace LinkCajaV2.Catalogs
                 AppRepository obj = new AppRepository();
                 BoxModel model = new BoxModel
                 {
+                    Id = this.Id,
                     HardwareID = txtHard.Text,
                     Name = txtNombre.Text,
                     Publicity = CBPublicidad.SelectedIndex == 1 ? false : true,
@@ -114,8 +115,9 @@ namespace LinkCajaV2.Catalogs
                         }
                     }
                 }
-                
+
                 var res = obj.SaveBox(model).Result;
+
                 if (res)
                 {
                     MessageBox.Show("Caja guardada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -133,7 +135,7 @@ namespace LinkCajaV2.Catalogs
                 this.Close();
                 return;
             }
-        }
+            }
 
         private void CBRuleta_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -369,6 +369,151 @@ namespace LinkCajaV2.Data
                 MessageBox.Show("Error al generar el PDF: " + ex.Message);
             }
         }
+
+        //Impresion de ventas ----------------------------
+        public void ImpresionReporteVentas(List<SalesReportModel> ListVentas, DateTime desde, DateTime hasta)
+        {
+            try
+            {
+                AppRepository obj = new AppRepository();
+                ConfigBox = obj.GetConfigBox().Result;
+                ConfigImpressions = obj.GetConfigImpressions("Lista de articulos agotados").Result;
+
+                QuestPDF.Settings.License = LicenseType.Community;
+                string nombreArchivo = $"Reporte de Ventas {DateTime.Now:dd-MM-yyyy HH-mm}.pdf";
+                string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory + "\\Impresiones", nombreArchivo);
+
+                Document.Create(container =>
+                {
+                    container.Page(page =>
+                    {
+                        if (ConfigBox.Page == "A4")
+                        {
+                            page.Size(PageSizes.Letter);
+                            page.Margin(1, Unit.Centimetre);
+                        }
+                        else
+                        {
+                            const float MM = 2.8346f;
+                            page.Size((float)ConfigBox.WidthPage * MM, (float)ConfigBox.HightPage * MM);
+                            page.Margin(2f * MM);
+                        }
+                        page.PageColor(Colors.White);
+
+                
+                        int TituloFontsize = ConfigImpressions.Find(x => x.Name == "Titulo") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Titulo").FontSize) : 16;
+                        
+                        string TituloColor = ConfigImpressions.Find(x => x.Name == "Titulo") != null ? ConfigImpressions.Find(x => x.Name == "Titulo").FontColor : "#000000";
+                        TituloColor = CodigodeColor(TituloColor);
+                        var EstiloTitulo = ObtenerEstiloPersonalizado("SemiBold", TituloFontsize, TituloColor);
+
+                        int FechaFontsize = ConfigImpressions.Find(x => x.Name == "Fecha") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Fecha").FontSize) : 10;
+                       
+                        string FechaColor = ConfigImpressions.Find(x => x.Name == "Fecha") != null ? ConfigImpressions.Find(x => x.Name == "Fecha").FontColor : "#000000";
+                        FechaColor = CodigodeColor(FechaColor);
+                        var EstiloFecha = ObtenerEstiloPersonalizado("Normal", FechaFontsize, FechaColor);
+
+                      
+                        // Forzamos tamaño 8 para que todo entre perfecto en formato vertical
+                        var EstiloArticulo = ObtenerEstiloPersonalizado("Normal", 8, "#000000");
+
+                        page.Header().Row(row =>
+                        {
+                            row.RelativeItem().Column(col =>
+                            {
+                                col.Item().Text("REPORTE DE UNIDADES VENDIDAS").Style(EstiloTitulo);
+                                col.Item().Text($"Periodo: {desde:dd/MM/yyyy} al {hasta:dd/MM/yyyy}").Style(EstiloFecha);
+                                col.Item().Text("Generado el: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm")).Style(EstiloFecha);
+                            });
+                        });
+
+                        page.Content().PaddingVertical(10).Column(listCol =>
+                        {
+                            listCol.Spacing((float)ConfigBox.Spacing);
+
+                            // 1. Fila de Encabezados
+                            listCol.Item().Column(headerCol =>
+                            {
+                                headerCol.Item().Row(row =>
+                                {
+                                    row.RelativeItem(1.2f).AlignLeft().Text("Código").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(2.5f).AlignLeft().Text("Descripción").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(1.2f).AlignCenter().Text("Categoría").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(0.8f).AlignCenter().Text("Cant.").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(1.2f).AlignRight().Text("P.Venta").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(1.2f).AlignRight().Text("P.Prov").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(1.4f).AlignRight().Text("Inversión").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(1.4f).AlignRight().Text("Venta T.").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(1.4f).AlignRight().Text("Ganancia").Style(EstiloArticulo).SemiBold();
+                                });
+                                headerCol.Item().PaddingTop(5).Height(1.5f).Background(Colors.Grey.Darken1);
+                            });
+
+                            // Variables para los totales
+                            decimal sumaUnidades = 0;
+                            decimal sumaInversion = 0;
+                            decimal sumaVenta = 0;
+                            decimal sumaGanancia = 0;
+
+                            // 2. Filas de Datos
+                            foreach (var item in ListVentas)
+                            {
+                                sumaUnidades += item.QuantitySold;
+                                sumaInversion += item.TotalInvestment;
+                                sumaVenta += item.TotalSale;
+                                sumaGanancia += item.Profit;
+
+                                listCol.Item().Column(itemCol =>
+                                {
+                                    itemCol.Item().Row(row =>
+                                    {
+                                        row.RelativeItem(1.2f).AlignLeft().Text(item.Code).Style(EstiloArticulo);
+                                        row.RelativeItem(2.5f).AlignLeft().Text(item.Description).Style(EstiloArticulo);
+                                        row.RelativeItem(1.2f).AlignCenter().Text(item.Category).Style(EstiloArticulo);
+                                        row.RelativeItem(0.8f).AlignCenter().Text(item.QuantitySold.ToString("N2")).Style(EstiloArticulo);
+
+                                        row.RelativeItem(1.2f).AlignRight().Text(item.SalePrice.ToString("$ #,##0.00")).Style(EstiloArticulo);
+                                        row.RelativeItem(1.2f).AlignRight().Text(item.SupplierPrice.ToString("$ #,##0.00")).Style(EstiloArticulo);
+                                        row.RelativeItem(1.4f).AlignRight().Text(item.TotalInvestment.ToString("$ #,##0.00")).Style(EstiloArticulo);
+                                        row.RelativeItem(1.4f).AlignRight().Text(item.TotalSale.ToString("$ #,##0.00")).Style(EstiloArticulo);
+                                        row.RelativeItem(1.4f).AlignRight().Text(item.Profit.ToString("$ #,##0.00")).Style(EstiloArticulo);
+                                    });
+                                    itemCol.Item().PaddingTop(3).Height(1).Background(Colors.Grey.Lighten2);
+                                });
+                            }
+
+                            // Fila de Totales Generales
+                            listCol.Item().PaddingTop(10).Row(row =>
+                            {
+                                row.RelativeItem(7.3f).AlignRight().Text("TOTALES GENERALES:").Style(EstiloArticulo).SemiBold();
+                                row.RelativeItem(0.8f).AlignCenter().Text(sumaUnidades.ToString("N2")).Style(EstiloArticulo).SemiBold();
+                                row.RelativeItem(2.4f).AlignRight().Text("").Style(EstiloArticulo);
+
+                                row.RelativeItem(1.4f).AlignRight().Text(sumaInversion.ToString("'$' #,##0.00")).Style(EstiloArticulo).SemiBold();
+                                row.RelativeItem(1.4f).AlignRight().Text(sumaVenta.ToString("'$' #,##0.00")).Style(EstiloArticulo).SemiBold();
+                                row.RelativeItem(1.4f).AlignRight().Text(sumaGanancia.ToString("'$' #,##0.00")).Style(EstiloArticulo).SemiBold();
+                            });
+                        });
+
+                        page.Footer().AlignCenter().Text(x =>
+                        {
+                            x.Span("Página ");
+                            x.CurrentPageNumber();
+                        });
+                    });
+                })
+                .GeneratePdf(rutaCompleta);
+
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(rutaCompleta) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar el PDF del reporte: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //Aca acaba lo de imprimir ventas -----------------------
+
         private TextStyle ObtenerEstiloPersonalizado(string Style, float tamano, string colorHex)
         {
             // Creamos el estilo base con el tamaño y color

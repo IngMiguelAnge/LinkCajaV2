@@ -15,7 +15,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\Lenovo\Desktop\Publicar\</PublishUrl>
+    <PublishUrl>C:\Users\Daniel\Documents\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -25,7 +25,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -468,6 +468,7 @@
     <Compile Include="Model\ResponseFactureModel.cs" />
     <Compile Include="Model\RespuestaFactureModel.cs" />
     <Compile Include="Model\RetirementModel.cs" />
+    <Compile Include="Model\SalesReportModel.cs" />
     <Compile Include="Model\StockModel.cs" />
     <Compile Include="Model\SuppliersModel.cs" />
     <Compile Include="Model\TicketModel.cs" />
@@ -488,6 +489,12 @@
     </Compile>
     <Compile Include="Reports\ItemsTicket.Designer.cs">
       <DependentUpon>ItemsTicket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\SalesReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\SalesReport.Designer.cs">
+      <DependentUpon>SalesReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\Tickets.cs">
       <SubType>Form</SubType>
@@ -626,6 +633,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ItemsTicket.resx">
       <DependentUpon>ItemsTicket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\SalesReport.resx">
+      <DependentUpon>SalesReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Tickets.resx">
       <DependentUpon>Tickets.cs</DependentUpon>

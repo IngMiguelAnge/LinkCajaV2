@@ -188,9 +188,9 @@ namespace LinkCajaV2.Catalogs
 
             dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
             {
-                Name = "PrecioProveedor",
-                HeaderText = "Precio Proveedor",
-                DataPropertyName = "PrecioProveedor",
+                Name = "Precio",
+                HeaderText = "Precio Venta",
+                DataPropertyName = "Precio", 
                 ReadOnly = true,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             });
