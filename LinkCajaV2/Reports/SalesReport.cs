@@ -140,7 +140,6 @@ namespace LinkCajaV2.Reports
                 // 3. Mandamos a llamar a tu clase centralizada de impresiones
                 ImpressionsGeneral im = new ImpressionsGeneral();
 
-                // ¡OJO AQUÍ! Tendrás que crear este nuevo método adentro de tu clase ImpressionsGeneral
                 im.ImpresionReporteVentas(listaVentas, desde, hasta);
             }
             catch (Exception ex)
