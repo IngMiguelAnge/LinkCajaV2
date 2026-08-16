@@ -205,8 +205,8 @@ namespace LinkCajaV2.Reports
         private async void BtnGrafica_Click(object sender, EventArgs e)
         {
             //Nuevo Forms de reportes 
-            SalesReport reporteNuevo = new SalesReport();
-            reporteNuevo.Show();
+            SalesReport frm = new SalesReport();
+            frm.ShowDialog();
 
 
             // Este codigo de aqui es el de la grafica lo dejo por si algun dia se usa 

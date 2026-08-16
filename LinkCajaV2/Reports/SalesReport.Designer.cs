@@ -52,34 +52,42 @@
             // 
             // dtDesde
             // 
-            this.dtDesde.Location = new System.Drawing.Point(33, 103);
+            this.dtDesde.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.dtDesde.Location = new System.Drawing.Point(15, 101);
             this.dtDesde.Name = "dtDesde";
-            this.dtDesde.Size = new System.Drawing.Size(264, 22);
+            this.dtDesde.Size = new System.Drawing.Size(379, 32);
             this.dtDesde.TabIndex = 0;
             // 
             // dtHasta
             // 
-            this.dtHasta.Location = new System.Drawing.Point(340, 103);
+            this.dtHasta.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.dtHasta.Location = new System.Drawing.Point(431, 103);
             this.dtHasta.Name = "dtHasta";
-            this.dtHasta.Size = new System.Drawing.Size(272, 22);
+            this.dtHasta.Size = new System.Drawing.Size(379, 32);
             this.dtHasta.TabIndex = 1;
             // 
             // gbDetalleVentas
             // 
+            this.gbDetalleVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbDetalleVentas.Controls.Add(this.dgvVentas);
-            this.gbDetalleVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbDetalleVentas.Location = new System.Drawing.Point(33, 162);
+            this.gbDetalleVentas.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.gbDetalleVentas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.gbDetalleVentas.Location = new System.Drawing.Point(12, 162);
             this.gbDetalleVentas.Name = "gbDetalleVentas";
-            this.gbDetalleVentas.Size = new System.Drawing.Size(1281, 357);
+            this.gbDetalleVentas.Size = new System.Drawing.Size(1302, 357);
             this.gbDetalleVentas.TabIndex = 4;
             this.gbDetalleVentas.TabStop = false;
             this.gbDetalleVentas.Text = "Resumen de Ventas";
             // 
             // dgvVentas
             // 
+            this.dgvVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvVentas.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvVentas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvVentas.GridColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dgvVentas.Location = new System.Drawing.Point(3, 24);
             this.dgvVentas.Name = "dgvVentas";
@@ -96,7 +104,7 @@
             this.btnBuscar.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.Location = new System.Drawing.Point(888, 92);
+            this.btnBuscar.Location = new System.Drawing.Point(1015, 103);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(107, 33);
@@ -109,7 +117,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(33, 140);
+            this.progressBar1.Location = new System.Drawing.Point(15, 146);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(329, 10);
             this.progressBar1.TabIndex = 36;
@@ -123,7 +131,7 @@
             this.BtnImpresion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.BtnImpresion.Image = ((System.Drawing.Image)(resources.GetObject("BtnImpresion.Image")));
             this.BtnImpresion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnImpresion.Location = new System.Drawing.Point(732, 95);
+            this.BtnImpresion.Location = new System.Drawing.Point(872, 103);
             this.BtnImpresion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnImpresion.Name = "BtnImpresion";
             this.BtnImpresion.Size = new System.Drawing.Size(120, 30);
@@ -136,7 +144,7 @@
             // txtDescripcion
             // 
             this.txtDescripcion.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescripcion.Location = new System.Drawing.Point(306, 33);
+            this.txtDescripcion.Location = new System.Drawing.Point(291, 33);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(272, 32);
             this.txtDescripcion.TabIndex = 41;
@@ -146,7 +154,7 @@
             this.lblDescripcion.AutoSize = true;
             this.lblDescripcion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDescripcion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblDescripcion.Location = new System.Drawing.Point(301, 7);
+            this.lblDescripcion.Location = new System.Drawing.Point(287, 7);
             this.lblDescripcion.Name = "lblDescripcion";
             this.lblDescripcion.Size = new System.Drawing.Size(94, 20);
             this.lblDescripcion.TabIndex = 40;
@@ -155,7 +163,7 @@
             // txtNombre
             // 
             this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(30, 33);
+            this.txtNombre.Location = new System.Drawing.Point(15, 34);
             this.txtNombre.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(242, 32);
@@ -166,7 +174,7 @@
             this.lblNombre.AutoSize = true;
             this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblNombre.Location = new System.Drawing.Point(26, 7);
+            this.lblNombre.Location = new System.Drawing.Point(14, 7);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(71, 20);
             this.lblNombre.TabIndex = 38;
@@ -177,7 +185,7 @@
             this.cbProveedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProveedor.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbProveedor.FormattingEnabled = true;
-            this.cbProveedor.Location = new System.Drawing.Point(602, 33);
+            this.cbProveedor.Location = new System.Drawing.Point(593, 33);
             this.cbProveedor.Name = "cbProveedor";
             this.cbProveedor.Size = new System.Drawing.Size(250, 33);
             this.cbProveedor.TabIndex = 43;
@@ -187,7 +195,7 @@
             this.lblProveedor.AutoSize = true;
             this.lblProveedor.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProveedor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblProveedor.Location = new System.Drawing.Point(598, 7);
+            this.lblProveedor.Location = new System.Drawing.Point(589, 7);
             this.lblProveedor.Name = "lblProveedor";
             this.lblProveedor.Size = new System.Drawing.Size(86, 20);
             this.lblProveedor.TabIndex = 42;
@@ -219,7 +227,7 @@
             this.lblDesde.AutoSize = true;
             this.lblDesde.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDesde.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblDesde.Location = new System.Drawing.Point(29, 80);
+            this.lblDesde.Location = new System.Drawing.Point(14, 80);
             this.lblDesde.Name = "lblDesde";
             this.lblDesde.Size = new System.Drawing.Size(56, 20);
             this.lblDesde.TabIndex = 46;
@@ -230,7 +238,7 @@
             this.lblHasta.AutoSize = true;
             this.lblHasta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHasta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblHasta.Location = new System.Drawing.Point(342, 80);
+            this.lblHasta.Location = new System.Drawing.Point(427, 80);
             this.lblHasta.Name = "lblHasta";
             this.lblHasta.Size = new System.Drawing.Size(53, 20);
             this.lblHasta.TabIndex = 47;
@@ -260,6 +268,7 @@
             this.Controls.Add(this.dtDesde);
             this.Name = "SalesReport";
             this.Text = "SalesReport";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.SalesReport_Load);
             this.gbDetalleVentas.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).EndInit();
