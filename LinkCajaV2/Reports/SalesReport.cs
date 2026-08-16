@@ -61,20 +61,21 @@ namespace LinkCajaV2.Reports
             dgvVentas.AllowUserToAddRows = false;
             dgvVentas.ReadOnly = true;
             dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            string formatoMoneda = "$ #,##0.00";
+            string formatoMoneda = "'$' #,##0.00";
 
             dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Code", HeaderText = "SKU", DataPropertyName = "Code" });
             dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Description", HeaderText = "Descripción", DataPropertyName = "Description", AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill });
             dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Category", HeaderText = "Categoría", DataPropertyName = "Category" });
-            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "QuantitySold", HeaderText = "Cant. Vendida", DataPropertyName = "QuantitySold" });
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "QuantitySold", HeaderText = "Cant. Vendida", DataPropertyName = "QuantitySold", DefaultCellStyle = new DataGridViewCellStyle { Format = "0.###" } });
 
-            
+
             dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "SalePrice", HeaderText = "Precio Venta", DataPropertyName = "SalePrice", DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda } });
             dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "SupplierPrice", HeaderText = "Costo Provedor", DataPropertyName = "SupplierPrice", DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda } });
             dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "TotalInvestment", HeaderText = "Inversión Total", DataPropertyName = "TotalInvestment", DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda } });
             dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "TotalSale", HeaderText = "Venta Total", DataPropertyName = "TotalSale", DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda } });
 
             dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Profit", HeaderText = "Ganancia Total", DataPropertyName = "Profit", DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda, Font = new Font(dgvVentas.Font, FontStyle.Bold) } });
+            dgvVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private async void btnBuscar_Click(object sender, EventArgs e)

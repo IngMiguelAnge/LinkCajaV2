@@ -472,11 +472,11 @@ namespace LinkCajaV2.Data
                                         row.RelativeItem(1.2f).AlignCenter().Text(item.Category).Style(EstiloArticulo);
                                         row.RelativeItem(0.8f).AlignCenter().Text(item.QuantitySold.ToString("N2")).Style(EstiloArticulo);
 
-                                        row.RelativeItem(1.2f).AlignRight().Text(item.SalePrice.ToString("$ #,##0.00")).Style(EstiloArticulo);
-                                        row.RelativeItem(1.2f).AlignRight().Text(item.SupplierPrice.ToString("$ #,##0.00")).Style(EstiloArticulo);
-                                        row.RelativeItem(1.4f).AlignRight().Text(item.TotalInvestment.ToString("$ #,##0.00")).Style(EstiloArticulo);
-                                        row.RelativeItem(1.4f).AlignRight().Text(item.TotalSale.ToString("$ #,##0.00")).Style(EstiloArticulo);
-                                        row.RelativeItem(1.4f).AlignRight().Text(item.Profit.ToString("$ #,##0.00")).Style(EstiloArticulo);
+                                        row.RelativeItem(1.2f).AlignRight().Text(item.SalePrice.ToString("'$' #,##0.00")).Style(EstiloArticulo);
+                                        row.RelativeItem(1.2f).AlignRight().Text(item.SupplierPrice.ToString("'$' #,##0.00")).Style(EstiloArticulo);
+                                        row.RelativeItem(1.4f).AlignRight().Text(item.TotalInvestment.ToString("'$' #,##0.00")).Style(EstiloArticulo);
+                                        row.RelativeItem(1.4f).AlignRight().Text(item.TotalSale.ToString("'$' #,##0.00")).Style(EstiloArticulo);
+                                        row.RelativeItem(1.4f).AlignRight().Text(item.Profit.ToString("'$' #,##0.00")).Style(EstiloArticulo);
                                     });
                                     itemCol.Item().PaddingTop(3).Height(1).Background(Colors.Grey.Lighten2);
                                 });
