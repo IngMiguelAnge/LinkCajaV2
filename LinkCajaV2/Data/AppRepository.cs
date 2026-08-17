@@ -2969,7 +2969,7 @@ namespace LinkCajaV2.Data
         }
 
         // Aca me conecto a SQL y ejecutamos el procedimiento almacenado 
-        public async Task<List<SalesReportModel>> GetSalesReportData(DateTime desde, DateTime hasta, string texto, int idProveedor, int idCategoria, int filtroEstado)
+        public async Task<List<SalesReportModel>> GetSalesReportData(DateTime desde, DateTime hasta, string codigo, string nombre, string descripcion, int idProveedor, int idCategoria)
         {
             List<SalesReportModel> list = new List<SalesReportModel>();
             try
@@ -2980,13 +2980,19 @@ namespace LinkCajaV2.Data
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        // Pasamos los 6 parámetros exactos que definimos ayer en SQL
-                        cmd.Parameters.Add(new SqlParameter("@Desde", desde));
-                        cmd.Parameters.Add(new SqlParameter("@Hasta", hasta));
-                        cmd.Parameters.Add(new SqlParameter("@Texto", texto));
-                        cmd.Parameters.Add(new SqlParameter("@IdProveedor", idProveedor));
-                        cmd.Parameters.Add(new SqlParameter("@IdCategoria", idCategoria));
-                        cmd.Parameters.Add(new SqlParameter("@FiltroEstado", filtroEstado));
+                        // Fechas
+                        cmd.Parameters.AddWithValue("@Desde", desde);
+                        cmd.Parameters.AddWithValue("@Hasta", hasta);
+
+                        // Textos 
+                        cmd.Parameters.AddWithValue("@Codigo", codigo);
+                        cmd.Parameters.AddWithValue("@Nombre", nombre);
+                        cmd.Parameters.AddWithValue("@Descripcion", descripcion);
+
+                        // ID de los combos
+                        cmd.Parameters.AddWithValue("@IdProveedor", idProveedor);
+                        cmd.Parameters.AddWithValue("@IdCategoria", idCategoria);
+
 
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))

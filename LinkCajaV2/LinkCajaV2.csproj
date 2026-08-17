@@ -401,6 +401,7 @@
     <Compile Include="Items\SAT.Designer.cs">
       <DependentUpon>SAT.cs</DependentUpon>
     </Compile>
+    <Compile Include="Items\SortableBindingList.cs" />
     <Compile Include="Items\TypePay.cs">
       <SubType>Form</SubType>
     </Compile>
