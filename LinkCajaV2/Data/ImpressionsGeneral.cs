@@ -483,7 +483,11 @@ namespace LinkCajaV2.Data
                             }
 
                             // Fila de Totales Generales
-                            listCol.Item().PaddingTop(10).Row(row =>
+                            listCol.Item()
+                            .PaddingTop(10) 
+                            .BorderTop(1).BorderColor(Colors.Black) 
+                            .PaddingTop(5) 
+                            .Row(row =>
                             {
                                 row.RelativeItem(7.3f).AlignRight().Text("TOTALES GENERALES:").Style(EstiloArticulo).SemiBold();
                                 row.RelativeItem(0.8f).AlignCenter().Text(sumaUnidades.ToString("N2")).Style(EstiloArticulo).SemiBold();

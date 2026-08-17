@@ -1,5 +1,6 @@
 ﻿using LinkCajaV2.Data;
 using LinkCajaV2.Model;
+using Mikrotik_Administrador.Settings;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,17 +10,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static QuestPDF.Helpers.Colors;
 
 namespace LinkCajaV2.Reports
 {
     public partial class SalesReport : Form
     {
+        private bool ordenAscendente = true;
         public SalesReport()
         {
             InitializeComponent();
         }
 
-        private async void SalesReport_Load(object sender, EventArgs e)
+        private void SalesReport_Load(object sender, EventArgs e)
         {
             AppRepository obj = new AppRepository();
 
@@ -56,6 +59,7 @@ namespace LinkCajaV2.Reports
         }
         public void ConfigurarGridView()
         {
+            dgvVentas.DataSource = null; // este es para que limpie la anterior busqueda
             dgvVentas.Columns.Clear();
             dgvVentas.AutoGenerateColumns = false;
             dgvVentas.AllowUserToAddRows = false;
@@ -82,33 +86,40 @@ namespace LinkCajaV2.Reports
         {
             try
             {
-                // Recolectar las fechas
+                //  Limpiamos la tabla vieja
+                ConfigurarGridView();
+
+                //  Recolectamos datos de la pantalla
                 DateTime desde = dtDesde.Value.Date;
-                DateTime hasta = dtHasta.Value.Date.AddDays(1).AddSeconds(-1);
+                DateTime hasta = dtHasta.Value.Date;
 
-                // Recolectar nombres
-                string textoBusqueda = txtNombre.Text.Trim();
+                string codigo = "";
+                string nombre = txtNombre.Text.Trim();
+                string descripcion = txtDescripcion.Text.Trim();
 
-                // Recolectar los IDs de los ComboBox (Si es 0 trae todos)
                 int idProveedor = cbProveedor.SelectedIndex > 0 ? (int)cbProveedor.SelectedValue : 0;
                 int idCategoria = cbCategoria.SelectedIndex > 0 ? (int)cbCategoria.SelectedValue : 0;
 
-                // Mandamos a tarer todos los articulos 
-                int filtroEstado = 2;
-
-                // Mandamos a llamar el nuevo metodo
+                // Vamos por los datos a SQL
                 AppRepository obj = new AppRepository();
-                var listaVentas = await obj.GetSalesReportData(desde, hasta, textoBusqueda, idProveedor, idCategoria, filtroEstado);
+                var listaVentas = await obj.GetSalesReportData(desde, hasta, codigo, nombre, descripcion, idProveedor, idCategoria);
+                // Uso de la nueva clase Sortable
+                var listaFinal = listaVentas?.ToList() ?? new List<SalesReportModel>();
 
-                // Colocar datos en la tabla 
-                dgvVentas.DataSource = null; // este es para que limpie la anterior busqueda
-                dgvVentas.DataSource = listaVentas;
-
-                // Si no encuentra nada avisa 
-                if (listaVentas == null || listaVentas.Count == 0)
+                
+                if (listaFinal.Count == 0)
                 {
                     MessageBox.Show("No se encontraron ventas en el rango seleccionado.", "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    lblTotalGeneral.Text = "Total Venta General: $0.00"; // El nuevo label lo pongo en 0 
+                    return; 
                 }
+
+                // Ordenamos con la nueva clase de Sortable
+                dgvVentas.DataSource = new SortableBindingList<SalesReportModel>(listaFinal);
+
+                // Calculamos todo y lo mandamos al label 
+                decimal granTotal = listaFinal.Sum(x => x.TotalSale);
+                lblTotalGeneral.Text = "Total Venta General: " + granTotal.ToString("'$' #,##0.00");
             }
             catch (Exception ex)
             {
@@ -120,81 +131,48 @@ namespace LinkCajaV2.Reports
         {
             try
             {
-                //Recolectamos los mismos filtros que usamos en el boton de buscar 
+                //  Recolectamos fechas 
                 DateTime desde = dtDesde.Value.Date;
-                DateTime hasta = dtHasta.Value.Date.AddDays(1).AddSeconds(-1);
-                string textoBusqueda = txtNombre.Text.Trim();
+                DateTime hasta = dtHasta.Value.Date;
+
+                //  Recolectamos los textos 
+                string codigo = "";
+                string nombre = txtNombre.Text.Trim();
+                string descripcion = txtDescripcion.Text.Trim();
+
+                // Recolectamos combos
                 int idProveedor = cbProveedor.SelectedIndex > 0 ? (int)cbProveedor.SelectedValue : 0;
                 int idCategoria = cbCategoria.SelectedIndex > 0 ? (int)cbCategoria.SelectedValue : 0;
-                int filtroEstado = 2; 
 
-                // Traemos la informa
+        
+
+                //  Vamos por la info a SQL
                 AppRepository obj = new AppRepository();
-                var listaVentas = await obj.GetSalesReportData(desde, hasta, textoBusqueda, idProveedor, idCategoria, filtroEstado);
+                var listaVentas = await obj.GetSalesReportData(desde, hasta, codigo, nombre, descripcion, idProveedor, idCategoria);
 
-                if (listaVentas == null || listaVentas.Count == 0)
+          
+                var listaFinal = listaVentas?.ToList() ?? new List<SalesReportModel>();
+
+                if (listaFinal.Count == 0)
                 {
                     MessageBox.Show("No hay ventas en este rango para imprimir.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
-                // 3. Mandamos a llamar a tu clase centralizada de impresiones
+                // Invocar impresiones
                 ImpressionsGeneral im = new ImpressionsGeneral();
 
-                im.ImpresionReporteVentas(listaVentas, desde, hasta);
+                im.ImpresionReporteVentas(listaFinal, desde, hasta);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al generar el PDF: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private bool ordenAscendente = true;
         private void dgvVentas_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            var lista = dgvVentas.DataSource as List<SalesReportModel>;
-            if (lista == null || lista.Count == 0) return;
-
-            // Detectamos que columna da click el usuario 
-            string columnaClic = dgvVentas.Columns[e.ColumnIndex].Name;
-
-            // Invertimos el estado (si era de A-Z, ahora será Z-A)
-            ordenAscendente = !ordenAscendente;
-
-            // Ordenas las columnas 
-            switch (columnaClic)
-            {
-                case "Code":
-                    lista = ordenAscendente ? lista.OrderBy(x => x.Code).ToList() : lista.OrderByDescending(x => x.Code).ToList();
-                    break;
-                case "Description":
-                    lista = ordenAscendente ? lista.OrderBy(x => x.Description).ToList() : lista.OrderByDescending(x => x.Description).ToList();
-                    break;
-                case "Category":
-                    lista = ordenAscendente ? lista.OrderBy(x => x.Category).ToList() : lista.OrderByDescending(x => x.Category).ToList();
-                    break;
-                case "QuantitySold":
-                    lista = ordenAscendente ? lista.OrderBy(x => x.QuantitySold).ToList() : lista.OrderByDescending(x => x.QuantitySold).ToList();
-                    break;
-                case "SalePrice":
-                    lista = ordenAscendente ? lista.OrderBy(x => x.SalePrice).ToList() : lista.OrderByDescending(x => x.SalePrice).ToList();
-                    break;
-                case "SupplierPrice":
-                    lista = ordenAscendente ? lista.OrderBy(x => x.SupplierPrice).ToList() : lista.OrderByDescending(x => x.SupplierPrice).ToList();
-                    break;
-                case "TotalInvestment":
-                    lista = ordenAscendente ? lista.OrderBy(x => x.TotalInvestment).ToList() : lista.OrderByDescending(x => x.TotalInvestment).ToList();
-                    break;
-                case "TotalSale":
-                    lista = ordenAscendente ? lista.OrderBy(x => x.TotalSale).ToList() : lista.OrderByDescending(x => x.TotalSale).ToList();
-                    break;
-                case "Profit":
-                    lista = ordenAscendente ? lista.OrderBy(x => x.Profit).ToList() : lista.OrderByDescending(x => x.Profit).ToList();
-                    break;
-            }
-
-            // Refrescamos la tabla para que muestre el nuevo orden
-            dgvVentas.DataSource = null;
-            dgvVentas.DataSource = lista;
+        { 
         }
+        
+            
     }
 }
