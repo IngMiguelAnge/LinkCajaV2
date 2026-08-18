@@ -325,13 +325,21 @@ namespace LinkCajaV2.Sales
                 d.Presentation = presentacion.Presentation;
                 d.Nombre = presentacion.Name;
                 d.Decimales = presentacion.Decimals;
-                if (d.ShowDialog() == DialogResult.OK) // Asumiendo que devuelve OK
+                if (d.ShowDialog() == DialogResult.OK)
                 {
-                    cantidadEntrante = d.Kilos;
+                    // Convertimos los gramos/mililitros a Kilos/Litros (Ej. 1200 pasa a ser 1.2)
+                    // Nota: Agregamos la letra 'm' al 1000 para que C# haga la división con decimales exactos.
                     if (articulo.SuggestedStock > 0)
                     {
-                        precioCalculado = articulo.Price / (articulo.SuggestedStock * 1000);
+                        cantidadEntrante = d.Kilos / (articulo.SuggestedStock * 1000m);
                     }
+                    else
+                    {
+                        cantidadEntrante = d.Kilos / 1000m;
+                    }
+
+                    // Dejamos el precio intacto 
+                    precioCalculado = articulo.Price;
                 }
                 else
                 {
