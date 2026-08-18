@@ -16,7 +16,7 @@ namespace LinkCajaV2.Reports
 {
     public partial class SalesReport : Form
     {
-        private bool ordenAscendente = true;
+        
         public SalesReport()
         {
             InitializeComponent();
@@ -49,8 +49,7 @@ namespace LinkCajaV2.Reports
                 cbCategoria.DataSource = CategoriasOrdenadas;
                 cbCategoria.SelectedIndex = 0;
 
-                // 3. Inicializar la tabla
-                ConfigurarGridView();
+               
             }
             catch (Exception ex)
             {
@@ -86,14 +85,15 @@ namespace LinkCajaV2.Reports
         {
             try
             {
-                //  Limpiamos la tabla vieja
+                
+                progressBar1.Visible = true; 
                 ConfigurarGridView();
 
-                //  Recolectamos datos de la pantalla
+                // Recolectamos datos de la pantalla
                 DateTime desde = dtDesde.Value.Date;
                 DateTime hasta = dtHasta.Value.Date;
 
-                string codigo = "";
+                string codigo = ""; 
                 string nombre = txtNombre.Text.Trim();
                 string descripcion = txtDescripcion.Text.Trim();
 
@@ -103,27 +103,32 @@ namespace LinkCajaV2.Reports
                 // Vamos por los datos a SQL
                 AppRepository obj = new AppRepository();
                 var listaVentas = await obj.GetSalesReportData(desde, hasta, codigo, nombre, descripcion, idProveedor, idCategoria);
-                // Uso de la nueva clase Sortable
                 var listaFinal = listaVentas?.ToList() ?? new List<SalesReportModel>();
 
-                
                 if (listaFinal.Count == 0)
                 {
                     MessageBox.Show("No se encontraron ventas en el rango seleccionado.", "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    lblTotalGeneral.Text = "Total Venta General: $0.00"; // El nuevo label lo pongo en 0 
-                    return; 
+
+                    // Los 0
+                    lblTotalGeneral.Text = "Total: $0.00";
+                    return;
                 }
 
-                // Ordenamos con la nueva clase de Sortable
+                // Ordenamos con la clase 
                 dgvVentas.DataSource = new SortableBindingList<SalesReportModel>(listaFinal);
 
-                // Calculamos todo y lo mandamos al label 
+                
                 decimal granTotal = listaFinal.Sum(x => x.TotalSale);
-                lblTotalGeneral.Text = "Total Venta General: " + granTotal.ToString("'$' #,##0.00");
+                lblTotalGeneral.Text = "Total: " + granTotal.ToString("'$' #,##0.00");
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al generar el reporte: {ex.Message}", "Error de Consulta", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                
+                 progressBar1.Visible = false;
             }
         }
 
@@ -169,9 +174,7 @@ namespace LinkCajaV2.Reports
                 MessageBox.Show("Error al generar el PDF: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void dgvVentas_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        { 
-        }
+        
         
             
     }
