@@ -110,7 +110,9 @@ namespace LinkCajaV2.Reports
                     MessageBox.Show("No se encontraron ventas en el rango seleccionado.", "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // Los 0
-                    lblTotalGeneral.Text = "Total: $0.00";
+                    lblTotalGeneral.Text = " Venta Total: $0.00";
+                    lblInversionTotal.Text = "Inversión Total: $0.00"; // NUEVO
+                    lblGananciaTotal.Text = "Total Ganancia: $0.00";   // NUEVO
                     return;
                 }
 
@@ -119,7 +121,13 @@ namespace LinkCajaV2.Reports
 
                 
                 decimal granTotal = listaFinal.Sum(x => x.TotalSale);
-                lblTotalGeneral.Text = "Total: " + granTotal.ToString("'$' #,##0.00");
+                decimal inversionTotal = listaFinal.Sum(x => x.TotalInvestment); // NUEVO
+                decimal gananciaTotal = listaFinal.Sum(x => x.Profit); // NUEVO
+
+                lblTotalGeneral.Text = "Venta Total: " + granTotal.ToString("'$' #,##0.00");
+                lblInversionTotal.Text = "Inversión Total: " + inversionTotal.ToString("'$' #,##0.00"); // NUEVO
+                lblGananciaTotal.Text = "Total Ganancia: " + gananciaTotal.ToString("'$' #,##0.00");     // NUEVO
+            
             }
             catch (Exception ex)
             {

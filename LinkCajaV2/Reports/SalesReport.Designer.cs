@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SalesReport));
             this.dtDesde = new System.Windows.Forms.DateTimePicker();
             this.dtHasta = new System.Windows.Forms.DateTimePicker();
@@ -49,6 +49,8 @@
             this.lblDesde = new System.Windows.Forms.Label();
             this.lblHasta = new System.Windows.Forms.Label();
             this.lblTotalGeneral = new System.Windows.Forms.Label();
+            this.lblInversionTotal = new System.Windows.Forms.Label();
+            this.lblGananciaTotal = new System.Windows.Forms.Label();
             this.gbDetalleVentas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).BeginInit();
             this.SuspendLayout();
@@ -79,7 +81,7 @@
             this.gbDetalleVentas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.gbDetalleVentas.Location = new System.Drawing.Point(12, 162);
             this.gbDetalleVentas.Name = "gbDetalleVentas";
-            this.gbDetalleVentas.Size = new System.Drawing.Size(1302, 357);
+            this.gbDetalleVentas.Size = new System.Drawing.Size(1505, 357);
             this.gbDetalleVentas.TabIndex = 4;
             this.gbDetalleVentas.TabStop = false;
             this.gbDetalleVentas.Text = "Resumen de Ventas";
@@ -90,24 +92,24 @@
             this.dgvVentas.BackgroundColor = System.Drawing.Color.White;
             this.dgvVentas.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvVentas.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvVentas.ColumnHeadersHeight = 35;
             this.dgvVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvVentas.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvVentas.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvVentas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvVentas.EnableHeadersVisualStyles = false;
             this.dgvVentas.GridColor = System.Drawing.Color.LightGray;
@@ -115,7 +117,7 @@
             this.dgvVentas.Name = "dgvVentas";
             this.dgvVentas.RowHeadersWidth = 51;
             this.dgvVentas.RowTemplate.Height = 30;
-            this.dgvVentas.Size = new System.Drawing.Size(1296, 324);
+            this.dgvVentas.Size = new System.Drawing.Size(1499, 324);
             this.dgvVentas.TabIndex = 0;
             // 
             // btnBuscar
@@ -270,18 +272,42 @@
             this.lblTotalGeneral.AutoSize = true;
             this.lblTotalGeneral.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblTotalGeneral.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblTotalGeneral.Location = new System.Drawing.Point(1118, 108);
+            this.lblTotalGeneral.Location = new System.Drawing.Point(1158, 69);
             this.lblTotalGeneral.Name = "lblTotalGeneral";
-            this.lblTotalGeneral.Size = new System.Drawing.Size(48, 20);
+            this.lblTotalGeneral.Size = new System.Drawing.Size(92, 20);
             this.lblTotalGeneral.TabIndex = 48;
-            this.lblTotalGeneral.Text = "Total:";
+            this.lblTotalGeneral.Text = "Venta Total:";
+            // 
+            // lblInversionTotal
+            // 
+            this.lblInversionTotal.AutoSize = true;
+            this.lblInversionTotal.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblInversionTotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblInversionTotal.Location = new System.Drawing.Point(1158, 136);
+            this.lblInversionTotal.Name = "lblInversionTotal";
+            this.lblInversionTotal.Size = new System.Drawing.Size(117, 20);
+            this.lblInversionTotal.TabIndex = 49;
+            this.lblInversionTotal.Text = "Inversion Total:";
+            // 
+            // lblGananciaTotal
+            // 
+            this.lblGananciaTotal.AutoSize = true;
+            this.lblGananciaTotal.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblGananciaTotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblGananciaTotal.Location = new System.Drawing.Point(1159, 103);
+            this.lblGananciaTotal.Name = "lblGananciaTotal";
+            this.lblGananciaTotal.Size = new System.Drawing.Size(116, 20);
+            this.lblGananciaTotal.TabIndex = 50;
+            this.lblGananciaTotal.Text = "Ganancia Total:";
             // 
             // SalesReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1326, 531);
+            this.ClientSize = new System.Drawing.Size(1529, 531);
+            this.Controls.Add(this.lblGananciaTotal);
+            this.Controls.Add(this.lblInversionTotal);
             this.Controls.Add(this.lblTotalGeneral);
             this.Controls.Add(this.lblHasta);
             this.Controls.Add(this.lblDesde);
@@ -330,6 +356,7 @@
         private System.Windows.Forms.Label lblDesde;
         private System.Windows.Forms.Label lblHasta;
         private System.Windows.Forms.Label lblTotalGeneral;
-        
+        private System.Windows.Forms.Label lblInversionTotal;
+        private System.Windows.Forms.Label lblGananciaTotal;
     }
 }
