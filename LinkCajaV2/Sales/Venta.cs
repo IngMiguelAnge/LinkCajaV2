@@ -332,15 +332,7 @@ namespace LinkCajaV2.Sales
                 {
                     // Convertimos los gramos/mililitros a Kilos/Litros (Ej. 1200 pasa a ser 1.2)
                     // Nota: Agregamos la letra 'm' al 1000 para que C# haga la división con decimales exactos.
-                    if (articulo.SuggestedStock > 0)
-                    {
-                        cantidadEntrante = d.Kilos / (articulo.SuggestedStock * 1000m);
-                    }
-                    else
-                    {
-                        cantidadEntrante = d.Kilos / 1000m;
-                    }
-
+                    cantidadEntrante = d.Kilos;
                     // Dejamos el precio intacto 
                     precioCalculado = articulo.Price;
                 }
