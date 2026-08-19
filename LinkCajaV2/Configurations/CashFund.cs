@@ -134,5 +134,10 @@ namespace LinkCajaV2.Configurations
             }
         }
 
+        private void BtnGastosReport_Click(object sender, EventArgs e)
+        {
+            FrmReporteGastosExtras reporte = new FrmReporteGastosExtras();
+            reporte.ShowDialog();
+        }
     }
 }
