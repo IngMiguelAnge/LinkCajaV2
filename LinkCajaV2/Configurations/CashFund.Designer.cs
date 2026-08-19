@@ -42,6 +42,7 @@
             this.dgvFondoCaja = new System.Windows.Forms.DataGridView();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.BtnGastosReport = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFondoCaja)).BeginInit();
             this.SuspendLayout();
@@ -54,9 +55,10 @@
             this.btnNuevo.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevo.ForeColor = System.Drawing.Color.White;
             this.btnNuevo.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevo.Image")));
-            this.btnNuevo.Location = new System.Drawing.Point(1084, 135);
+            this.btnNuevo.Location = new System.Drawing.Point(964, 108);
+            this.btnNuevo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(120, 41);
+            this.btnNuevo.Size = new System.Drawing.Size(107, 33);
             this.btnNuevo.TabIndex = 0;
             this.btnNuevo.Text = "Nuevo";
             this.btnNuevo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -67,9 +69,10 @@
             // dtHasta
             // 
             this.dtHasta.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtHasta.Location = new System.Drawing.Point(499, 135);
+            this.dtHasta.Location = new System.Drawing.Point(444, 108);
+            this.dtHasta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtHasta.Name = "dtHasta";
-            this.dtHasta.Size = new System.Drawing.Size(422, 37);
+            this.dtHasta.Size = new System.Drawing.Size(376, 32);
             this.dtHasta.TabIndex = 3;
             // 
             // lblHasta
@@ -77,9 +80,9 @@
             this.lblHasta.AutoSize = true;
             this.lblHasta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHasta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblHasta.Location = new System.Drawing.Point(500, 93);
+            this.lblHasta.Location = new System.Drawing.Point(444, 74);
             this.lblHasta.Name = "lblHasta";
-            this.lblHasta.Size = new System.Drawing.Size(66, 25);
+            this.lblHasta.Size = new System.Drawing.Size(53, 20);
             this.lblHasta.TabIndex = 2;
             this.lblHasta.Text = "Hasta:";
             // 
@@ -88,18 +91,19 @@
             this.lblDesde.AutoSize = true;
             this.lblDesde.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDesde.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblDesde.Location = new System.Drawing.Point(37, 93);
+            this.lblDesde.Location = new System.Drawing.Point(33, 74);
             this.lblDesde.Name = "lblDesde";
-            this.lblDesde.Size = new System.Drawing.Size(69, 25);
+            this.lblDesde.Size = new System.Drawing.Size(56, 20);
             this.lblDesde.TabIndex = 0;
             this.lblDesde.Text = "Desde:";
             // 
             // dtDesde
             // 
             this.dtDesde.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtDesde.Location = new System.Drawing.Point(41, 135);
+            this.dtDesde.Location = new System.Drawing.Point(36, 108);
+            this.dtDesde.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtDesde.Name = "dtDesde";
-            this.dtDesde.Size = new System.Drawing.Size(420, 37);
+            this.dtDesde.Size = new System.Drawing.Size(374, 32);
             this.dtDesde.TabIndex = 1;
             // 
             // btnBuscar
@@ -110,9 +114,10 @@
             this.btnBuscar.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.Location = new System.Drawing.Point(941, 135);
+            this.btnBuscar.Location = new System.Drawing.Point(836, 108);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(120, 41);
+            this.btnBuscar.Size = new System.Drawing.Size(107, 33);
             this.btnBuscar.TabIndex = 5;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -129,9 +134,11 @@
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.groupBox1.Location = new System.Drawing.Point(43, 228);
+            this.groupBox1.Location = new System.Drawing.Point(38, 182);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1147, 354);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Size = new System.Drawing.Size(1246, 283);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cortes";
@@ -163,21 +170,23 @@
             this.dgvFondoCaja.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvFondoCaja.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvFondoCaja.EnableHeadersVisualStyles = false;
-            this.dgvFondoCaja.Location = new System.Drawing.Point(3, 35);
+            this.dgvFondoCaja.Location = new System.Drawing.Point(3, 29);
+            this.dgvFondoCaja.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvFondoCaja.Name = "dgvFondoCaja";
             this.dgvFondoCaja.RowHeadersWidth = 62;
             this.dgvFondoCaja.RowTemplate.Height = 28;
-            this.dgvFondoCaja.Size = new System.Drawing.Size(1141, 316);
+            this.dgvFondoCaja.Size = new System.Drawing.Size(1240, 252);
             this.dgvFondoCaja.TabIndex = 8;
             this.dgvFondoCaja.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFondoCaja_CellContentClick);
             // 
             // progressBar1
             // 
             this.progressBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.progressBar1.Location = new System.Drawing.Point(46, 205);
+            this.progressBar1.Location = new System.Drawing.Point(41, 164);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.progressBar1.MarqueeAnimationSpeed = 0;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(520, 6);
+            this.progressBar1.Size = new System.Drawing.Size(462, 5);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar1.TabIndex = 6;
             // 
@@ -186,18 +195,37 @@
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.lblTitulo.Location = new System.Drawing.Point(33, 23);
+            this.lblTitulo.Location = new System.Drawing.Point(29, 18);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(392, 48);
+            this.lblTitulo.Size = new System.Drawing.Size(331, 41);
             this.lblTitulo.TabIndex = 25;
             this.lblTitulo.Text = "Lista de Cortes de caja";
             // 
+            // BtnGastosReport
+            // 
+            this.BtnGastosReport.BackColor = System.Drawing.Color.White;
+            this.BtnGastosReport.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.BtnGastosReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnGastosReport.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnGastosReport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            this.BtnGastosReport.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.BtnGastosReport.Location = new System.Drawing.Point(1102, 107);
+            this.BtnGastosReport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BtnGastosReport.Name = "BtnGastosReport";
+            this.BtnGastosReport.Size = new System.Drawing.Size(134, 33);
+            this.BtnGastosReport.TabIndex = 26;
+            this.BtnGastosReport.Text = "Reporte Gastos";
+            this.BtnGastosReport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnGastosReport.UseVisualStyleBackColor = false;
+            this.BtnGastosReport.Click += new System.EventHandler(this.BtnGastosReport_Click);
+            // 
             // CashFund
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1229, 594);
+            this.ClientSize = new System.Drawing.Size(1318, 475);
+            this.Controls.Add(this.BtnGastosReport);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.groupBox1);
@@ -207,6 +235,7 @@
             this.Controls.Add(this.lblDesde);
             this.Controls.Add(this.dtDesde);
             this.Controls.Add(this.btnNuevo);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CashFund";
@@ -232,5 +261,6 @@
         private System.Windows.Forms.DataGridView dgvFondoCaja;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Button BtnGastosReport;
     }
 }

@@ -3013,6 +3013,58 @@ namespace LinkCajaV2.Data
         }
 
         #endregion
+        #region Reporte de Gastos Extraordinarios
+
+        public async Task<List<ExpenseReportModel>> GetExtraordinaryExpenses(DateTime desde, DateTime hasta)
+        {
+            List<ExpenseReportModel> list = new List<ExpenseReportModel>();
+            try
+            {
+                
+                DateTime fechaInicio = new DateTime(desde.Year, desde.Month, desde.Day, 0, 0, 0);
+                DateTime fechaFin = new DateTime(hasta.Year, hasta.Month, hasta.Day, 23, 59, 59);
+
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetExtraordinaryExpenses", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Desde", fechaInicio));
+                        cmd.Parameters.Add(new SqlParameter("@Hasta", fechaFin));
+
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToExpenseReportModel(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return list;
+        }
+
+        private ExpenseReportModel MapToExpenseReportModel(SqlDataReader reader)
+        {
+            return new ExpenseReportModel()
+            {
+
+                DateRecord = (DateTime)reader["DateRecord"],
+                UserName = reader["UserName"] != DBNull.Value ? (string)reader["UserName"] : string.Empty,
+                Concept = reader["Concept"] != DBNull.Value ? (string)reader["Concept"] : string.Empty,
+                Amount = (decimal)reader["Amount"],
+                IsExpense = (bool)reader["IsExpense"],
+                TypeMovement = reader["TypeMovement"] != DBNull.Value ? (string)reader["TypeMovement"] : string.Empty,
+            };
+        }
+
+        #endregion
 
 
 

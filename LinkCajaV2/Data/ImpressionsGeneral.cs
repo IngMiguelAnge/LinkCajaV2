@@ -518,6 +518,142 @@ namespace LinkCajaV2.Data
 
         //Aca acaba lo de imprimir ventas -----------------------
 
+
+        //Inicia Imprimir Gastos Extras -------------
+        public void ImpresionReporteGastosExtras(List<ExpenseReportModel> ListGastos, DateTime desde, DateTime hasta)
+        {
+            try
+            {
+                AppRepository obj = new AppRepository();
+           
+                ConfigBox = obj.GetConfigBox().Result;
+
+                ConfigImpressions = obj.GetConfigImpressions("Reporte de Gastos").Result ?? obj.GetConfigImpressions("Lista de articulos agotados").Result;
+
+                QuestPDF.Settings.License = LicenseType.Community;
+                string nombreArchivo = $"Reporte de Movimientos Extras {DateTime.Now:dd-MM-yyyy HH-mm}.pdf";
+                string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory + "\\Impresiones", nombreArchivo);
+
+                Document.Create(container =>
+                {
+                    container.Page(page =>
+                    {
+                        // Configuración de la hoja
+                        if (ConfigBox.Page == "A4")
+                        {
+                            page.Size(PageSizes.Letter);
+                            page.Margin(1, Unit.Centimetre);
+                        }
+                        else
+                        {
+                            const float MM = 2.8346f;
+                            page.Size((float)ConfigBox.WidthPage * MM, (float)ConfigBox.HightPage * MM);
+                            page.Margin(2f * MM);
+                        }
+                        page.PageColor(Colors.White);
+
+                        //  Estilos de Letra
+                        int TituloFontsize = ConfigImpressions.Find(x => x.Name == "Titulo") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Titulo").FontSize) : 16;
+                        string TituloColor = ConfigImpressions.Find(x => x.Name == "Titulo") != null ? ConfigImpressions.Find(x => x.Name == "Titulo").FontColor : "#000000";
+                        TituloColor = CodigodeColor(TituloColor);
+                        var EstiloTitulo = ObtenerEstiloPersonalizado("SemiBold", TituloFontsize, TituloColor);
+
+                        int FechaFontsize = ConfigImpressions.Find(x => x.Name == "Fecha") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Fecha").FontSize) : 10;
+                        string FechaColor = ConfigImpressions.Find(x => x.Name == "Fecha") != null ? ConfigImpressions.Find(x => x.Name == "Fecha").FontColor : "#000000";
+                        FechaColor = CodigodeColor(FechaColor);
+                        var EstiloFecha = ObtenerEstiloPersonalizado("Normal", FechaFontsize, FechaColor);
+
+                        var EstiloArticulo = ObtenerEstiloPersonalizado("Normal", 9, "#000000"); // Tamaño 9 para que quepa bien el texto
+
+                        // Encabezado del PDF
+                        page.Header().Row(row =>
+                        {
+                            row.RelativeItem().Column(col =>
+                            {
+                                col.Item().Text("REPORTE DE MOVIMIENTOS EXTRAS").Style(EstiloTitulo);
+                                col.Item().Text($"Periodo: {desde:dd/MM/yyyy HH:mm} al {hasta:dd/MM/yyyy HH:mm}").Style(EstiloFecha);
+                                col.Item().Text("Generado el: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm")).Style(EstiloFecha);
+                            });
+                        });
+
+                        // Cuerpo de la tabla
+                        page.Content().PaddingVertical(10).Column(listCol =>
+                        {
+                            listCol.Spacing((float)ConfigBox.Spacing);
+
+                            // Encabezados de Columnas
+                            listCol.Item().Column(headerCol =>
+                            {
+                                headerCol.Item().Row(row =>
+                                {
+                                    row.RelativeItem(1.5f).AlignLeft().Text("Fecha y Hora").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(1.5f).AlignLeft().Text("Usuario/Caja").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(4.0f).AlignLeft().Text("Concepto o Motivo").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(1.5f).AlignCenter().Text("Tipo").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(1.5f).AlignRight().Text("Monto").Style(EstiloArticulo).SemiBold();
+                                });
+                                headerCol.Item().PaddingTop(5).Height(1.5f).Background(Colors.Grey.Darken1);
+                            });
+
+                            // Separar sumatorias
+                            decimal totalEntradas = ListGastos.Where(x => x.IsExpense == false).Sum(x => x.Amount);
+                            decimal totalGastos = ListGastos.Where(x => x.IsExpense == true).Sum(x => x.Amount);
+                            decimal balance = totalEntradas - totalGastos;
+
+                            // Filas de Datos
+                            foreach (var item in ListGastos)
+                            {
+                                listCol.Item().Column(itemCol =>
+                                {
+                                    itemCol.Item().Row(row =>
+                                    {
+                                        row.RelativeItem(1.5f).AlignLeft().Text(item.DateRecord.ToString("dd/MM/yy HH:mm")).Style(EstiloArticulo);
+                                        row.RelativeItem(1.5f).AlignLeft().Text(item.UserName).Style(EstiloArticulo);
+                                        row.RelativeItem(4.0f).AlignLeft().Text(item.Concept).Style(EstiloArticulo);
+                                        row.RelativeItem(1.5f).AlignCenter().Text(item.TypeMovement).Style(EstiloArticulo);
+                                        row.RelativeItem(1.5f).AlignRight().Text(item.Amount.ToString("'$' #,##0.00")).Style(EstiloArticulo);
+                                    });
+                                    itemCol.Item().PaddingTop(3).Height(1).Background(Colors.Grey.Lighten2);
+                                });
+                            }
+
+                            //  Totales Generales 
+                            listCol.Item()
+                            .PaddingTop(10)
+                            .BorderTop(1).BorderColor(Colors.Black)
+                            .PaddingTop(5)
+                            .Column(totCol =>
+                            {
+                                totCol.Item().AlignRight().Text($"Total Entradas: {totalEntradas.ToString("'$' #,##0.00")}").Style(EstiloArticulo).SemiBold();
+                                totCol.Item().AlignRight().Text($"Total Gastos: {totalGastos.ToString("'$' #,##0.00")}").Style(EstiloArticulo).SemiBold();
+                                
+                            });
+                        });
+
+                        // 5. Pie de página
+                        page.Footer().AlignCenter().Text(x =>
+                        {
+                            x.Span("Página ");
+                            x.CurrentPageNumber();
+                            x.Span(" de ");
+                            x.TotalPages();
+                        });
+                    });
+                })
+                .GeneratePdf(rutaCompleta);
+
+                // Abrimos el PDF automático
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(rutaCompleta) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar el PDF del reporte: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        //Termina Imprimir Gastos Extras ------------
+
         private TextStyle ObtenerEstiloPersonalizado(string Style, float tamano, string colorHex)
         {
             // Creamos el estilo base con el tamaño y color
