@@ -215,11 +215,11 @@
     <Compile Include="Catalogs\Categories.Designer.cs">
       <DependentUpon>Categories.cs</DependentUpon>
     </Compile>
-    <Compile Include="Catalogs\FrmReporteGastosExtras.cs">
+    <Compile Include="Reports\ReporteGastosExtras.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Catalogs\FrmReporteGastosExtras.Designer.cs">
-      <DependentUpon>FrmReporteGastosExtras.cs</DependentUpon>
+    <Compile Include="Reports\ReporteGastosExtras.Designer.cs">
+      <DependentUpon>ReporteGastosExtras.cs</DependentUpon>
     </Compile>
     <Compile Include="Catalogs\Premios.cs">
       <SubType>Form</SubType>
@@ -407,7 +407,7 @@
     <Compile Include="Items\SAT.Designer.cs">
       <DependentUpon>SAT.cs</DependentUpon>
     </Compile>
-    <Compile Include="Items\SortableBindingList.cs" />
+    <Compile Include="Data\SortableBindingList.cs" />
     <Compile Include="Items\TypePay.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -528,8 +528,8 @@
     <EmbeddedResource Include="Catalogs\Categories.resx">
       <DependentUpon>Categories.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Catalogs\FrmReporteGastosExtras.resx">
-      <DependentUpon>FrmReporteGastosExtras.cs</DependentUpon>
+    <EmbeddedResource Include="Reports\ReporteGastosExtras.resx">
+      <DependentUpon>ReporteGastosExtras.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\Premios.resx">
       <DependentUpon>Premios.cs</DependentUpon>

@@ -1,6 +1,6 @@
 ﻿namespace LinkCajaV2.Catalogs
 {
-    partial class FrmReporteGastosExtras
+    partial class ReporteGastosExtras
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmReporteGastosExtras));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporteGastosExtras));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblHasta = new System.Windows.Forms.Label();
@@ -50,9 +50,9 @@
             this.lblHasta.AutoSize = true;
             this.lblHasta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHasta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblHasta.Location = new System.Drawing.Point(425, 9);
+            this.lblHasta.Location = new System.Drawing.Point(478, 11);
             this.lblHasta.Name = "lblHasta";
-            this.lblHasta.Size = new System.Drawing.Size(53, 20);
+            this.lblHasta.Size = new System.Drawing.Size(66, 25);
             this.lblHasta.TabIndex = 53;
             this.lblHasta.Text = "Hasta:";
             // 
@@ -61,9 +61,9 @@
             this.lblDesde.AutoSize = true;
             this.lblDesde.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDesde.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblDesde.Location = new System.Drawing.Point(12, 9);
+            this.lblDesde.Location = new System.Drawing.Point(14, 11);
             this.lblDesde.Name = "lblDesde";
-            this.lblDesde.Size = new System.Drawing.Size(56, 20);
+            this.lblDesde.Size = new System.Drawing.Size(69, 25);
             this.lblDesde.TabIndex = 52;
             this.lblDesde.Text = "Desde:";
             // 
@@ -76,10 +76,10 @@
             this.BtnImpresion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.BtnImpresion.Image = ((System.Drawing.Image)(resources.GetObject("BtnImpresion.Image")));
             this.BtnImpresion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnImpresion.Location = new System.Drawing.Point(837, 32);
+            this.BtnImpresion.Location = new System.Drawing.Point(942, 40);
             this.BtnImpresion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnImpresion.Name = "BtnImpresion";
-            this.BtnImpresion.Size = new System.Drawing.Size(120, 30);
+            this.BtnImpresion.Size = new System.Drawing.Size(135, 38);
             this.BtnImpresion.TabIndex = 50;
             this.BtnImpresion.Text = "  Imprimir";
             this.BtnImpresion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -93,10 +93,10 @@
             this.btnBuscar.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.Location = new System.Drawing.Point(986, 30);
+            this.btnBuscar.Location = new System.Drawing.Point(1109, 38);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(107, 33);
+            this.btnBuscar.Size = new System.Drawing.Size(120, 41);
             this.btnBuscar.TabIndex = 51;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -109,9 +109,10 @@
             this.dtHasta.CustomFormat = "dd/MM/yyyy HH:mm";
             this.dtHasta.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.dtHasta.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtHasta.Location = new System.Drawing.Point(429, 32);
+            this.dtHasta.Location = new System.Drawing.Point(483, 40);
+            this.dtHasta.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dtHasta.Name = "dtHasta";
-            this.dtHasta.Size = new System.Drawing.Size(379, 32);
+            this.dtHasta.Size = new System.Drawing.Size(426, 37);
             this.dtHasta.TabIndex = 49;
             // 
             // dtDesde
@@ -119,9 +120,10 @@
             this.dtDesde.CustomFormat = "dd/MM/yyyy HH:mm";
             this.dtDesde.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.dtDesde.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDesde.Location = new System.Drawing.Point(13, 30);
+            this.dtDesde.Location = new System.Drawing.Point(15, 38);
+            this.dtDesde.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dtDesde.Name = "dtDesde";
-            this.dtDesde.Size = new System.Drawing.Size(379, 32);
+            this.dtDesde.Size = new System.Drawing.Size(426, 37);
             this.dtDesde.TabIndex = 48;
             // 
             // gbDetalleGastos
@@ -132,9 +134,11 @@
             this.gbDetalleGastos.Controls.Add(this.dgvGastos);
             this.gbDetalleGastos.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.gbDetalleGastos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.gbDetalleGastos.Location = new System.Drawing.Point(13, 120);
+            this.gbDetalleGastos.Location = new System.Drawing.Point(15, 150);
+            this.gbDetalleGastos.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbDetalleGastos.Name = "gbDetalleGastos";
-            this.gbDetalleGastos.Size = new System.Drawing.Size(1311, 362);
+            this.gbDetalleGastos.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.gbDetalleGastos.Size = new System.Drawing.Size(1474, 452);
             this.gbDetalleGastos.TabIndex = 54;
             this.gbDetalleGastos.TabStop = false;
             this.gbDetalleGastos.Text = "Gastos";
@@ -166,11 +170,12 @@
             this.dgvGastos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvGastos.EnableHeadersVisualStyles = false;
             this.dgvGastos.GridColor = System.Drawing.Color.LightGray;
-            this.dgvGastos.Location = new System.Drawing.Point(3, 30);
+            this.dgvGastos.Location = new System.Drawing.Point(3, 36);
+            this.dgvGastos.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvGastos.Name = "dgvGastos";
             this.dgvGastos.RowHeadersWidth = 51;
             this.dgvGastos.RowTemplate.Height = 30;
-            this.dgvGastos.Size = new System.Drawing.Size(1305, 329);
+            this.dgvGastos.Size = new System.Drawing.Size(1468, 412);
             this.dgvGastos.TabIndex = 0;
             this.dgvGastos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGastos_CellDoubleClick);
             // 
@@ -179,25 +184,27 @@
             this.lblTotalGastos.AutoSize = true;
             this.lblTotalGastos.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblTotalGastos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblTotalGastos.Location = new System.Drawing.Point(1119, 44);
+            this.lblTotalGastos.Location = new System.Drawing.Point(1259, 55);
             this.lblTotalGastos.Name = "lblTotalGastos";
-            this.lblTotalGastos.Size = new System.Drawing.Size(121, 20);
+            this.lblTotalGastos.Size = new System.Drawing.Size(147, 25);
             this.lblTotalGastos.TabIndex = 55;
             this.lblTotalGastos.Text = "Total de Gastos:";
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(16, 90);
+            this.progressBar1.Location = new System.Drawing.Point(18, 112);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(329, 10);
+            this.progressBar1.Size = new System.Drawing.Size(370, 12);
             this.progressBar1.TabIndex = 56;
             this.progressBar1.Click += new System.EventHandler(this.progressBar1_Click);
             // 
-            // FrmReporteGastosExtras
+            // ReporteGastosExtras
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1360, 521);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(1530, 651);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.lblTotalGastos);
             this.Controls.Add(this.gbDetalleGastos);
@@ -208,9 +215,11 @@
             this.Controls.Add(this.dtHasta);
             this.Controls.Add(this.dtDesde);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
-            this.Name = "FrmReporteGastosExtras";
-            this.Text = "FrmReporteGastosExtras";
+            this.Name = "ReporteGastosExtras";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.gbDetalleGastos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvGastos)).EndInit();
             this.ResumeLayout(false);
