@@ -135,11 +135,11 @@
             this.gbDetalleGastos.Controls.Add(this.dgvGastos);
             this.gbDetalleGastos.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.gbDetalleGastos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.gbDetalleGastos.Location = new System.Drawing.Point(15, 150);
+            this.gbDetalleGastos.Location = new System.Drawing.Point(18, 143);
             this.gbDetalleGastos.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbDetalleGastos.Name = "gbDetalleGastos";
             this.gbDetalleGastos.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.gbDetalleGastos.Size = new System.Drawing.Size(1474, 452);
+            this.gbDetalleGastos.Size = new System.Drawing.Size(1406, 331);
             this.gbDetalleGastos.TabIndex = 54;
             this.gbDetalleGastos.TabStop = false;
             this.gbDetalleGastos.Text = "Gastos";
@@ -176,7 +176,7 @@
             this.dgvGastos.Name = "dgvGastos";
             this.dgvGastos.RowHeadersWidth = 51;
             this.dgvGastos.RowTemplate.Height = 30;
-            this.dgvGastos.Size = new System.Drawing.Size(1468, 412);
+            this.dgvGastos.Size = new System.Drawing.Size(1400, 291);
             this.dgvGastos.TabIndex = 0;
             this.dgvGastos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGastos_CellDoubleClick);
             // 
@@ -204,9 +204,9 @@
             this.lblTotalEntradas.AutoSize = true;
             this.lblTotalEntradas.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblTotalEntradas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblTotalEntradas.Location = new System.Drawing.Point(1119, 80);
+            this.lblTotalEntradas.Location = new System.Drawing.Point(1259, 89);
             this.lblTotalEntradas.Name = "lblTotalEntradas";
-            this.lblTotalEntradas.Size = new System.Drawing.Size(134, 20);
+            this.lblTotalEntradas.Size = new System.Drawing.Size(164, 25);
             this.lblTotalEntradas.TabIndex = 57;
             this.lblTotalEntradas.Text = "Total de Entradas:";
             // 
@@ -214,7 +214,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1360, 521);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(1462, 521);
             this.Controls.Add(this.lblTotalEntradas);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.lblTotalGastos);
@@ -228,8 +229,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
-            this.Name = "FrmReporteGastosExtras";
-            this.Text = "FrmReporteGastosExtras";
+            this.Name = "ReporteGastosExtras";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.gbDetalleGastos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvGastos)).EndInit();
             this.ResumeLayout(false);
