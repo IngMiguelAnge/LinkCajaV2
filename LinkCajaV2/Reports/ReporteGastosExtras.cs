@@ -10,9 +10,9 @@ using System.Globalization;
 
 namespace LinkCajaV2.Catalogs
 {
-    public partial class FrmReporteGastosExtras : Form
+    public partial class ReporteGastosExtras : Form
     {
-        public FrmReporteGastosExtras()
+        public ReporteGastosExtras()
         {
             InitializeComponent();
         }

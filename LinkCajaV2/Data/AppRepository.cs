@@ -18,7 +18,7 @@ namespace LinkCajaV2.Data
         public string Connection { get; set; }
         public AppRepository(bool isUnitOfWork = false)
         {
-            Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
         }
         public void Dispose()
         {
@@ -1762,18 +1762,11 @@ namespace LinkCajaV2.Data
         {
             return new ListBoxModel()
             {
-                //Id = (int)reader["Id"],
-                //Nombre = (string)reader["Name"],
-                //Publicidad = (string)reader["Publicity"],
-                //Estatus = (string)reader["Status"],
-                //Ruleta = (string)reader["Rulet"]
-                //validación para que convierta los BIT de SQL (que llegan como True/False) a los textos que tu modelo de C#
-                Id = reader["Id"] != DBNull.Value ? Convert.ToInt32(reader["Id"]) : 0,
-                Nombre = reader["Name"] != DBNull.Value ? Convert.ToString(reader["Name"]) : string.Empty,
-                Publicidad = reader["Publicity"] != DBNull.Value ? (Convert.ToBoolean(reader["Publicity"]) ? "Sí" : "No") : "No",
-                Estatus = reader["Status"] != DBNull.Value ? (Convert.ToBoolean(reader["Status"]) ? "Activo" : "Inactivo") : "Inactivo",
-                Ruleta = reader["Rulet"] != DBNull.Value ? (Convert.ToBoolean(reader["Rulet"]) ? "Sí" : "No") : "No"
-
+                Id = (int)reader["Id"],
+                Nombre = (string)reader["Name"],
+                Publicidad = (string)reader["Publicity"],
+                Estatus = (string)reader["Status"],
+                Ruleta = (string)reader["Rulet"]
             };
         }
         public async Task<bool> SaveBox(BoxModel obj)

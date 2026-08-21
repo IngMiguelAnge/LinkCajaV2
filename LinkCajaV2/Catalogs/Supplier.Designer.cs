@@ -58,7 +58,7 @@
             // 
             this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombre.Location = new System.Drawing.Point(43, 148);
-            this.txtNombre.MaxLength = 50;
+            this.txtNombre.MaxLength = 500;
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(250, 37);
             this.txtNombre.TabIndex = 1;
@@ -67,9 +67,9 @@
             // 
             this.txtDireccion.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDireccion.Location = new System.Drawing.Point(43, 250);
-            this.txtDireccion.MaxLength = 50;
+            this.txtDireccion.Multiline = true;
             this.txtDireccion.Name = "txtDireccion";
-            this.txtDireccion.Size = new System.Drawing.Size(250, 37);
+            this.txtDireccion.Size = new System.Drawing.Size(282, 142);
             this.txtDireccion.TabIndex = 3;
             // 
             // lblDireccion
@@ -127,7 +127,7 @@
             // 
             this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmail.Location = new System.Drawing.Point(379, 355);
-            this.txtEmail.MaxLength = 50;
+            this.txtEmail.MaxLength = 500;
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(250, 37);
             this.txtEmail.TabIndex = 9;
@@ -139,9 +139,9 @@
             this.lblEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.lblEmail.Location = new System.Drawing.Point(374, 316);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(71, 25);
+            this.lblEmail.Size = new System.Drawing.Size(63, 25);
             this.lblEmail.TabIndex = 8;
-            this.lblEmail.Text = "*Email:";
+            this.lblEmail.Text = "Email:";
             // 
             // btnGuardar
             // 

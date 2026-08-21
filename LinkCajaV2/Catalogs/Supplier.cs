@@ -29,7 +29,7 @@ namespace LinkCajaV2.Catalogs
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtDireccion.Text) ||
-                string.IsNullOrEmpty(txtTelefono1.Text) || string.IsNullOrEmpty(txtEmail.Text))
+                string.IsNullOrEmpty(txtTelefono1.Text))
             {
                 MessageBox.Show("Datos incompletos revise la información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -42,7 +42,7 @@ namespace LinkCajaV2.Catalogs
                 Address = txtDireccion.Text,
                 Phone1 = txtTelefono1.Text,
                 Phone2 = txtTelefono2.Text,
-                Email = txtEmail.Text
+                Email = txtEmail.Text == string.Empty ? string.Empty : txtEmail.Text
             };
             if (obj.SaveSupplier(Supplier).Result)
             {

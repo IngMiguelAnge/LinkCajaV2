@@ -15,7 +15,7 @@ namespace LinkCajaV2.Model
         public string Presentation { get; set; }
         public decimal Price { get; set; }
         public decimal Total => Math.Round(
-         Decimals > 0 ? (Stock * 1000) * Price : Stock * Price,
+          Stock * Price,
          2,
          MidpointRounding.AwayFromZero
      );

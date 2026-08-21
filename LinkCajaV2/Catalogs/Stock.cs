@@ -16,7 +16,6 @@ namespace LinkCajaV2.Catalogs
     public partial class Stock : System.Windows.Forms.Form
     {
         public int IdArticle { get; set; }
-        public string Nombre { get; set; }
         private bool isLoaded = false;
         private decimal MyCostoMax = 0;
         private string Concepto = string.Empty;
