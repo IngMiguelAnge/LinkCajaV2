@@ -712,13 +712,11 @@ namespace LinkCajaV2.Data
                                 headerCol.Item().Row(row =>
                                 {
                                     row.RelativeItem(1.2f).AlignLeft().Text("Caja").Style(EstiloArticulo).SemiBold();
-                                    row.RelativeItem(1.8f).AlignLeft().Text("Usuario").Style(EstiloArticulo).SemiBold();
                                     row.RelativeItem(1.6f).AlignCenter().Text("Apertura").Style(EstiloArticulo).SemiBold();
                                     row.RelativeItem(1.6f).AlignCenter().Text("Cierre").Style(EstiloArticulo).SemiBold();
                                     row.RelativeItem(1.2f).AlignRight().Text("Ventas").Style(EstiloArticulo).SemiBold();
                                     row.RelativeItem(1.2f).AlignRight().Text("Entradas").Style(EstiloArticulo).SemiBold();
                                     row.RelativeItem(1.2f).AlignRight().Text("Gastos").Style(EstiloArticulo).SemiBold();
-                                    row.RelativeItem(1.3f).AlignRight().Text("Diferencia").Style(EstiloArticulo).SemiBold();
                                 });
                                 headerCol.Item().PaddingTop(5).Height(1.5f).Background(Colors.Grey.Darken1);
                             });
@@ -727,7 +725,6 @@ namespace LinkCajaV2.Data
                             decimal sumaVentas = 0;
                             decimal sumaEntradas = 0;
                             decimal sumaGastos = 0;
-                            decimal sumaDiferencia = 0;
 
                             // 2. Filas de Datos
                             foreach (var item in ListCortes)
@@ -735,14 +732,12 @@ namespace LinkCajaV2.Data
                                 sumaVentas += item.TotalVentas;
                                 sumaEntradas += item.TotalEntradas;
                                 sumaGastos += item.TotalGastos;
-                                sumaDiferencia += item.Diferencia;
 
                                 listCol.Item().Column(itemCol =>
                                 {
                                     itemCol.Item().Row(row =>
                                     {
                                         row.RelativeItem(1.2f).AlignLeft().Text(item.Caja).Style(EstiloArticulo);
-                                        row.RelativeItem(1.8f).AlignLeft().Text(item.Usuario).Style(EstiloArticulo);
                                         row.RelativeItem(1.6f).AlignCenter().Text(item.Apertura.ToString("dd/MM/yy HH:mm")).Style(EstiloArticulo);
 
                                         string cierre = item.Cierre > DateTime.MinValue ? item.Cierre.ToString("dd/MM/yy HH:mm") : "Abierta";
@@ -768,7 +763,6 @@ namespace LinkCajaV2.Data
                                 row.RelativeItem(1.2f).AlignRight().Text(sumaVentas.ToString("'$' #,##0.00")).Style(EstiloArticulo).SemiBold();
                                 row.RelativeItem(1.2f).AlignRight().Text(sumaEntradas.ToString("'$' #,##0.00")).Style(EstiloArticulo).SemiBold();
                                 row.RelativeItem(1.2f).AlignRight().Text(sumaGastos.ToString("'$' #,##0.00")).Style(EstiloArticulo).SemiBold();
-                                row.RelativeItem(1.3f).AlignRight().Text(sumaDiferencia.ToString("'$' #,##0.00")).Style(EstiloArticulo).SemiBold();
                             });
                         });
 

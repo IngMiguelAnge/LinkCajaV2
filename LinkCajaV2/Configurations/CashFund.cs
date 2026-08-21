@@ -39,8 +39,6 @@ namespace LinkCajaV2.Configurations
             dgvFondoCaja.Columns.Add(new DataGridViewTextBoxColumn { Name = "Apertura", HeaderText = "Fecha de Apertura", DataPropertyName = "Apertura" });
             dgvFondoCaja.Columns.Add(new DataGridViewTextBoxColumn { Name = "Cierre", HeaderText = "Fecha de Cierre", DataPropertyName = "Cierre" });
             dgvFondoCaja.Columns.Add(new DataGridViewTextBoxColumn { Name = "Estatus", HeaderText = "Estatus", DataPropertyName = "Estatus" });
-            dgvFondoCaja.Columns.Add(new DataGridViewTextBoxColumn { Name = "Usuario", HeaderText = "Usuario Responsable", DataPropertyName = "Usuario" });
-
             // Formato de Moneda
             dgvFondoCaja.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -61,27 +59,29 @@ namespace LinkCajaV2.Configurations
             btnEditar.FlatStyle = FlatStyle.Flat;
             btnEditar.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
             btnEditar.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
+            btnEditar.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            btnEditar.Width = 100;
             dgvFondoCaja.Columns.Add(btnEditar);
 
-            DataGridViewButtonColumn btnRetiros = new DataGridViewButtonColumn();
-            btnRetiros.Name = "btnRetiros";
-            btnRetiros.HeaderText = "Acción";
-            btnRetiros.Text = "Retiros";
-            btnRetiros.UseColumnTextForButtonValue = true;
-            btnRetiros.FlatStyle = FlatStyle.Flat;
-            btnRetiros.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
-            btnRetiros.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
-            dgvFondoCaja.Columns.Add(btnRetiros);
+            //DataGridViewButtonColumn btnRetiros = new DataGridViewButtonColumn();
+            //btnRetiros.Name = "btnRetiros";
+            //btnRetiros.HeaderText = "Acción";
+            //btnRetiros.Text = "Retiros";
+            //btnRetiros.UseColumnTextForButtonValue = true;
+            //btnRetiros.FlatStyle = FlatStyle.Flat;
+            //btnRetiros.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
+            //btnRetiros.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
+            //dgvFondoCaja.Columns.Add(btnRetiros);
 
-            DataGridViewButtonColumn btnIngresos = new DataGridViewButtonColumn();
-            btnIngresos.Name = "btnIngresos";
-            btnIngresos.HeaderText = "Acción";
-            btnIngresos.Text = "Ingresos";
-            btnIngresos.UseColumnTextForButtonValue = true;
-            btnIngresos.FlatStyle = FlatStyle.Flat;
-            btnIngresos.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
-            btnIngresos.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
-            dgvFondoCaja.Columns.Add(btnIngresos);
+            //DataGridViewButtonColumn btnIngresos = new DataGridViewButtonColumn();
+            //btnIngresos.Name = "btnIngresos";
+            //btnIngresos.HeaderText = "Acción";
+            //btnIngresos.Text = "Ingresos";
+            //btnIngresos.UseColumnTextForButtonValue = true;
+            //btnIngresos.FlatStyle = FlatStyle.Flat;
+            //btnIngresos.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
+            //btnIngresos.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
+            //dgvFondoCaja.Columns.Add(btnIngresos);
         }
 
         
@@ -103,9 +103,8 @@ namespace LinkCajaV2.Configurations
                 int usuarioSeleccionado = 0;
 
                 if (caja.SelectedValue != null) int.TryParse(caja.SelectedValue.ToString(), out cajaSeleccionada);
-                if (id.SelectedValue != null) int.TryParse(id.SelectedValue.ToString(), out usuarioSeleccionado);
-
-                var lista = await Task.Run(() => obj.GetCashFund(dtDesde.Value, dtHasta.Value, cajaSeleccionada, usuarioSeleccionado));
+           
+                var lista = await Task.Run(() => obj.GetCashFund(dtDesde.Value, dtHasta.Value, cajaSeleccionada));
 
                 if (lista == null || lista.Count == 0)
                 {
@@ -188,12 +187,10 @@ namespace LinkCajaV2.Configurations
                 DateTime hasta = dtHasta.Value;
 
                 int cajaSeleccionada = 0;
-                int usuarioSeleccionado = 0;
                 if (caja.SelectedValue != null) int.TryParse(caja.SelectedValue.ToString(), out cajaSeleccionada);
-                if (id.SelectedValue != null) int.TryParse(id.SelectedValue.ToString(), out usuarioSeleccionado);
 
                 AppRepository obj = new AppRepository();
-                var listaCortes = await Task.Run(() => obj.GetCashFund(desde, hasta, cajaSeleccionada, usuarioSeleccionado));
+                var listaCortes = await Task.Run(() => obj.GetCashFund(desde, hasta, cajaSeleccionada));
                 var listaFinal = listaCortes?.ToList() ?? new List<ListCashFundModel>();
 
                 if (listaFinal.Count == 0)
@@ -216,18 +213,6 @@ namespace LinkCajaV2.Configurations
             try
             {
                 AppRepository obj = new AppRepository();
-
-                // cargamos a los usuarios
-                UserModel filtroUsuario = new UserModel { Name = "", User = "", IdTypeUser = 0 };
-                var listaUsuarios = await Task.Run(() => obj.GetUsers(filtroUsuario));
-
-                if (listaUsuarios != null)
-                {
-                    listaUsuarios.Insert(0, new ListUserModel { Id = 0, Nombre = "TODOS LOS USUARIOS" });
-                    id.DataSource = listaUsuarios;
-                    id.DisplayMember = "Nombre";
-                    id.ValueMember = "Id";
-                }
 
                 // cargamos las cajas
                 var listaCajas = await Task.Run(() => obj.GetBoxsActives());
