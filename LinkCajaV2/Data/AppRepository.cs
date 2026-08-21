@@ -744,8 +744,7 @@ namespace LinkCajaV2.Data
                 StatusOpen = (bool)reader["StatusOpen"]
             };
         }
-        public async Task<List<ListCashFundModel>> GetCashFund(DateTime Desde,
-           DateTime Hasta)
+        public async Task<List<ListCashFundModel>> GetCashFund(DateTime Desde,DateTime Hasta , int id = 0, int caja =0)
         {
             List<ListCashFundModel> list = new List<ListCashFundModel>();
             try
@@ -757,6 +756,8 @@ namespace LinkCajaV2.Data
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Desde", Desde));
                         cmd.Parameters.Add(new SqlParameter("@Hasta", Hasta));
+                        cmd.Parameters.Add(new SqlParameter("@IdCaja", caja));
+                        cmd.Parameters.Add(new SqlParameter("@IdUsuario", id));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
@@ -781,8 +782,15 @@ namespace LinkCajaV2.Data
                 IdBox = (int)reader["IdBox"],
                 Caja = (string)reader["Caja"],
                 Apertura = (DateTime)reader["Apertura"],
-                Cierre = (DateTime)reader["Cierre"],
+                Cierre = reader["Cierre"] != DBNull.Value ? (DateTime)reader["Cierre"] : DateTime.MinValue,
                 Estatus = (string)reader["Estatus"],
+
+                //Nueva columnas 
+                Usuario = reader["Usuario"] != DBNull.Value ? (string)reader["Usuario"] : "Sin Asignar",
+                TotalVentas = reader["TotalVentas"] != DBNull.Value ? (decimal)reader["TotalVentas"] : 0m,
+                TotalEntradas = reader["TotalEntradas"] != DBNull.Value ? (decimal)reader["TotalEntradas"] : 0m,
+                TotalGastos = reader["TotalGastos"] != DBNull.Value ? (decimal)reader["TotalGastos"] : 0m,
+                Diferencia = reader["Diferencia"] != DBNull.Value ? (decimal)reader["Diferencia"] : 0m
             };
         }
         #endregion

@@ -41,6 +41,7 @@
             this.dgvGastos = new System.Windows.Forms.DataGridView();
             this.lblTotalGastos = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.lblTotalEntradas = new System.Windows.Forms.Label();
             this.gbDetalleGastos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGastos)).BeginInit();
             this.SuspendLayout();
@@ -197,14 +198,24 @@
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(370, 12);
             this.progressBar1.TabIndex = 56;
-            this.progressBar1.Click += new System.EventHandler(this.progressBar1_Click);
+            // 
+            // lblTotalEntradas
+            // 
+            this.lblTotalEntradas.AutoSize = true;
+            this.lblTotalEntradas.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblTotalEntradas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblTotalEntradas.Location = new System.Drawing.Point(1119, 80);
+            this.lblTotalEntradas.Name = "lblTotalEntradas";
+            this.lblTotalEntradas.Size = new System.Drawing.Size(134, 20);
+            this.lblTotalEntradas.TabIndex = 57;
+            this.lblTotalEntradas.Text = "Total de Entradas:";
             // 
             // ReporteGastosExtras
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1530, 651);
+            this.ClientSize = new System.Drawing.Size(1360, 521);
+            this.Controls.Add(this.lblTotalEntradas);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.lblTotalGastos);
             this.Controls.Add(this.gbDetalleGastos);
@@ -217,9 +228,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
-            this.Name = "ReporteGastosExtras";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Name = "FrmReporteGastosExtras";
+            this.Text = "FrmReporteGastosExtras";
             this.gbDetalleGastos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvGastos)).EndInit();
             this.ResumeLayout(false);
@@ -239,5 +249,6 @@
         private System.Windows.Forms.DataGridView dgvGastos;
         private System.Windows.Forms.Label lblTotalGastos;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label lblTotalEntradas;
     }
 }

@@ -654,6 +654,143 @@ namespace LinkCajaV2.Data
 
         //Termina Imprimir Gastos Extras ------------
 
+
+        //Empieza Imprimir Corte de Caja 
+        public void ImpresionReporteCortes(List<ListCashFundModel> ListCortes, DateTime desde, DateTime hasta)
+        {
+            try
+            {
+                AppRepository obj = new AppRepository();
+                var ConfigBox = obj.GetConfigBox().Result;
+
+                // Puedes cambiar "Reporte de ventas" por el nombre de configuración que uses para colores si tienes otro
+                var ConfigImpressions = obj.GetConfigImpressions("Reporte de ventas").Result;
+
+                QuestPDF.Settings.License = LicenseType.Community;
+                string nombreArchivo = $"Reporte de Cortes {DateTime.Now:dd-MM-yyyy HH-mm}.pdf";
+                string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory + "\\Impresiones", nombreArchivo);
+
+                Document.Create(container =>
+                {
+                    container.Page(page =>
+                    {
+                        if (ConfigBox.Page == "A4")
+                        {
+                            page.Size(PageSizes.Letter);
+                            page.Margin(1, Unit.Centimetre);
+                        }
+                        else
+                        {
+                            const float MM = 2.8346f;
+                            page.Size((float)ConfigBox.WidthPage * MM, (float)ConfigBox.HightPage * MM);
+                            page.Margin(2f * MM);
+                        }
+                        page.PageColor(Colors.White);
+
+                        // Reutilizamos tu lógica de estilos de fuente
+                        var EstiloTitulo = ObtenerEstiloPersonalizado("SemiBold", 16, "#000000");
+                        var EstiloFecha = ObtenerEstiloPersonalizado("Normal", 10, "#000000");
+                        var EstiloArticulo = ObtenerEstiloPersonalizado("Normal", 8, "#000000");
+
+                        page.Header().Row(row =>
+                        {
+                            row.RelativeItem().Column(col =>
+                            {
+                                col.Item().Text("REPORTE HISTÓRICO DE CORTES DE CAJA").Style(EstiloTitulo);
+                                col.Item().Text($"Periodo: {desde:dd/MM/yyyy} al {hasta:dd/MM/yyyy}").Style(EstiloFecha);
+                                col.Item().Text("Generado el: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm")).Style(EstiloFecha);
+                            });
+                        });
+
+                        page.Content().PaddingVertical(10).Column(listCol =>
+                        {
+                            listCol.Spacing((float)ConfigBox.Spacing);
+
+                            // 1. Fila de Encabezados
+                            listCol.Item().Column(headerCol =>
+                            {
+                                headerCol.Item().Row(row =>
+                                {
+                                    row.RelativeItem(1.2f).AlignLeft().Text("Caja").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(1.8f).AlignLeft().Text("Usuario").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(1.6f).AlignCenter().Text("Apertura").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(1.6f).AlignCenter().Text("Cierre").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(1.2f).AlignRight().Text("Ventas").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(1.2f).AlignRight().Text("Entradas").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(1.2f).AlignRight().Text("Gastos").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(1.3f).AlignRight().Text("Diferencia").Style(EstiloArticulo).SemiBold();
+                                });
+                                headerCol.Item().PaddingTop(5).Height(1.5f).Background(Colors.Grey.Darken1);
+                            });
+
+                            // Variables para los totales
+                            decimal sumaVentas = 0;
+                            decimal sumaEntradas = 0;
+                            decimal sumaGastos = 0;
+                            decimal sumaDiferencia = 0;
+
+                            // 2. Filas de Datos
+                            foreach (var item in ListCortes)
+                            {
+                                sumaVentas += item.TotalVentas;
+                                sumaEntradas += item.TotalEntradas;
+                                sumaGastos += item.TotalGastos;
+                                sumaDiferencia += item.Diferencia;
+
+                                listCol.Item().Column(itemCol =>
+                                {
+                                    itemCol.Item().Row(row =>
+                                    {
+                                        row.RelativeItem(1.2f).AlignLeft().Text(item.Caja).Style(EstiloArticulo);
+                                        row.RelativeItem(1.8f).AlignLeft().Text(item.Usuario).Style(EstiloArticulo);
+                                        row.RelativeItem(1.6f).AlignCenter().Text(item.Apertura.ToString("dd/MM/yy HH:mm")).Style(EstiloArticulo);
+
+                                        string cierre = item.Cierre > DateTime.MinValue ? item.Cierre.ToString("dd/MM/yy HH:mm") : "Abierta";
+                                        row.RelativeItem(1.6f).AlignCenter().Text(cierre).Style(EstiloArticulo);
+
+                                        row.RelativeItem(1.2f).AlignRight().Text(item.TotalVentas.ToString("'$' #,##0.00")).Style(EstiloArticulo);
+                                        row.RelativeItem(1.2f).AlignRight().Text(item.TotalEntradas.ToString("'$' #,##0.00")).Style(EstiloArticulo);
+                                        row.RelativeItem(1.2f).AlignRight().Text(item.TotalGastos.ToString("'$' #,##0.00")).Style(EstiloArticulo);
+                                        row.RelativeItem(1.3f).AlignRight().Text(item.Diferencia.ToString("'$' #,##0.00")).Style(EstiloArticulo);
+                                    });
+                                    itemCol.Item().PaddingTop(3).Height(1).Background(Colors.Grey.Lighten2);
+                                });
+                            }
+
+                            // 3. Fila de Totales Generales
+                            listCol.Item()
+                            .PaddingTop(10)
+                            .BorderTop(1).BorderColor(Colors.Black)
+                            .PaddingTop(5)
+                            .Row(row =>
+                            {
+                                row.RelativeItem(6.2f).AlignRight().Text("TOTALES GENERALES:").Style(EstiloArticulo).SemiBold();
+                                row.RelativeItem(1.2f).AlignRight().Text(sumaVentas.ToString("'$' #,##0.00")).Style(EstiloArticulo).SemiBold();
+                                row.RelativeItem(1.2f).AlignRight().Text(sumaEntradas.ToString("'$' #,##0.00")).Style(EstiloArticulo).SemiBold();
+                                row.RelativeItem(1.2f).AlignRight().Text(sumaGastos.ToString("'$' #,##0.00")).Style(EstiloArticulo).SemiBold();
+                                row.RelativeItem(1.3f).AlignRight().Text(sumaDiferencia.ToString("'$' #,##0.00")).Style(EstiloArticulo).SemiBold();
+                            });
+                        });
+
+                        page.Footer().AlignCenter().Text(x =>
+                        {
+                            x.Span("Página ");
+                            x.CurrentPageNumber();
+                        });
+                    });
+                })
+                .GeneratePdf(rutaCompleta);
+
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(rutaCompleta) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar el PDF del reporte: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //Termina Imprimir Corte de Caja --------
+
         private TextStyle ObtenerEstiloPersonalizado(string Style, float tamano, string colorHex)
         {
             // Creamos el estilo base con el tamaño y color
