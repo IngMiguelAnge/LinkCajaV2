@@ -216,9 +216,9 @@ namespace LinkCajaV2.Data
                             {
                                 headerCol.Item().Row(row =>
                                 {
+                                    row.RelativeItem().AlignCenter().Text("Código").Style(EstiloArticulo);
                                     row.RelativeItem().AlignLeft().Text("Artículo").Style(EstiloArticulo);
-                                    row.RelativeItem().AlignCenter().Text("Categoría").Style(EstiloArticulo);
-                                    row.RelativeItem().AlignCenter().Text("Clave SAT").Style(EstiloArticulo);
+                                    row.RelativeItem().AlignCenter().Text("Categoría").Style(EstiloArticulo);                                   
                                     row.ConstantItem(80).AlignRight().Text("Precio").Style(EstiloArticulo); // O EstiloPrecio si prefieres
                                 });
 
@@ -233,9 +233,9 @@ namespace LinkCajaV2.Data
                                     // 1. Renglón con la información del artículo
                                     itemCol.Item().Row(row =>
                                     {
+                                        row.RelativeItem().AlignCenter().Text(item.Codigo).Style(EstiloArticulo);
                                         row.RelativeItem().AlignLeft().Text(item.Articulo).Style(EstiloArticulo);
                                         row.RelativeItem().AlignCenter().Text(item.Categoria).Style(EstiloArticulo);
-                                        row.RelativeItem().AlignCenter().Text(item.ClaveSAT).Style(EstiloArticulo);
                                         row.ConstantItem(80).AlignRight().Text(item.Precio.ToString("C2")).Style(EstiloPrecio);
                                     });
 

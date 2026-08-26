@@ -348,6 +348,7 @@ namespace LinkCajaV2.Catalogs
                 List<PrinterPricesModel> articulos = ListaImprimir
                 .Select(x => new PrinterPricesModel
                 {
+                    Codigo = x.Codigo,
                     Articulo = x.Articulo,
                     Categoria = x.Categoria,
                     ClaveSAT = x.ClaveSAT,
