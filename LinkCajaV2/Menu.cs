@@ -131,6 +131,14 @@ namespace LinkCajaV2
             this.Hide();
         }
 
+        //Boton Nuevo de Clientes
+        private void btnClientes_Click(object sender, EventArgs e)
+        {
+
+            LinkCajaV2.Catalogs.FrmCatClientes frm = new LinkCajaV2.Catalogs.FrmCatClientes();
+            frm.ShowDialog();
+        }
+
         private void btnCategorias_Click(object sender, EventArgs e)
         {
             Categories c = new Categories();

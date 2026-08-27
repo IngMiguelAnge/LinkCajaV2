@@ -36,6 +36,7 @@
             this.btnVentaMostrador = new System.Windows.Forms.Button();
             this.lblTituloVentas = new System.Windows.Forms.Label();
             this.panelCatalogos = new System.Windows.Forms.Panel();
+            this.btnClientes = new System.Windows.Forms.Button();
             this.btnPremios = new System.Windows.Forms.Button();
             this.btnArticules = new System.Windows.Forms.Button();
             this.btnCategorias = new System.Windows.Forms.Button();
@@ -310,6 +311,7 @@
             // 
             this.panelCatalogos.BackColor = System.Drawing.Color.White;
             this.panelCatalogos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelCatalogos.Controls.Add(this.btnClientes);
             this.panelCatalogos.Controls.Add(this.btnPremios);
             this.panelCatalogos.Controls.Add(this.btnArticules);
             this.panelCatalogos.Controls.Add(this.btnCategorias);
@@ -322,6 +324,25 @@
             this.panelCatalogos.Name = "panelCatalogos";
             this.panelCatalogos.Size = new System.Drawing.Size(534, 340);
             this.panelCatalogos.TabIndex = 1;
+            // 
+            // btnClientes
+            // 
+            this.btnClientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(251)))), ((int)(((byte)(252)))));
+            this.btnClientes.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(235)))), ((int)(((byte)(240)))));
+            this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClientes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
+            this.btnClientes.Image = ((System.Drawing.Image)(resources.GetObject("btnClientes.Image")));
+            this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClientes.Location = new System.Drawing.Point(329, 146);
+            this.btnClientes.Name = "btnClientes";
+            this.btnClientes.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
+            this.btnClientes.Size = new System.Drawing.Size(141, 80);
+            this.btnClientes.TabIndex = 9;
+            this.btnClientes.Text = "Clientes";
+            this.btnClientes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClientes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnClientes.UseVisualStyleBackColor = false;
+            this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
             // btnPremios
             // 
@@ -693,5 +714,6 @@
         private System.Windows.Forms.Button btnPanelMenu;
         private System.Windows.Forms.Button BtnCorte;
         private System.Windows.Forms.Button btnPremios;
+        private System.Windows.Forms.Button btnClientes;
     }
 }
