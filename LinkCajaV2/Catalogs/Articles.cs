@@ -60,9 +60,8 @@ namespace LinkCajaV2.Catalogs
         }
         private void BtnPanelSalir_Click(object sender, EventArgs e)
         {
-            Login login = new Login();
-            login.Show();
-            this.Hide();
+            Application.Restart();
+            Environment.Exit(0);
         }
         private void btnPanelMenu_Click(object sender, EventArgs e)
         {

@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Cliente));
             this.txtNombre = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblNombre = new System.Windows.Forms.Label();
             this.txtCorreo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtTelefono2 = new System.Windows.Forms.TextBox();
@@ -45,50 +45,50 @@
             // txtNombre
             // 
             this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(12, 44);
+            this.txtNombre.Location = new System.Drawing.Point(14, 55);
             this.txtNombre.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(223, 32);
-            this.txtNombre.TabIndex = 58;
+            this.txtNombre.Size = new System.Drawing.Size(250, 37);
+            this.txtNombre.TabIndex = 1;
             // 
-            // label3
+            // lblNombre
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.label3.Location = new System.Drawing.Point(11, 17);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 20);
-            this.label3.TabIndex = 59;
-            this.label3.Text = "Nombre:";
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblNombre.Location = new System.Drawing.Point(12, 21);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(86, 25);
+            this.lblNombre.TabIndex = 0;
+            this.lblNombre.Text = "Nombre:";
             // 
             // txtCorreo
             // 
             this.txtCorreo.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCorreo.Location = new System.Drawing.Point(264, 44);
+            this.txtCorreo.Location = new System.Drawing.Point(297, 55);
             this.txtCorreo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCorreo.Name = "txtCorreo";
-            this.txtCorreo.Size = new System.Drawing.Size(304, 32);
-            this.txtCorreo.TabIndex = 62;
+            this.txtCorreo.Size = new System.Drawing.Size(250, 37);
+            this.txtCorreo.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.label1.Location = new System.Drawing.Point(263, 17);
+            this.label1.Location = new System.Drawing.Point(296, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 20);
-            this.label1.TabIndex = 63;
+            this.label1.Size = new System.Drawing.Size(74, 25);
+            this.label1.TabIndex = 2;
             this.label1.Text = "Correo:";
             // 
             // txtTelefono2
             // 
             this.txtTelefono2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTelefono2.Location = new System.Drawing.Point(264, 129);
+            this.txtTelefono2.Location = new System.Drawing.Point(297, 161);
             this.txtTelefono2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtTelefono2.Name = "txtTelefono2";
-            this.txtTelefono2.Size = new System.Drawing.Size(223, 32);
+            this.txtTelefono2.Size = new System.Drawing.Size(250, 37);
             this.txtTelefono2.TabIndex = 64;
             // 
             // label2
@@ -96,19 +96,19 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.label2.Location = new System.Drawing.Point(263, 102);
+            this.label2.Location = new System.Drawing.Point(296, 128);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 20);
+            this.label2.Size = new System.Drawing.Size(106, 25);
             this.label2.TabIndex = 65;
             this.label2.Text = "Telefono 2 ";
             // 
             // txtTelefono1
             // 
             this.txtTelefono1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTelefono1.Location = new System.Drawing.Point(12, 129);
+            this.txtTelefono1.Location = new System.Drawing.Point(14, 161);
             this.txtTelefono1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtTelefono1.Name = "txtTelefono1";
-            this.txtTelefono1.Size = new System.Drawing.Size(223, 32);
+            this.txtTelefono1.Size = new System.Drawing.Size(250, 37);
             this.txtTelefono1.TabIndex = 66;
             // 
             // label4
@@ -116,9 +116,9 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.label4.Location = new System.Drawing.Point(11, 102);
+            this.label4.Location = new System.Drawing.Point(12, 128);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(87, 20);
+            this.label4.Size = new System.Drawing.Size(106, 25);
             this.label4.TabIndex = 67;
             this.label4.Text = "Telefono 1 ";
             // 
@@ -130,10 +130,10 @@
             this.btnGuardar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
             this.btnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("btnGuardar.Image")));
-            this.btnGuardar.Location = new System.Drawing.Point(288, 206);
+            this.btnGuardar.Location = new System.Drawing.Point(347, 327);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(178, 38);
+            this.btnGuardar.Size = new System.Drawing.Size(200, 48);
             this.btnGuardar.TabIndex = 68;
             this.btnGuardar.Text = "GUARDAR";
             this.btnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -148,10 +148,11 @@
             this.cmbEstatus.Items.AddRange(new object[] {
             "Activo",
             "Inactivo"});
-            this.cmbEstatus.Location = new System.Drawing.Point(12, 214);
+            this.cmbEstatus.Location = new System.Drawing.Point(14, 268);
+            this.cmbEstatus.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbEstatus.Name = "cmbEstatus";
             this.cmbEstatus.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cmbEstatus.Size = new System.Drawing.Size(220, 30);
+            this.cmbEstatus.Size = new System.Drawing.Size(247, 34);
             this.cmbEstatus.TabIndex = 70;
             // 
             // LabelVista
@@ -159,18 +160,18 @@
             this.LabelVista.AutoSize = true;
             this.LabelVista.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelVista.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.LabelVista.Location = new System.Drawing.Point(11, 183);
+            this.LabelVista.Location = new System.Drawing.Point(12, 229);
             this.LabelVista.Name = "LabelVista";
-            this.LabelVista.Size = new System.Drawing.Size(64, 20);
+            this.LabelVista.Size = new System.Drawing.Size(78, 25);
             this.LabelVista.TabIndex = 69;
             this.LabelVista.Text = "Estatus:";
             // 
             // Cliente
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(637, 309);
+            this.ClientSize = new System.Drawing.Size(592, 386);
             this.Controls.Add(this.cmbEstatus);
             this.Controls.Add(this.LabelVista);
             this.Controls.Add(this.btnGuardar);
@@ -181,13 +182,13 @@
             this.Controls.Add(this.txtCorreo);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtNombre);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblNombre);
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Cliente";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Cliente";
             this.Load += new System.EventHandler(this.Cliente_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -195,7 +196,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;

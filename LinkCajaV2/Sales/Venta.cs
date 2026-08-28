@@ -36,7 +36,7 @@ namespace LinkCajaV2.Sales
         private decimal AmountRulet;
         private int IdClienteActual = 1; 
         private decimal CostoEnvioActual = 0m;
-        private List<LinkCajaV2.Model.ClienteModel> listaClientesVenta;
+        private List<ClienteModel> listaClientesVenta;
 
         private Dictionary<int, string> urlsPublicidad = new Dictionary<int, string>();
         private int bannerActualIndex = 0;
@@ -625,8 +625,7 @@ namespace LinkCajaV2.Sales
             }
 
             //decimal TotalReal = bindingList.Sum(x => x.Total);
-            decimal TotalArticulos = bindingList.Sum(x => x.Total);
-            decimal TotalReal = TotalArticulos + CostoEnvioActual;
+            decimal TotalReal = bindingList.Sum(x => x.Total) + CostoEnvioActual;
             string TipoPago = "01";
             decimal Recibido = 0;
             string Folio = string.Empty;
@@ -678,14 +677,10 @@ namespace LinkCajaV2.Sales
                 IdBox = IdBox,
                 Total = TotalReal,
                 TotalReturn = 0,
-                //Send = false,
-                //TypePay = TipoPago,
-                //Folio = Folio,
-
-                Send = (CostoEnvioActual > 0),
-                CostoEnvio = CostoEnvioActual,
+                Send = false,
                 TypePay = TipoPago,
-                Folio = Folio
+                Folio = Folio,
+                CostoEnvio = 0,
             };
 
             AppRepository obj = new AppRepository();

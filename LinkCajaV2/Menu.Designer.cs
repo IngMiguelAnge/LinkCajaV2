@@ -110,7 +110,6 @@
             this.btnPanelMenu.Size = new System.Drawing.Size(247, 82);
             this.btnPanelMenu.TabIndex = 8;
             this.btnPanelMenu.Text = "Menu";
-            this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click);
             // 
             // btnPanelReusmen
             // 

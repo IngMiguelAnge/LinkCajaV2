@@ -31,7 +31,7 @@ namespace LinkCajaV2.Catalogs
             }
 
             // Datos a ocupar
-            LinkCajaV2.Model.ClienteModel datosCliente = new LinkCajaV2.Model.ClienteModel
+            ClienteModel datosCliente = new ClienteModel
             {
                 Id = this.IdCliente, 
                 Nombre = txtNombre.Text.Trim(),
@@ -41,7 +41,7 @@ namespace LinkCajaV2.Catalogs
                 Estatus = (cmbEstatus.SelectedIndex == 0)
             };
 
-            LinkCajaV2.Data.AppRepository app = new LinkCajaV2.Data.AppRepository();
+            AppRepository app = new AppRepository();
             bool exito = false;
 
             //  Tomamos la decisión: ¿Nuevo o Actualizar?

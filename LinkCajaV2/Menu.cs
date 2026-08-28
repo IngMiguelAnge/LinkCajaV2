@@ -201,14 +201,8 @@ namespace LinkCajaV2
 
         private void BtnPanelSalir_Click(object sender, EventArgs e)
         {
-            Login login = new Login();
-            login.Show();
-            this.Hide();
-        }
-
-        private void btnPanelMenu_Click(object sender, EventArgs e)
-        {
-
+            Application.Restart();
+            Environment.Exit(0);
         }
 
         private void flowContenedorCentral_Paint(object sender, PaintEventArgs e)

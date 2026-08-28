@@ -18,8 +18,8 @@ namespace LinkCajaV2.Data
         public string Connection { get; set; }
         public AppRepository(bool isUnitOfWork = false)
         {
-            Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
-            //Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            //Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
         }
         public void Dispose()
         {
@@ -1766,14 +1766,10 @@ namespace LinkCajaV2.Data
             return new ListBoxModel()
             {
                 Id = (int)reader["Id"],
-                Publicidad = Convert.ToBoolean(reader["Publicity"]) ? "Sí" : "No",
-                Estatus = Convert.ToBoolean(reader["Status"]) ? "Activo" : "Inactivo",
-                Ruleta = Convert.ToBoolean(reader["Rulet"]) ? "Sí" : "No"
-                //Nombre = (string)reader["Name"],
-                //Nombre = reader["Name"].ToString(),
-                //Publicidad = (string)reader["Publicity"],
-                //Estatus = (string)reader["Status"],
-                //Ruleta = (string)reader["Rulet"]
+                Nombre = (string)reader["Name"],
+                Publicidad = (string)reader["Publicity"],
+                Estatus = (string)reader["Status"],
+                Ruleta = (string)reader["Rulet"]
             };
         }
         public async Task<bool> SaveBox(BoxModel obj)
