@@ -14,6 +14,7 @@ namespace LinkCajaV2.Model
         public decimal TotalEntradas { get; set; }
         public decimal TotalGastos { get; set; }
         public decimal Diferencia { get; set; }
+        public decimal TotalEnvios { get; set; }
 
     }
 }

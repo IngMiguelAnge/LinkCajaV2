@@ -14,5 +14,7 @@ namespace LinkCajaV2.Model
         public string BoxName { get; set; }
         public decimal Total { get; set; }
         public string Title { get; set; }
+        public decimal CostoEnvio { get; set; }
+
     }
 }

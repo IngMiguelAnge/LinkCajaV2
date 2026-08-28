@@ -18,7 +18,8 @@ namespace LinkCajaV2.Data
         public string Connection { get; set; }
         public AppRepository(bool isUnitOfWork = false)
         {
-            Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            //Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
         }
         public void Dispose()
         {
@@ -788,6 +789,7 @@ namespace LinkCajaV2.Data
                 TotalVentas = reader["TotalVentas"] != DBNull.Value ? (decimal)reader["TotalVentas"] : 0m,
                 TotalEntradas = reader["TotalEntradas"] != DBNull.Value ? (decimal)reader["TotalEntradas"] : 0m,
                 TotalGastos = reader["TotalGastos"] != DBNull.Value ? (decimal)reader["TotalGastos"] : 0m,
+                TotalEnvios = reader["TotalEnvios"] != DBNull.Value ? (decimal)reader["TotalEnvios"] : 0m
             };
         }
         #endregion
@@ -836,7 +838,8 @@ namespace LinkCajaV2.Data
                 TotalReturn = (decimal)reader["TotalReturn"],
                 Send = (bool)reader["Send"],
                 TypePay = (string)reader["TypePay"],
-                Folio = (string)reader["Folio"]
+                Folio = (string)reader["Folio"],
+                CostoEnvio = reader["CostoEnvio"] != DBNull.Value ? (decimal)reader["CostoEnvio"] : 0m ,
             };
         }
         public async Task<List<DetailsforFactureModel>> GetDetailsforFacture(int IdTicket)
@@ -1081,6 +1084,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@IdBox", obj.IdBox));
                         cmd.Parameters.Add(new SqlParameter("@TypePay", obj.TypePay));
                         cmd.Parameters.Add(new SqlParameter("@Folio", obj.Folio));
+                        cmd.Parameters.Add(new SqlParameter("@CostoEnvio", obj.CostoEnvio));
                         SqlParameter outputParam = new SqlParameter("@VResp", System.Data.SqlDbType.Int)
                         {
                             Direction = System.Data.ParameterDirection.Output
@@ -1095,6 +1099,7 @@ namespace LinkCajaV2.Data
             }
             catch (Exception ex)
             {
+                System.Windows.Forms.MessageBox.Show("Error en la Base de Datos: " + ex.Message);
                 return 0;
             }
         }
@@ -1124,6 +1129,7 @@ namespace LinkCajaV2.Data
             }
             catch (Exception ex)
             {
+                System.Windows.Forms.MessageBox.Show("Error en la Base de Datos: " + ex.Message);
                 return false;
             }
         }
@@ -1760,10 +1766,14 @@ namespace LinkCajaV2.Data
             return new ListBoxModel()
             {
                 Id = (int)reader["Id"],
-                Nombre = (string)reader["Name"],
-                Publicidad = (string)reader["Publicity"],
-                Estatus = (string)reader["Status"],
-                Ruleta = (string)reader["Rulet"]
+                Publicidad = Convert.ToBoolean(reader["Publicity"]) ? "Sí" : "No",
+                Estatus = Convert.ToBoolean(reader["Status"]) ? "Activo" : "Inactivo",
+                Ruleta = Convert.ToBoolean(reader["Rulet"]) ? "Sí" : "No"
+                //Nombre = (string)reader["Name"],
+                //Nombre = reader["Name"].ToString(),
+                //Publicidad = (string)reader["Publicity"],
+                //Estatus = (string)reader["Status"],
+                //Ruleta = (string)reader["Rulet"]
             };
         }
         public async Task<bool> SaveBox(BoxModel obj)
@@ -2342,8 +2352,10 @@ namespace LinkCajaV2.Data
                 Phone1 = (string)reader["Phone1"],
                 Phone2 = (string)reader["Phone2"],
                 Email = (string)reader["Email"],
+                CostoEnvio = reader["CostoEnvio"] != DBNull.Value ? Convert.ToDecimal(reader["CostoEnvio"]) : 0m
             };
         }
+        
         private ListClientsModel MapToListClients(SqlDataReader reader)
         {
             return new ListClientsModel()
@@ -3070,8 +3082,152 @@ namespace LinkCajaV2.Data
         }
 
         #endregion
+        #region Catalo de Clientes
+
+        //  Guardar Cliente 
+        public async Task<bool> SaveCliente(LinkCajaV2.Model.ClienteModel obj)
+        {
+            try
+            {
+                using (System.Data.SqlClient.SqlConnection sql = new System.Data.SqlClient.SqlConnection(Connection))
+                {
+                    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("SaveClientData", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", obj.Nombre));
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Email", obj.Correo ?? string.Empty));
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Phone1", obj.Telefono1));
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Phone2", obj.Telefono2 ?? string.Empty));
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Status", obj.Estatus));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+              
+            }
+        }
+
+        // Método para Actualizar un cliente que ya existe
+        public async Task<bool> UpdateCliente(LinkCajaV2.Model.ClienteModel obj)
+        {
+            try
+            {
+                using (System.Data.SqlClient.SqlConnection sql = new System.Data.SqlClient.SqlConnection(Connection))
+                {
+                    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("UpdateClientData", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Id", obj.Id)); // Aquí mandamos el ID
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", obj.Nombre));
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Email", obj.Correo ?? string.Empty));
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Phone1", obj.Telefono1));
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Phone2", obj.Telefono2 ?? string.Empty));
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Status", obj.Estatus));
 
 
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+              
+            }
+        }
+
+
+
+
+        //  Buscar Clientes para el Catálogo 
+        public async Task<List<LinkCajaV2.Model.ClienteModel>> GetClientesFiltro(string buscar)
+        {
+            List<LinkCajaV2.Model.ClienteModel> list = new List<LinkCajaV2.Model.ClienteModel>();
+            try
+            {
+                using (System.Data.SqlClient.SqlConnection sql = new System.Data.SqlClient.SqlConnection(Connection))
+                {
+                    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("GetClientsFiltro", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                       
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", buscar));
+
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToCliente(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return list;
+        }
+
+        // Mapeo
+        private LinkCajaV2.Model.ClienteModel MapToCliente(System.Data.SqlClient.SqlDataReader reader)
+        {
+            return new LinkCajaV2.Model.ClienteModel()
+            {
+                Id = (int)reader["Id"],
+               
+                Nombre = Convert.IsDBNull(reader["Name"]) ? string.Empty : (string)reader["Name"],
+                Correo = Convert.IsDBNull(reader["Email"]) ? string.Empty : (string)reader["Email"],
+                Telefono1 = Convert.IsDBNull(reader["Phone1"]) ? string.Empty : (string)reader["Phone1"],
+                Telefono2 = Convert.IsDBNull(reader["Phone2"]) ? string.Empty : (string)reader["Phone2"],
+                Direccion = Convert.IsDBNull(reader["Address"]) ? string.Empty : (string)reader["Address"],
+                Latitud = Convert.IsDBNull(reader["Latitud"]) ? string.Empty : (string)reader["Latitud"],
+                Longitud = Convert.IsDBNull(reader["Longitud"]) ? string.Empty : (string)reader["Longitud"],
+                CostoEnvio = Convert.IsDBNull(reader["CostoEnvio"]) ? 0 : Convert.ToDecimal(reader["CostoEnvio"]),
+                Estatus = Convert.ToBoolean(reader["Status"])
+            };
+        }
+
+        public async Task<bool> UpdateUbicacionCliente(int id, string direccion, string latitud, string longitud, decimal costoEnvio)
+        {
+            try
+            {
+                using (System.Data.SqlClient.SqlConnection sql = new System.Data.SqlClient.SqlConnection(Connection))
+                {
+                    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("UpdateClientLocation", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        // SQL 
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Id", id));
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Address", direccion));
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Latitud", latitud));
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Longitud", longitud));
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CostoEnvio", costoEnvio));
+
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("Error SQL al guardar ubicación: " + ex.Message);
+                return false;
+                //return false;
+            }
+        }
+
+        #endregion
 
     }
 }

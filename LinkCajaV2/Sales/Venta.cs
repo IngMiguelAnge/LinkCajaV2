@@ -34,6 +34,9 @@ namespace LinkCajaV2.Sales
         private string BoxName { get; set; }
         private bool Rulet;
         private decimal AmountRulet;
+        private int IdClienteActual = 1; 
+        private decimal CostoEnvioActual = 0m;
+        private List<LinkCajaV2.Model.ClienteModel> listaClientesVenta;
 
         private Dictionary<int, string> urlsPublicidad = new Dictionary<int, string>();
         private int bannerActualIndex = 0;
@@ -144,6 +147,7 @@ namespace LinkCajaV2.Sales
                 return;
             }
             CrearGridView();
+            ConfigurarBuscadorClientes();
         }
         public void CrearGridView()
         {
@@ -281,6 +285,26 @@ namespace LinkCajaV2.Sales
                 txtCodigo.Clear();
             }
         }
+        //Codigo de TXT clientes 
+        private async void ConfigurarBuscadorClientes()
+        {
+            LinkCajaV2.Data.AppRepository obj = new LinkCajaV2.Data.AppRepository();
+            listaClientesVenta = await obj.GetClientesFiltro(""); // Descargamos todos
+
+            // Creamos la lista de autocompletado
+            AutoCompleteStringCollection coleccionNombres = new AutoCompleteStringCollection();
+            foreach (var cliente in listaClientesVenta)
+            {
+                coleccionNombres.Add(cliente.Nombre);
+            }
+
+           
+            txtCliente.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtCliente.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtCliente.AutoCompleteCustomSource = coleccionNombres;
+        }
+
+
         public async void AgregarArticulo(int id, string codigo)
         {
             AppRepository obj = new AppRepository();
@@ -388,30 +412,16 @@ namespace LinkCajaV2.Sales
                     Medicine = articulo.Medicine
                 });
             }
-
-            ActualizarTotalGeneral();
-            foreach (DataGridViewRow row in dgvArticulos.Rows)
-            {
-                row.DefaultCellStyle.BackColor = Color.White;
-            }
-
-            var fila = dgvArticulos.Rows.Cast<DataGridViewRow>()
-                        .FirstOrDefault(r => r.Cells["Codigo"].Value.ToString() == articulo.Code);
-
-            if (fila != null)
-            {
-                fila.DefaultCellStyle.BackColor = Color.PaleGreen;
-                dgvArticulos.ClearSelection(); // Quita el azul de selección para que se note el verde
-                dgvArticulos.FirstDisplayedScrollingRowIndex = fila.Index;
-            }
         }
-        private void ActualizarTotalGeneral()
+            private void ActualizarTotalGeneral()
         {
             var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
             if (bindingList != null)
             {
-                decimal totalGeneral = bindingList.Sum(item => item.Total);
-                lblTotal.Text = $"Total {totalGeneral:C2}";
+                decimal totalArticulos = bindingList.Sum(item => item.Total);
+                decimal totalFinal = totalArticulos + CostoEnvioActual;
+
+                lblTotal.Text = $"Total {totalFinal:C2}";
             }
         }
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -436,7 +446,9 @@ namespace LinkCajaV2.Sales
         {
             var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
             bindingList?.Clear();
+            txtCliente.Clear();
             ActualizarTotalGeneral();
+
 
             PBProducto.Image = null;
             NUDCantidad.Value = 1;
@@ -600,6 +612,8 @@ namespace LinkCajaV2.Sales
                     break;
             }
         }
+
+        //------------------
         private async void btnPagar_Click(object sender, EventArgs e)
         {
             var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
@@ -609,7 +623,10 @@ namespace LinkCajaV2.Sales
                 MessageBox.Show("No hay artículos para vender.");
                 return;
             }
-            decimal TotalReal = bindingList.Sum(x => x.Total);
+
+            //decimal TotalReal = bindingList.Sum(x => x.Total);
+            decimal TotalArticulos = bindingList.Sum(x => x.Total);
+            decimal TotalReal = TotalArticulos + CostoEnvioActual;
             string TipoPago = "01";
             decimal Recibido = 0;
             string Folio = string.Empty;
@@ -641,7 +658,9 @@ namespace LinkCajaV2.Sales
                     Imprimir = CBImprimir.Checked,
                     Recibido = Recibido,
                     IdTicket = 0,
-                    Cliente = "Publico General",
+                    Cliente = txtCliente.Text.Trim() == "" ? "Publico General" : txtCliente.Text,
+                    //Cliente = "Publico General",
+                    CostoEnvio = CostoEnvioActual,
                     BoxName = BoxName,
                     Total = TotalReal,
                     Title = string.Empty
@@ -651,14 +670,20 @@ namespace LinkCajaV2.Sales
             {
                 Id = 0,
                 IdUser = IdUsuario,
-                IdClient = 1,//Clliente general por ahora                  
+                IdClient = IdClienteActual,
+                //IdClient = 1,//Clliente general por ahora                  
                 CreateDate = DateTime.Now,
                 Lastmodification = DateTime.Now,
                 Status = true,
                 IdBox = IdBox,
                 Total = TotalReal,
                 TotalReturn = 0,
-                Send = false,
+                //Send = false,
+                //TypePay = TipoPago,
+                //Folio = Folio,
+
+                Send = (CostoEnvioActual > 0),
+                CostoEnvio = CostoEnvioActual,
                 TypePay = TipoPago,
                 Folio = Folio
             };
@@ -752,6 +777,8 @@ namespace LinkCajaV2.Sales
             NuevaVenta();
         }
 
+        //---------------------
+
         private void btnVerTickets_Click(object sender, EventArgs e)
         {
            
@@ -837,5 +864,28 @@ namespace LinkCajaV2.Sales
             }
         }
 
+        
+
+        private void txtCliente_TextChanged(object sender, EventArgs e)
+        {
+            var cliente = listaClientesVenta?.FirstOrDefault(c =>
+            c.Nombre.Equals(txtCliente.Text.Trim(), StringComparison.OrdinalIgnoreCase));
+
+            if (cliente != null)
+            {
+                IdClienteActual = cliente.Id;
+                CostoEnvioActual = cliente.CostoEnvio;
+                lblEnvio.Text = $"Envío: {CostoEnvioActual:C2}";
+            }
+            else
+            {
+                // Regresa a publico general 
+                IdClienteActual = 1;
+                CostoEnvioActual = 0m;
+                lblEnvio.Text = "Envío: $0.00";
+            }
+
+            ActualizarTotalGeneral(); //Total
+        }
     }
 }
