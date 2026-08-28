@@ -62,6 +62,7 @@ namespace LinkCajaV2.Items
             this.BtnAgregar2 = new System.Windows.Forms.Button();
             this.dgvCorte = new System.Windows.Forms.DataGridView();
             this.gbDatos = new System.Windows.Forms.GroupBox();
+            this.lblTotalEnvios = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudInicio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudRetiro)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCorte)).BeginInit();
@@ -73,9 +74,9 @@ namespace LinkCajaV2.Items
             this.lblFechaApertura.AutoSize = true;
             this.lblFechaApertura.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFechaApertura.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblFechaApertura.Location = new System.Drawing.Point(39, 174);
+            this.lblFechaApertura.Location = new System.Drawing.Point(35, 139);
             this.lblFechaApertura.Name = "lblFechaApertura";
-            this.lblFechaApertura.Size = new System.Drawing.Size(171, 25);
+            this.lblFechaApertura.Size = new System.Drawing.Size(138, 20);
             this.lblFechaApertura.TabIndex = 42;
             this.lblFechaApertura.Text = "Fecha de apertura:";
             // 
@@ -85,9 +86,10 @@ namespace LinkCajaV2.Items
             this.dtFechaApertura.Enabled = false;
             this.dtFechaApertura.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtFechaApertura.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtFechaApertura.Location = new System.Drawing.Point(39, 200);
+            this.dtFechaApertura.Location = new System.Drawing.Point(35, 160);
+            this.dtFechaApertura.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtFechaApertura.Name = "dtFechaApertura";
-            this.dtFechaApertura.Size = new System.Drawing.Size(292, 34);
+            this.dtFechaApertura.Size = new System.Drawing.Size(260, 30);
             this.dtFechaApertura.TabIndex = 3;
             this.dtFechaApertura.ValueChanged += new System.EventHandler(this.dtFechaApertura_ValueChanged);
             // 
@@ -96,9 +98,9 @@ namespace LinkCajaV2.Items
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.lblTitulo.Location = new System.Drawing.Point(34, 21);
+            this.lblTitulo.Location = new System.Drawing.Point(30, 17);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(243, 48);
+            this.lblTitulo.Size = new System.Drawing.Size(207, 41);
             this.lblTitulo.TabIndex = 24;
             this.lblTitulo.Text = "Corte de Caja";
             // 
@@ -107,9 +109,10 @@ namespace LinkCajaV2.Items
             this.CBCajas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBCajas.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBCajas.FormattingEnabled = true;
-            this.CBCajas.Location = new System.Drawing.Point(39, 116);
+            this.CBCajas.Location = new System.Drawing.Point(35, 93);
+            this.CBCajas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.CBCajas.Name = "CBCajas";
-            this.CBCajas.Size = new System.Drawing.Size(292, 36);
+            this.CBCajas.Size = new System.Drawing.Size(260, 31);
             this.CBCajas.TabIndex = 1;
             this.CBCajas.SelectedIndexChanged += new System.EventHandler(this.CBCajas_SelectedIndexChanged);
             // 
@@ -118,9 +121,9 @@ namespace LinkCajaV2.Items
             this.lblCaja.AutoSize = true;
             this.lblCaja.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCaja.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblCaja.Location = new System.Drawing.Point(39, 89);
+            this.lblCaja.Location = new System.Drawing.Point(35, 71);
             this.lblCaja.Name = "lblCaja";
-            this.lblCaja.Size = new System.Drawing.Size(53, 25);
+            this.lblCaja.Size = new System.Drawing.Size(42, 20);
             this.lblCaja.TabIndex = 41;
             this.lblCaja.Text = "Caja:";
             // 
@@ -129,9 +132,9 @@ namespace LinkCajaV2.Items
             this.lblCierre.AutoSize = true;
             this.lblCierre.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCierre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblCierre.Location = new System.Drawing.Point(39, 258);
+            this.lblCierre.Location = new System.Drawing.Point(35, 206);
             this.lblCierre.Name = "lblCierre";
-            this.lblCierre.Size = new System.Drawing.Size(145, 25);
+            this.lblCierre.Size = new System.Drawing.Size(117, 20);
             this.lblCierre.TabIndex = 40;
             this.lblCierre.Text = "Fecha de cierre:";
             // 
@@ -141,9 +144,10 @@ namespace LinkCajaV2.Items
             this.dtFechaCierre.Enabled = false;
             this.dtFechaCierre.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtFechaCierre.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtFechaCierre.Location = new System.Drawing.Point(39, 284);
+            this.dtFechaCierre.Location = new System.Drawing.Point(35, 227);
+            this.dtFechaCierre.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtFechaCierre.Name = "dtFechaCierre";
-            this.dtFechaCierre.Size = new System.Drawing.Size(292, 34);
+            this.dtFechaCierre.Size = new System.Drawing.Size(260, 30);
             this.dtFechaCierre.TabIndex = 5;
             this.dtFechaCierre.ValueChanged += new System.EventHandler(this.dtFechaCierre_ValueChanged);
             // 
@@ -152,9 +156,9 @@ namespace LinkCajaV2.Items
             this.lblIngresos.AutoSize = true;
             this.lblIngresos.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIngresos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.lblIngresos.Location = new System.Drawing.Point(371, 89);
+            this.lblIngresos.Location = new System.Drawing.Point(330, 71);
             this.lblIngresos.Name = "lblIngresos";
-            this.lblIngresos.Size = new System.Drawing.Size(183, 30);
+            this.lblIngresos.Size = new System.Drawing.Size(158, 25);
             this.lblIngresos.TabIndex = 39;
             this.lblIngresos.Text = "Flujo de Efectivo";
             // 
@@ -163,9 +167,9 @@ namespace LinkCajaV2.Items
             this.lblInicio.AutoSize = true;
             this.lblInicio.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInicio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblInicio.Location = new System.Drawing.Point(371, 126);
+            this.lblInicio.Location = new System.Drawing.Point(330, 101);
             this.lblInicio.Name = "lblInicio";
-            this.lblInicio.Size = new System.Drawing.Size(181, 25);
+            this.lblInicio.Size = new System.Drawing.Size(145, 20);
             this.lblInicio.TabIndex = 38;
             this.lblInicio.Text = "Saldo inicial del día:";
             // 
@@ -174,14 +178,15 @@ namespace LinkCajaV2.Items
             this.nudInicio.DecimalPlaces = 2;
             this.nudInicio.Enabled = false;
             this.nudInicio.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudInicio.Location = new System.Drawing.Point(371, 153);
+            this.nudInicio.Location = new System.Drawing.Point(330, 122);
+            this.nudInicio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nudInicio.Maximum = new decimal(new int[] {
             10000000,
             0,
             0,
             0});
             this.nudInicio.Name = "nudInicio";
-            this.nudInicio.Size = new System.Drawing.Size(202, 34);
+            this.nudInicio.Size = new System.Drawing.Size(180, 30);
             this.nudInicio.TabIndex = 8;
             this.nudInicio.KeyUp += new System.Windows.Forms.KeyEventHandler(this.nudInicio_KeyUp);
             // 
@@ -190,9 +195,9 @@ namespace LinkCajaV2.Items
             this.lblVenta.AutoSize = true;
             this.lblVenta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVenta.ForeColor = System.Drawing.Color.Black;
-            this.lblVenta.Location = new System.Drawing.Point(371, 200);
+            this.lblVenta.Location = new System.Drawing.Point(330, 160);
             this.lblVenta.Name = "lblVenta";
-            this.lblVenta.Size = new System.Drawing.Size(241, 25);
+            this.lblVenta.Size = new System.Drawing.Size(200, 20);
             this.lblVenta.TabIndex = 37;
             this.lblVenta.Text = "Venta total en efectivo: $0.00";
             // 
@@ -201,9 +206,9 @@ namespace LinkCajaV2.Items
             this.lblEgresos.AutoSize = true;
             this.lblEgresos.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEgresos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblEgresos.Location = new System.Drawing.Point(371, 232);
+            this.lblEgresos.Location = new System.Drawing.Point(330, 218);
             this.lblEgresos.Name = "lblEgresos";
-            this.lblEgresos.Size = new System.Drawing.Size(82, 25);
+            this.lblEgresos.Size = new System.Drawing.Size(67, 20);
             this.lblEgresos.TabIndex = 36;
             this.lblEgresos.Text = "Egresos:";
             // 
@@ -212,9 +217,9 @@ namespace LinkCajaV2.Items
             this.lblTotalDevolucion.AutoSize = true;
             this.lblTotalDevolucion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalDevolucion.ForeColor = System.Drawing.Color.Black;
-            this.lblTotalDevolucion.Location = new System.Drawing.Point(371, 258);
+            this.lblTotalDevolucion.Location = new System.Drawing.Point(330, 238);
             this.lblTotalDevolucion.Name = "lblTotalDevolucion";
-            this.lblTotalDevolucion.Size = new System.Drawing.Size(286, 25);
+            this.lblTotalDevolucion.Size = new System.Drawing.Size(238, 20);
             this.lblTotalDevolucion.TabIndex = 35;
             this.lblTotalDevolucion.Text = "Devolución total en efectivo: $0.00";
             // 
@@ -223,9 +228,9 @@ namespace LinkCajaV2.Items
             this.lblSaldoEfectivoCaja.AutoSize = true;
             this.lblSaldoEfectivoCaja.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSaldoEfectivoCaja.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
-            this.lblSaldoEfectivoCaja.Location = new System.Drawing.Point(371, 295);
+            this.lblSaldoEfectivoCaja.Location = new System.Drawing.Point(330, 268);
             this.lblSaldoEfectivoCaja.Name = "lblSaldoEfectivoCaja";
-            this.lblSaldoEfectivoCaja.Size = new System.Drawing.Size(313, 28);
+            this.lblSaldoEfectivoCaja.Size = new System.Drawing.Size(263, 23);
             this.lblSaldoEfectivoCaja.TabIndex = 34;
             this.lblSaldoEfectivoCaja.Text = "Saldo en efectivo en caja: $0.00";
             // 
@@ -234,9 +239,9 @@ namespace LinkCajaV2.Items
             this.lblRetiro.AutoSize = true;
             this.lblRetiro.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRetiro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblRetiro.Location = new System.Drawing.Point(371, 332);
+            this.lblRetiro.Location = new System.Drawing.Point(330, 298);
             this.lblRetiro.Name = "lblRetiro";
-            this.lblRetiro.Size = new System.Drawing.Size(214, 25);
+            this.lblRetiro.Size = new System.Drawing.Size(173, 20);
             this.lblRetiro.TabIndex = 33;
             this.lblRetiro.Text = "Retirar efectivo de caja:";
             // 
@@ -245,14 +250,15 @@ namespace LinkCajaV2.Items
             this.NudRetiro.DecimalPlaces = 2;
             this.NudRetiro.Enabled = false;
             this.NudRetiro.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NudRetiro.Location = new System.Drawing.Point(371, 358);
+            this.NudRetiro.Location = new System.Drawing.Point(330, 318);
+            this.NudRetiro.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.NudRetiro.Maximum = new decimal(new int[] {
             10000000,
             0,
             0,
             0});
             this.NudRetiro.Name = "NudRetiro";
-            this.NudRetiro.Size = new System.Drawing.Size(202, 34);
+            this.NudRetiro.Size = new System.Drawing.Size(180, 30);
             this.NudRetiro.TabIndex = 14;
             this.NudRetiro.KeyUp += new System.Windows.Forms.KeyEventHandler(this.NudRetiro_KeyUp);
             // 
@@ -261,9 +267,9 @@ namespace LinkCajaV2.Items
             this.lblFondoQueda.AutoSize = true;
             this.lblFondoQueda.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFondoQueda.ForeColor = System.Drawing.Color.DimGray;
-            this.lblFondoQueda.Location = new System.Drawing.Point(371, 400);
+            this.lblFondoQueda.Location = new System.Drawing.Point(330, 352);
             this.lblFondoQueda.Name = "lblFondoQueda";
-            this.lblFondoQueda.Size = new System.Drawing.Size(313, 25);
+            this.lblFondoQueda.Size = new System.Drawing.Size(249, 20);
             this.lblFondoQueda.TabIndex = 32;
             this.lblFondoQueda.Text = "Fondo en efectivo que se queda: $0.00";
             // 
@@ -274,9 +280,10 @@ namespace LinkCajaV2.Items
             this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCerrar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
-            this.btnCerrar.Location = new System.Drawing.Point(44, 487);
+            this.btnCerrar.Location = new System.Drawing.Point(39, 381);
+            this.btnCerrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(248, 44);
+            this.btnCerrar.Size = new System.Drawing.Size(220, 35);
             this.btnCerrar.TabIndex = 23;
             this.btnCerrar.Text = "CERRAR CORTE";
             this.btnCerrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -289,9 +296,9 @@ namespace LinkCajaV2.Items
             this.lblVentaContarjeta.AutoSize = true;
             this.lblVentaContarjeta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVentaContarjeta.ForeColor = System.Drawing.Color.Black;
-            this.lblVentaContarjeta.Location = new System.Drawing.Point(371, 484);
+            this.lblVentaContarjeta.Location = new System.Drawing.Point(330, 419);
             this.lblVentaContarjeta.Name = "lblVentaContarjeta";
-            this.lblVentaContarjeta.Size = new System.Drawing.Size(238, 25);
+            this.lblVentaContarjeta.Size = new System.Drawing.Size(198, 20);
             this.lblVentaContarjeta.TabIndex = 31;
             this.lblVentaContarjeta.Text = "Venta total con tarjeta: $0.00";
             // 
@@ -300,9 +307,9 @@ namespace LinkCajaV2.Items
             this.lbTotallDevolucionTarjeta.AutoSize = true;
             this.lbTotallDevolucionTarjeta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotallDevolucionTarjeta.ForeColor = System.Drawing.Color.Black;
-            this.lbTotallDevolucionTarjeta.Location = new System.Drawing.Point(371, 511);
+            this.lbTotallDevolucionTarjeta.Location = new System.Drawing.Point(330, 441);
             this.lbTotallDevolucionTarjeta.Name = "lbTotallDevolucionTarjeta";
-            this.lbTotallDevolucionTarjeta.Size = new System.Drawing.Size(273, 25);
+            this.lbTotallDevolucionTarjeta.Size = new System.Drawing.Size(228, 20);
             this.lbTotallDevolucionTarjeta.TabIndex = 30;
             this.lbTotallDevolucionTarjeta.Text = "Devolución total en tarjeta: $0.00";
             // 
@@ -311,9 +318,9 @@ namespace LinkCajaV2.Items
             this.lbltotales.AutoSize = true;
             this.lbltotales.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbltotales.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lbltotales.Location = new System.Drawing.Point(371, 449);
+            this.lbltotales.Location = new System.Drawing.Point(330, 391);
             this.lbltotales.Name = "lbltotales";
-            this.lbltotales.Size = new System.Drawing.Size(181, 30);
+            this.lbltotales.Size = new System.Drawing.Size(155, 25);
             this.lbltotales.TabIndex = 29;
             this.lbltotales.Text = "Flujo de Tarjetas";
             // 
@@ -322,9 +329,9 @@ namespace LinkCajaV2.Items
             this.lblSaldoTotalTarjeta.AutoSize = true;
             this.lblSaldoTotalTarjeta.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSaldoTotalTarjeta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.lblSaldoTotalTarjeta.Location = new System.Drawing.Point(371, 539);
+            this.lblSaldoTotalTarjeta.Location = new System.Drawing.Point(330, 463);
             this.lblSaldoTotalTarjeta.Name = "lblSaldoTotalTarjeta";
-            this.lblSaldoTotalTarjeta.Size = new System.Drawing.Size(226, 28);
+            this.lblSaldoTotalTarjeta.Size = new System.Drawing.Size(192, 23);
             this.lblSaldoTotalTarjeta.TabIndex = 28;
             this.lblSaldoTotalTarjeta.Text = "Saldo en tarjeta: $0.00";
             // 
@@ -336,9 +343,10 @@ namespace LinkCajaV2.Items
             this.BtnAbrir.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAbrir.ForeColor = System.Drawing.Color.White;
             this.BtnAbrir.Image = ((System.Drawing.Image)(resources.GetObject("BtnAbrir.Image")));
-            this.BtnAbrir.Location = new System.Drawing.Point(44, 422);
+            this.BtnAbrir.Location = new System.Drawing.Point(39, 329);
+            this.BtnAbrir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnAbrir.Name = "BtnAbrir";
-            this.BtnAbrir.Size = new System.Drawing.Size(248, 44);
+            this.BtnAbrir.Size = new System.Drawing.Size(220, 35);
             this.BtnAbrir.TabIndex = 21;
             this.BtnAbrir.Text = "ABRIR CORTE";
             this.BtnAbrir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -350,9 +358,10 @@ namespace LinkCajaV2.Items
             // 
             this.BtnAgregar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("BtnAgregar.Image")));
-            this.BtnAgregar.Location = new System.Drawing.Point(583, 356);
+            this.BtnAgregar.Location = new System.Drawing.Point(518, 317);
+            this.BtnAgregar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnAgregar.Name = "BtnAgregar";
-            this.BtnAgregar.Size = new System.Drawing.Size(39, 35);
+            this.BtnAgregar.Size = new System.Drawing.Size(35, 28);
             this.BtnAgregar.TabIndex = 15;
             this.BtnAgregar.UseVisualStyleBackColor = true;
             this.BtnAgregar.Visible = false;
@@ -362,9 +371,10 @@ namespace LinkCajaV2.Items
             // 
             this.BtnAgregar2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnAgregar2.Image = ((System.Drawing.Image)(resources.GetObject("BtnAgregar2.Image")));
-            this.BtnAgregar2.Location = new System.Drawing.Point(583, 151);
+            this.BtnAgregar2.Location = new System.Drawing.Point(518, 121);
+            this.BtnAgregar2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnAgregar2.Name = "BtnAgregar2";
-            this.BtnAgregar2.Size = new System.Drawing.Size(39, 35);
+            this.BtnAgregar2.Size = new System.Drawing.Size(35, 28);
             this.BtnAgregar2.TabIndex = 26;
             this.BtnAgregar2.UseVisualStyleBackColor = true;
             this.BtnAgregar2.Visible = false;
@@ -396,11 +406,12 @@ namespace LinkCajaV2.Items
             this.dgvCorte.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvCorte.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCorte.EnableHeadersVisualStyles = false;
-            this.dgvCorte.Location = new System.Drawing.Point(3, 30);
+            this.dgvCorte.Location = new System.Drawing.Point(3, 25);
+            this.dgvCorte.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvCorte.Name = "dgvCorte";
             this.dgvCorte.RowHeadersWidth = 30;
             this.dgvCorte.RowTemplate.Height = 28;
-            this.dgvCorte.Size = new System.Drawing.Size(530, 335);
+            this.dgvCorte.Size = new System.Drawing.Size(470, 301);
             this.dgvCorte.TabIndex = 0;
             // 
             // gbDatos
@@ -412,19 +423,33 @@ namespace LinkCajaV2.Items
             this.gbDatos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gbDatos.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbDatos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.gbDatos.Location = new System.Drawing.Point(794, 89);
+            this.gbDatos.Location = new System.Drawing.Point(706, 71);
+            this.gbDatos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gbDatos.Name = "gbDatos";
-            this.gbDatos.Size = new System.Drawing.Size(536, 368);
+            this.gbDatos.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gbDatos.Size = new System.Drawing.Size(476, 328);
             this.gbDatos.TabIndex = 27;
             this.gbDatos.TabStop = false;
             this.gbDatos.Text = "Resumen del sistema";
             // 
+            // lblTotalEnvios
+            // 
+            this.lblTotalEnvios.AutoSize = true;
+            this.lblTotalEnvios.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalEnvios.ForeColor = System.Drawing.Color.Black;
+            this.lblTotalEnvios.Location = new System.Drawing.Point(331, 189);
+            this.lblTotalEnvios.Name = "lblTotalEnvios";
+            this.lblTotalEnvios.Size = new System.Drawing.Size(157, 20);
+            this.lblTotalEnvios.TabIndex = 43;
+            this.lblTotalEnvios.Text = "Total por envíos: $0.00";
+            // 
             // Fund
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1328, 611);
+            this.ClientSize = new System.Drawing.Size(1180, 523);
+            this.Controls.Add(this.lblTotalEnvios);
             this.Controls.Add(this.gbDatos);
             this.Controls.Add(this.BtnAgregar2);
             this.Controls.Add(this.BtnAgregar);
@@ -452,6 +477,7 @@ namespace LinkCajaV2.Items
             this.Controls.Add(this.lblFechaApertura);
             this.Controls.Add(this.dtFechaApertura);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Fund";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -493,5 +519,6 @@ namespace LinkCajaV2.Items
         private Button BtnAgregar2;
         private DataGridView dgvCorte;
         private GroupBox gbDatos;
+        private Label lblTotalEnvios;
     }
 }

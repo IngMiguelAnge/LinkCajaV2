@@ -255,12 +255,20 @@ namespace LinkCajaV2.Items
                 var detalles = await obj.GetCashDropCorte(dtFechaApertura.Value, dtFechaCierre.Value);
                 var listaFinal = detalles?.OrderBy(x => x.Fecha).ToList() ?? new List<CashDropModel>();
                 dgvCorte.DataSource = new BindingList<CashDropModel>(listaFinal);
+                var filaEnvio = listaFinal.FirstOrDefault(x => x.Concepto.Contains("envío"));
+
+                if (filaEnvio != null && lblTotalEnvios != null)
+                {
+                    lblTotalEnvios.Text = $"Total por envíos: {filaEnvio.Monto:C2}";
+                }
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al cargar los articulos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void dtFechaApertura_ValueChanged(object sender, EventArgs e)
         {
             BuscarTickets();

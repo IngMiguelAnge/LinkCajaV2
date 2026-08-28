@@ -996,12 +996,22 @@ namespace LinkCajaV2.Data
                             {
                                 totalCol.Item().LineHorizontal(1);
 
-                                decimal granTotal = venta.Articles.Sum(x => x.Total);
+                                decimal subTotal = venta.Articles.Sum(x => x.Total);
+                                totalCol.Item().PaddingTop(2).AlignRight().Text($"SUBTOTAL: {subTotal:C2}").Style(EstiloTotal);
+                                //Si hay costo de envio mete un nuevo renglon 
+                                if (venta.CostoEnvio > 0)
+                                {
+                                    totalCol.Item().AlignRight().Text($"ENVÍO: {venta.CostoEnvio:C2}").Style(EstiloTotal);
+                                }
 
-                                totalCol.Item().PaddingTop(2).AlignRight().Text($"RECIBIDO: {venta.Recibido:C2}").Style(EstiloTotal);
-                                totalCol.Item().AlignRight().Text($"TOTAL: {granTotal:C2}").Style(EstiloTotal);
+                                //totalCol.Item().PaddingTop(2).AlignRight().Text($"RECIBIDO: {venta.Recibido:C2}").Style(EstiloTotal);
+                                //totalCol.Item().AlignRight().Text($"TOTAL: {granTotal:C2}").Style(EstiloTotal);
+                                totalCol.Item().AlignRight().Text($"TOTAL: {venta.Total:C2}").Style(EstiloTotal);
+                                totalCol.Item().AlignRight().Text($"RECIBIDO: {venta.Recibido:C2}").Style(EstiloTotal);
 
-                                decimal cambio = venta.Recibido - granTotal;
+
+                                //decimal cambio = venta.Recibido - granTotal;
+                                decimal cambio = venta.Recibido - venta.Total;
                                 totalCol.Item().AlignRight().Text($"CAMBIO: {cambio:C2}").Style(EstiloTotal);
 
                                 totalCol.Item().PaddingTop(8).AlignCenter().Text("¡Gracias por su compra!").Style(EstiloTabla);

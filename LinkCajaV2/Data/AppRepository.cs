@@ -789,6 +789,7 @@ namespace LinkCajaV2.Data
                 TotalVentas = reader["TotalVentas"] != DBNull.Value ? (decimal)reader["TotalVentas"] : 0m,
                 TotalEntradas = reader["TotalEntradas"] != DBNull.Value ? (decimal)reader["TotalEntradas"] : 0m,
                 TotalGastos = reader["TotalGastos"] != DBNull.Value ? (decimal)reader["TotalGastos"] : 0m,
+                TotalEnvios = reader["TotalEnvios"] != DBNull.Value ? (decimal)reader["TotalEnvios"] : 0m
             };
         }
         #endregion
@@ -837,7 +838,8 @@ namespace LinkCajaV2.Data
                 TotalReturn = (decimal)reader["TotalReturn"],
                 Send = (bool)reader["Send"],
                 TypePay = (string)reader["TypePay"],
-                Folio = (string)reader["Folio"]
+                Folio = (string)reader["Folio"],
+                CostoEnvio = reader["CostoEnvio"] != DBNull.Value ? (decimal)reader["CostoEnvio"] : 0m ,
             };
         }
         public async Task<List<DetailsforFactureModel>> GetDetailsforFacture(int IdTicket)
@@ -1082,6 +1084,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@IdBox", obj.IdBox));
                         cmd.Parameters.Add(new SqlParameter("@TypePay", obj.TypePay));
                         cmd.Parameters.Add(new SqlParameter("@Folio", obj.Folio));
+                        cmd.Parameters.Add(new SqlParameter("@CostoEnvio", obj.CostoEnvio));
                         SqlParameter outputParam = new SqlParameter("@VResp", System.Data.SqlDbType.Int)
                         {
                             Direction = System.Data.ParameterDirection.Output
@@ -1096,6 +1099,7 @@ namespace LinkCajaV2.Data
             }
             catch (Exception ex)
             {
+                System.Windows.Forms.MessageBox.Show("Error en la Base de Datos: " + ex.Message);
                 return 0;
             }
         }
@@ -1125,6 +1129,7 @@ namespace LinkCajaV2.Data
             }
             catch (Exception ex)
             {
+                System.Windows.Forms.MessageBox.Show("Error en la Base de Datos: " + ex.Message);
                 return false;
             }
         }
@@ -1761,10 +1766,14 @@ namespace LinkCajaV2.Data
             return new ListBoxModel()
             {
                 Id = (int)reader["Id"],
-                Nombre = (string)reader["Name"],
-                Publicidad = (string)reader["Publicity"],
-                Estatus = (string)reader["Status"],
-                Ruleta = (string)reader["Rulet"]
+                Publicidad = Convert.ToBoolean(reader["Publicity"]) ? "Sí" : "No",
+                Estatus = Convert.ToBoolean(reader["Status"]) ? "Activo" : "Inactivo",
+                Ruleta = Convert.ToBoolean(reader["Rulet"]) ? "Sí" : "No"
+                //Nombre = (string)reader["Name"],
+                //Nombre = reader["Name"].ToString(),
+                //Publicidad = (string)reader["Publicity"],
+                //Estatus = (string)reader["Status"],
+                //Ruleta = (string)reader["Rulet"]
             };
         }
         public async Task<bool> SaveBox(BoxModel obj)
@@ -2343,8 +2352,10 @@ namespace LinkCajaV2.Data
                 Phone1 = (string)reader["Phone1"],
                 Phone2 = (string)reader["Phone2"],
                 Email = (string)reader["Email"],
+                CostoEnvio = reader["CostoEnvio"] != DBNull.Value ? Convert.ToDecimal(reader["CostoEnvio"]) : 0m
             };
         }
+        
         private ListClientsModel MapToListClients(SqlDataReader reader)
         {
             return new ListClientsModel()
