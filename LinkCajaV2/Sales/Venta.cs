@@ -412,6 +412,21 @@ namespace LinkCajaV2.Sales
                     Medicine = articulo.Medicine
                 });
             }
+            ActualizarTotalGeneral();
+            foreach (DataGridViewRow row in dgvArticulos.Rows)
+            {
+                row.DefaultCellStyle.BackColor = Color.White;
+            }
+
+            var fila = dgvArticulos.Rows.Cast<DataGridViewRow>()
+                        .FirstOrDefault(r => r.Cells["Codigo"].Value.ToString() == articulo.Code);
+
+            if (fila != null)
+            {
+                fila.DefaultCellStyle.BackColor = Color.PaleGreen;
+                dgvArticulos.ClearSelection(); // Quita el azul de selección para que se note el verde
+                dgvArticulos.FirstDisplayedScrollingRowIndex = fila.Index;
+            }
         }
             private void ActualizarTotalGeneral()
         {
