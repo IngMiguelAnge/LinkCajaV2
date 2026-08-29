@@ -240,16 +240,11 @@ namespace LinkCajaV2.Catalogs
             {
                 lblCostoGramo.Visible = false;
             }
-            if (IdArticle == 0 || Article == null)
-            {
-                isLoaded = true;
-                return;
-            }
             nudMargen.Value = Article.Margen;
             nudExistencias.Value = Article.Stock;
             NUDExistenciasMinimas.Value = Article.StockMin;
             nudPrecio.Value = Article.Price;
-            nudCada.Value = Article.SuggestedStock;
+            nudCada.Value = Article.SuggestedStock == 0 ? 1: Article.SuggestedStock;
             isLoaded = true;
         }
         public void CalcularPrecioMaximo()

@@ -62,12 +62,18 @@ public class SearchSAT
             {
                 var queryParser = new MultiFieldQueryParser(versionLucene, new[] { "descripcion", "similares" }, analyzer);
 
-                string[] palabras = textoUsuario.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                string queryFuzzy = string.Join(" ", palabras.Select(p => p + "~"));
+                // Escapar caracteres especiales y procesar palabras
+                string textoLimpio = QueryParser.Escape(textoUsuario.Trim());
+                string[] palabras = textoLimpio.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (palabras.Length == 0) return resultados;
+
+                // Priorizar coincidencia exacta (p^3) sobre la fuzzy ajustada (p~0.7)
+                string queryEstructurada = string.Join(" ", palabras.Select(p => $"{p}^3 {p}~0.7"));
 
                 try
                 {
-                    Query query = queryParser.Parse(queryFuzzy);
+                    Query query = queryParser.Parse(queryEstructurada);
                     TopDocs hits = searcher.Search(query, 20000);
 
                     foreach (ScoreDoc scoreDoc in hits.ScoreDocs)
