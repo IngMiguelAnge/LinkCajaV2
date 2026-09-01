@@ -16,6 +16,7 @@ namespace LinkCajaV2.Items
         public decimal Total { get; set; }
         public string Folio { get; set; }
         public string TipoPago { get; set; }
+        public decimal Envio { get; set; }
         public ConfirmPayTarjet()
         {
             InitializeComponent();

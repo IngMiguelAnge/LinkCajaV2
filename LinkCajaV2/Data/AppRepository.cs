@@ -18,8 +18,8 @@ namespace LinkCajaV2.Data
         public string Connection { get; set; }
         public AppRepository(bool isUnitOfWork = false)
         {
-            //Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
-            Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            //Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
         }
         public void Dispose()
         {
@@ -977,6 +977,7 @@ namespace LinkCajaV2.Data
                 Status = (string)reader["Status"],
                 Send = (string)reader["Send"],
                 TypePay = (string)reader["TypePay"],
+                CostoEnvio = reader["CostoEnvio"] != DBNull.Value ? (decimal)reader["CostoEnvio"] : 0m
             };
         }
         public async Task<bool> ReturnArticle(int Id, string NoteText)
@@ -1761,15 +1762,22 @@ namespace LinkCajaV2.Data
                 Amount = (decimal)reader["Amount"],
             };
         }
-        private ListBoxModel MapToListBox(SqlDataReader reader)
+        private ListBoxModel MapToListBox(SqlDataReader reader)//Esto es lo que truena 
         {
             return new ListBoxModel()
             {
+                //DESCOMENTAR ESTO CUANDO ACABE
+                //Id = (int)reader["Id"],
+                //Nombre = (string)reader["Name"],
+                //Publicidad = (string)reader["Publicity"],
+                //Estatus = (string)reader["Status"],
+                //Ruleta = (string)reader["Rulet"]
                 Id = (int)reader["Id"],
                 Nombre = (string)reader["Name"],
-                Publicidad = (string)reader["Publicity"],
-                Estatus = (string)reader["Status"],
-                Ruleta = (string)reader["Rulet"]
+                // Evaluamos el bool: si es true escribe "Sí", si es false "No"
+                Publicidad = (bool)reader["Publicity"] ? "Sí" : "No",
+                Estatus = (bool)reader["Status"] ? "Activo" : "Inactivo",
+                Ruleta = (bool)reader["Rulet"] ? "Sí" : "No"
             };
         }
         public async Task<bool> SaveBox(BoxModel obj)
@@ -3081,20 +3089,48 @@ namespace LinkCajaV2.Data
         #region Catalo de Clientes
 
         //  Guardar Cliente 
-        public async Task<bool> SaveCliente(LinkCajaV2.Model.ClienteModel obj)
+        public async Task<bool> SaveCliente(ClienteModel obj)
         {
             try
             {
                 using (System.Data.SqlClient.SqlConnection sql = new System.Data.SqlClient.SqlConnection(Connection))
                 {
-                    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("SaveClientData", sql))
+                    // cambie el procedimiento por el que ya estaba 
+                    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("SaveClient", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Id", obj.Id));
                         cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", obj.Nombre));
                         cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Email", obj.Correo ?? string.Empty));
                         cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Phone1", obj.Telefono1));
                         cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Phone2", obj.Telefono2 ?? string.Empty));
                         cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Status", obj.Estatus));
+
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+       
+        public async Task<bool> UpdateStatusCliente(int id)
+        {
+            try
+            {
+                using (System.Data.SqlClient.SqlConnection sql = new System.Data.SqlClient.SqlConnection(Connection))
+                {
+                 
+                    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("UpdateClientStatus", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Id", id));
+
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;
@@ -3103,49 +3139,18 @@ namespace LinkCajaV2.Data
             }
             catch (Exception ex)
             {
+
+               
                 return false;
-              
             }
         }
-
-        // Método para Actualizar un cliente que ya existe
-        public async Task<bool> UpdateCliente(LinkCajaV2.Model.ClienteModel obj)
-        {
-            try
-            {
-                using (System.Data.SqlClient.SqlConnection sql = new System.Data.SqlClient.SqlConnection(Connection))
-                {
-                    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("UpdateClientData", sql))
-                    {
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Id", obj.Id)); // Aquí mandamos el ID
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", obj.Nombre));
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Email", obj.Correo ?? string.Empty));
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Phone1", obj.Telefono1));
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Phone2", obj.Telefono2 ?? string.Empty));
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Status", obj.Estatus));
-
-
-                        await sql.OpenAsync().ConfigureAwait(false);
-                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
-                        return true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                return false;
-              
-            }
-        }
-
 
 
 
         //  Buscar Clientes para el Catálogo 
-        public async Task<List<LinkCajaV2.Model.ClienteModel>> GetClientesFiltro(string buscar)
+        public async Task<List<ClienteModel>> GetClientesFiltro(string buscar)
         {
-            List<LinkCajaV2.Model.ClienteModel> list = new List<LinkCajaV2.Model.ClienteModel>();
+            List<ClienteModel> list = new List<ClienteModel>();
             try
             {
                 using (System.Data.SqlClient.SqlConnection sql = new System.Data.SqlClient.SqlConnection(Connection))
@@ -3175,7 +3180,7 @@ namespace LinkCajaV2.Data
         }
 
         // Mapeo
-        private LinkCajaV2.Model.ClienteModel MapToCliente(System.Data.SqlClient.SqlDataReader reader)
+        private ClienteModel MapToCliente(System.Data.SqlClient.SqlDataReader reader)
         {
             return new LinkCajaV2.Model.ClienteModel()
             {
