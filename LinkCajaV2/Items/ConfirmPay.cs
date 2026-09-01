@@ -14,6 +14,7 @@ namespace LinkCajaV2.Items
     {
         public decimal Total { get; set; }
         public decimal Recibido { get; set; }
+        public decimal Envio { get; set; }
         bool primerIngreso = true; 
         public ConfirmPay()
         {

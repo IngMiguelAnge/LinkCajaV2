@@ -75,6 +75,7 @@ namespace LinkCajaV2.Reports
             dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "SalePrice", HeaderText = "Precio Venta", DataPropertyName = "SalePrice", DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda } });
             dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "SupplierPrice", HeaderText = "Costo Provedor", DataPropertyName = "SupplierPrice", DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda } });
             dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "TotalInvestment", HeaderText = "Inversión Total", DataPropertyName = "TotalInvestment", DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda } });
+          
             dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "TotalSale", HeaderText = "Venta Total", DataPropertyName = "TotalSale", DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda } });
 
             dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Profit", HeaderText = "Ganancia Total", DataPropertyName = "Profit", DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda, Font = new Font(dgvVentas.Font, FontStyle.Bold) } });
@@ -111,8 +112,8 @@ namespace LinkCajaV2.Reports
 
                     // Los 0
                     lblTotalGeneral.Text = " Venta Total: $0.00";
-                    lblInversionTotal.Text = "Inversión Total: $0.00"; // NUEVO
-                    lblGananciaTotal.Text = "Total Ganancia: $0.00";   // NUEVO
+                    lblInversionTotal.Text = "Inversión Total: $0.00"; 
+                    lblGananciaTotal.Text = "Total Ganancia: $0.00";   
                     return;
                 }
 
@@ -123,11 +124,16 @@ namespace LinkCajaV2.Reports
                 decimal granTotal = listaFinal.Sum(x => x.TotalSale);
                 decimal inversionTotal = listaFinal.Sum(x => x.TotalInvestment); // NUEVO
                 decimal gananciaTotal = listaFinal.Sum(x => x.Profit); // NUEVO
+           
 
                 lblTotalGeneral.Text = "Venta Total: " + granTotal.ToString("'$' #,##0.00");
                 lblInversionTotal.Text = "Inversión Total: " + inversionTotal.ToString("'$' #,##0.00"); // NUEVO
                 lblGananciaTotal.Text = "Total Ganancia: " + gananciaTotal.ToString("'$' #,##0.00");     // NUEVO
-            
+
+                var ticketsDelPeriodo = await obj.GetTickets(0, desde, hasta, true);
+                decimal envioTotal = ticketsDelPeriodo?.Sum(t => t.CostoEnvio) ?? 0;
+                lblTotalEnvio.Text = "Total Envío: " + envioTotal.ToString("'$' #,##0.00");
+
             }
             catch (Exception ex)
             {
@@ -172,10 +178,13 @@ namespace LinkCajaV2.Reports
                     return;
                 }
 
+                var ticketsDelPeriodo = await obj.GetTickets(0, desde, hasta, true);
+                decimal envioTotal = ticketsDelPeriodo?.Sum(t => t.CostoEnvio) ?? 0;
+
                 // Invocar impresiones
                 ImpressionsGeneral im = new ImpressionsGeneral();
 
-                im.ImpresionReporteVentas(listaFinal, desde, hasta);
+                im.ImpresionReporteVentas(listaFinal, desde, hasta, envioTotal);
             }
             catch (Exception ex)
             {

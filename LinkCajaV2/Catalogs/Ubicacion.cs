@@ -288,16 +288,16 @@ namespace LinkCajaV2.Catalogs
 
         private void btnCancelarDireccion_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
+            txtDireccionProporcionada.Enabled = true;
+            txtLatitud.Enabled = true;
+            txtLongitud.Enabled = true;
 
-            // Cerramos el mapa
-            this.Close();
         }
 
    
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
-            // Validamos que haya puesto tarifa
+            // Valido la tarifa 
             if (numCostoEnvio.Value <= 0)
             {
                 MessageBox.Show("Debes ingresar una tarifa mayor a $0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -346,6 +346,13 @@ namespace LinkCajaV2.Catalogs
             BtnGuardar.Enabled = false;
        
 
+        }
+
+        private void btnConfirmarDireccion_Click(object sender, EventArgs e)
+        {
+            txtDireccionProporcionada.Enabled = false;
+            txtLatitud.Enabled = false;
+            txtLongitud.Enabled = false;
         }
     }
 }

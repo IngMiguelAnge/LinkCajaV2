@@ -17,7 +17,8 @@ namespace LinkCajaV2.Model
         public decimal SupplierPrice { get; set; }
         public decimal TotalInvestment { get; set; }
         public decimal TotalSale { get; set; }
+        public decimal CostoEnvio { get; set; }
 
-        
+
     }
 }

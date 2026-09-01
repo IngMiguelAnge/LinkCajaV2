@@ -371,7 +371,7 @@ namespace LinkCajaV2.Data
         }
 
         //Impresion de ventas ----------------------------
-        public void ImpresionReporteVentas(List<SalesReportModel> ListVentas, DateTime desde, DateTime hasta)
+        public void ImpresionReporteVentas(List<SalesReportModel> ListVentas, DateTime desde, DateTime hasta, decimal envioTotal)
         {
             try
             {
@@ -496,6 +496,20 @@ namespace LinkCajaV2.Data
                                 row.RelativeItem(1.4f).AlignRight().Text(sumaInversion.ToString("'$' #,##0.00")).Style(EstiloArticulo).SemiBold();
                                 row.RelativeItem(1.4f).AlignRight().Text(sumaVenta.ToString("'$' #,##0.00")).Style(EstiloArticulo).SemiBold();
                                 row.RelativeItem(1.4f).AlignRight().Text(sumaGanancia.ToString("'$' #,##0.00")).Style(EstiloArticulo).SemiBold();
+                            });
+                            listCol.Item().PaddingTop(3).Row(row =>
+                            {
+                                //Venta por envio 
+                                row.RelativeItem(11.9f).AlignRight().Text("TOTAL ENVÍOS COBRADOS:").Style(EstiloArticulo).SemiBold();
+                                row.RelativeItem(1.4f).AlignRight().Text(envioTotal.ToString("'$' #,##0.00")).Style(EstiloArticulo).SemiBold();
+                                row.RelativeItem(1.4f).AlignRight().Text("").Style(EstiloArticulo);
+                            });
+                            listCol.Item().PaddingTop(3).Row(row =>
+                            {
+                                decimal granTotalFinal = sumaVenta + envioTotal;
+                                row.RelativeItem(11.9f).AlignRight().Text("GRAN TOTAL (Ventas + Envíos):").Style(EstiloArticulo).SemiBold().FontSize(9);
+                                row.RelativeItem(1.4f).AlignRight().Text(granTotalFinal.ToString("'$' #,##0.00")).Style(EstiloArticulo).SemiBold().FontSize(9);
+                                row.RelativeItem(1.4f).AlignRight().Text("").Style(EstiloArticulo);
                             });
                         });
 

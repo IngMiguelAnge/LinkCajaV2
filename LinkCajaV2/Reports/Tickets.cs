@@ -86,14 +86,17 @@ namespace LinkCajaV2.Reports
                 decimal totalGeneral = listaFinal.Sum(item => item.Total);
                 decimal devoluciones = listaFinal.Sum(item => item.TotalReturn);
                 decimal totalFinal = listaFinal.Sum(item => item.TotalEnd);
+                decimal totalEnvio = listaFinal.Sum(item => item.CostoEnvio);
                 lblVenta.Text = $"Venta total: {totalGeneral:C2}";
                 lblTotalDevolucion.Text = $"Total devoluciones: {devoluciones:C2}";
+                lblTotalEnvio.Text = $"Venta total por Envio: {totalEnvio:C2}";
                 lblVentaFinal.Text = $"Total final: {totalFinal:C2}";
             }
             catch (Exception ex)
             {
                 lblVenta.Text = "Venta total: $0.00";
                 lblTotalDevolucion.Text = "Total devoluciones: $0.00";
+                lblTotalEnvio.Text = "Venta total por Envio: $0.00";
                 lblVentaFinal.Text = "Venta final: $0.00";
                 MessageBox.Show($"Error al cargar tickets: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
