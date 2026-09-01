@@ -20,7 +20,7 @@ namespace LinkCajaV2.Catalogs
         }
 
 
-        public async Task BuscarClientes(string filtro = "")
+        public async Task BuscarClientes()
         {
             // Barra
             progressBar1.Style = ProgressBarStyle.Marquee;
@@ -35,7 +35,7 @@ namespace LinkCajaV2.Catalogs
             try
             {
                 AppRepository app = new AppRepository();
-                var listaClientes = await Task.Run(() => app.GetClientesFiltro(filtro));
+                var listaClientes = await Task.Run(() => app.GetClientsbyNombre(txtBuscar.Text));
 
                 if (listaClientes == null || listaClientes.Count == 0)
                 {
@@ -69,14 +69,14 @@ namespace LinkCajaV2.Catalogs
         {
             Client frm = new Client();
             frm.ShowDialog();
-            await BuscarClientes(txtBuscar.Text.Trim());
+            await BuscarClientes();
         }
 
    
         private async void FrmCatClientes_Load(object sender, EventArgs e)
         {
             ConfigurarGridView();
-            await BuscarClientes("");
+            await BuscarClientes();
         }
 
         public void ConfigurarGridView()
@@ -181,7 +181,7 @@ namespace LinkCajaV2.Catalogs
                     if (statusCambiado)
                     {
                         MessageBox.Show("El estatus del cliente se ha actualizado correctamente.", "Estatus Actualizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        await BuscarClientes(txtBuscar.Text.Trim());
+                        await BuscarClientes();
                     }
                     else
                     {
@@ -193,7 +193,7 @@ namespace LinkCajaV2.Catalogs
                     Client frmEdit = new Client();
                     frmEdit.IdCliente = idCliente;                   
                     frmEdit.ShowDialog();
-                    await BuscarClientes(txtBuscar.Text.Trim());
+                    await BuscarClientes();
                     break;
 
 
@@ -207,7 +207,7 @@ namespace LinkCajaV2.Catalogs
 
         private async void BtnBuscar_Click(object sender, EventArgs e)
         {
-            await BuscarClientes(txtBuscar.Text.Trim());
+            await BuscarClientes();
         }
 
     }

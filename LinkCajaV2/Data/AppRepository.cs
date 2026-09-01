@@ -3107,8 +3107,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Email", obj.Correo ?? string.Empty));
                         cmd.Parameters.Add(new SqlParameter("@Phone1", obj.Telefono1));
                         cmd.Parameters.Add(new SqlParameter("@Phone2", obj.Telefono2 ?? string.Empty));
-                        cmd.Parameters.Add(new SqlParameter("@Status", obj.Estatus));
-
+                    
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;
@@ -3150,14 +3149,14 @@ namespace LinkCajaV2.Data
 
 
         //  Buscar Clientes para el Catálogo 
-        public async Task<List<ClienteModel>> GetClientesFiltro(string buscar)
+        public async Task<List<ClienteModel>> GetClientsbyNombre(string buscar)
         {
             List<ClienteModel> list = new List<ClienteModel>();
             try
             {
                 using (SqlConnection sql = new SqlConnection(Connection))
                 {
-                    using (SqlCommand cmd = new SqlCommand("GetClientsFiltro", sql))
+                    using (SqlCommand cmd = new SqlCommand("GetClientsbyNombre", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                        

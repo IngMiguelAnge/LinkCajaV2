@@ -55,7 +55,7 @@
             this.gbClientes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbClientes.Name = "gbClientes";
             this.gbClientes.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.gbClientes.Size = new System.Drawing.Size(1369, 643);
+            this.gbClientes.Size = new System.Drawing.Size(1215, 643);
             this.gbClientes.TabIndex = 5;
             this.gbClientes.TabStop = false;
             this.gbClientes.Text = "Clientes ";
@@ -92,7 +92,7 @@
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.RowHeadersWidth = 51;
             this.dgvClientes.RowTemplate.Height = 30;
-            this.dgvClientes.Size = new System.Drawing.Size(1363, 603);
+            this.dgvClientes.Size = new System.Drawing.Size(1209, 603);
             this.dgvClientes.TabIndex = 3;
             this.dgvClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientes_CellContentClick);
             // 

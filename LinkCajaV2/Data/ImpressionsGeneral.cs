@@ -1,7 +1,10 @@
 ﻿using LinkCajaV2.Model;
+using LinkCajaV2.Sales;
+using QRCoder;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using Spire.Pdf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,8 +14,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QuestPDF.Helpers.Colors;
-using Spire.Pdf;
-using QRCoder;
 namespace LinkCajaV2.Data
 {
     public class ImpressionsGeneral
@@ -1013,22 +1014,19 @@ namespace LinkCajaV2.Data
                             {
                                 totalCol.Item().LineHorizontal(1);
 
-                                decimal subTotal = venta.Articles.Sum(x => x.Total);
-                                totalCol.Item().PaddingTop(2).AlignRight().Text($"SUBTOTAL: {subTotal:C2}").Style(EstiloTotal);
-                                //Si hay costo de envio mete un nuevo renglon 
+                                decimal subTotal = 0;
                                 if (venta.CostoEnvio > 0)
                                 {
-                                    totalCol.Item().AlignRight().Text($"ENVÍO: {venta.CostoEnvio:C2}").Style(EstiloTotal);
+                                    subTotal = venta.Articles.Sum(x => x.Total) + venta.CostoEnvio;
+                                    totalCol.Item().AlignRight().Text($"TOTAL + ENVIO: {subTotal:C2}").Style(EstiloTotal);
                                 }
-
-                                //totalCol.Item().PaddingTop(2).AlignRight().Text($"RECIBIDO: {venta.Recibido:C2}").Style(EstiloTotal);
-                                //totalCol.Item().AlignRight().Text($"TOTAL: {granTotal:C2}").Style(EstiloTotal);
-                                totalCol.Item().AlignRight().Text($"TOTAL: {venta.Total:C2}").Style(EstiloTotal);
+                                else {
+                                    subTotal = venta.Articles.Sum(x => x.Total);
+                                    totalCol.Item().PaddingTop(2).AlignRight().Text($"TOTAL: {subTotal:C2}").Style(EstiloTotal);
+                                }
                                 totalCol.Item().AlignRight().Text($"RECIBIDO: {venta.Recibido:C2}").Style(EstiloTotal);
 
-
-                                //decimal cambio = venta.Recibido - granTotal;
-                                decimal cambio = venta.Recibido - venta.Total;
+                                decimal cambio = venta.Recibido - subTotal < 0 ? 0 : venta.Recibido - subTotal;
                                 totalCol.Item().AlignRight().Text($"CAMBIO: {cambio:C2}").Style(EstiloTotal);
 
                                 totalCol.Item().PaddingTop(8).AlignCenter().Text("¡Gracias por su compra!").Style(EstiloTabla);
