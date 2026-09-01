@@ -1766,18 +1766,19 @@ namespace LinkCajaV2.Data
         {
             return new ListBoxModel()
             {
-                //DESCOMENTAR ESTO CUANDO ACABE
-                //Id = (int)reader["Id"],
-                //Nombre = (string)reader["Name"],
-                //Publicidad = (string)reader["Publicity"],
-                //Estatus = (string)reader["Status"],
-                //Ruleta = (string)reader["Rulet"]
+             
                 Id = (int)reader["Id"],
                 Nombre = (string)reader["Name"],
-                // Evaluamos el bool: si es true escribe "Sí", si es false "No"
-                Publicidad = (bool)reader["Publicity"] ? "Sí" : "No",
-                Estatus = (bool)reader["Status"] ? "Activo" : "Inactivo",
-                Ruleta = (bool)reader["Rulet"] ? "Sí" : "No"
+                Publicidad = (string)reader["Publicity"],
+                Estatus = (string)reader["Status"],
+                Ruleta = (string)reader["Rulet"]
+
+                //Id = (int)reader["Id"],
+                //Nombre = (string)reader["Name"],
+                
+                //Publicidad = (bool)reader["Publicity"] ? "Sí" : "No",
+                //Estatus = (bool)reader["Status"] ? "Activo" : "Inactivo",
+                //Ruleta = (bool)reader["Rulet"] ? "Sí" : "No"
             };
         }
         public async Task<bool> SaveBox(BoxModel obj)
