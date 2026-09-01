@@ -58,28 +58,82 @@ namespace LinkCajaV2.Reports
         }
         public void ConfigurarGridView()
         {
-            dgvVentas.DataSource = null; // este es para que limpie la anterior busqueda
+            dgvVentas.DataSource = null;
             dgvVentas.Columns.Clear();
             dgvVentas.AutoGenerateColumns = false;
             dgvVentas.AllowUserToAddRows = false;
             dgvVentas.ReadOnly = true;
             dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            // 1. FORZAR BARRAS DE DESPLAZAMIENTO (Horizontal y Vertical)
+            dgvVentas.ScrollBars = ScrollBars.Both;
+
+            // 2. Altura de encabezado
+            dgvVentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgvVentas.ColumnHeadersHeight = 45;
+            dgvVentas.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvVentas.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
+
             string formatoMoneda = "'$' #,##0.00";
 
-            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Code", HeaderText = "SKU", DataPropertyName = "Code" });
-            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Description", HeaderText = "Descripción", DataPropertyName = "Description", AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill });
-            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Category", HeaderText = "Categoría", DataPropertyName = "Category" });
-            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "QuantitySold", HeaderText = "Cant. Vendida", DataPropertyName = "QuantitySold", DefaultCellStyle = new DataGridViewCellStyle { Format = "0.###" } });
+            // 3. Definir ancho MÍNIMO para que aparezca la barra horizontal si la pantalla es chica
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Code", HeaderText = "SKU", DataPropertyName = "Code", MinimumWidth = 120 });
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Description", HeaderText = "Descripción", DataPropertyName = "Description", MinimumWidth = 250 });
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Category", HeaderText = "Categoría", DataPropertyName = "Category", MinimumWidth = 150 });
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Stock", HeaderText = "Stock", DataPropertyName = "Stock", MinimumWidth = 90 });
 
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "QuantitySold",
+                HeaderText = "Cant. Vendida",
+                DataPropertyName = "QuantitySold",
+                MinimumWidth = 110,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "0.###" }
+            });
 
-            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "SalePrice", HeaderText = "Precio Venta", DataPropertyName = "SalePrice", DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda } });
-            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "SupplierPrice", HeaderText = "Costo Provedor", DataPropertyName = "SupplierPrice", DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda } });
-            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "TotalInvestment", HeaderText = "Inversión Total", DataPropertyName = "TotalInvestment", DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda } });
-          
-            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "TotalSale", HeaderText = "Venta Total", DataPropertyName = "TotalSale", DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda } });
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "SalePrice",
+                HeaderText = "Precio Venta",
+                DataPropertyName = "SalePrice",
+                MinimumWidth = 120,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda }
+            });
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "SupplierPrice",
+                HeaderText = "Costo Proveedor",
+                DataPropertyName = "SupplierPrice",
+                MinimumWidth = 130,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda }
+            });
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "TotalInvestment",
+                HeaderText = "Inversión Total",
+                DataPropertyName = "TotalInvestment",
+                MinimumWidth = 130,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda }
+            });
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "TotalSale",
+                HeaderText = "Venta Total",
+                DataPropertyName = "TotalSale",
+                MinimumWidth = 120,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda }
+            });
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Profit",
+                HeaderText = "Ganancia Total",
+                DataPropertyName = "Profit",
+                MinimumWidth = 130,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda, Font = new Font(dgvVentas.Font, FontStyle.Bold) }
+            });
 
-            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Profit", HeaderText = "Ganancia Total", DataPropertyName = "Profit", DefaultCellStyle = new DataGridViewCellStyle { Format = formatoMoneda, Font = new Font(dgvVentas.Font, FontStyle.Bold) } });
-            dgvVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            // 4. Cambiar el modo para permitir scroll horizontal si los anchos mínimos superan el tamaño de la ventana
+            dgvVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
         }
 
         private async void btnBuscar_Click(object sender, EventArgs e)
