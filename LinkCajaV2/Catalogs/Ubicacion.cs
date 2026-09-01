@@ -11,7 +11,7 @@ namespace LinkCajaV2.Catalogs
 {
     public partial class Ubicacion : Form
     {
-        
+        public int IdCliente { get; set; }
         public string DireccionSeleccionada { get; set; }
         public string LatitudSeleccionada { get; set; }
         public string LongitudSeleccionada { get; set; }

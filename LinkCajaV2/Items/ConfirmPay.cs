@@ -24,6 +24,10 @@ namespace LinkCajaV2.Items
         private void ConfirmPay_Load(object sender, EventArgs e)
         {
             lblTotal.Text = "TOTAL: " + Total.ToString("C");
+            if (Envio > 0)
+            {
+                lblTotal.Text = " TOTAL MÁS ENVÍO: " + (Envio + Total).ToString("C");
+            }
            nudRecibido.Focus();
         }
 
@@ -111,7 +115,7 @@ namespace LinkCajaV2.Items
         public void Confirmacion()
         {
             Recibido = nudRecibido.Value;
-            if (Recibido < Total)
+            if (Recibido < Total + Envio)
             {
                 MessageBox.Show("El monto recibido es menor al total a pagar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

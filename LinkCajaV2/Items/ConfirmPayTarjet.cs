@@ -25,6 +25,10 @@ namespace LinkCajaV2.Items
         private void ConfirmPayTarjet_Load(object sender, EventArgs e)
         {
             lblTotal.Text = "TOTAL: " + Total.ToString("C");
+            if (Envio > 0)
+            {
+                lblTotal.Text = " TOTAL MÁS ENVÍO: " + (Envio + Total).ToString("C");
+            }
             TXTFOLIO.Focus();
         }
 

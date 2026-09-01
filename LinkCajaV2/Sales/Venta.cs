@@ -34,7 +34,8 @@ namespace LinkCajaV2.Sales
         private string BoxName { get; set; }
         private bool Rulet;
         private decimal AmountRulet;
-        private int IdClienteActual = 1; 
+        private int IdClienteActual = 1;
+        private string NombreClienteActual = "Público General";
         private decimal CostoEnvioActual = 0m;
         private List<ClienteModel> listaClientesVenta;
 
@@ -147,7 +148,7 @@ namespace LinkCajaV2.Sales
                 return;
             }
             CrearGridView();
-      
+
         }
         public void CrearGridView()
         {
@@ -285,8 +286,8 @@ namespace LinkCajaV2.Sales
                 txtCodigo.Clear();
             }
         }
-       
-    
+
+
 
 
         public async void AgregarArticulo(int id, string codigo)
@@ -412,7 +413,7 @@ namespace LinkCajaV2.Sales
                 dgvArticulos.FirstDisplayedScrollingRowIndex = fila.Index;
             }
         }
-            private void ActualizarTotalGeneral()
+        private void ActualizarTotalGeneral()
         {
             var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
             if (bindingList != null)
@@ -445,15 +446,13 @@ namespace LinkCajaV2.Sales
         {
             var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
             bindingList?.Clear();
-            
+
             ActualizarTotalGeneral();
 
             lblCliente.Text = "Cliente: Público General";
             IdClienteActual = 1;
             CostoEnvioActual = 0m;
             lblEnvio.Text = "Envío: $0.00";
-
-
             PBProducto.Image = null;
             NUDCantidad.Value = 1;
         }
@@ -505,8 +504,8 @@ namespace LinkCajaV2.Sales
             var articulo = await obj.GetArticleActive(id, codigo);
             // 2. Manejo del punto inicial (".5" -> "0.5")
             string valor = dgvArticulos.Rows[e.RowIndex].Cells["Cantidad"].Value?.ToString() ?? "0";
-            if(Convert.ToDecimal(valor) > articulo.Stock)
-            {               
+            if (Convert.ToDecimal(valor) > articulo.Stock)
+            {
                 MessageBox.Show($"Stock insuficiente.", "Error de stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 dgvArticulos.Rows[e.RowIndex].Cells["Cantidad"].Value = "1";
                 return; // Al salir aquí, el objeto 'articuloExistente' jamás se alteró
@@ -628,18 +627,17 @@ namespace LinkCajaV2.Sales
                 return;
             }
 
-      
-            decimal TotalReal = bindingList.Sum(x => x.Total) + CostoEnvioActual;
-            //decimal TotalReal = bindingList.Sum(x => x.Total);
+
+            decimal TotalReal = bindingList.Sum(x => x.Total);
             string TipoPago = "01";
             decimal Recibido = 0;
             string Folio = string.Empty;
 
             TypePay tp = new TypePay();
-            if(tp.ShowDialog() == DialogResult.OK)
+            if (tp.ShowDialog() == DialogResult.OK)
             {
                 ConfirmPay c = new ConfirmPay();
-                     
+
                 c.Envio = CostoEnvioActual;
                 c.Total = TotalReal;
 
@@ -651,45 +649,40 @@ namespace LinkCajaV2.Sales
             {
                 ConfirmPayTarjet ct = new ConfirmPayTarjet();
                 ct.Total = TotalReal;
-                Recibido = TotalReal + CostoEnvioActual;
                 ct.Envio = CostoEnvioActual;
-
                 if (ct.ShowDialog() != DialogResult.OK)
                 { return; }
                 TipoPago = ct.TipoPago;
-                Recibido = TotalReal;
+                Recibido = TotalReal + CostoEnvioActual;
                 Folio = ct.Folio;
             }
 
-                VentaModel venta = new VentaModel
-                {
-                    Articles = bindingList,
-                    Copias = NUDCopias.Value,
-                    Company = Empresa,
-                    Imprimir = CBImprimir.Checked,
-                    Recibido = Recibido,
-                    IdTicket = 0,
-                
-                    //Cliente = "Publico General",
-                    CostoEnvio = CostoEnvioActual,
-                    BoxName = BoxName,
-                    Total = TotalReal,
-                    Title = string.Empty
-                   
-                };
+            VentaModel venta = new VentaModel
+            {
+                Articles = bindingList,
+                Copias = NUDCopias.Value,
+                Company = Empresa,
+                Imprimir = CBImprimir.Checked,
+                Recibido = Recibido,
+                IdTicket = 0,
+                Cliente = NombreClienteActual,
+                CostoEnvio = CostoEnvioActual,
+                BoxName = BoxName,
+                Total = TotalReal,
+                Title = string.Empty
+
+            };
 
             TicketModel Ticket = new TicketModel
             {
                 Id = 0,
                 IdUser = IdUsuario,
-                IdClient = IdClienteActual,
-                //IdClient = 1,//Clliente general por ahora                  
+                IdClient = IdClienteActual,            
                 CreateDate = DateTime.Now,
                 Lastmodification = DateTime.Now,
                 Status = true,
                 IdBox = IdBox,
                 Total = TotalReal,
-               
                 TotalReturn = 0,
                 Send = false,
                 TypePay = TipoPago,
@@ -709,7 +702,7 @@ namespace LinkCajaV2.Sales
             BillingDetails billing = new BillingDetails();
             //No se deja a que el cliente elija el nombre por que si lo cambia ya no se encontrara en las facturas emitas
             venta.Title = "TEST-TKT-MINO-" + DateTime.Now.Year.ToString() + "-" + Ticket.Id.ToString();
-            
+
             billing.pos_ticket_id = venta.Title;
             billing.form_payment = TipoPago; // Ejemplo: 01 = Efectivo, 02= Cheque nominativo, 03 = transferencia electronica
             billing.total = TotalReal.ToString();//venta.Articles.Sum(x => x.Total).ToString("F2");
@@ -790,7 +783,7 @@ namespace LinkCajaV2.Sales
 
         private void btnVerTickets_Click(object sender, EventArgs e)
         {
-           
+
             Tickets t = new Tickets();
             t.IdUsuario = IdUsuario;
             t.NameUser = NameUser;
@@ -861,7 +854,7 @@ namespace LinkCajaV2.Sales
                         System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
                         {
                             FileName = urlDestino,
-                            UseShellExecute = true 
+                            UseShellExecute = true
                         });
                     }
                     catch (Exception ex)
@@ -875,18 +868,15 @@ namespace LinkCajaV2.Sales
 
         private void btnBuscarCliente_Click(object sender, EventArgs e)
         {
-            FrmCatClientes frmClientes = new FrmCatClientes();
-
-            frmClientes.EsSeleccionVenta = true; 
-
+            Clients frmClientes = new Clients();
+            frmClientes.EsSeleccionVenta = true;
             if (frmClientes.ShowDialog() == DialogResult.OK)
             {
                 IdClienteActual = frmClientes.IdSeleccionado;
                 CostoEnvioActual = frmClientes.CostoSeleccionado;
-
+                NombreClienteActual = frmClientes.NombreSeleccionado;
                 lblCliente.Text = $"Cliente: {frmClientes.NombreSeleccionado}";
                 lblEnvio.Text = $"Envío: {CostoEnvioActual:C2}";
-
                 ActualizarTotalGeneral();
             }
         }

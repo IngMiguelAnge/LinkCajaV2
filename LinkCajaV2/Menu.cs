@@ -135,7 +135,7 @@ namespace LinkCajaV2
         private void btnClientes_Click(object sender, EventArgs e)
         {
 
-            LinkCajaV2.Catalogs.FrmCatClientes frm = new LinkCajaV2.Catalogs.FrmCatClientes();
+            Clients frm = new Clients();
             frm.ShowDialog();
         }
 

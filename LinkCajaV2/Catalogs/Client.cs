@@ -5,51 +5,54 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Catalogs
 {
-    public partial class Client : System.Windows.Forms.Form
+    public partial class Client : Form
     {
-        public int Id { get; set; }
+        public int IdCliente { get; set; }
         public Client()
         {
             InitializeComponent();
         }
 
-        private void Client_Load(object sender, EventArgs e)
+        private async void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (Id == 0) return;
-            AppRepository obj = new AppRepository();         
-            var Client = obj.GetClientsbyId(Id).Result;         
-            txtNombre.Text = Client.Name;
-            txtDireccion.Text = Client.Address;
-            txtTelefono1.Text = Client.Phone1;
-            txtTelefono2.Text = Client.Phone2;
-            txtEmail.Text = Client.Email;
-        }
-
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtDireccion.Text) ||
-               string.IsNullOrEmpty(txtTelefono1.Text))
+            if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtTelefono1.Text))
             {
-                MessageBox.Show("Datos incompletos revise la información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El Nombre y al menos el Teléfono 1 son obligatorios.", "Faltan Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            AppRepository obj = new AppRepository();
-            ClientsModel Client = new ClientsModel
+
+            // Datos a ocupar
+            ClienteModel datosCliente = new ClienteModel
             {
-                Id = Id,
-                Name = txtNombre.Text,
-                Address = txtDireccion.Text,
-                Phone1 = txtTelefono1.Text,
-                Phone2 = txtTelefono2.Text,
-                Email = txtEmail.Text
+                Id = this.IdCliente,
+                Nombre = txtNombre.Text.Trim(),
+                Correo = txtCorreo.Text.Trim(),
+                Telefono1 = txtTelefono1.Text.Trim(),
+                Telefono2 = txtTelefono2.Text.Trim(),
             };
-            if (obj.SaveClient(Client).Result)
+
+            AppRepository app = new AppRepository();
+
+           
+            bool exito = await app.SaveCliente(datosCliente);
+
+            // Que paso 
+            if (exito)
             {
-                MessageBox.Show("Cliente guardado correctamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("¡Datos del cliente guardados correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
-            else MessageBox.Show("Error al guardar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+            else
+            {
+                MessageBox.Show("Hubo un problema al guardar en la base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
+
+
+
     }
+
+        
 }
+

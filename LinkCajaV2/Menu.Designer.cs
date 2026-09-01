@@ -330,7 +330,7 @@
             this.btnClientes.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(235)))), ((int)(((byte)(240)))));
             this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClientes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
-            this.btnClientes.Image = ((System.Drawing.Image)(resources.GetObject("btnClientes.Image")));
+            this.btnClientes.Image = global::LinkCajaV2.Properties.Resources.Clientes;
             this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnClientes.Location = new System.Drawing.Point(329, 146);
             this.btnClientes.Name = "btnClientes";
@@ -639,7 +639,7 @@
             // 
             // Menu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1408, 836);

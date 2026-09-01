@@ -2382,7 +2382,6 @@ namespace LinkCajaV2.Data
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Id", obj.Id));
                         cmd.Parameters.Add(new SqlParameter("@Name", obj.Name));
-                        cmd.Parameters.Add(new SqlParameter("@Address", obj.Address));
                         cmd.Parameters.Add(new SqlParameter("@Phone1", obj.Phone1));
                         cmd.Parameters.Add(new SqlParameter("@Phone2", obj.Phone2));
                         cmd.Parameters.Add(new SqlParameter("@Email", obj.Email));
@@ -3094,19 +3093,19 @@ namespace LinkCajaV2.Data
         {
             try
             {
-                using (System.Data.SqlClient.SqlConnection sql = new System.Data.SqlClient.SqlConnection(Connection))
+                using (SqlConnection sql = new SqlConnection(Connection))
                 {
                     // cambie el procedimiento por el que ya estaba 
-                    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("SaveClient", sql))
+                    using (SqlCommand cmd = new SqlCommand("SaveClient", sql))
                     {
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Id", obj.Id));
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", obj.Nombre));
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Email", obj.Correo ?? string.Empty));
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Phone1", obj.Telefono1));
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Phone2", obj.Telefono2 ?? string.Empty));
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Status", obj.Estatus));
+                        cmd.Parameters.Add(new SqlParameter("@Id", obj.Id));
+                        cmd.Parameters.Add(new SqlParameter("@Name", obj.Nombre));
+                        cmd.Parameters.Add(new SqlParameter("@Email", obj.Correo ?? string.Empty));
+                        cmd.Parameters.Add(new SqlParameter("@Phone1", obj.Telefono1));
+                        cmd.Parameters.Add(new SqlParameter("@Phone2", obj.Telefono2 ?? string.Empty));
+                        cmd.Parameters.Add(new SqlParameter("@Status", obj.Estatus));
 
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
@@ -3124,13 +3123,13 @@ namespace LinkCajaV2.Data
         {
             try
             {
-                using (System.Data.SqlClient.SqlConnection sql = new System.Data.SqlClient.SqlConnection(Connection))
+                using (SqlConnection sql = new SqlConnection(Connection))
                 {
                  
-                    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("UpdateClientStatus", sql))
+                    using (SqlCommand cmd = new SqlCommand("UpdateClientStatus", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Id", id));
+                        cmd.Parameters.Add(new SqlParameter("@Id", id));
 
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
@@ -3154,13 +3153,13 @@ namespace LinkCajaV2.Data
             List<ClienteModel> list = new List<ClienteModel>();
             try
             {
-                using (System.Data.SqlClient.SqlConnection sql = new System.Data.SqlClient.SqlConnection(Connection))
+                using (SqlConnection sql = new SqlConnection(Connection))
                 {
-                    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("GetClientsFiltro", sql))
+                    using (SqlCommand cmd = new SqlCommand("GetClientsFiltro", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                        
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", buscar));
+                        cmd.Parameters.Add(new SqlParameter("@Name", buscar));
 
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
@@ -3181,7 +3180,7 @@ namespace LinkCajaV2.Data
         }
 
         // Mapeo
-        private ClienteModel MapToCliente(System.Data.SqlClient.SqlDataReader reader)
+        private ClienteModel MapToCliente(SqlDataReader reader)
         {
             return new LinkCajaV2.Model.ClienteModel()
             {
@@ -3203,17 +3202,17 @@ namespace LinkCajaV2.Data
         {
             try
             {
-                using (System.Data.SqlClient.SqlConnection sql = new System.Data.SqlClient.SqlConnection(Connection))
+                using (SqlConnection sql = new SqlConnection(Connection))
                 {
-                    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("UpdateClientLocation", sql))
+                    using (SqlCommand cmd = new SqlCommand("UpdateClientLocation", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         // SQL 
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Id", id));
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Address", direccion));
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Latitud", latitud));
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Longitud", longitud));
-                        cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CostoEnvio", costoEnvio));
+                        cmd.Parameters.Add(new SqlParameter("@Id", id));
+                        cmd.Parameters.Add(new SqlParameter("@Address", direccion));
+                        cmd.Parameters.Add(new SqlParameter("@Latitud", latitud));
+                        cmd.Parameters.Add(new SqlParameter("@Longitud", longitud));
+                        cmd.Parameters.Add(new SqlParameter("@CostoEnvio", costoEnvio));
 
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
