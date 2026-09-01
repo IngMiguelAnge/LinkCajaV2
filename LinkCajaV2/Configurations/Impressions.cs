@@ -25,7 +25,8 @@ namespace LinkCajaV2.Configurations
             CBPagina.Items.Add("Seleccione");
             if (CBImpresiones.Text != "Ticket")
                 CBPagina.Items.Add("A4");
-            CBPagina.Items.Add("mm");
+            else
+                CBPagina.Items.Add("mm");
             CBPagina.SelectedIndex = 0;
 
             CBModificar.Items.Add("Seleccione");
@@ -110,7 +111,7 @@ namespace LinkCajaV2.Configurations
             GBLetras.Visible = false;
             GBLinea.Visible = false;
             GBUnidos.Visible = false;
-            int Fontsize = 16;
+
             string Color = "Black";
             string FontStyle = "SemiBold";
 
@@ -120,8 +121,10 @@ namespace LinkCajaV2.Configurations
             {
                 GBUnidos.Visible = true;
                 GBLetras.Visible = true;
-                Fontsize = ConfigImpressions.Find(x => x.Name == CBModificar.Text) != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == CBModificar.Text).FontSize) : 16;
+                int Fontsize = ConfigImpressions.Find(x => x.Name == CBModificar.Text) != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == CBModificar.Text).FontSize) : 16;
                 NUDSizeLetra.Value = Fontsize;
+                int Caracteres = ConfigImpressions.Find(x => x.Name == CBModificar.Text) != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == CBModificar.Text).Caracters) : 500;
+                nudCaracteres.Value = Caracteres;
                 Color = ConfigImpressions.Find(x => x.Name == CBModificar.Text) != null ? ConfigImpressions.Find(x => x.Name == CBModificar.Text).FontColor : "Black";
                 CBColorLetra.SelectedValue = Color;
                 FontStyle = ConfigImpressions.Find(x => x.Name == CBModificar.Text) != null ? ConfigImpressions.Find(x => x.Name == CBModificar.Text).FontStyle : "SemiBold";
@@ -150,7 +153,6 @@ namespace LinkCajaV2.Configurations
             CBAlineacion.Items.Clear();
             CBColorLinea.DataSource = null;
             CBColorLinea.Items.Clear();
-
             switch (CBImpresiones.Text)
             {
                 case "Lista de precios":
@@ -316,7 +318,8 @@ namespace LinkCajaV2.Configurations
                             Name = CBModificar.Text,
                             FontSize = Convert.ToInt32(NUDSizeLetra.Value),
                             FontColor = CBColorLetra.SelectedValue.ToString(),
-                            FontStyle = CBEstilo.SelectedItem.ToString()
+                            FontStyle = CBEstilo.SelectedItem.ToString(),
+                            Caracters = Convert.ToInt32(nudCaracteres.Value)
                         };
                         result = await obj.SaveConfigImpressions(objConfig);
                         break;

@@ -79,16 +79,16 @@ namespace LinkCajaV2.Data
                             // Espaciado vertical entre cada artículo de la lista
                             listCol.Spacing((float)ConfigBox.Spacing);
 
-                            int ArticuloFontsize = ConfigImpressions.Find(x => x.Name == "Articulo") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Articulo").FontSize) : 16;
-                            string ArticuloColor = ConfigImpressions.Find(x => x.Name == "Articulo") != null ? ConfigImpressions.Find(x => x.Name == "Articulo").FontColor : "Black";
+                            int ArticuloFontsize = ConfigImpressions.Find(x => x.Name == "Articulos") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Articulos").FontSize) : 16;
+                            string ArticuloColor = ConfigImpressions.Find(x => x.Name == "Articulos") != null ? ConfigImpressions.Find(x => x.Name == "Articulos").FontColor : "Black";
                             ArticuloColor = CodigodeColor(ArticuloColor);
-                            string ArticuloFontStyle = ConfigImpressions.Find(x => x.Name == "Articulo") != null ? ConfigImpressions.Find(x => x.Name == "Articulo").FontStyle : "SemiBold";
+                            string ArticuloFontStyle = ConfigImpressions.Find(x => x.Name == "Articulos") != null ? ConfigImpressions.Find(x => x.Name == "Articulos").FontStyle : "SemiBold";
                             var EstiloArticulo = ObtenerEstiloPersonalizado(ArticuloFontStyle, ArticuloFontsize, ArticuloColor);
 
-                            int PrecioFontsize = ConfigImpressions.Find(x => x.Name == "Precio") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Precio").FontSize) : 16;
-                            string PrecioColor = ConfigImpressions.Find(x => x.Name == "Precio") != null ? ConfigImpressions.Find(x => x.Name == "Precio").FontColor : "Black";
+                            int PrecioFontsize = ConfigImpressions.Find(x => x.Name == "Precios") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Precios").FontSize) : 16;
+                            string PrecioColor = ConfigImpressions.Find(x => x.Name == "Precios") != null ? ConfigImpressions.Find(x => x.Name == "Precios").FontColor : "Black";
                             PrecioColor = CodigodeColor(PrecioColor);
-                            string PrecioFontStyle = ConfigImpressions.Find(x => x.Name == "Precio") != null ? ConfigImpressions.Find(x => x.Name == "Precio").FontStyle : "SemiBold";
+                            string PrecioFontStyle = ConfigImpressions.Find(x => x.Name == "Precios") != null ? ConfigImpressions.Find(x => x.Name == "Precios").FontStyle : "SemiBold";
                             var EstiloPrecio = ObtenerEstiloPersonalizado(PrecioFontStyle, PrecioFontsize, PrecioColor);
                             listCol.Item().Column(headerCol =>
                             {
@@ -201,16 +201,16 @@ namespace LinkCajaV2.Data
                             // Espaciado vertical entre cada artículo de la lista
                             listCol.Spacing((float)ConfigBox.Spacing);
 
-                            int ArticuloFontsize = ConfigImpressions.Find(x => x.Name == "Articulo") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Articulo").FontSize) : 16;
-                            string ArticuloColor = ConfigImpressions.Find(x => x.Name == "Articulo") != null ? ConfigImpressions.Find(x => x.Name == "Articulo").FontColor : "Black";
+                            int ArticuloFontsize = ConfigImpressions.Find(x => x.Name == "Articulos") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Articulos").FontSize) : 16;
+                            string ArticuloColor = ConfigImpressions.Find(x => x.Name == "Articulos") != null ? ConfigImpressions.Find(x => x.Name == "Articulos").FontColor : "Black";
                             ArticuloColor = CodigodeColor(ArticuloColor);
-                            string ArticuloFontStyle = ConfigImpressions.Find(x => x.Name == "Articulo") != null ? ConfigImpressions.Find(x => x.Name == "Articulo").FontStyle : "SemiBold";
+                            string ArticuloFontStyle = ConfigImpressions.Find(x => x.Name == "Articulos") != null ? ConfigImpressions.Find(x => x.Name == "Articulos").FontStyle : "SemiBold";
                             var EstiloArticulo = ObtenerEstiloPersonalizado(ArticuloFontStyle, ArticuloFontsize, ArticuloColor);
 
-                            int PrecioFontsize = ConfigImpressions.Find(x => x.Name == "Precio") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Precio").FontSize) : 16;
-                            string PrecioColor = ConfigImpressions.Find(x => x.Name == "Precio") != null ? ConfigImpressions.Find(x => x.Name == "Precio").FontColor : "Black";
+                            int PrecioFontsize = ConfigImpressions.Find(x => x.Name == "Precios") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Precios").FontSize) : 16;
+                            string PrecioColor = ConfigImpressions.Find(x => x.Name == "Precios") != null ? ConfigImpressions.Find(x => x.Name == "Precios").FontColor : "Black";
                             PrecioColor = CodigodeColor(PrecioColor);
-                            string PrecioFontStyle = ConfigImpressions.Find(x => x.Name == "Precio") != null ? ConfigImpressions.Find(x => x.Name == "Precio").FontStyle : "SemiBold";
+                            string PrecioFontStyle = ConfigImpressions.Find(x => x.Name == "Precios") != null ? ConfigImpressions.Find(x => x.Name == "Precios").FontStyle : "SemiBold";
                             var EstiloPrecio = ObtenerEstiloPersonalizado(PrecioFontStyle, PrecioFontsize, PrecioColor);
                             listCol.Item().Column(headerCol =>
                             {
@@ -332,21 +332,24 @@ namespace LinkCajaV2.Data
                                     break;
                             }
 
-                            int ArticuloFontsize = ConfigImpressions.Find(x => x.Name == "Articulo") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Articulo").FontSize) : 16;
-                            string ArticuloColor = ConfigImpressions.Find(x => x.Name == "Articulo") != null ? ConfigImpressions.Find(x => x.Name == "Articulo").FontColor : "Black";
+                            int ArticuloFontsize = ConfigImpressions.Find(x => x.Name == "Articulos") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Articulos").FontSize) : 16;
+                            string ArticuloColor = ConfigImpressions.Find(x => x.Name == "Articulos") != null ? ConfigImpressions.Find(x => x.Name == "Articulos").FontColor : "Black";
                             ArticuloColor = CodigodeColor(ArticuloColor);
-                            string ArticuloFontStyle = ConfigImpressions.Find(x => x.Name == "Articulo") != null ? ConfigImpressions.Find(x => x.Name == "Articulo").FontStyle : "SemiBold";
+                            int ArticuloCaracter = ConfigImpressions.Find(x => x.Name == "Articulos") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Articulos").Caracters) : 500;
+
+                            string ArticuloFontStyle = ConfigImpressions.Find(x => x.Name == "Articulo") != null ? ConfigImpressions.Find(x => x.Name == "Articulos").FontStyle : "SemiBold";
                             var EstiloArticulo = ObtenerEstiloPersonalizado(ArticuloFontStyle, ArticuloFontsize, ArticuloColor);
 
-                            int PrecioFontsize = ConfigImpressions.Find(x => x.Name == "Precio") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Precio").FontSize) : 16;
-                            string PrecioColor = ConfigImpressions.Find(x => x.Name == "Precio") != null ? ConfigImpressions.Find(x => x.Name == "Precio").FontColor : "Black";
+                            int PrecioFontsize = ConfigImpressions.Find(x => x.Name == "Precios") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Precios").FontSize) : 16;
+                            string PrecioColor = ConfigImpressions.Find(x => x.Name == "Precios") != null ? ConfigImpressions.Find(x => x.Name == "Precios").FontColor : "Black";
                             PrecioColor = CodigodeColor(PrecioColor);
-                            string PrecioFontStyle = ConfigImpressions.Find(x => x.Name == "Precio") != null ? ConfigImpressions.Find(x => x.Name == "Precio").FontStyle : "SemiBold";
+                            string PrecioFontStyle = ConfigImpressions.Find(x => x.Name == "Precios") != null ? ConfigImpressions.Find(x => x.Name == "Precios").FontStyle : "SemiBold";
                             var EstiloPrecio = ObtenerEstiloPersonalizado(PrecioFontStyle, PrecioFontsize, PrecioColor);
 
                             foreach (var item in ListArticulos)
                             {
-                                inlined.Item().Element(c => DibujarCuadroArticulo(c, item.Articulo, item.Precio, EstiloArticulo, EstiloPrecio));
+                                string Articulo = item.Articulo.Length > ArticuloCaracter ? item.Articulo.Substring(0, ArticuloCaracter) + "..." : item.Articulo;
+                                inlined.Item().Element(c => DibujarCuadroArticulo(c, Articulo, item.Precio, EstiloArticulo, EstiloPrecio));
                             }
                         });
 

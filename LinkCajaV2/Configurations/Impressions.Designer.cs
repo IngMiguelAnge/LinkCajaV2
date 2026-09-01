@@ -58,12 +58,14 @@
             this.NUDALMilimetros = new System.Windows.Forms.NumericUpDown();
             this.GBMPagina = new System.Windows.Forms.GroupBox();
             this.GBLetras = new System.Windows.Forms.GroupBox();
+            this.nudCaracteres = new System.Windows.Forms.NumericUpDown();
             this.GBCuadros = new System.Windows.Forms.GroupBox();
             this.GBLinea = new System.Windows.Forms.GroupBox();
             this.btnImprimir = new System.Windows.Forms.Button();
             this.CBImprimir = new System.Windows.Forms.CheckBox();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.GBUnidos = new System.Windows.Forms.GroupBox();
+            this.lblCaracteres = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NUDSizeLetra)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDEspacio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDAncho)).BeginInit();
@@ -72,6 +74,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.NUDALMilimetros)).BeginInit();
             this.GBMPagina.SuspendLayout();
             this.GBLetras.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCaracteres)).BeginInit();
             this.GBCuadros.SuspendLayout();
             this.GBLinea.SuspendLayout();
             this.GBUnidos.SuspendLayout();
@@ -307,7 +310,7 @@
             this.BtnGuardar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnGuardar.ForeColor = System.Drawing.Color.White;
             this.BtnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("BtnGuardar.Image")));
-            this.BtnGuardar.Location = new System.Drawing.Point(497, 475);
+            this.BtnGuardar.Location = new System.Drawing.Point(497, 533);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(200, 48);
             this.BtnGuardar.TabIndex = 21;
@@ -404,6 +407,8 @@
             // GBLetras
             // 
             this.GBLetras.Controls.Add(this.NUDSizeLetra);
+            this.GBLetras.Controls.Add(this.lblCaracteres);
+            this.GBLetras.Controls.Add(this.nudCaracteres);
             this.GBLetras.Controls.Add(this.lblSizeLetra);
             this.GBLetras.Controls.Add(this.lblEstiloLetra);
             this.GBLetras.Controls.Add(this.CBEstilo);
@@ -412,13 +417,36 @@
             this.GBLetras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.GBLetras.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GBLetras.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.GBLetras.Location = new System.Drawing.Point(0, 0);
+            this.GBLetras.Location = new System.Drawing.Point(347, 76);
             this.GBLetras.Name = "GBLetras";
-            this.GBLetras.Size = new System.Drawing.Size(350, 352);
+            this.GBLetras.Size = new System.Drawing.Size(350, 398);
             this.GBLetras.TabIndex = 29;
             this.GBLetras.TabStop = false;
             this.GBLetras.Text = "Estilo de letras";
             this.GBLetras.Visible = false;
+            // 
+            // nudCaracteres
+            // 
+            this.nudCaracteres.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudCaracteres.Location = new System.Drawing.Point(25, 319);
+            this.nudCaracteres.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.nudCaracteres.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudCaracteres.Name = "nudCaracteres";
+            this.nudCaracteres.Size = new System.Drawing.Size(250, 37);
+            this.nudCaracteres.TabIndex = 36;
+            this.nudCaracteres.Value = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
             // 
             // GBCuadros
             // 
@@ -461,7 +489,7 @@
             this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImprimir.Image = ((System.Drawing.Image)(resources.GetObject("btnImprimir.Image")));
-            this.btnImprimir.Location = new System.Drawing.Point(277, 475);
+            this.btnImprimir.Location = new System.Drawing.Point(277, 533);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(200, 48);
             this.btnImprimir.TabIndex = 32;
@@ -478,7 +506,7 @@
             this.CBImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CBImprimir.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBImprimir.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.CBImprimir.Location = new System.Drawing.Point(40, 491);
+            this.CBImprimir.Location = new System.Drawing.Point(40, 549);
             this.CBImprimir.Name = "CBImprimir";
             this.CBImprimir.Size = new System.Drawing.Size(215, 32);
             this.CBImprimir.TabIndex = 28;
@@ -499,7 +527,6 @@
             // 
             // GBUnidos
             // 
-            this.GBUnidos.Controls.Add(this.GBLetras);
             this.GBUnidos.Controls.Add(this.GBCuadros);
             this.GBUnidos.Controls.Add(this.GBLinea);
             this.GBUnidos.Location = new System.Drawing.Point(350, 100);
@@ -508,12 +535,24 @@
             this.GBUnidos.TabIndex = 34;
             this.GBUnidos.TabStop = false;
             // 
+            // lblCaracteres
+            // 
+            this.lblCaracteres.AutoSize = true;
+            this.lblCaracteres.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCaracteres.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblCaracteres.Location = new System.Drawing.Point(20, 291);
+            this.lblCaracteres.Name = "lblCaracteres";
+            this.lblCaracteres.Size = new System.Drawing.Size(211, 25);
+            this.lblCaracteres.TabIndex = 37;
+            this.lblCaracteres.Text = "Cantidad de caracteres:";
+            // 
             // Impressions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(775, 555);
+            this.ClientSize = new System.Drawing.Size(767, 593);
+            this.Controls.Add(this.GBLetras);
             this.Controls.Add(this.GBUnidos);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.CBImprimir);
@@ -543,6 +582,7 @@
             this.GBMPagina.PerformLayout();
             this.GBLetras.ResumeLayout(false);
             this.GBLetras.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCaracteres)).EndInit();
             this.GBCuadros.ResumeLayout(false);
             this.GBCuadros.PerformLayout();
             this.GBLinea.ResumeLayout(false);
@@ -590,5 +630,7 @@
         private System.Windows.Forms.CheckBox CBImprimir;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.GroupBox GBUnidos;
+        private System.Windows.Forms.NumericUpDown nudCaracteres;
+        private System.Windows.Forms.Label lblCaracteres;
     }
 }

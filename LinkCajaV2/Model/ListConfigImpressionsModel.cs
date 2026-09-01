@@ -6,5 +6,6 @@
         public int FontSize { get; set; }
         public string FontStyle { get; set; }
         public string FontColor { get; set; }
+        public int Caracters { get; set; }
     }
 }

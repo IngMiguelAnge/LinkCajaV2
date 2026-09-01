@@ -18,8 +18,8 @@ namespace LinkCajaV2.Data
         public string Connection { get; set; }
         public AppRepository(bool isUnitOfWork = false)
         {
-            Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
-            //Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            //Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
         }
         public void Dispose()
         {
@@ -1150,6 +1150,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@FontSize", obj.FontSize));
                         cmd.Parameters.Add(new SqlParameter("@FontStyle", obj.FontStyle));
                         cmd.Parameters.Add(new SqlParameter("@FontColor", obj.FontColor));
+                        cmd.Parameters.Add(new SqlParameter("@Caracters", obj.Caracters));
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;
@@ -1247,6 +1248,7 @@ namespace LinkCajaV2.Data
                 FontSize = (int)reader["FontSize"],
                 FontStyle = (string)reader["FontStyle"],
                 FontColor = (string)reader["FontColor"],
+                Caracters = (int)reader["Caracters"],
             };
         }
         public async Task<ConfigPageModel> GetConfigBox()
