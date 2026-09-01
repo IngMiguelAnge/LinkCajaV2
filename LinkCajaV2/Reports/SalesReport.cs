@@ -113,7 +113,8 @@ namespace LinkCajaV2.Reports
                     // Los 0
                     lblTotalGeneral.Text = " Venta Total: $0.00";
                     lblInversionTotal.Text = "Inversión Total: $0.00"; 
-                    lblGananciaTotal.Text = "Total Ganancia: $0.00";   
+                    lblGananciaTotal.Text = "Total Ganancia: $0.00";
+                    lblTotalEnvio.Text = "Total envio: $0.00";
                     return;
                 }
 

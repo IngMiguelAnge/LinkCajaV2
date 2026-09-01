@@ -2981,6 +2981,7 @@ namespace LinkCajaV2.Data
             {
                 Code = reader["Code"] != DBNull.Value ? Convert.ToString(reader["Code"]) : string.Empty,
                 Description = reader["Description"] != DBNull.Value ? Convert.ToString(reader["Description"]) : string.Empty,
+                Stock = reader["Stock"] != DBNull.Value ? Convert.ToDecimal(reader["Stock"]) : 0,
                 Category = reader["Category"] != DBNull.Value ? Convert.ToString(reader["Category"]) : string.Empty,
                 QuantitySold = reader["QuantitySold"] != DBNull.Value ? Convert.ToDecimal(reader["QuantitySold"]) : 0,
                 Profit = reader["Profit"] != DBNull.Value ? Convert.ToDecimal(reader["Profit"]) : 0,
