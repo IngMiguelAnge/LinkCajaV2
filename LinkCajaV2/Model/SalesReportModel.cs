@@ -10,6 +10,7 @@ namespace LinkCajaV2.Model
     {
         public string Code { get; set; }
         public string Description { get; set; }
+        public decimal Stock { get; set; }
         public string Category { get; set; }
         public decimal QuantitySold { get; set; }
         public decimal Profit { get; set; }

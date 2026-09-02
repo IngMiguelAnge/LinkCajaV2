@@ -443,6 +443,7 @@ namespace LinkCajaV2.Data
                                     row.RelativeItem(1.2f).AlignLeft().Text("Código").Style(EstiloArticulo).SemiBold();
                                     row.RelativeItem(2.5f).AlignLeft().Text("Descripción").Style(EstiloArticulo).SemiBold();
                                     row.RelativeItem(1.2f).AlignCenter().Text("Categoría").Style(EstiloArticulo).SemiBold();
+                                    row.RelativeItem(0.8f).AlignCenter().Text("Stock").Style(EstiloArticulo).SemiBold();
                                     row.RelativeItem(0.8f).AlignCenter().Text("Cant.").Style(EstiloArticulo).SemiBold();
                                     row.RelativeItem(1.2f).AlignRight().Text("P.Venta").Style(EstiloArticulo).SemiBold();
                                     row.RelativeItem(1.2f).AlignRight().Text("P.Prov").Style(EstiloArticulo).SemiBold();
@@ -474,6 +475,7 @@ namespace LinkCajaV2.Data
                                         row.RelativeItem(1.2f).AlignLeft().Text(item.Code).Style(EstiloArticulo);
                                         row.RelativeItem(2.5f).AlignLeft().Text(item.Description).Style(EstiloArticulo);
                                         row.RelativeItem(1.2f).AlignCenter().Text(item.Category).Style(EstiloArticulo);
+                                        row.RelativeItem(0.8f).AlignCenter().Text(item.Stock.ToString()).Style(EstiloArticulo);
                                         row.RelativeItem(0.8f).AlignCenter().Text(item.QuantitySold.ToString("N2")).Style(EstiloArticulo);
 
                                         row.RelativeItem(1.2f).AlignRight().Text(item.SalePrice.ToString("'$' #,##0.00")).Style(EstiloArticulo);
