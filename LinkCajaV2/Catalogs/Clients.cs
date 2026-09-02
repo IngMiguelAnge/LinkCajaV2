@@ -35,7 +35,8 @@ namespace LinkCajaV2.Catalogs
             try
             {
                 AppRepository app = new AppRepository();
-                var listaClientes = await Task.Run(() => app.GetClientsbyNombre(txtBuscar.Text));
+                //var listaClientes = await Task.Run(() => app.GetClientsbyNombre(txtBuscar.Text));
+                var listaClientes = await app.GetClientsbyNombre(txtBuscar.Text.Trim());
 
                 if (listaClientes == null || listaClientes.Count == 0)
                 {
@@ -97,7 +98,7 @@ namespace LinkCajaV2.Catalogs
             dgvClientes.Columns.Add(new DataGridViewTextBoxColumn { Name = "Nombre", HeaderText = "Nombre", DataPropertyName = "Nombre", AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill });
             dgvClientes.Columns.Add(new DataGridViewTextBoxColumn { Name = "CostoEnvio", HeaderText = "Costo de Envío", DataPropertyName = "CostoEnvio", DefaultCellStyle = new DataGridViewCellStyle { Format = "$ #,##0.00" } });
             dgvClientes.Columns.Add(new DataGridViewTextBoxColumn { Name = "Telefono1", DataPropertyName = "Telefono1", Visible = false });
-            dgvClientes.Columns.Add(new DataGridViewTextBoxColumn { Name = "Estatus", DataPropertyName = "Estatus", Visible = false });
+            dgvClientes.Columns.Add(new DataGridViewTextBoxColumn { Name = "Estatus", HeaderText = "Estatus", DataPropertyName = "Estatus", Visible = true });
 
             // Botones
 
@@ -156,7 +157,29 @@ namespace LinkCajaV2.Catalogs
         private async void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
+            //Saco los datos de las filas 
             int idCliente = (int)dgvClientes.Rows[e.RowIndex].Cells["Id"].Value;
+            string nombreBoton = dgvClientes.Columns[e.ColumnIndex].Name;
+            bool estatusCliente = (bool)dgvClientes.Rows[e.RowIndex].Cells["Estatus"].Value;
+            decimal costoEnvioCliente = Convert.ToDecimal(dgvClientes.Rows[e.RowIndex].Cells["CostoEnvio"].Value);
+
+            if (idCliente == 1 )
+            {
+                MessageBox.Show("El Cliente General es del sistema y no puede ser modificado.", "Acción Denegada", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            if (nombreBoton == "btnSeleccionar" && estatusCliente == false)
+            {
+                MessageBox.Show("Este cliente está inactivo. No puedes seleccionarlo para realizar una venta.", "Cliente Inactivo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (nombreBoton == "btnSeleccionar" && idCliente != 1 && costoEnvioCliente <= 0)
+            {
+                MessageBox.Show("Este cliente no tiene una tarifa de envío asignada. Por favor, configura su Logística (Ubicación/Tarifa) antes de seleccionarlo.", "Tarifa Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             AppRepository app = new AppRepository();
 
@@ -200,15 +223,32 @@ namespace LinkCajaV2.Catalogs
                 case "btnUbicacion":
                     Ubicacion frmMapa = new Ubicacion();
                     frmMapa.IdCliente = idCliente;
-                    frmMapa.ShowDialog();
+
+                    if (frmMapa.ShowDialog() == DialogResult.OK)
+                    {
+                        await BuscarClientes();
+                    }
                     break;
             }
         }
+     
 
         private async void BtnBuscar_Click(object sender, EventArgs e)
         {
             await BuscarClientes();
         }
 
+        private void dgvClientes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvClientes.Columns[e.ColumnIndex].Name == "Estatus" && e.Value != null)
+            {
+                if (e.Value is bool estatus)
+                {
+                    // Cambia el texto visualmente
+                    e.Value = estatus ? "Activo" : "Inactivo";
+                    e.FormattingApplied = true;
+                }
+            }
+        }
     }
 }

@@ -89,10 +89,12 @@ namespace LinkCajaV2.Items
 
         public void Cambio()
         {
+            decimal totalAPagar = Total + Envio;
+
             if (decimal.TryParse(nudRecibido.Text, out decimal valorActual))
             {
-                if (valorActual >= Total)
-                    lblCambio.Text = "CAMBIO: " + (valorActual - Total).ToString("C");
+                if (valorActual >= totalAPagar)
+                    lblCambio.Text = "CAMBIO: " + (valorActual - totalAPagar).ToString("C");
                 else
                     lblCambio.Text = "CAMBIO: " + (0).ToString("C2");
             }
@@ -101,6 +103,19 @@ namespace LinkCajaV2.Items
                 // Si el usuario borró todo o el texto no es válido, reseteamos el label
                 lblCambio.Text = "CAMBIO: " + (0).ToString("C2");
             }
+
+            //if (decimal.TryParse(nudRecibido.Text, out decimal valorActual))
+            //{
+            //    if (valorActual >= Total)
+            //        lblCambio.Text = "CAMBIO: " + (valorActual - Total).ToString("C");
+            //    else
+            //        lblCambio.Text = "CAMBIO: " + (0).ToString("C2");
+            //}
+            //else
+            //{
+            //    // Si el usuario borró todo o el texto no es válido, reseteamos el label
+            //    lblCambio.Text = "CAMBIO: " + (0).ToString("C2");
+            //}
         }
 
         private void nudRecibido_KeyDown(object sender, KeyEventArgs e)

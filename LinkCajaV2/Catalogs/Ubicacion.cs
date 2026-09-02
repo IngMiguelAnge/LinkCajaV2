@@ -2,6 +2,7 @@
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using ImageMagick;
+using LinkCajaV2.Data;
 using System;
 using System.Net;
 using System.Windows.Forms;
@@ -12,10 +13,6 @@ namespace LinkCajaV2.Catalogs
     public partial class Ubicacion : Form
     {
         public int IdCliente { get; set; }
-        public string DireccionSeleccionada { get; set; }
-        public string LatitudSeleccionada { get; set; }
-        public string LongitudSeleccionada { get; set; }
-        public decimal CostoSeleccionado { get; set; }
 
         GMapOverlay capaMarcadores;
         GMarkerGoogle marcador;
@@ -57,34 +54,59 @@ namespace LinkCajaV2.Catalogs
             }
         }
 
-        public void Ubicacion_Load(object sender, EventArgs e)
+        public async void Ubicacion_Load(object sender, EventArgs e)
         {
+
             this.WindowState = FormWindowState.Maximized;
-            //Coordenadas por defecto 
 
-            double latitude = 18.68165869879;
-            double longitude = -97.64837265014;
-
+            // Configuración base del mapa
             GMap.NET.MapProviders.GMapProvider.UserAgent = "LinkCajaV2_v1.0";
             gMap.MapProvider = GMap.NET.MapProviders.OpenStreetMapProvider.Instance;
-
             cmbMapas.SelectedIndex = 3;
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
-
-            gMap.Position = new PointLatLng(latitude, longitude);
             gMap.MinZoom = 2;
             gMap.MaxZoom = 20;
             gMap.Zoom = 18;
-
             gMap.DragButton = MouseButtons.Right;
+            gMap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionWithoutCenter;
+
             capaMarcadores = new GMapOverlay("capa1");
             gMap.Overlays.Add(capaMarcadores);
 
+            // Coordenadas por defecto
+            double latitude = 18.68165869879;
+            double longitude = -97.64837265014;
+
+            // Si hay ID 0 
+            if (IdCliente != 0)
+            {
+                try
+                {
+                    AppRepository obj = new AppRepository();
+                    var cliente = await obj.GetClientebyId(IdCliente);
+
+         
+                    if (cliente != null && !string.IsNullOrWhiteSpace(cliente.Latitud))
+                    {
+                        latitude = Convert.ToDouble(cliente.Latitud);
+                        longitude = Convert.ToDouble(cliente.Longitud);
+                        txtDireccionProporcionada.Text = cliente.Direccion;
+                        txtLatitud.Text = cliente.Latitud;
+                        txtLongitud.Text = cliente.Longitud;
+                        numCostoEnvio.Value = cliente.CostoEnvio;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al cargar ubicación previa: " + ex.Message);
+                }
+            }
+
+            //  Posicionar el mapa y el marcador final
+            gMap.Position = new PointLatLng(latitude, longitude);
             marcador = new GMarkerGoogle(gMap.Position, GMarkerGoogleType.red_pushpin);
             marcador.IsVisible = true;
             capaMarcadores.Markers.Add(marcador);
-
-            gMap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionWithoutCenter;
         }
 
         private void gMap_OnMarkerEnter(GMapMarker item)
@@ -259,9 +281,8 @@ namespace LinkCajaV2.Catalogs
             }
         }
 
-        private void btnAceptarUbicacion_Click(object sender, EventArgs e)
+        private async void btnAceptarUbicacion_Click(object sender, EventArgs e)
         {
-
             if (txtDireccionProporcionada.Text.Trim() == string.Empty)
             {
                 MessageBox.Show("No hay una dirección sugerida para aceptar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -274,16 +295,16 @@ namespace LinkCajaV2.Catalogs
                 return;
             }
 
-
+           
             txtDireccionOficial.Text = txtDireccionProporcionada.Text;
 
-            DireccionSeleccionada = txtDireccionOficial.Text.Trim();
-            LatitudSeleccionada = txtLatitud.Text.Trim();
-            LongitudSeleccionada = txtLongitud.Text.Trim();
-            CostoSeleccionado = numCostoEnvio.Value; 
+            //Bloquea
+            txtDireccionProporcionada.Enabled = false;
+            txtLatitud.Enabled = false;
+            txtLongitud.Enabled = false;
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            // Habilita el de uardar 
+            BtnGuardar.Enabled = true;
         }
 
         private void btnCancelarDireccion_Click(object sender, EventArgs e)
@@ -295,9 +316,9 @@ namespace LinkCajaV2.Catalogs
         }
 
    
-        private void BtnGuardar_Click(object sender, EventArgs e)
+        private async void BtnGuardar_Click(object sender, EventArgs e)
         {
-            // Valido la tarifa 
+            // Validamos que exista una tarifa de envío
             if (numCostoEnvio.Value <= 0)
             {
                 MessageBox.Show("Debes ingresar una tarifa mayor a $0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -305,14 +326,42 @@ namespace LinkCajaV2.Catalogs
                 return;
             }
 
-           
-            DireccionSeleccionada = txtDireccionProporcionada.Text.Trim();
-            LatitudSeleccionada = txtLatitud.Text.Trim();
-            LongitudSeleccionada = txtLongitud.Text.Trim();
-            CostoSeleccionado = numCostoEnvio.Value;
+            // Validamos que tengamos un cliente seleccionado
+            if (IdCliente == 0)
+            {
+                MessageBox.Show("No hay un cliente válido para asignarle esta ubicación.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            try
+            {
+                // Guarda en SQL 
+                AppRepository obj = new AppRepository();
+
+                bool exito = await obj.UpdateUbicacionCliente(
+                    IdCliente,
+                    txtDireccionProporcionada.Text.Trim(),
+                    txtLatitud.Text.Trim(),
+                    txtLongitud.Text.Trim(),
+                    numCostoEnvio.Value
+                );
+
+                // si se guarda cierra 
+                if (exito)
+                {
+                    MessageBox.Show("Ubicación guardada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo actualizar la ubicación en la base de datos.", "Error SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error de conexión: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void CBCoordendadas_CheckedChanged(object sender, EventArgs e)

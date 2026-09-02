@@ -18,8 +18,8 @@ namespace LinkCajaV2.Data
         public string Connection { get; set; }
         public AppRepository(bool isUnitOfWork = false)
         {
-            //Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
-            Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            //Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
         }
         public void Dispose()
         {
@@ -1768,7 +1768,7 @@ namespace LinkCajaV2.Data
         {
             return new ListBoxModel()
             {
-             
+
                 Id = (int)reader["Id"],
                 Nombre = (string)reader["Name"],
                 Publicidad = (string)reader["Publicity"],
@@ -1777,7 +1777,7 @@ namespace LinkCajaV2.Data
 
                 //Id = (int)reader["Id"],
                 //Nombre = (string)reader["Name"],
-                
+
                 //Publicidad = (bool)reader["Publicity"] ? "Sí" : "No",
                 //Estatus = (bool)reader["Status"] ? "Activo" : "Inactivo",
                 //Ruleta = (bool)reader["Rulet"] ? "Sí" : "No"
@@ -3156,7 +3156,7 @@ namespace LinkCajaV2.Data
             {
                 using (SqlConnection sql = new SqlConnection(Connection))
                 {
-                    using (SqlCommand cmd = new SqlCommand("GetClientsbyNombre", sql))
+                    using (SqlCommand cmd = new SqlCommand("GetClientsFiltro", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                        
@@ -3175,7 +3175,7 @@ namespace LinkCajaV2.Data
             }
             catch (Exception ex)
             {
-                
+                System.Windows.Forms.MessageBox.Show("Error en GetClientsbyNombre: " + ex.Message);
             }
             return list;
         }
@@ -3228,6 +3228,44 @@ namespace LinkCajaV2.Data
                 //return false;
             }
         }
+
+        public async Task<ClienteModel> GetClientebyId(int id)
+        {
+            ClienteModel response = null;
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    
+                    using (SqlCommand cmd = new SqlCommand("GetClientsbyId", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", id));
+
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            if (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                               
+                                response = MapToCliente(reader);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+             
+            }
+            return response;
+        }
+
+
+
+
+
+
 
         #endregion
 

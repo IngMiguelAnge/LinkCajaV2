@@ -48,9 +48,30 @@ namespace LinkCajaV2.Catalogs
             }
         }
 
+        private async void Client_Load(object sender, EventArgs e)
+        {
+            if (IdCliente != 0)
+            {
+                try
+                {
+                    AppRepository app = new AppRepository();
+                    var cliente = await app.GetClientebyId(IdCliente);
 
-
-
+                    if (cliente != null)
+                    {
+                        // Pintamos los datos en las cajas de texto
+                        txtNombre.Text = cliente.Nombre;
+                        txtCorreo.Text = cliente.Correo;
+                        txtTelefono1.Text = cliente.Telefono1;
+                        txtTelefono2.Text = cliente.Telefono2;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al cargar los datos del cliente: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 
         
