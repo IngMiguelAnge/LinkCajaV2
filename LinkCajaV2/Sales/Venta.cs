@@ -421,6 +421,8 @@ namespace LinkCajaV2.Sales
                 decimal totalArticulos = bindingList.Sum(item => item.Total);
                 decimal totalFinal = totalArticulos + CostoEnvioActual;
 
+                lblDesglose.Text = $"Artículos: {totalArticulos:C2}   +   Envío: {CostoEnvioActual:C2}";
+
                 lblTotal.Text = $"Total {totalFinal:C2}";
             }
         }
@@ -453,6 +455,7 @@ namespace LinkCajaV2.Sales
             IdClienteActual = 1;
             CostoEnvioActual = 0m;
             lblEnvio.Text = "Envío: $0.00";
+            lblDesglose.Text = "";
             PBProducto.Image = null;
             NUDCantidad.Value = 1;
             ActualizarTotalGeneral();
