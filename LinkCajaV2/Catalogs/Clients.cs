@@ -35,8 +35,7 @@ namespace LinkCajaV2.Catalogs
             try
             {
                 AppRepository app = new AppRepository();
-                //var listaClientes = await Task.Run(() => app.GetClientsbyNombre(txtBuscar.Text));
-                var listaClientes = await app.GetClientsbyNombre(txtBuscar.Text.Trim());
+                var listaClientes = await app.GetClientsbyName(txtBuscar.Text);
 
                 if (listaClientes == null || listaClientes.Count == 0)
                 {

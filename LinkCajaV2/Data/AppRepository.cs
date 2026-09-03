@@ -18,8 +18,8 @@ namespace LinkCajaV2.Data
         public string Connection { get; set; }
         public AppRepository(bool isUnitOfWork = false)
         {
-            Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
-            //Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            //Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
         }
         public void Dispose()
         {
@@ -3150,14 +3150,14 @@ namespace LinkCajaV2.Data
 
 
         //  Buscar Clientes para el Catálogo 
-        public async Task<List<ClienteModel>> GetClientsbyNombre(string buscar)
+        public async Task<List<ClienteModel>> GetClientsbyName(string buscar)
         {
             List<ClienteModel> list = new List<ClienteModel>();
             try
             {
                 using (SqlConnection sql = new SqlConnection(Connection))
                 {
-                    using (SqlCommand cmd = new SqlCommand("GetClientsFiltro", sql))
+                    using (SqlCommand cmd = new SqlCommand("GetClientsbyName", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                        
