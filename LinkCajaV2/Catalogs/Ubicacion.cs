@@ -221,7 +221,9 @@ namespace LinkCajaV2.Catalogs
       
             string calleEncontrada = ObtenerCalleDesdeCoordenadas(marcador.Position.Lat, marcador.Position.Lng);
 
+            txtDireccionOficial.Text = calleEncontrada;
             txtDireccionProporcionada.Text = calleEncontrada;
+            BtnGuardar.Enabled = false;
         }
 
         private void gMap_MouseUp(object sender, MouseEventArgs e)
@@ -312,6 +314,7 @@ namespace LinkCajaV2.Catalogs
             txtDireccionProporcionada.Enabled = true;
             txtLatitud.Enabled = true;
             txtLongitud.Enabled = true;
+            BtnGuardar.Enabled = false;
 
         }
 
@@ -402,6 +405,7 @@ namespace LinkCajaV2.Catalogs
             txtDireccionProporcionada.Enabled = false;
             txtLatitud.Enabled = false;
             txtLongitud.Enabled = false;
+            BtnGuardar.Enabled = true;
         }
     }
 }
