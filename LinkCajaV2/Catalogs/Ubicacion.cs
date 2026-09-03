@@ -335,6 +335,12 @@ namespace LinkCajaV2.Catalogs
                 MessageBox.Show("No hay un cliente válido para asignarle esta ubicación.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            //Validar que si hay una direccion en el cuadro de texto 
+            if (string.IsNullOrWhiteSpace(txtLatitud.Text) || string.IsNullOrWhiteSpace(txtLongitud.Text))
+            {
+                MessageBox.Show("La ubicación está vacía. Por favor, busca una dirección en el mapa.", "Error de Ubicación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             try
             {
@@ -402,6 +408,19 @@ namespace LinkCajaV2.Catalogs
 
         private void btnConfirmarDireccion_Click(object sender, EventArgs e)
         {
+            //Validar que si escribieron 
+            if (string.IsNullOrWhiteSpace(txtLatitud.Text) || string.IsNullOrWhiteSpace(txtLongitud.Text))
+            {
+                MessageBox.Show("No hay coordenadas válidas para confirmar. Por favor, busca una dirección o mueve el marcador en el mapa.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtDireccionOficial.Text) && string.IsNullOrWhiteSpace(txtDireccionProporcionada.Text))
+            {
+                MessageBox.Show("No hay una dirección para confirmar. Por favor, realiza una búsqueda válida.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             txtDireccionProporcionada.Enabled = false;
             txtLatitud.Enabled = false;
             txtLongitud.Enabled = false;

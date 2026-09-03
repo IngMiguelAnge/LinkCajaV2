@@ -447,7 +447,7 @@ namespace LinkCajaV2.Sales
             var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
             bindingList?.Clear();
 
-            ActualizarTotalGeneral();
+            
 
             lblCliente.Text = "Cliente: Público General";
             IdClienteActual = 1;
@@ -455,6 +455,7 @@ namespace LinkCajaV2.Sales
             lblEnvio.Text = "Envío: $0.00";
             PBProducto.Image = null;
             NUDCantidad.Value = 1;
+            ActualizarTotalGeneral();
         }
         private void dgvArticulos_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
