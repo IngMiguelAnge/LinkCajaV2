@@ -454,8 +454,7 @@ namespace LinkCajaV2.Sales
             lblCliente.Text = "Cliente: Público General";
             IdClienteActual = 1;
             CostoEnvioActual = 0m;
-            lblEnvio.Text = "Envío: $0.00";
-            lblDesglose.Text = "";
+            lblDesglose.Text = "Envío: $0.00";
             PBProducto.Image = null;
             NUDCantidad.Value = 1;
             ActualizarTotalGeneral();
@@ -880,7 +879,7 @@ namespace LinkCajaV2.Sales
                 CostoEnvioActual = frmClientes.CostoSeleccionado;
                 NombreClienteActual = frmClientes.NombreSeleccionado;
                 lblCliente.Text = $"Cliente: {frmClientes.NombreSeleccionado}";
-                lblEnvio.Text = $"Envío: {CostoEnvioActual:C2}";
+                lblDesglose.Text = $"Envío: {CostoEnvioActual:C2}";
                 ActualizarTotalGeneral();
             }
         }

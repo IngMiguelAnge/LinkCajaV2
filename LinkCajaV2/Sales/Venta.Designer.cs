@@ -31,9 +31,9 @@ namespace LinkCajaV2.Sales
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Venta));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelLateral = new System.Windows.Forms.Panel();
             this.panelwebview = new System.Windows.Forms.Panel();
             this.webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
@@ -53,6 +53,7 @@ namespace LinkCajaV2.Sales
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblUsuario = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblDesglose = new System.Windows.Forms.Label();
             this.lblCopias = new System.Windows.Forms.Label();
             this.PBProducto = new System.Windows.Forms.PictureBox();
             this.CBImprimir = new System.Windows.Forms.CheckBox();
@@ -62,10 +63,7 @@ namespace LinkCajaV2.Sales
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lblNombreEmpresa = new System.Windows.Forms.Label();
             this.lblCliente = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblEnvio = new System.Windows.Forms.Label();
             this.btnBuscarCliente = new System.Windows.Forms.Button();
-            this.lblDesglose = new System.Windows.Forms.Label();
             this.panelLateral.SuspendLayout();
             this.panelwebview.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
@@ -153,7 +151,7 @@ namespace LinkCajaV2.Sales
             this.lblCodigo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.lblCodigo.Location = new System.Drawing.Point(496, 168);
             this.lblCodigo.Name = "lblCodigo";
-            this.lblCodigo.Size = new System.Drawing.Size(69, 21);
+            this.lblCodigo.Size = new System.Drawing.Size(82, 25);
             this.lblCodigo.TabIndex = 2;
             this.lblCodigo.Text = "Código:";
             // 
@@ -165,7 +163,7 @@ namespace LinkCajaV2.Sales
             this.txtCodigo.Location = new System.Drawing.Point(501, 203);
             this.txtCodigo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtCodigo.Name = "txtCodigo";
-            this.txtCodigo.Size = new System.Drawing.Size(535, 34);
+            this.txtCodigo.Size = new System.Drawing.Size(489, 39);
             this.txtCodigo.TabIndex = 3;
             this.txtCodigo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodigo_KeyDown);
             // 
@@ -177,10 +175,10 @@ namespace LinkCajaV2.Sales
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.Location = new System.Drawing.Point(1056, 203);
+            this.btnBuscar.Location = new System.Drawing.Point(996, 204);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(114, 30);
+            this.btnBuscar.Size = new System.Drawing.Size(85, 30);
             this.btnBuscar.TabIndex = 4;
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -193,7 +191,7 @@ namespace LinkCajaV2.Sales
             this.lblCantidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.lblCantidad.Location = new System.Drawing.Point(283, 168);
             this.lblCantidad.Name = "lblCantidad";
-            this.lblCantidad.Size = new System.Drawing.Size(79, 21);
+            this.lblCantidad.Size = new System.Drawing.Size(92, 25);
             this.lblCantidad.TabIndex = 1;
             this.lblCantidad.Text = "Cantidad";
             // 
@@ -208,7 +206,7 @@ namespace LinkCajaV2.Sales
             0,
             0});
             this.NUDCantidad.Name = "NUDCantidad";
-            this.NUDCantidad.Size = new System.Drawing.Size(166, 34);
+            this.NUDCantidad.Size = new System.Drawing.Size(166, 39);
             this.NUDCantidad.TabIndex = 0;
             this.NUDCantidad.Value = new decimal(new int[] {
             1,
@@ -236,37 +234,37 @@ namespace LinkCajaV2.Sales
             // 
             // dgvArticulos
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
-            this.dgvArticulos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.dgvArticulos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvArticulos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvArticulos.BackgroundColor = System.Drawing.Color.White;
             this.dgvArticulos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvArticulos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvArticulos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvArticulos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvArticulos.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvArticulos.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvArticulos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvArticulos.EnableHeadersVisualStyles = false;
-            this.dgvArticulos.Location = new System.Drawing.Point(3, 29);
+            this.dgvArticulos.Location = new System.Drawing.Point(3, 34);
             this.dgvArticulos.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvArticulos.Name = "dgvArticulos";
             this.dgvArticulos.RowHeadersWidth = 62;
             this.dgvArticulos.RowTemplate.Height = 28;
-            this.dgvArticulos.Size = new System.Drawing.Size(1207, 583);
+            this.dgvArticulos.Size = new System.Drawing.Size(1207, 578);
             this.dgvArticulos.TabIndex = 6;
             this.dgvArticulos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvArticulos_CellClick);
             this.dgvArticulos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvArticulos_CellContentClick);
@@ -283,7 +281,7 @@ namespace LinkCajaV2.Sales
             this.btnNuevo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevo.ForeColor = System.Drawing.Color.White;
-            this.btnNuevo.Location = new System.Drawing.Point(1206, 203);
+            this.btnNuevo.Location = new System.Drawing.Point(1198, 203);
             this.btnNuevo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(120, 30);
@@ -299,7 +297,7 @@ namespace LinkCajaV2.Sales
             this.btnVerTickets.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
             this.btnVerTickets.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVerTickets.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVerTickets.Location = new System.Drawing.Point(1341, 203);
+            this.btnVerTickets.Location = new System.Drawing.Point(1338, 203);
             this.btnVerTickets.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnVerTickets.Name = "btnVerTickets";
             this.btnVerTickets.Size = new System.Drawing.Size(140, 30);
@@ -335,9 +333,9 @@ namespace LinkCajaV2.Sales
             this.lblUsuario.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblUsuario.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblUsuario.Location = new System.Drawing.Point(3, 24);
+            this.lblUsuario.Location = new System.Drawing.Point(3, 28);
             this.lblUsuario.Name = "lblUsuario";
-            this.lblUsuario.Size = new System.Drawing.Size(296, 60);
+            this.lblUsuario.Size = new System.Drawing.Size(296, 56);
             this.lblUsuario.TabIndex = 22;
             this.lblUsuario.Text = "Bienvenido: Administrador";
             this.lblUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -361,14 +359,25 @@ namespace LinkCajaV2.Sales
             this.groupBox3.TabIndex = 28;
             this.groupBox3.TabStop = false;
             // 
+            // lblDesglose
+            // 
+            this.lblDesglose.AutoSize = true;
+            this.lblDesglose.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDesglose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblDesglose.Location = new System.Drawing.Point(379, 27);
+            this.lblDesglose.Name = "lblDesglose";
+            this.lblDesglose.Size = new System.Drawing.Size(103, 41);
+            this.lblDesglose.TabIndex = 33;
+            this.lblDesglose.Text = "Envio:";
+            // 
             // lblCopias
             // 
             this.lblCopias.AutoSize = true;
             this.lblCopias.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCopias.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblCopias.Location = new System.Drawing.Point(505, 118);
+            this.lblCopias.Location = new System.Drawing.Point(393, 186);
             this.lblCopias.Name = "lblCopias";
-            this.lblCopias.Size = new System.Drawing.Size(55, 20);
+            this.lblCopias.Size = new System.Drawing.Size(68, 25);
             this.lblCopias.TabIndex = 21;
             this.lblCopias.Text = "Copias";
             // 
@@ -390,10 +399,10 @@ namespace LinkCajaV2.Sales
             this.CBImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CBImprimir.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBImprimir.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.CBImprimir.Location = new System.Drawing.Point(398, 118);
+            this.CBImprimir.Location = new System.Drawing.Point(398, 157);
             this.CBImprimir.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.CBImprimir.Name = "CBImprimir";
-            this.CBImprimir.Size = new System.Drawing.Size(89, 24);
+            this.CBImprimir.Size = new System.Drawing.Size(106, 29);
             this.CBImprimir.TabIndex = 20;
             this.CBImprimir.Text = "Imprimir";
             this.CBImprimir.UseVisualStyleBackColor = true;
@@ -401,7 +410,7 @@ namespace LinkCajaV2.Sales
             // NUDCopias
             // 
             this.NUDCopias.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NUDCopias.Location = new System.Drawing.Point(510, 157);
+            this.NUDCopias.Location = new System.Drawing.Point(521, 177);
             this.NUDCopias.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.NUDCopias.Maximum = new decimal(new int[] {
             5,
@@ -409,7 +418,7 @@ namespace LinkCajaV2.Sales
             0,
             0});
             this.NUDCopias.Name = "NUDCopias";
-            this.NUDCopias.Size = new System.Drawing.Size(146, 30);
+            this.NUDCopias.Size = new System.Drawing.Size(146, 34);
             this.NUDCopias.TabIndex = 19;
             // 
             // lblTotal
@@ -417,9 +426,9 @@ namespace LinkCajaV2.Sales
             this.lblTotal.AutoSize = true;
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 42F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.lblTotal.Location = new System.Drawing.Point(390, 31);
+            this.lblTotal.Location = new System.Drawing.Point(367, 45);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(281, 93);
+            this.lblTotal.Size = new System.Drawing.Size(335, 112);
             this.lblTotal.TabIndex = 17;
             this.lblTotal.Text = "Total: $";
             // 
@@ -430,7 +439,7 @@ namespace LinkCajaV2.Sales
             this.btnPagar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPagar.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPagar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
-            this.btnPagar.Location = new System.Drawing.Point(906, 118);
+            this.btnPagar.Location = new System.Drawing.Point(979, 103);
             this.btnPagar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnPagar.Name = "btnPagar";
             this.btnPagar.Size = new System.Drawing.Size(231, 69);
@@ -455,9 +464,9 @@ namespace LinkCajaV2.Sales
             this.lblNombreEmpresa.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblNombreEmpresa.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombreEmpresa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.lblNombreEmpresa.Location = new System.Drawing.Point(3, 23);
+            this.lblNombreEmpresa.Location = new System.Drawing.Point(3, 27);
             this.lblNombreEmpresa.Name = "lblNombreEmpresa";
-            this.lblNombreEmpresa.Size = new System.Drawing.Size(746, 62);
+            this.lblNombreEmpresa.Size = new System.Drawing.Size(746, 58);
             this.lblNombreEmpresa.TabIndex = 26;
             this.lblNombreEmpresa.Text = "Nombre Empresa";
             this.lblNombreEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -469,69 +478,33 @@ namespace LinkCajaV2.Sales
             this.lblCliente.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.lblCliente.Location = new System.Drawing.Point(496, 129);
             this.lblCliente.Name = "lblCliente";
-            this.lblCliente.Size = new System.Drawing.Size(174, 20);
+            this.lblCliente.Size = new System.Drawing.Size(215, 25);
             this.lblCliente.TabIndex = 30;
             this.lblCliente.Text = "Cliente: Público General";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.SystemColors.Window;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.label2.Location = new System.Drawing.Point(719, 515);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 21);
-            this.label2.TabIndex = 32;
-            this.label2.Text = "Cantidad";
-            // 
-            // lblEnvio
-            // 
-            this.lblEnvio.AutoSize = true;
-            this.lblEnvio.BackColor = System.Drawing.SystemColors.Window;
-            this.lblEnvio.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEnvio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblEnvio.Location = new System.Drawing.Point(1366, 141);
-            this.lblEnvio.Name = "lblEnvio";
-            this.lblEnvio.Size = new System.Drawing.Size(97, 21);
-            this.lblEnvio.TabIndex = 32;
-            this.lblEnvio.Text = "Envio:$0.00";
-            // 
             // btnBuscarCliente
             // 
-            this.btnBuscarCliente.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnBuscarCliente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuscarCliente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBuscarCliente.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
             this.btnBuscarCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscarCliente.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscarCliente.Image = global::LinkCajaV2.Properties.Resources.Clientes;
-            this.btnBuscarCliente.Location = new System.Drawing.Point(1056, 136);
+            this.btnBuscarCliente.Location = new System.Drawing.Point(1100, 203);
             this.btnBuscarCliente.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnBuscarCliente.Name = "btnBuscarCliente";
-            this.btnBuscarCliente.Size = new System.Drawing.Size(114, 30);
+            this.btnBuscarCliente.Size = new System.Drawing.Size(77, 30);
             this.btnBuscarCliente.TabIndex = 4;
             this.btnBuscarCliente.UseVisualStyleBackColor = true;
             this.btnBuscarCliente.Click += new System.EventHandler(this.btnBuscarCliente_Click);
             // 
-            // lblDesglose
-            // 
-            this.lblDesglose.AutoSize = true;
-            this.lblDesglose.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDesglose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblDesglose.Location = new System.Drawing.Point(402, 27);
-            this.lblDesglose.Name = "lblDesglose";
-            this.lblDesglose.Size = new System.Drawing.Size(57, 21);
-            this.lblDesglose.TabIndex = 33;
-            this.lblDesglose.Text = "Envio:";
-            // 
             // Venta
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1517, 1050);
             this.Controls.Add(this.btnBuscarCliente);
-            this.Controls.Add(this.lblEnvio);
             this.Controls.Add(this.lblCliente);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox4);
@@ -604,8 +577,6 @@ namespace LinkCajaV2.Sales
         private Panel panelwebview;
         
         private Label lblCliente;
-        private Label label2;
-        private Label lblEnvio;
         private Button btnBuscarCliente;
         private Label lblDesglose;
     }
