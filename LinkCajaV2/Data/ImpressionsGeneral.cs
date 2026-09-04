@@ -1017,10 +1017,13 @@ namespace LinkCajaV2.Data
                                 totalCol.Item().LineHorizontal(1);
 
                                 decimal subTotal = 0;
-                                if (venta.CostoEnvio > 0)
+                                if (venta.CostoEnvio > 0)   
                                 {
                                     subTotal = venta.Articles.Sum(x => x.Total) + venta.CostoEnvio;
-                                    totalCol.Item().AlignRight().Text($"TOTAL + ENVIO: {subTotal:C2}").Style(EstiloTotal);
+                                    //totalCol.Item().AlignRight().Text($"TOTAL + ENVIO: {subTotal:C2}").Style(EstiloTotal);
+                                    totalCol.Item().PaddingTop(2).AlignRight().Text($"TOTAL: {venta.Articles.Sum(x => x.Total):C2}").Style(EstiloTotal);
+                                    totalCol.Item().AlignRight().Text($"ENVÍO: {venta.CostoEnvio:C2}").Style(EstiloTotal);
+                                    totalCol.Item().AlignRight().Text($"TOTAL A PAGAR: {subTotal:C2}").Style(EstiloTotal);
                                 }
                                 else {
                                     subTotal = venta.Articles.Sum(x => x.Total);

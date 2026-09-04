@@ -82,6 +82,11 @@ namespace LinkCajaV2.Reports
             {
                 var Tickets = await obj.GetTickets((int)NUDTicket.Value, dtDesde.Value, dtHasta.Value, fechaCreacion);
                 var listaFinal = Tickets?.ToList() ?? new List<ListTicketModel>();
+                //Suma el total 
+                foreach (var ticket in listaFinal)
+                {
+                    ticket.TotalEnd = ticket.TotalEnd + ticket.CostoEnvio;
+                }
                 dgvTickets.DataSource = new BindingList<ListTicketModel>(listaFinal);
                 decimal totalGeneral = listaFinal.Sum(item => item.Total);
                 decimal devoluciones = listaFinal.Sum(item => item.TotalReturn);
@@ -147,6 +152,15 @@ namespace LinkCajaV2.Reports
                 HeaderText = "Total Devuelto",
                 DataPropertyName = "TotalReturn",
                 ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+            dgvTickets.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "CostoEnvio",
+                HeaderText = "Total Envío",
+                DataPropertyName = "CostoEnvio",
+                ReadOnly = true,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }, 
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             });
             dgvTickets.Columns.Add(new DataGridViewTextBoxColumn

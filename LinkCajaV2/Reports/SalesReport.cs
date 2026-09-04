@@ -168,7 +168,7 @@ namespace LinkCajaV2.Reports
                     lblTotalGeneral.Text = " Venta Total: $0.00";
                     lblInversionTotal.Text = "Inversión Total: $0.00"; 
                     lblGananciaTotal.Text = "Total Ganancia: $0.00";
-                    lblTotalEnvio.Text = "Total envio: $0.00";
+                    //lblTotalEnvio.Text = "Total envio: $0.00";
                     return;
                 }
 
@@ -187,7 +187,7 @@ namespace LinkCajaV2.Reports
 
                 var ticketsDelPeriodo = await obj.GetTickets(0, desde, hasta, true);
                 decimal envioTotal = ticketsDelPeriodo?.Sum(t => t.CostoEnvio) ?? 0;
-                lblTotalEnvio.Text = "Total Envío: " + envioTotal.ToString("'$' #,##0.00");
+                //lblTotalEnvio.Text = "Total Envío: " + envioTotal.ToString("'$' #,##0.00");
 
             }
             catch (Exception ex)
