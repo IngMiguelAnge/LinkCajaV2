@@ -255,14 +255,19 @@ namespace LinkCajaV2.Items
                 var detalles = await obj.GetCashDropCorte(dtFechaApertura.Value, dtFechaCierre.Value);
                 var listaFinal = detalles?.OrderBy(x => x.Fecha).ToList() ?? new List<CashDropModel>();
                 dgvCorte.DataSource = new BindingList<CashDropModel>(listaFinal);
-                var filaEnvio = listaFinal.FirstOrDefault(x => x.Concepto.ToUpper().Contains("ENVIO") || x.Concepto.ToUpper().Contains("ENVÍO"));
+                var totalEnvios = listaFinal
+                .Where(x => x.Concepto.ToUpper().Contains("ENVIO") || x.Concepto.ToUpper().Contains("ENVÍO"))
+                .Sum(x => x.Monto);
+                var enviosEfectivo = listaFinal
+                .FirstOrDefault(x => x.Concepto == "Total de envíos en efectivo")?.Monto ?? 0m;
 
-                if (filaEnvio != null && lblTotalEnvios != null)
+                if (lblTotalEnvios != null)
                 {
-                    lblTotalEnvios.Text = $"Total por envíos: {filaEnvio.Monto:C2}";
-                    totalFinal += filaEnvio.Monto;
-                    Calcular();
+                    lblTotalEnvios.Text = $"Total por envíos: {totalEnvios:C2}";
                 }
+                totalFinal += enviosEfectivo;
+                Calcular();
+
             }
 
             catch (Exception ex)
