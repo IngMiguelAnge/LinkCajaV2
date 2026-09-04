@@ -233,12 +233,18 @@ namespace LinkCajaV2.Items
                 devoluciones = Tickets.Where(x => x.Concepto == "Devoluciones en efectivo").Sum(y => y.Monto);
                 devolucionesTarjeta = Tickets.Where(x => x.Concepto == "Devoluciones en tarjeta").Sum(y => y.Monto);
                 totalFinal = Tickets.Where(x => x.Concepto == "Venta total en efectivo").Sum(y => y.Monto);
-                totalFinalTarjeta = Tickets.Where(x => x.Concepto == "Venta total en tarjeta").Sum(y => y.Monto);
+                decimal enviosTarjeta = Tickets.Where(x => x.Concepto == "Total de envíos con tarjeta").Sum(y => y.Monto);
+                totalFinalTarjeta = Tickets.Where(x => x.Concepto == "Venta total en tarjeta").Sum(y => y.Monto) + enviosTarjeta;//Envio tarjetas 
+                //totalFinalTarjeta = Tickets.Where(x => x.Concepto == "Venta total en tarjeta").Sum(y => y.Monto);
                 lblVenta.Text = "Venta total en efectivo: $" + totalGeneral.ToString();
                 lblVentaContarjeta.Text = "Venta total con tarjeta: $" + totalGeneralTarjeta.ToString();
                 lblTotalDevolucion.Text = "Devolución total en efectivo: $" + devoluciones.ToString();
                 lbTotallDevolucionTarjeta.Text = "Devolución total en tarjeta: $" + devolucionesTarjeta.ToString();
                 lblSaldoTotalTarjeta.Text = "Saldo en tarjeta: $" + totalFinalTarjeta.ToString();
+                if (lblEnvioTarjeta != null)
+                {
+                    lblEnvioTarjeta.Text = $"Total por envíos de tarjeta: {enviosTarjeta:C2}";
+                }
                 Calcular();
                 CargarDatos();
             }
@@ -255,19 +261,16 @@ namespace LinkCajaV2.Items
                 var detalles = await obj.GetCashDropCorte(dtFechaApertura.Value, dtFechaCierre.Value);
                 var listaFinal = detalles?.OrderBy(x => x.Fecha).ToList() ?? new List<CashDropModel>();
                 dgvCorte.DataSource = new BindingList<CashDropModel>(listaFinal);
-                var totalEnvios = listaFinal
-                .Where(x => x.Concepto.ToUpper().Contains("ENVIO") || x.Concepto.ToUpper().Contains("ENVÍO"))
-                .Sum(x => x.Monto);
-                var enviosEfectivo = listaFinal
-                .FirstOrDefault(x => x.Concepto == "Total de envíos en efectivo")?.Monto ?? 0m;
+
+                var enviosEfectivo = listaFinal.FirstOrDefault(x => x.Concepto == "Total de envíos en efectivo")?.Monto ?? 0m;
 
                 if (lblTotalEnvios != null)
                 {
-                    lblTotalEnvios.Text = $"Total por envíos: {totalEnvios:C2}";
+                    lblTotalEnvios.Text = $"Total por envíos: {enviosEfectivo:C2}";
                 }
+
                 totalFinal += enviosEfectivo;
                 Calcular();
-
             }
 
             catch (Exception ex)
