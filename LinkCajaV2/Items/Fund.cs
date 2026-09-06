@@ -27,6 +27,9 @@ namespace LinkCajaV2.Items
         private decimal totalfinalreal = 0;
         private bool Primeracarga = false;
         private decimal InicioSaldo = 0;
+        private decimal devolucionesTransferencia = 0;
+        private decimal totalGeneralTransferencia = 0;
+        private decimal enviosTransferencia = 0;
         public Fund()
         {
             InitializeComponent();
@@ -127,15 +130,25 @@ namespace LinkCajaV2.Items
         {
             totalGeneral = 0m;
             totalGeneralTarjeta = 0m;
+            totalGeneralTransferencia = 0m;
+
             devoluciones = 0m;
             devolucionesTarjeta = 0m;
+            devolucionesTransferencia = 0m;
+
             totalFinal = 0m;
             totalFinalTarjeta = 0m;
+
             lblVenta.Text = "Venta total en efectivo: $0.00";
             lblVentaContarjeta.Text = "Venta total con tarjeta: $0.00";
             lblTotalDevolucion.Text = "Devolución total en efectivo: $0.00";
             lbTotallDevolucionTarjeta.Text = "Devolución total en tarjeta: $0.00";
             lblSaldoTotalTarjeta.Text = "Saldo en tarjeta: $0.00";
+
+            if (lblVentaTransferencia != null) lblVentaTransferencia.Text = "Venta total por transferencia: $0.00";
+            if (lblTotallDevolucionTransferencia != null) lblTotallDevolucionTransferencia.Text = "Devolución total por transferencia: $0.00";
+            if (lblEnvioTransferencia != null) lblEnvioTransferencia.Text = "Total por envíos de transferencia: $0.00";
+
             CrearGridView();
             Calcular();
         }
@@ -222,29 +235,44 @@ namespace LinkCajaV2.Items
         {
             try
             {
-                if (Primeracarga == true)
-                {
-                    return;
-                }
+                if (Primeracarga == true) return;
+
                 AppRepository obj = new AppRepository();
                 var Tickets = await obj.GetCashDropbyIdBox((int)CBCajas.SelectedValue, dtFechaApertura.Value, dtFechaCierre.Value, false);
+
+                // Efectivo
                 totalGeneral = Tickets.Where(x => x.Concepto == "Ventas en efectivo").Sum(y => y.Monto);
-                totalGeneralTarjeta = Tickets.Where(x => x.Concepto == "Ventas con tarjeta").Sum(y => y.Monto);
                 devoluciones = Tickets.Where(x => x.Concepto == "Devoluciones en efectivo").Sum(y => y.Monto);
-                devolucionesTarjeta = Tickets.Where(x => x.Concepto == "Devoluciones en tarjeta").Sum(y => y.Monto);
                 totalFinal = Tickets.Where(x => x.Concepto == "Venta total en efectivo").Sum(y => y.Monto);
+
+                // Tarjeta
+                totalGeneralTarjeta = Tickets.Where(x => x.Concepto == "Ventas con tarjeta").Sum(y => y.Monto);
+                devolucionesTarjeta = Tickets.Where(x => x.Concepto == "Devoluciones en tarjeta").Sum(y => y.Monto);
                 decimal enviosTarjeta = Tickets.Where(x => x.Concepto == "Total de envíos con tarjeta").Sum(y => y.Monto);
-                totalFinalTarjeta = Tickets.Where(x => x.Concepto == "Venta total en tarjeta").Sum(y => y.Monto) + enviosTarjeta;//Envio tarjetas 
-                //totalFinalTarjeta = Tickets.Where(x => x.Concepto == "Venta total en tarjeta").Sum(y => y.Monto);
-                lblVenta.Text = "Venta total en efectivo: $" + totalGeneral.ToString();
-                lblVentaContarjeta.Text = "Venta total con tarjeta: $" + totalGeneralTarjeta.ToString();
-                lblTotalDevolucion.Text = "Devolución total en efectivo: $" + devoluciones.ToString();
-                lbTotallDevolucionTarjeta.Text = "Devolución total en tarjeta: $" + devolucionesTarjeta.ToString();
-                lblSaldoTotalTarjeta.Text = "Saldo en tarjeta: $" + totalFinalTarjeta.ToString();
-                if (lblEnvioTarjeta != null)
-                {
-                    lblEnvioTarjeta.Text = $"Total por envíos de tarjeta: {enviosTarjeta:C2}";
-                }
+                totalFinalTarjeta = Tickets.Where(x => x.Concepto == "Venta total en tarjeta").Sum(y => y.Monto) + enviosTarjeta;
+
+
+                // Transferencia
+                totalGeneralTransferencia = Tickets.Where(x => x.Concepto == "Ventas por transferencia").Sum(y => y.Monto);
+                devolucionesTransferencia = Tickets.Where(x => x.Concepto == "Devoluciones en transferencia").Sum(y => y.Monto);
+                enviosTransferencia = Tickets.Where(x => x.Concepto == "Total de envíos por transferencia").Sum(y => y.Monto);
+
+
+
+                // Llenado de UI
+                lblVenta.Text = "Venta total en efectivo: $" + totalGeneral.ToString("F2");
+                lblVentaContarjeta.Text = "Venta total con tarjeta: $" + totalGeneralTarjeta.ToString("F2");
+                lblTotalDevolucion.Text = "Devolución total en efectivo: $" + devoluciones.ToString("F2");
+                lbTotallDevolucionTarjeta.Text = "Devolución total en tarjeta: $" + devolucionesTarjeta.ToString("F2");
+                lblSaldoTotalTarjeta.Text = "Saldo en tarjeta: $" + totalFinalTarjeta.ToString("F2");
+
+                if (lblEnvioTarjeta != null) lblEnvioTarjeta.Text = $"Total por envíos de tarjeta: {enviosTarjeta:C2}";
+
+                // Llenado de UI Transferencias (Validamos que existan para no romper el código)
+                if (lblVentaTransferencia != null) lblVentaTransferencia.Text = $"Venta total por transferencia: {totalGeneralTransferencia:C2}";
+                if (lblTotallDevolucionTransferencia != null) lblTotallDevolucionTransferencia.Text = $"Devolución total por transferencia: {devolucionesTransferencia:C2}";
+                if (lblEnvioTransferencia != null) lblEnvioTransferencia.Text = $"Total por envíos de transferencia: {enviosTransferencia:C2}";
+
                 Calcular();
                 CargarDatos();
             }
@@ -262,20 +290,27 @@ namespace LinkCajaV2.Items
                 var listaFinal = detalles?.OrderBy(x => x.Fecha).ToList() ?? new List<CashDropModel>();
                 dgvCorte.DataSource = new BindingList<CashDropModel>(listaFinal);
 
+             
                 var enviosEfectivo = listaFinal.FirstOrDefault(x => x.Concepto == "Total de envíos en efectivo")?.Monto ?? 0m;
+                var enviosTarjeta = listaFinal.FirstOrDefault(x => x.Concepto == "Total de envíos con tarjeta")?.Monto ?? 0m;
+                var enviosTransferencia = listaFinal.FirstOrDefault(x => x.Concepto == "Total de envíos por transferencia")?.Monto ?? 0m;
+
+                
+                var enviosGlobal = enviosEfectivo + enviosTarjeta + enviosTransferencia;
 
                 if (lblTotalEnvios != null)
                 {
-                    lblTotalEnvios.Text = $"Total por envíos: {enviosEfectivo:C2}";
+                    lblTotalEnvios.Text = $"Total por envíos: {enviosGlobal:C2}";
                 }
 
+                
                 totalFinal += enviosEfectivo;
+
                 Calcular();
             }
-
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar los articulos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cargar los datos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

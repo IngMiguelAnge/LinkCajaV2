@@ -637,27 +637,49 @@ namespace LinkCajaV2.Sales
             string Folio = string.Empty;
 
             TypePay tp = new TypePay();
-            if (tp.ShowDialog() == DialogResult.OK)
+            if (tp.ShowDialog() != DialogResult.OK)
             {
-                ConfirmPay c = new ConfirmPay();
-
-                c.Envio = CostoEnvioActual;
-                c.Total = TotalReal;
-
-                if (c.ShowDialog() != DialogResult.OK)
-                { return; }
-                Recibido = c.Recibido;
+          
+                return;
             }
-            else
+            switch (tp.MetodoSeleccionado)
             {
-                ConfirmPayTarjet ct = new ConfirmPayTarjet();
-                ct.Total = TotalReal;
-                ct.Envio = CostoEnvioActual;
-                if (ct.ShowDialog() != DialogResult.OK)
-                { return; }
-                TipoPago = ct.TipoPago;
-                Recibido = TotalReal + CostoEnvioActual;
-                Folio = ct.Folio;
+                case "01": // Efectivo
+                    ConfirmPay c = new ConfirmPay();
+                    c.Envio = CostoEnvioActual;
+                    c.Total = TotalReal;
+
+                    if (c.ShowDialog() != DialogResult.OK) return;
+
+                    TipoPago = "01";
+                    Recibido = c.Recibido;
+                    break;
+
+                case "02": // Tarjeta
+                    ConfirmPayTarjet ct = new ConfirmPayTarjet();
+                    ct.Total = TotalReal;
+                    ct.Envio = CostoEnvioActual;
+
+                    if (ct.ShowDialog() != DialogResult.OK) return;
+
+                    TipoPago = ct.TipoPago; 
+                    Recibido = TotalReal + CostoEnvioActual;
+                    Folio = ct.Folio;
+                    break;
+
+                case "03": // Transferencia Bancaria
+                    TransferPay frmTransferencia = new TransferPay();
+                    frmTransferencia.TotalCobrar = TotalReal + CostoEnvioActual;
+
+                    if (frmTransferencia.ShowDialog() != DialogResult.OK) return;
+
+                    TipoPago = "03";
+                    Recibido = TotalReal + CostoEnvioActual; // Ingresa directo al banco
+                    Folio = frmTransferencia.Folio; // Guardamos la referencia que validamos
+                    break;
+
+                default:
+                    return; // Seguridad extra 
             }
 
             VentaModel venta = new VentaModel

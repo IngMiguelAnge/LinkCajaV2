@@ -13,19 +13,47 @@ namespace LinkCajaV2.Items
 {
     public partial class TypePay : Form
     {
+
+        public string MetodoSeleccionado { get; private set; } //Que selecciona el cajero 
         public TypePay()
         {
             InitializeComponent();
         }
 
-        private void btbEfectivo_Click(object sender, EventArgs e)
+        private void TypePay_Load(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.OK;
+            cmbMetodoPago.Items.Clear();
+            cmbMetodoPago.Items.Add("Efectivo");               
+            cmbMetodoPago.Items.Add("Tarjeta");                
+            cmbMetodoPago.Items.Add("Transferencia Bancaria"); 
+
+            cmbMetodoPago.SelectedIndex = 0;//efectivo por defecto 
         }
 
-        private void btnTarjeta_Click(object sender, EventArgs e)
+        private void btnCancelar_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.None;
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            switch (cmbMetodoPago.SelectedIndex)
+            {
+                case 0:
+                    MetodoSeleccionado = "01";
+                    break;
+                case 1:
+                    MetodoSeleccionado = "02";
+                    break;
+                case 2:
+                    MetodoSeleccionado = "03";
+                    break;
+                default:
+                    MessageBox.Show("Por favor, seleccione un método de pago.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+            }
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
     }

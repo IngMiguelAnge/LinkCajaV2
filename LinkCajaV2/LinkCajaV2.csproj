@@ -265,6 +265,12 @@
     <Compile Include="Catalogs\Ubicacion.Designer.cs">
       <DependentUpon>Ubicacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Items\TransferPay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Items\TransferPay.Designer.cs">
+      <DependentUpon>TransferPay.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\ClienteModel.cs" />
     <Compile Include="Reports\ReporteGastosExtras.cs">
       <SubType>Form</SubType>
@@ -575,6 +581,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\Ubicacion.resx">
       <DependentUpon>Ubicacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Items\TransferPay.resx">
+      <DependentUpon>TransferPay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ReporteGastosExtras.resx">
       <DependentUpon>ReporteGastosExtras.cs</DependentUpon>
