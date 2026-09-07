@@ -67,6 +67,8 @@ namespace LinkCajaV2.Items
             this.lblVentaTransferencia = new System.Windows.Forms.Label();
             this.lblTotallDevolucionTransferencia = new System.Windows.Forms.Label();
             this.lblEnvioTransferencia = new System.Windows.Forms.Label();
+            this.FlujoTransferencias = new System.Windows.Forms.Label();
+            this.lblSaldoTotalTransferencia = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudInicio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudRetiro)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCorte)).BeginInit();
@@ -210,7 +212,7 @@ namespace LinkCajaV2.Items
             this.lblEgresos.AutoSize = true;
             this.lblEgresos.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEgresos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblEgresos.Location = new System.Drawing.Point(331, 249);
+            this.lblEgresos.Location = new System.Drawing.Point(331, 207);
             this.lblEgresos.Name = "lblEgresos";
             this.lblEgresos.Size = new System.Drawing.Size(67, 20);
             this.lblEgresos.TabIndex = 36;
@@ -221,7 +223,7 @@ namespace LinkCajaV2.Items
             this.lblTotalDevolucion.AutoSize = true;
             this.lblTotalDevolucion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalDevolucion.ForeColor = System.Drawing.Color.Black;
-            this.lblTotalDevolucion.Location = new System.Drawing.Point(331, 269);
+            this.lblTotalDevolucion.Location = new System.Drawing.Point(331, 227);
             this.lblTotalDevolucion.Name = "lblTotalDevolucion";
             this.lblTotalDevolucion.Size = new System.Drawing.Size(238, 20);
             this.lblTotalDevolucion.TabIndex = 35;
@@ -232,7 +234,7 @@ namespace LinkCajaV2.Items
             this.lblSaldoEfectivoCaja.AutoSize = true;
             this.lblSaldoEfectivoCaja.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSaldoEfectivoCaja.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(189)))), ((int)(((byte)(58)))));
-            this.lblSaldoEfectivoCaja.Location = new System.Drawing.Point(331, 319);
+            this.lblSaldoEfectivoCaja.Location = new System.Drawing.Point(331, 247);
             this.lblSaldoEfectivoCaja.Name = "lblSaldoEfectivoCaja";
             this.lblSaldoEfectivoCaja.Size = new System.Drawing.Size(263, 23);
             this.lblSaldoEfectivoCaja.TabIndex = 34;
@@ -243,7 +245,7 @@ namespace LinkCajaV2.Items
             this.lblRetiro.AutoSize = true;
             this.lblRetiro.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRetiro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblRetiro.Location = new System.Drawing.Point(331, 349);
+            this.lblRetiro.Location = new System.Drawing.Point(330, 278);
             this.lblRetiro.Name = "lblRetiro";
             this.lblRetiro.Size = new System.Drawing.Size(173, 20);
             this.lblRetiro.TabIndex = 33;
@@ -254,7 +256,7 @@ namespace LinkCajaV2.Items
             this.NudRetiro.DecimalPlaces = 2;
             this.NudRetiro.Enabled = false;
             this.NudRetiro.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NudRetiro.Location = new System.Drawing.Point(331, 369);
+            this.NudRetiro.Location = new System.Drawing.Point(330, 298);
             this.NudRetiro.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.NudRetiro.Maximum = new decimal(new int[] {
             10000000,
@@ -271,7 +273,7 @@ namespace LinkCajaV2.Items
             this.lblFondoQueda.AutoSize = true;
             this.lblFondoQueda.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFondoQueda.ForeColor = System.Drawing.Color.DimGray;
-            this.lblFondoQueda.Location = new System.Drawing.Point(331, 403);
+            this.lblFondoQueda.Location = new System.Drawing.Point(330, 332);
             this.lblFondoQueda.Name = "lblFondoQueda";
             this.lblFondoQueda.Size = new System.Drawing.Size(249, 20);
             this.lblFondoQueda.TabIndex = 32;
@@ -300,7 +302,7 @@ namespace LinkCajaV2.Items
             this.lblVentaContarjeta.AutoSize = true;
             this.lblVentaContarjeta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVentaContarjeta.ForeColor = System.Drawing.Color.Black;
-            this.lblVentaContarjeta.Location = new System.Drawing.Point(331, 470);
+            this.lblVentaContarjeta.Location = new System.Drawing.Point(330, 381);
             this.lblVentaContarjeta.Name = "lblVentaContarjeta";
             this.lblVentaContarjeta.Size = new System.Drawing.Size(198, 20);
             this.lblVentaContarjeta.TabIndex = 31;
@@ -311,7 +313,7 @@ namespace LinkCajaV2.Items
             this.lbTotallDevolucionTarjeta.AutoSize = true;
             this.lbTotallDevolucionTarjeta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotallDevolucionTarjeta.ForeColor = System.Drawing.Color.Black;
-            this.lbTotallDevolucionTarjeta.Location = new System.Drawing.Point(331, 492);
+            this.lbTotallDevolucionTarjeta.Location = new System.Drawing.Point(330, 403);
             this.lbTotallDevolucionTarjeta.Name = "lbTotallDevolucionTarjeta";
             this.lbTotallDevolucionTarjeta.Size = new System.Drawing.Size(228, 20);
             this.lbTotallDevolucionTarjeta.TabIndex = 30;
@@ -322,7 +324,7 @@ namespace LinkCajaV2.Items
             this.lbltotales.AutoSize = true;
             this.lbltotales.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbltotales.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lbltotales.Location = new System.Drawing.Point(331, 442);
+            this.lbltotales.Location = new System.Drawing.Point(330, 353);
             this.lbltotales.Name = "lbltotales";
             this.lbltotales.Size = new System.Drawing.Size(155, 25);
             this.lbltotales.TabIndex = 29;
@@ -333,7 +335,7 @@ namespace LinkCajaV2.Items
             this.lblSaldoTotalTarjeta.AutoSize = true;
             this.lblSaldoTotalTarjeta.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSaldoTotalTarjeta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.lblSaldoTotalTarjeta.Location = new System.Drawing.Point(332, 542);
+            this.lblSaldoTotalTarjeta.Location = new System.Drawing.Point(331, 453);
             this.lblSaldoTotalTarjeta.Name = "lblSaldoTotalTarjeta";
             this.lblSaldoTotalTarjeta.Size = new System.Drawing.Size(192, 23);
             this.lblSaldoTotalTarjeta.TabIndex = 28;
@@ -362,7 +364,7 @@ namespace LinkCajaV2.Items
             // 
             this.BtnAgregar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("BtnAgregar.Image")));
-            this.BtnAgregar.Location = new System.Drawing.Point(519, 368);
+            this.BtnAgregar.Location = new System.Drawing.Point(518, 297);
             this.BtnAgregar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnAgregar.Name = "BtnAgregar";
             this.BtnAgregar.Size = new System.Drawing.Size(35, 28);
@@ -415,7 +417,7 @@ namespace LinkCajaV2.Items
             this.dgvCorte.Name = "dgvCorte";
             this.dgvCorte.RowHeadersWidth = 30;
             this.dgvCorte.RowTemplate.Height = 28;
-            this.dgvCorte.Size = new System.Drawing.Size(470, 345);
+            this.dgvCorte.Size = new System.Drawing.Size(470, 447);
             this.dgvCorte.TabIndex = 0;
             // 
             // gbDatos
@@ -431,7 +433,7 @@ namespace LinkCajaV2.Items
             this.gbDatos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gbDatos.Name = "gbDatos";
             this.gbDatos.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gbDatos.Size = new System.Drawing.Size(476, 372);
+            this.gbDatos.Size = new System.Drawing.Size(476, 474);
             this.gbDatos.TabIndex = 27;
             this.gbDatos.TabStop = false;
             this.gbDatos.Text = "Resumen del sistema";
@@ -441,18 +443,18 @@ namespace LinkCajaV2.Items
             this.lblTotalEnvios.AutoSize = true;
             this.lblTotalEnvios.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalEnvios.ForeColor = System.Drawing.Color.Black;
-            this.lblTotalEnvios.Location = new System.Drawing.Point(333, 224);
+            this.lblTotalEnvios.Location = new System.Drawing.Point(333, 178);
             this.lblTotalEnvios.Name = "lblTotalEnvios";
-            this.lblTotalEnvios.Size = new System.Drawing.Size(157, 20);
+            this.lblTotalEnvios.Size = new System.Drawing.Size(228, 20);
             this.lblTotalEnvios.TabIndex = 43;
-            this.lblTotalEnvios.Text = "Total por envíos: $0.00";
+            this.lblTotalEnvios.Text = "Total de envíos en efectivo: $0.00";
             // 
             // lblEnvioTarjeta
             // 
             this.lblEnvioTarjeta.AutoSize = true;
             this.lblEnvioTarjeta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEnvioTarjeta.ForeColor = System.Drawing.Color.Black;
-            this.lblEnvioTarjeta.Location = new System.Drawing.Point(331, 517);
+            this.lblEnvioTarjeta.Location = new System.Drawing.Point(330, 428);
             this.lblEnvioTarjeta.Name = "lblEnvioTarjeta";
             this.lblEnvioTarjeta.Size = new System.Drawing.Size(225, 20);
             this.lblEnvioTarjeta.TabIndex = 44;
@@ -463,7 +465,7 @@ namespace LinkCajaV2.Items
             this.lblVentaTransferencia.AutoSize = true;
             this.lblVentaTransferencia.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVentaTransferencia.ForeColor = System.Drawing.Color.Black;
-            this.lblVentaTransferencia.Location = new System.Drawing.Point(332, 174);
+            this.lblVentaTransferencia.Location = new System.Drawing.Point(332, 558);
             this.lblVentaTransferencia.Name = "lblVentaTransferencia";
             this.lblVentaTransferencia.Size = new System.Drawing.Size(239, 20);
             this.lblVentaTransferencia.TabIndex = 45;
@@ -474,7 +476,7 @@ namespace LinkCajaV2.Items
             this.lblTotallDevolucionTransferencia.AutoSize = true;
             this.lblTotallDevolucionTransferencia.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotallDevolucionTransferencia.ForeColor = System.Drawing.Color.Black;
-            this.lblTotallDevolucionTransferencia.Location = new System.Drawing.Point(331, 293);
+            this.lblTotallDevolucionTransferencia.Location = new System.Drawing.Point(331, 534);
             this.lblTotallDevolucionTransferencia.Name = "lblTotallDevolucionTransferencia";
             this.lblTotallDevolucionTransferencia.Size = new System.Drawing.Size(277, 20);
             this.lblTotallDevolucionTransferencia.TabIndex = 46;
@@ -485,18 +487,42 @@ namespace LinkCajaV2.Items
             this.lblEnvioTransferencia.AutoSize = true;
             this.lblEnvioTransferencia.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEnvioTransferencia.ForeColor = System.Drawing.Color.Black;
-            this.lblEnvioTransferencia.Location = new System.Drawing.Point(333, 199);
+            this.lblEnvioTransferencia.Location = new System.Drawing.Point(331, 512);
             this.lblEnvioTransferencia.Name = "lblEnvioTransferencia";
-            this.lblEnvioTransferencia.Size = new System.Drawing.Size(157, 20);
+            this.lblEnvioTransferencia.Size = new System.Drawing.Size(240, 20);
             this.lblEnvioTransferencia.TabIndex = 47;
-            this.lblEnvioTransferencia.Text = "Total por envíos: $0.00";
+            this.lblEnvioTransferencia.Text = "Total envios de transferencia: $0.00";
+            // 
+            // FlujoTransferencias
+            // 
+            this.FlujoTransferencias.AutoSize = true;
+            this.FlujoTransferencias.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FlujoTransferencias.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.FlujoTransferencias.Location = new System.Drawing.Point(330, 483);
+            this.FlujoTransferencias.Name = "FlujoTransferencias";
+            this.FlujoTransferencias.Size = new System.Drawing.Size(215, 25);
+            this.FlujoTransferencias.TabIndex = 48;
+            this.FlujoTransferencias.Text = "Flujo de Transferencias";
+            // 
+            // lblSaldoTotalTransferencia
+            // 
+            this.lblSaldoTotalTransferencia.AutoSize = true;
+            this.lblSaldoTotalTransferencia.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSaldoTotalTransferencia.ForeColor = System.Drawing.Color.Green;
+            this.lblSaldoTotalTransferencia.Location = new System.Drawing.Point(332, 583);
+            this.lblSaldoTotalTransferencia.Name = "lblSaldoTotalTransferencia";
+            this.lblSaldoTotalTransferencia.Size = new System.Drawing.Size(250, 23);
+            this.lblSaldoTotalTransferencia.TabIndex = 49;
+            this.lblSaldoTotalTransferencia.Text = "Saldo en transferencias: $0.00";
             // 
             // Fund
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1180, 567);
+            this.ClientSize = new System.Drawing.Size(1180, 669);
+            this.Controls.Add(this.lblSaldoTotalTransferencia);
+            this.Controls.Add(this.FlujoTransferencias);
             this.Controls.Add(this.lblEnvioTransferencia);
             this.Controls.Add(this.lblTotallDevolucionTransferencia);
             this.Controls.Add(this.lblVentaTransferencia);
@@ -576,5 +602,7 @@ namespace LinkCajaV2.Items
         private Label lblVentaTransferencia;
         private Label lblTotallDevolucionTransferencia;
         private Label lblEnvioTransferencia;
+        private Label FlujoTransferencias;
+        private Label lblSaldoTotalTransferencia;
     }
 }

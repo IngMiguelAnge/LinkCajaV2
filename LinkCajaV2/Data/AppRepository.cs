@@ -1769,18 +1769,18 @@ namespace LinkCajaV2.Data
             return new ListBoxModel()
             {
 
-                //Id = (int)reader["Id"],
-                //Nombre = (string)reader["Name"],
-                //Publicidad = (string)reader["Publicity"],
-                //Estatus = (string)reader["Status"],
-                //Ruleta = (string)reader["Rulet"]
-
                 Id = (int)reader["Id"],
                 Nombre = (string)reader["Name"],
+                Publicidad = (string)reader["Publicity"],
+                Estatus = (string)reader["Status"],
+                Ruleta = (string)reader["Rulet"]
 
-                Publicidad = (bool)reader["Publicity"] ? "Sí" : "No",
-                Estatus = (bool)reader["Status"] ? "Activo" : "Inactivo",
-                Ruleta = (bool)reader["Rulet"] ? "Sí" : "No"
+                //Id = (int)reader["Id"],
+                //Nombre = (string)reader["Name"],
+
+                //Publicidad = (bool)reader["Publicity"] ? "Sí" : "No",
+                //Estatus = (bool)reader["Status"] ? "Activo" : "Inactivo",
+                //Ruleta = (bool)reader["Rulet"] ? "Sí" : "No"
             };
         }
         public async Task<bool> SaveBox(BoxModel obj)
