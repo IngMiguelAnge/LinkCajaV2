@@ -286,7 +286,7 @@ namespace LinkCajaV2.Configurations
             }
             if (CBPagina.Text == "mm")
             {
-                if (NUDALMilimetros.Value <= 0 || NUDAMilimetros.Value <= 0)
+                if (NUDALMilimetros.Value < 0 || NUDAMilimetros.Value < 0)
                 {
                     MessageBox.Show("Ingrese un valor válido para el tamaño de página en milímetros", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;

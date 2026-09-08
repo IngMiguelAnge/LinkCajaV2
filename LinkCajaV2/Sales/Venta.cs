@@ -425,6 +425,7 @@ namespace LinkCajaV2.Sales
 
                 lblTotal.Text = $"Total {totalFinal:C2}";
             }
+            txtCodigo.Focus();
         }
         private void btnBuscar_Click(object sender, EventArgs e)
         {
@@ -435,6 +436,7 @@ namespace LinkCajaV2.Sales
                 AgregarArticulo(article.IdSeleccionado, string.Empty);
                 txtCodigo.Clear();
             }
+            txtCodigo.Focus();
         }
         private void Venta_Shown(object sender, EventArgs e)
         {
@@ -448,9 +450,6 @@ namespace LinkCajaV2.Sales
         {
             var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
             bindingList?.Clear();
-
-            
-
             lblCliente.Text = "Cliente: Público General";
             IdClienteActual = 1;
             CostoEnvioActual = 0m;
@@ -808,12 +807,12 @@ namespace LinkCajaV2.Sales
 
         private void btnVerTickets_Click(object sender, EventArgs e)
         {
-
             Tickets t = new Tickets();
             t.IdUsuario = IdUsuario;
             t.NameUser = NameUser;
             t.IdTypeUser = IdTypeUser;
             t.ShowDialog();
+            txtCodigo.Focus();
         }
         private void dgvArticulos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -904,6 +903,7 @@ namespace LinkCajaV2.Sales
                 lblDesglose.Text = $"Envío: {CostoEnvioActual:C2}";
                 ActualizarTotalGeneral();
             }
+            txtCodigo.Focus();
         }
     }
 }

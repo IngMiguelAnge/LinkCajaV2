@@ -23,11 +23,12 @@ namespace LinkCajaV2.Items
         private void TypePay_Load(object sender, EventArgs e)
         {
             cmbMetodoPago.Items.Clear();
+            cmbMetodoPago.Items.Add("Seleccione");
             cmbMetodoPago.Items.Add("Efectivo");    //01 segun sat          
             cmbMetodoPago.Items.Add("Tarjeta");     //04  segun sat
             cmbMetodoPago.Items.Add("Transferencia Bancaria"); //03 segun sat 
 
-            cmbMetodoPago.SelectedIndex = 0;
+            cmbMetodoPago.SelectedIndex = 1;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
