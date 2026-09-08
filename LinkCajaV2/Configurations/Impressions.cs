@@ -181,7 +181,7 @@ namespace LinkCajaV2.Configurations
                     break;
                 case "Ticket":
                     MessageBox.Show("Esta opción requerira de una impresora POS como predeterminada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
+                    //Si es para impresora osc recordar altura 0 ancho 58
                     Iniciar();
                     CBImprimir.Visible = true;
                     AppRepository obj2 = new AppRepository();
