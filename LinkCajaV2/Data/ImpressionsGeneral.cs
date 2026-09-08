@@ -1175,17 +1175,17 @@ namespace LinkCajaV2.Data
                     }
                     if (imprimio == false)
                     {
-                        MessageBox.Show("Error al imprimir ticket revisar que tenga como predeterminada una impresora POS", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Error al imprimir ticket revisar que tenga como predeterminada una impresora POS", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
                     {
-                        MessageBox.Show("Impreso satisfactoriamente", "Correcto", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Impreso satisfactoriamente", "Correcto", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al imprimir ticket ESC/POS: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Error al imprimir ticket ESC/POS: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
