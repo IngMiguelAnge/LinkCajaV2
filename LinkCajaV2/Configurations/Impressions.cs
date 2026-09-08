@@ -180,6 +180,8 @@ namespace LinkCajaV2.Configurations
                     ConfigImpressions = obj.GetConfigImpressions("Lista de precios").Result;
                     break;
                 case "Ticket":
+                    MessageBox.Show("Esta opción requerira de una impresora POS como predeterminada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
                     Iniciar();
                     CBImprimir.Visible = true;
                     AppRepository obj2 = new AppRepository();
@@ -268,7 +270,7 @@ namespace LinkCajaV2.Configurations
                     
                 };
                 ImpressionsGeneral im = new ImpressionsGeneral();
-                im.GenerarTicket(Venta);
+                im.GenerarTicketEscPos(Venta);//GenerarTicket(Venta);
             }
         }
 

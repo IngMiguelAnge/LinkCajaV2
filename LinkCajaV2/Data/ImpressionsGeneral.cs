@@ -8,6 +8,8 @@ using Spire.Pdf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -1070,6 +1072,188 @@ namespace LinkCajaV2.Data
             // En algunas versiones se usa esta propiedad para ocultar el diálogo:
             pdf.PrintSettings.PrintController = new System.Drawing.Printing.StandardPrintController();
             pdf.Print();
+        }
+
+        public void GenerarTicketEscPos(VentaModel venta)
+        {
+            try
+            {
+                PrinterSettings settings = new PrinterSettings();
+                string nombreImpresora = settings.PrinterName;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    // Comandos ESC/POS Básicos
+                    byte[] init = new byte[] { 0x1B, 0x40 };             // Inicializar impresora
+                    byte[] alignCenter = new byte[] { 0x1B, 0x61, 0x01 }; // Alineación Centrada
+                    byte[] alignLeft = new byte[] { 0x1B, 0x61, 0x00 };   // Alineación Izquierda
+                    byte[] alignRight = new byte[] { 0x1B, 0x61, 0x02 };  // Alineación Derecha
+                    byte[] fontBoldOn = new byte[] { 0x1B, 0x45, 0x01 };  // Negrita ON
+                    byte[] fontBoldOff = new byte[] { 0x1B, 0x45, 0x00 }; // Negrita OFF
+                    byte[] cutPaper = new byte[] { 0x1D, 0x56, 0x42, 0x00 }; // Comando de corte parcial
+
+                    Encoding encoding = Encoding.GetEncoding(850); // CP850 para acentos y caracteres de español
+
+                    // 1. Encabezado
+                    ms.Write(init, 0, init.Length);
+                    ms.Write(alignCenter, 0, alignCenter.Length);
+
+                    EscribirTexto(ms, $"TICKET #{venta.IdTicket}\n", encoding);
+                    EscribirTexto(ms, $"CAJA: {venta.BoxName}\n", encoding);
+
+                    ms.Write(fontBoldOn, 0, fontBoldOn.Length);
+                    EscribirTexto(ms, $"{venta.Company.Name}\n", encoding);
+                    ms.Write(fontBoldOff, 0, fontBoldOff.Length);
+
+                    EscribirTexto(ms, $"RFC: {venta.Company.RFC}\n", encoding);
+                    EscribirTexto(ms, $"{venta.Company.Address}\n", encoding);
+                    EscribirTexto(ms, $"CLIENTE: {venta.Cliente}\n", encoding);
+                    EscribirTexto(ms, $"{DateTime.Now:dd/MM/yyyy HH:mm}\n", encoding);
+                    EscribirTexto(ms, "--------------------------------\n", encoding); // 32 guiones
+
+                    // 2. Encabezado de la Tabla
+                    ms.Write(alignLeft, 0, alignLeft.Length);
+                    ms.Write(fontBoldOn, 0, fontBoldOn.Length);
+                    // Formato de columnas para 32 caracteres totales: Cant(4) Desc(18) Total(10)
+                    EscribirTexto(ms, "Cant Descripcion          Total\n", encoding);
+                    ms.Write(fontBoldOff, 0, fontBoldOff.Length);
+                    EscribirTexto(ms, "--------------------------------\n", encoding);
+
+                    // 3. Artículos
+                    foreach (var item in venta.Articles)
+                    {
+                        string cantidad = item.Stock.ToString(item.Decimals > 0 ? "N1" : "N0").PadRight(4);
+
+                        string nombre = item.Name.Length > 18 ? item.Name.Substring(0, 18) : item.Name.PadRight(18);
+                        string total = item.Total.ToString("C2").PadLeft(10);
+
+                        EscribirTexto(ms, $"{cantidad}{nombre}{total}\n", encoding);
+                    }
+
+                    EscribirTexto(ms, "--------------------------------\n", encoding);
+
+                    // 4. Totales
+                    ms.Write(alignRight, 0, alignRight.Length);
+
+                    decimal subTotal = venta.Articles.Sum(x => x.Total);
+                    if (venta.CostoEnvio > 0)
+                    {
+                        EscribirTexto(ms, $"SUBTOTAL: {subTotal:C2}\n", encoding);
+                        EscribirTexto(ms, $"ENVIO: {venta.CostoEnvio:C2}\n", encoding);
+                        subTotal += venta.CostoEnvio;
+                    }
+
+                    ms.Write(fontBoldOn, 0, fontBoldOn.Length);
+                    EscribirTexto(ms, $"TOTAL: {subTotal:C2}\n", encoding);
+                    ms.Write(fontBoldOff, 0, fontBoldOff.Length);
+
+                    EscribirTexto(ms, $"RECIBIDO: {venta.Recibido:C2}\n", encoding);
+                    decimal cambio = venta.Recibido - subTotal < 0 ? 0 : venta.Recibido - subTotal;
+                    EscribirTexto(ms, $"CAMBIO: {cambio:C2}\n", encoding);
+
+                    // 5. Pie y Código QR en ESC/POS
+                    ms.Write(alignCenter, 0, alignCenter.Length);
+                    EscribirTexto(ms, "\n¡Gracias por su compra!\n\n", encoding);
+
+                    // Imprimir Código QR mediante comandos ESC/POS nativos (Soportado en POS-58)
+                    byte[] qrImagenBytes = GenerarBitmapQrEscPos("https://facturacion.tiendasmino.com");
+                    ms.Write(qrImagenBytes, 0, qrImagenBytes.Length);
+
+                    // 6. Avance mínimo de papel justo para ver la impresión y cortar
+                    EscribirTexto(ms, "\n\n\n", encoding);
+                    ms.Write(cutPaper, 0, cutPaper.Length);
+
+                    // Enviar impresión directa al spooler de Windows
+                    byte[] buffer = ms.ToArray();
+                    bool imprimio = true;
+                    for (int i = 0; i < (venta.Imprimir ? venta.Copias + 1 : 0); i++)
+                    {
+                       if(RawPrinterHelper.SendBytesToPrinter(nombreImpresora, buffer) == false)
+                        {
+                            imprimio = false;
+                            break;                         
+                        }
+                    }
+                    if (imprimio == false)
+                    {
+                        MessageBox.Show("Error al imprimir ticket revisar que tenga como predeterminada una impresora POS", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Impreso satisfactoriamente", "Correcto", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al imprimir ticket ESC/POS: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        // Métodos Auxiliares
+        private void EscribirTexto(MemoryStream ms, string texto, Encoding encoding)
+        {
+            byte[] bytes = encoding.GetBytes(texto);
+            ms.Write(bytes, 0, bytes.Length);
+        }
+
+        private byte[] GenerarBitmapQrEscPos(string data)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                // 1. Generar la imagen del QR en memoria usando QRCoder
+                byte[] qrBytes = null;
+                using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+                using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(data, QRCodeGenerator.ECCLevel.Q))
+                using (PngByteQRCode qrCode = new PngByteQRCode(qrCodeData))
+                {
+                    // Un tamaño de módulo 4 a 5 es ideal para impresoras de 58mm
+                    qrBytes = qrCode.GetGraphic(4);
+                }
+
+                // 2. Convertir la imagen a mapa de bits monocromático para ESC/POS (Comando GS v 0)
+                using (Bitmap bitmap = new Bitmap(new MemoryStream(qrBytes)))
+                {
+                    int width = bitmap.Width;
+                    int height = bitmap.Height;
+
+                    // Comando ESC/POS Raster: GS v 0 0
+                    byte[] command = new byte[] { 0x1D, 0x76, 0x30, 0x00 };
+                    ms.Write(command, 0, command.Length);
+
+                    // Ancho en bytes (ancho en píxeles / 8)
+                    int xL = (width + 7) / 8;
+                    byte[] xSize = BitConverter.GetBytes((short)xL);
+                    byte[] ySize = BitConverter.GetBytes((short)height);
+
+                    ms.WriteByte(xSize[0]);
+                    ms.WriteByte(xSize[1]);
+                    ms.WriteByte(ySize[0]);
+                    ms.WriteByte(ySize[1]);
+
+                    // Transformar píxeles oscuros en bits 1s y claros en 0s
+                    for (int y = 0; y < height; y++)
+                    {
+                        for (int x = 0; x < xL; x++)
+                        {
+                            byte b = 0;
+                            for (int bit = 0; bit < 8; bit++)
+                            {
+                                int xPos = x * 8 + bit;
+                                if (xPos < width)
+                                {
+                                    System.Drawing.Color pixel = bitmap.GetPixel(xPos, y);
+                                    if (pixel.R < 128 || pixel.G < 128 || pixel.B < 128)
+                                    {
+                                        b |= (byte)(0x80 >> bit);
+                                    }
+                                }
+                            }
+                            ms.WriteByte(b);
+                        }
+                    }
+                }
+                return ms.ToArray();
+            }
         }
     }
 }

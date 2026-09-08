@@ -265,6 +265,7 @@
     <Compile Include="Catalogs\Ubicacion.Designer.cs">
       <DependentUpon>Ubicacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\RawPrinterHelper.cs" />
     <Compile Include="Items\TransferPay.cs">
       <SubType>Form</SubType>
     </Compile>

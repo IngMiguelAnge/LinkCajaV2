@@ -780,7 +780,7 @@ namespace LinkCajaV2.Sales
                 });
             }
             ImpressionsGeneral im = new ImpressionsGeneral();
-            im.GenerarTicket(venta);
+            im.GenerarTicketEscPos(venta); //GenerarTicket(venta);
             //Descomentar cuando este lo de facturacion
             //BillingMethods Facturacion = new BillingMethods();
             //string mensaje = string.Empty;
