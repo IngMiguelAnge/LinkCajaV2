@@ -655,14 +655,14 @@ namespace LinkCajaV2.Sales
                     Recibido = c.Recibido;
                     break;
 
-                case "02": // Tarjeta
+                case "04": // Tarjeta
                     ConfirmPayTarjet ct = new ConfirmPayTarjet();
                     ct.Total = TotalReal;
                     ct.Envio = CostoEnvioActual;
 
                     if (ct.ShowDialog() != DialogResult.OK) return;
 
-                    TipoPago = ct.TipoPago; 
+                    TipoPago = "04"; 
                     Recibido = TotalReal + CostoEnvioActual;
                     Folio = ct.Folio;
                     break;

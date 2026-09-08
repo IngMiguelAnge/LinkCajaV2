@@ -157,7 +157,7 @@ namespace LinkCajaV2.Reports
 
                 // Vamos por los datos a SQL
                 AppRepository obj = new AppRepository();
-                var listaVentas = await obj.GetSalesReportData(desde, hasta, codigo, nombre, descripcion, idProveedor, idCategoria);
+                var listaVentas = await obj.GetSalesReport(desde, hasta, codigo, nombre, descripcion, idProveedor, idCategoria);
                 var listaFinal = listaVentas?.ToList() ?? new List<SalesReportModel>();
 
                 if (listaFinal.Count == 0)
@@ -222,7 +222,7 @@ namespace LinkCajaV2.Reports
 
                 //  Vamos por la info a SQL
                 AppRepository obj = new AppRepository();
-                var listaVentas = await obj.GetSalesReportData(desde, hasta, codigo, nombre, descripcion, idProveedor, idCategoria);
+                var listaVentas = await obj.GetSalesReport(desde, hasta, codigo, nombre, descripcion, idProveedor, idCategoria);
 
           
                 var listaFinal = listaVentas?.ToList() ?? new List<SalesReportModel>();

@@ -129,6 +129,16 @@ namespace LinkCajaV2.Configurations
                 CBColorLetra.SelectedValue = Color;
                 FontStyle = ConfigImpressions.Find(x => x.Name == CBModificar.Text) != null ? ConfigImpressions.Find(x => x.Name == CBModificar.Text).FontStyle : "SemiBold";
                 CBEstilo.SelectedItem = FontStyle;
+                if(CBModificar.Text == "Articulos" && CBImpresiones.Text == "Etiquetas")
+                {
+                    lblCaracteres.Visible = true;
+                    nudCaracteres.Visible = true;
+                }
+                else
+                {
+                    lblCaracteres.Visible = false;
+                    nudCaracteres.Visible = false;
+                }
             }
             if (CBModificar.Text == "Recuadro")
             {

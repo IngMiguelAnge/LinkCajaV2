@@ -58,6 +58,7 @@
             this.NUDALMilimetros = new System.Windows.Forms.NumericUpDown();
             this.GBMPagina = new System.Windows.Forms.GroupBox();
             this.GBLetras = new System.Windows.Forms.GroupBox();
+            this.lblCaracteres = new System.Windows.Forms.Label();
             this.nudCaracteres = new System.Windows.Forms.NumericUpDown();
             this.GBCuadros = new System.Windows.Forms.GroupBox();
             this.GBLinea = new System.Windows.Forms.GroupBox();
@@ -65,7 +66,6 @@
             this.CBImprimir = new System.Windows.Forms.CheckBox();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.GBUnidos = new System.Windows.Forms.GroupBox();
-            this.lblCaracteres = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NUDSizeLetra)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDEspacio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDAncho)).BeginInit();
@@ -425,6 +425,17 @@
             this.GBLetras.Text = "Estilo de letras";
             this.GBLetras.Visible = false;
             // 
+            // lblCaracteres
+            // 
+            this.lblCaracteres.AutoSize = true;
+            this.lblCaracteres.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCaracteres.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblCaracteres.Location = new System.Drawing.Point(20, 291);
+            this.lblCaracteres.Name = "lblCaracteres";
+            this.lblCaracteres.Size = new System.Drawing.Size(211, 25);
+            this.lblCaracteres.TabIndex = 37;
+            this.lblCaracteres.Text = "Cantidad de caracteres:";
+            // 
             // nudCaracteres
             // 
             this.nudCaracteres.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -534,17 +545,6 @@
             this.GBUnidos.Size = new System.Drawing.Size(350, 301);
             this.GBUnidos.TabIndex = 34;
             this.GBUnidos.TabStop = false;
-            // 
-            // lblCaracteres
-            // 
-            this.lblCaracteres.AutoSize = true;
-            this.lblCaracteres.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCaracteres.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblCaracteres.Location = new System.Drawing.Point(20, 291);
-            this.lblCaracteres.Name = "lblCaracteres";
-            this.lblCaracteres.Size = new System.Drawing.Size(211, 25);
-            this.lblCaracteres.TabIndex = 37;
-            this.lblCaracteres.Text = "Cantidad de caracteres:";
             // 
             // Impressions
             // 

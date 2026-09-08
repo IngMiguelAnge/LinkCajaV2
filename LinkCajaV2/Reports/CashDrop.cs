@@ -202,7 +202,7 @@ namespace LinkCajaV2.Reports
 
         }
 
-        private async void BtnGrafica_Click(object sender, EventArgs e)
+        private void BtnGrafica_Click(object sender, EventArgs e)
         {
             //Nuevo Forms de reportes 
             SalesReport frm = new SalesReport();

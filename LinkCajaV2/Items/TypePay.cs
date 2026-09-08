@@ -23,11 +23,11 @@ namespace LinkCajaV2.Items
         private void TypePay_Load(object sender, EventArgs e)
         {
             cmbMetodoPago.Items.Clear();
-            cmbMetodoPago.Items.Add("Efectivo");               
-            cmbMetodoPago.Items.Add("Tarjeta");                
-            cmbMetodoPago.Items.Add("Transferencia Bancaria"); 
+            cmbMetodoPago.Items.Add("Efectivo");    //01 segun sat          
+            cmbMetodoPago.Items.Add("Tarjeta");     //04  segun sat
+            cmbMetodoPago.Items.Add("Transferencia Bancaria"); //03 segun sat 
 
-            cmbMetodoPago.SelectedIndex = 0;//efectivo por defecto 
+            cmbMetodoPago.SelectedIndex = 0;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -38,15 +38,20 @@ namespace LinkCajaV2.Items
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            if(cmbMetodoPago.SelectedIndex <= 0)
+            {
+                MessageBox.Show("Por favor, seleccione un método de pago.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             switch (cmbMetodoPago.SelectedIndex)
             {
-                case 0:
+                case 1:
                     MetodoSeleccionado = "01";
                     break;
-                case 1:
-                    MetodoSeleccionado = "02";
-                    break;
                 case 2:
+                    MetodoSeleccionado = "04";
+                    break;
+                case 3:
                     MetodoSeleccionado = "03";
                     break;
                 default:

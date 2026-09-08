@@ -88,10 +88,10 @@ namespace LinkCajaV2.Reports
                     ticket.TotalEnd = ticket.TotalEnd + ticket.CostoEnvio;
                 }
                 dgvTickets.DataSource = new BindingList<ListTicketModel>(listaFinal);
-                decimal totalGeneral = listaFinal.Sum(item => item.Total);
+                decimal totalGeneral = listaFinal.Where(x=> x.Status == "Activo").Sum(item => item.Total);
                 decimal devoluciones = listaFinal.Sum(item => item.TotalReturn);
-                decimal totalFinal = listaFinal.Sum(item => item.TotalEnd);
-                decimal totalEnvio = listaFinal.Sum(item => item.CostoEnvio);
+                decimal totalFinal = listaFinal.Where(x => x.Status == "Activo").Sum(item => item.TotalEnd);
+                decimal totalEnvio = listaFinal.Where(x => x.Status == "Activo").Sum(item => item.CostoEnvio);
                 lblVenta.Text = $"Venta total: {totalGeneral:C2}";
                 lblTotalDevolucion.Text = $"Total devoluciones: {devoluciones:C2}";
                 lblTotalEnvio.Text = $"Venta total por Envio: {totalEnvio:C2}";
