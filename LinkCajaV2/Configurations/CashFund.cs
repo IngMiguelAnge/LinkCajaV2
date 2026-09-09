@@ -100,7 +100,6 @@ namespace LinkCajaV2.Configurations
                 AppRepository obj = new AppRepository();
 
                 int cajaSeleccionada = 0;
-                int usuarioSeleccionado = 0;
 
                 if (caja.SelectedValue != null) int.TryParse(caja.SelectedValue.ToString(), out cajaSeleccionada);
            
