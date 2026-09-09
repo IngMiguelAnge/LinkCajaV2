@@ -80,13 +80,11 @@ namespace LinkCajaV2.Reports
 
             try
             {
-                var Tickets = await obj.GetTickets((int)NUDTicket.Value, dtDesde.Value, dtHasta.Value, fechaCreacion);
+                var Tickets = await obj.GetTickets((int)NUDTicket.Value, dtDesde.Value, dtHasta.Value, fechaCreacion, txtReferencia.Text.Trim());
                 var listaFinal = Tickets?.ToList() ?? new List<ListTicketModel>();
-                //Suma el total 
-                foreach (var ticket in listaFinal)
-                {
-                    ticket.TotalEnd = ticket.TotalEnd + ticket.CostoEnvio;
-                }
+               
+            
+
                 dgvTickets.DataSource = new BindingList<ListTicketModel>(listaFinal);
                 decimal totalGeneral = listaFinal.Where(x=> x.Status == "Activo").Sum(item => item.Total);
                 decimal devoluciones = listaFinal.Sum(item => item.TotalReturn);
@@ -203,6 +201,15 @@ namespace LinkCajaV2.Reports
                 ReadOnly = true,
                 Visible = false,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+            dgvTickets.Columns.Add(new DataGridViewTextBoxColumn //REFERENCIA 
+            {
+                Name = "Referencia",
+                HeaderText = "Numero de  Transferencia",
+                DataPropertyName = "Referencia",
+                ReadOnly = false, 
+                Width = 150,      
+                MaxInputLength = 50
             });
             dgvTickets.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -573,5 +580,55 @@ namespace LinkCajaV2.Reports
             this.Hide();
         }
 
+        private void dgvTickets_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (dgvTickets.Columns[e.ColumnIndex].Name == "Referencia")
+            {
+                //Que pago es 
+                string tipoPago = dgvTickets.Rows[e.RowIndex].Cells["TypePay"].Value?.ToString();
+
+                
+                if (tipoPago == "Transferencia")
+                {
+                    if (string.IsNullOrWhiteSpace(e.FormattedValue.ToString()))
+                    {
+                        MessageBox.Show("La referencia no puede quedar vacía en pagos por Transferencia.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        e.Cancel = true; 
+                    }
+                }
+            }
+        }
+
+        private async void dgvTickets_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvTickets.Columns[e.ColumnIndex].Name == "Referencia")
+            {
+                var ticket = (ListTicketModel)dgvTickets.Rows[e.RowIndex].DataBoundItem;
+                AppRepository obj = new AppRepository();
+
+                bool exito = await obj.UpdateTicketReference(ticket.Id, ticket.Referencia);
+
+                if (!exito)
+                {
+                    MessageBox.Show("Hubo un problema al guardar la referencia en la base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void dgvTickets_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (dgvTickets.Columns[e.ColumnIndex].Name == "Referencia")
+            {
+                //Saco el texto 
+                string tipoPago = dgvTickets.Rows[e.RowIndex].Cells["TypePay"].Value?.ToString();
+
+                //comparo 
+                if (tipoPago != "Transferencia")
+                {
+                    e.Cancel = true; 
+                    MessageBox.Show("La referencia bancaria solo aplica para pagos por Transferencia.", "Acción denegada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
     }
 }

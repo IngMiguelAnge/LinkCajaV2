@@ -489,7 +489,7 @@ namespace LinkCajaV2.Sales
             this.btnBuscarCliente.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
             this.btnBuscarCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscarCliente.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscarCliente.Image = global::LinkCajaV2.Properties.Resources.Clientes;
+            //this.btnBuscarCliente.Image = global::LinkCajaV2.Properties.Resources.Clientes;
             this.btnBuscarCliente.Location = new System.Drawing.Point(1100, 203);
             this.btnBuscarCliente.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnBuscarCliente.Name = "btnBuscarCliente";

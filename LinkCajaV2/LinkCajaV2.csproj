@@ -162,7 +162,9 @@
     <Reference Include="Spire.Pdf, Version=12.4.0.0, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
       <HintPath>..\packages\FreeSpire.PDF.12.4.0\lib\net48\Spire.Pdf.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
     </Reference>
@@ -273,6 +275,7 @@
       <DependentUpon>TransferPay.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\ClienteModel.cs" />
+    <Compile Include="Model\TypePayModel.cs" />
     <Compile Include="Reports\ReporteGastosExtras.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LinkCajaV2.Data;
+using LinkCajaV2.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,13 +24,31 @@ namespace LinkCajaV2.Items
 
         private void TypePay_Load(object sender, EventArgs e)
         {
-            cmbMetodoPago.Items.Clear();
-            cmbMetodoPago.Items.Add("Seleccione");
-            cmbMetodoPago.Items.Add("Efectivo");    //01 segun sat          
-            cmbMetodoPago.Items.Add("Tarjeta");     //04  segun sat
-            cmbMetodoPago.Items.Add("Transferencia Bancaria"); //03 segun sat 
+            AppRepository obj = new AppRepository();
 
-            cmbMetodoPago.SelectedIndex = 1;
+         
+            var ListaPagos = obj.GetTypePays().Result;
+
+            //Objeto fantasma
+            ListaPagos.Insert(0, new TypePayModel { IdTypePay = "00", Name = "Seleccione" });
+
+            //Combo Box
+            cmbMetodoPago.DataSource = null;
+            cmbMetodoPago.Items.Clear();
+
+        
+            cmbMetodoPago.DisplayMember = "Name";      // Muestra: Efectivo, Tarjeta
+            cmbMetodoPago.ValueMember = "IdTypePay";   // Guarda: 01, 04, 03
+
+            // Llenamos los datos
+            cmbMetodoPago.DataSource = ListaPagos;
+
+            // Efectivo por defecto 
+            if (cmbMetodoPago.Items.Count > 1)
+            {
+                cmbMetodoPago.SelectedIndex = 1;
+            }
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -44,21 +64,7 @@ namespace LinkCajaV2.Items
                 MessageBox.Show("Por favor, seleccione un método de pago.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            switch (cmbMetodoPago.SelectedIndex)
-            {
-                case 1:
-                    MetodoSeleccionado = "01";
-                    break;
-                case 2:
-                    MetodoSeleccionado = "04";
-                    break;
-                case 3:
-                    MetodoSeleccionado = "03";
-                    break;
-                default:
-                    MessageBox.Show("Por favor, seleccione un método de pago.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-            }
+           
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

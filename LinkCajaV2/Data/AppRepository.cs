@@ -932,7 +932,7 @@ namespace LinkCajaV2.Data
             };
         }
         public async Task<List<ListTicketModel>> GetTickets(int IdTicket, DateTime Desde,
-            DateTime Hasta, bool FechaCreacion)
+            DateTime Hasta, bool FechaCreacion , string Referencia = "")
         {
             List<ListTicketModel> list = new List<ListTicketModel>();
             try
@@ -946,6 +946,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Desde", Desde));
                         cmd.Parameters.Add(new SqlParameter("@Hasta", Hasta));
                         cmd.Parameters.Add(new SqlParameter("@FechaCreacion", FechaCreacion));
+                        cmd.Parameters.Add(new SqlParameter("@Referencia", Referencia));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
@@ -962,6 +963,37 @@ namespace LinkCajaV2.Data
             }
             return list;
         }
+        public async Task<bool> UpdateTicketReference(int IdTicket, string Referencia)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("UpdateTicketReference", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@IdTicket", IdTicket));
+                        cmd.Parameters.Add(new SqlParameter("@Referencia", Referencia));
+
+                        
+                        SqlParameter resp = new SqlParameter("@VResp", System.Data.SqlDbType.Int);
+                        resp.Direction = System.Data.ParameterDirection.Output;
+                        cmd.Parameters.Add(resp);
+
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+
+                        
+                        return Convert.ToInt32(resp.Value) == 1;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+              
+                return false;
+            }
+        }
         private ListTicketModel MapToListTickets(SqlDataReader reader)
         {
             return new ListTicketModel()
@@ -977,8 +1009,10 @@ namespace LinkCajaV2.Data
                 Status = (string)reader["Status"],
                 Send = (string)reader["Send"],
                 TypePay = (string)reader["TypePay"],
-                CostoEnvio = reader["CostoEnvio"] != DBNull.Value ? (decimal)reader["CostoEnvio"] : 0m
-            };
+                CostoEnvio = reader["CostoEnvio"] != DBNull.Value ? (decimal)reader["CostoEnvio"] : 0m,
+                Referencia = reader["Referencia"] != DBNull.Value ? reader["Referencia"].ToString() : "" 
+
+        };
         }
         public async Task<bool> ReturnArticle(int Id, string NoteText)
         {
@@ -3267,6 +3301,42 @@ namespace LinkCajaV2.Data
 
 
 
+
+        #endregion
+        #region TypePay
+
+        public async Task<List<TypePayModel>> GetTypePays()
+        {
+            List<TypePayModel> lista = new List<TypePayModel>();
+            try
+            {
+                
+                using (SqlConnection con = new SqlConnection(Connection))
+                {
+                    await con.OpenAsync();
+                    SqlCommand cmd = new SqlCommand("GetTypePays", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await dr.ReadAsync())
+                        {
+                            lista.Add(new TypePayModel
+                            {
+                                IdTypePay = dr["IdTypePay"].ToString(),
+                                Name = dr["Name"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            
+                throw new Exception("Error al obtener los métodos de pago: " + ex.Message);
+            }
+            return lista;
+        }
 
         #endregion
 
