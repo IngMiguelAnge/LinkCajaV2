@@ -24,21 +24,15 @@ namespace LinkCajaV2.Items
 
         private void TypePay_Load(object sender, EventArgs e)
         {
-            AppRepository obj = new AppRepository();
-
-         
+            AppRepository obj = new AppRepository();         
             var ListaPagos = obj.GetTypePays().Result;
-
             //Objeto fantasma
-            ListaPagos.Insert(0, new TypePayModel { IdTypePay = "00", Name = "Seleccione" });
-
+            ListaPagos.Insert(0, new TypePayModel { Id= 0, Name = "Seleccione", Value = "00", Status = true });
             //Combo Box
             cmbMetodoPago.DataSource = null;
             cmbMetodoPago.Items.Clear();
-
-        
             cmbMetodoPago.DisplayMember = "Name";      // Muestra: Efectivo, Tarjeta
-            cmbMetodoPago.ValueMember = "IdTypePay";   // Guarda: 01, 04, 03
+            cmbMetodoPago.ValueMember = "Value";   // Guarda: 01, 04, 03
 
             // Llenamos los datos
             cmbMetodoPago.DataSource = ListaPagos;
@@ -64,7 +58,7 @@ namespace LinkCajaV2.Items
                 MessageBox.Show("Por favor, seleccione un método de pago.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-           
+            MetodoSeleccionado = cmbMetodoPago.SelectedValue.ToString();
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

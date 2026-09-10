@@ -185,7 +185,7 @@ namespace LinkCajaV2.Reports
                 lblInversionTotal.Text = "Inversión Total: " + inversionTotal.ToString("'$' #,##0.00"); // NUEVO
                 lblGananciaTotal.Text = "Total Ganancia: " + gananciaTotal.ToString("'$' #,##0.00");     // NUEVO
 
-                var ticketsDelPeriodo = await obj.GetTickets(0, desde, hasta, true);
+                var ticketsDelPeriodo = await obj.GetTickets(0, desde, hasta, true,string.Empty);
                 decimal envioTotal = ticketsDelPeriodo?.Sum(t => t.CostoEnvio) ?? 0;
                 //lblTotalEnvio.Text = "Total Envío: " + envioTotal.ToString("'$' #,##0.00");
 
@@ -233,7 +233,7 @@ namespace LinkCajaV2.Reports
                     return;
                 }
 
-                var ticketsDelPeriodo = await obj.GetTickets(0, desde, hasta, true);
+                var ticketsDelPeriodo = await obj.GetTickets(0, desde, hasta, true, string.Empty);
                 decimal envioTotal = ticketsDelPeriodo?.Sum(t => t.CostoEnvio) ?? 0;
 
                 // Invocar impresiones

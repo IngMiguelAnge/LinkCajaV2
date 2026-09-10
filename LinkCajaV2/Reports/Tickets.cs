@@ -82,9 +82,6 @@ namespace LinkCajaV2.Reports
             {
                 var Tickets = await obj.GetTickets((int)NUDTicket.Value, dtDesde.Value, dtHasta.Value, fechaCreacion, txtReferencia.Text.Trim());
                 var listaFinal = Tickets?.ToList() ?? new List<ListTicketModel>();
-               
-            
-
                 dgvTickets.DataSource = new BindingList<ListTicketModel>(listaFinal);
                 decimal totalGeneral = listaFinal.Where(x=> x.Status == "Activo").Sum(item => item.Total);
                 decimal devoluciones = listaFinal.Sum(item => item.TotalReturn);
@@ -202,14 +199,12 @@ namespace LinkCajaV2.Reports
                 Visible = false,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             });
-            dgvTickets.Columns.Add(new DataGridViewTextBoxColumn //REFERENCIA 
+            dgvTickets.Columns.Add(new DataGridViewTextBoxColumn  
             {
-                Name = "Referencia",
-                HeaderText = "Numero de  Transferencia",
-                DataPropertyName = "Referencia",
-                ReadOnly = false, 
-                Width = 150,      
-                MaxInputLength = 50
+                Name = "Folio",
+                HeaderText = "Folio",
+                DataPropertyName = "Folio",
+                ReadOnly = false
             });
             dgvTickets.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -230,8 +225,20 @@ namespace LinkCajaV2.Reports
             };
             btnVer.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
             btnVer.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
-
             dgvTickets.Columns.Add(btnVer);
+            DataGridViewButtonColumn VerFolio = new DataGridViewButtonColumn
+            {
+                Name = "VerFolio",
+                HeaderText = "Acción",
+                Text = "Folio",
+                UseColumnTextForButtonValue = true,
+                Width = 90,
+                FlatStyle = FlatStyle.Flat
+            };
+            VerFolio.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+            VerFolio.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
+            dgvTickets.Columns.Add(VerFolio);
+
             DataGridViewButtonColumn btnCancelar = new DataGridViewButtonColumn
             {
                 Name = "Cancelar",
@@ -321,7 +328,8 @@ namespace LinkCajaV2.Reports
             if (e.RowIndex < 0) return;
             if (_procesandoAccion) return;
             if (dgvTickets.Columns[e.ColumnIndex].Name != "Ver" && dgvTickets.Columns[e.ColumnIndex].Name != "Cancelar"
-                && dgvTickets.Columns[e.ColumnIndex].Name != "Enviar" && dgvTickets.Columns[e.ColumnIndex].Name != "CheckFacture") return;
+                && dgvTickets.Columns[e.ColumnIndex].Name != "Enviar" && dgvTickets.Columns[e.ColumnIndex].Name != "CheckFacture" 
+                && dgvTickets.Columns[e.ColumnIndex].Name != "VerFolio") return;
             try
             {
                 _procesandoAccion = true;
@@ -339,6 +347,30 @@ namespace LinkCajaV2.Reports
 
                 switch (dgvTickets.Columns[e.ColumnIndex].Name)
                 {
+                    case "VerFolio":
+                        string type = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["TypePay"].Value);
+                        if(type == "Efectivo")
+                        {
+                            MessageBox.Show("No se puede modificar el folio de un ticket de tipo Efectivo.", "Modificación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        
+                        InputForm folioForm = new InputForm();
+                        folioForm.Folio = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["Folio"].Value);
+                        if (folioForm.ShowDialog() == DialogResult.OK)
+                        {
+                            bool resultado = await obj.UpdateTicketReference(IdTicket, folioForm.Folio);
+                            if (resultado)
+                            {
+                                MessageBox.Show("Folio actualizado correctamente.", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                Buscar();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error al actualizar el folio.", "Error de Actualización", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        break;
                     case "Ver":
                         ItemsTicket itemsForm = new ItemsTicket();
                         itemsForm.IdTicket = IdTicket;
@@ -580,55 +612,6 @@ namespace LinkCajaV2.Reports
             this.Hide();
         }
 
-        private void dgvTickets_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-            if (dgvTickets.Columns[e.ColumnIndex].Name == "Referencia")
-            {
-                //Que pago es 
-                string tipoPago = dgvTickets.Rows[e.RowIndex].Cells["TypePay"].Value?.ToString();
-
-                
-                if (tipoPago == "Transferencia")
-                {
-                    if (string.IsNullOrWhiteSpace(e.FormattedValue.ToString()))
-                    {
-                        MessageBox.Show("La referencia no puede quedar vacía en pagos por Transferencia.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        e.Cancel = true; 
-                    }
-                }
-            }
-        }
-
-        private async void dgvTickets_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && dgvTickets.Columns[e.ColumnIndex].Name == "Referencia")
-            {
-                var ticket = (ListTicketModel)dgvTickets.Rows[e.RowIndex].DataBoundItem;
-                AppRepository obj = new AppRepository();
-
-                bool exito = await obj.UpdateTicketReference(ticket.Id, ticket.Referencia);
-
-                if (!exito)
-                {
-                    MessageBox.Show("Hubo un problema al guardar la referencia en la base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void dgvTickets_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            if (dgvTickets.Columns[e.ColumnIndex].Name == "Referencia")
-            {
-                //Saco el texto 
-                string tipoPago = dgvTickets.Rows[e.RowIndex].Cells["TypePay"].Value?.ToString();
-
-                //comparo 
-                if (tipoPago != "Transferencia")
-                {
-                    e.Cancel = true; 
-                    MessageBox.Show("La referencia bancaria solo aplica para pagos por Transferencia.", "Acción denegada", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-        }
+      
     }
 }

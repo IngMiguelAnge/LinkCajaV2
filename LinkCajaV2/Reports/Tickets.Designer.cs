@@ -346,10 +346,7 @@
             this.dgvTickets.RowTemplate.Height = 28;
             this.dgvTickets.Size = new System.Drawing.Size(795, 100);
             this.dgvTickets.TabIndex = 13;
-            this.dgvTickets.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvTickets_CellBeginEdit);
             this.dgvTickets.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTickets_CellContentClick);
-            this.dgvTickets.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvTickets_CellValidating);
-            this.dgvTickets.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTickets_CellValueChanged);
             // 
             // lblVenta
             // 

@@ -637,8 +637,7 @@ namespace LinkCajaV2.Sales
 
             TypePay tp = new TypePay();
             if (tp.ShowDialog() != DialogResult.OK)
-            {
-          
+            {          
                 return;
             }
             switch (tp.MetodoSeleccionado)

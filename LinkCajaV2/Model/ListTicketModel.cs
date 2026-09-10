@@ -16,6 +16,6 @@ namespace LinkCajaV2.Model
         public string Send { get; set; }
         public string TypePay { get; set; }
         public decimal CostoEnvio { get; set; }
-        public string Referencia { get; set; }
+        public string Folio { get; set; }
     }
 }

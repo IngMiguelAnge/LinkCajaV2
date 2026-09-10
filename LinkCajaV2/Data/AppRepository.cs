@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Policy;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace LinkCajaV2.Data
 {
@@ -932,7 +933,7 @@ namespace LinkCajaV2.Data
             };
         }
         public async Task<List<ListTicketModel>> GetTickets(int IdTicket, DateTime Desde,
-            DateTime Hasta, bool FechaCreacion , string Referencia = "")
+            DateTime Hasta, bool FechaCreacion , string Folio = "")
         {
             List<ListTicketModel> list = new List<ListTicketModel>();
             try
@@ -946,7 +947,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Desde", Desde));
                         cmd.Parameters.Add(new SqlParameter("@Hasta", Hasta));
                         cmd.Parameters.Add(new SqlParameter("@FechaCreacion", FechaCreacion));
-                        cmd.Parameters.Add(new SqlParameter("@Referencia", Referencia));
+                        cmd.Parameters.Add(new SqlParameter("@Folio", Folio));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
@@ -963,7 +964,7 @@ namespace LinkCajaV2.Data
             }
             return list;
         }
-        public async Task<bool> UpdateTicketReference(int IdTicket, string Referencia)
+        public async Task<bool> UpdateTicketReference(int IdTicket, string Folio)
         {
             try
             {
@@ -973,17 +974,12 @@ namespace LinkCajaV2.Data
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@IdTicket", IdTicket));
-                        cmd.Parameters.Add(new SqlParameter("@Referencia", Referencia));
-
-                        
+                        cmd.Parameters.Add(new SqlParameter("@Folio", Folio));                        
                         SqlParameter resp = new SqlParameter("@VResp", System.Data.SqlDbType.Int);
                         resp.Direction = System.Data.ParameterDirection.Output;
                         cmd.Parameters.Add(resp);
-
                         await sql.OpenAsync().ConfigureAwait(false);
-                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
-
-                        
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);                        
                         return Convert.ToInt32(resp.Value) == 1;
                     }
                 }
@@ -1010,7 +1006,7 @@ namespace LinkCajaV2.Data
                 Send = (string)reader["Send"],
                 TypePay = (string)reader["TypePay"],
                 CostoEnvio = reader["CostoEnvio"] != DBNull.Value ? (decimal)reader["CostoEnvio"] : 0m,
-                Referencia = reader["Referencia"] != DBNull.Value ? reader["Referencia"].ToString() : "" 
+                Folio = (string)reader["Folio"] 
 
         };
         }
@@ -3123,9 +3119,7 @@ namespace LinkCajaV2.Data
         }
 
         #endregion
-        #region Catalo de Clientes
-
-        //  Guardar Cliente 
+        #region Catalogo de Clientes
         public async Task<bool> SaveCliente(ClienteModel obj)
         {
             try
@@ -3153,8 +3147,7 @@ namespace LinkCajaV2.Data
             {
                 return false;
             }
-        }
-       
+        }       
         public async Task<bool> UpdateStatusCliente(int id)
         {
             try
@@ -3180,10 +3173,6 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
-
-
-
-        //  Buscar Clientes para el Catálogo 
         public async Task<List<ClienteModel>> GetClientsbyName(string buscar)
         {
             List<ClienteModel> list = new List<ClienteModel>();
@@ -3214,14 +3203,11 @@ namespace LinkCajaV2.Data
             }
             return list;
         }
-
-        // Mapeo
         private ClienteModel MapToCliente(SqlDataReader reader)
         {
             return new LinkCajaV2.Model.ClienteModel()
             {
-                Id = (int)reader["Id"],
-               
+                Id = (int)reader["Id"],               
                 Nombre = Convert.IsDBNull(reader["Name"]) ? string.Empty : (string)reader["Name"],
                 Correo = Convert.IsDBNull(reader["Email"]) ? string.Empty : (string)reader["Email"],
                 Telefono1 = Convert.IsDBNull(reader["Phone1"]) ? string.Empty : (string)reader["Phone1"],
@@ -3233,7 +3219,6 @@ namespace LinkCajaV2.Data
                 Estatus = Convert.ToBoolean(reader["Status"])
             };
         }
-
         public async Task<bool> UpdateUbicacionCliente(int id, string direccion, string latitud, string longitud, decimal costoEnvio)
         {
             try
@@ -3263,7 +3248,6 @@ namespace LinkCajaV2.Data
                 //return false;
             }
         }
-
         public async Task<ClienteModel> GetClientebyId(int id)
         {
             ClienteModel response = null;
@@ -3296,12 +3280,6 @@ namespace LinkCajaV2.Data
             return response;
         }
 
-
-
-
-
-
-
         #endregion
         #region TypePay
 
@@ -3310,32 +3288,37 @@ namespace LinkCajaV2.Data
             List<TypePayModel> lista = new List<TypePayModel>();
             try
             {
-                
-                using (SqlConnection con = new SqlConnection(Connection))
+                using (SqlConnection sql = new SqlConnection(Connection))
                 {
-                    await con.OpenAsync();
-                    SqlCommand cmd = new SqlCommand("GetTypePays", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                    using (SqlCommand cmd = new SqlCommand("GetTypePays", sql))
                     {
-                        while (await dr.ReadAsync())
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
-                            lista.Add(new TypePayModel
+                            while (await reader.ReadAsync().ConfigureAwait(false))
                             {
-                                IdTypePay = dr["IdTypePay"].ToString(),
-                                Name = dr["Name"].ToString()
-                            });
+                                lista.Add(MapToTypePays(reader));
+                            }
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-            
-                throw new Exception("Error al obtener los métodos de pago: " + ex.Message);
+
             }
             return lista;
+        }
+        private TypePayModel MapToTypePays(SqlDataReader reader)
+        {
+            return new TypePayModel()
+            {
+                Id = (int)reader["Id"],
+                Name = (string)reader["Name"],
+                Value = (string)reader["Value"],
+                Status = (bool)reader["Status"]
+            };
         }
 
         #endregion

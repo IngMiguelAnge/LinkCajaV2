@@ -8,7 +8,9 @@ namespace LinkCajaV2.Model
 {
     public class TypePayModel
     {
-        public string IdTypePay { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
+        public string Value { get; set; }
+        public bool Status { get; set; }
     }
 }
