@@ -19,8 +19,8 @@ namespace LinkCajaV2.Data
         public string Connection { get; set; }
         public AppRepository(bool isUnitOfWork = false)
         {
-            //Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
-            Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            //Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
         }
         public void Dispose()
         {
@@ -1207,7 +1207,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Width", obj.Width));
                         cmd.Parameters.Add(new SqlParameter("@HightLine", obj.HightLine));
                         cmd.Parameters.Add(new SqlParameter("@ColorLine", obj.ColorLine));
-                        cmd.Parameters.Add(new SqlParameter("@PosicionPrecio", obj.PosicionPrecio));//Posicion de impresion 
+                        cmd.Parameters.Add(new SqlParameter("@Abajo", obj.Abajo));
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;
@@ -1353,7 +1353,7 @@ namespace LinkCajaV2.Data
                 ColorLine = (string)reader["ColorLine"],
                 WidthPage = (decimal)reader["WidthPage"],
                 HightPage = (decimal)reader["HightPage"],
-                PosicionPrecio = reader["PosicionPrecio"] != DBNull.Value ? reader["PosicionPrecio"].ToString() : "Abajo"
+                Abajo = reader["Abajo"] != DBNull.Value ? Convert.ToBoolean(reader["Abajo"]) : false
             };
         }
         private ConfigPageModel MapToConfigPage(SqlDataReader reader)
@@ -1368,6 +1368,7 @@ namespace LinkCajaV2.Data
                 ColorLine = string.Empty,
                 WidthPage = (decimal)reader["WidthPage"],
                 HightPage = (decimal)reader["HightPage"],
+                TicketAutomatico = reader["TicketAutomatico"] != DBNull.Value ? Convert.ToBoolean(reader["TicketAutomatico"]) : false
             };
         }
         #endregion

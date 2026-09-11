@@ -863,8 +863,9 @@ namespace LinkCajaV2.Data
                 .Padding(5)
                 .Column(col =>
                 {
-                    // Si es arriba 
-                    if (ConfigBox.PosicionPrecio == "Arriba")
+
+                    // Si NO es Abajo (es decir, es Arriba)
+                    if (!ConfigBox.Abajo)
                     {
                         //  Precio (Arriba)
                         col.Item()
@@ -912,6 +913,7 @@ namespace LinkCajaV2.Data
                            .Text(precio.ToString("C2"))
                            .Style(EstiloPrecio);
                     }
+                    //////////////////////////////
                 });
         }
         public void GenerarTicket(VentaModel venta)

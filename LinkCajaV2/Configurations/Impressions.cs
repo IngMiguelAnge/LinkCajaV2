@@ -205,7 +205,7 @@ namespace LinkCajaV2.Configurations
 
                     if (cbPosicionPrecio.Items.Count > 0)
                     {
-                        cbPosicionPrecio.Text = ConfigBox2.PosicionPrecio;
+                        cbPosicionPrecio.Text = ConfigBox2.Abajo ? "Abajo" : "Arriba";
                     }
                     GBMPagina.Visible = true;
                     break;
@@ -329,8 +329,9 @@ namespace LinkCajaV2.Configurations
                             Align = CBAlineacion.SelectedValue.ToString(),
                             Width = Convert.ToInt32(NUDAncho.Value),
                             HightLine = NUDHightLine.Value,
-                            ColorLine = CBColorLinea.SelectedValue.ToString()
-                           
+                            ColorLine = CBColorLinea.SelectedValue.ToString(),
+                            Abajo = cbPosicionPrecio.Text == "Abajo"
+
                         };
                         result = await obj.SaveConfigBox(objBox);
                         break;
@@ -356,7 +357,7 @@ namespace LinkCajaV2.Configurations
                                 Width = Convert.ToInt32(NUDAncho.Value),
                                 HightLine = NUDHightLine.Value,
                                 ColorLine = CBColorLinea.SelectedValue != null ? CBColorLinea.SelectedValue.ToString() : "",
-                                PosicionPrecio = cbPosicionPrecio.Text
+                                Abajo = cbPosicionPrecio.Text == "Abajo"
                             };
                             await obj.SaveConfigBox(objBoxPrecios);
                         }

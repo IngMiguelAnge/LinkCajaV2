@@ -11,6 +11,7 @@
         public decimal WidthPage { get; set; }
         public decimal HightPage { get; set; }
         public bool TicketAutomatico { get; set; }
-        public string PosicionPrecio { get; set; }
+        
+        public bool Abajo { get; set; }
     }
 }
