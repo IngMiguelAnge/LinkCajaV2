@@ -85,6 +85,7 @@ namespace LinkCajaV2.Configurations
 
         private void Impressions_Load(object sender, EventArgs e)
         {
+            cbTicketAutomatico.Visible = true;
             CBImpresiones.Items.Add("Seleccione");
             CBImpresiones.Items.Add("Lista de precios");
             CBImpresiones.Items.Add("Ticket");
@@ -92,7 +93,7 @@ namespace LinkCajaV2.Configurations
             CBImpresiones.SelectedIndex = 0;
         }
 
-        // Dejé este método vacío por si el diseñador visual todavía lo está llamando, así no truena
+        // lo deje vacio por si truena 
         private void CBPagina_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
@@ -143,7 +144,7 @@ namespace LinkCajaV2.Configurations
 
         private void CBImpresiones_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cbTicketAutomatico.Visible = false;
+            cbTicketAutomatico.Visible = true;
             lblPosicion.Visible = false;
             cbPosicionPrecio.Visible = false;
             GBMPagina.Visible = false;
