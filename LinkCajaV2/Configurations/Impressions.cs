@@ -85,7 +85,7 @@ namespace LinkCajaV2.Configurations
 
         private void Impressions_Load(object sender, EventArgs e)
         {
-            cbTicketAutomatico.Visible = true;
+            cbTicketAutomatico.Visible = true;//check box visible
             CBImpresiones.Items.Add("Seleccione");
             CBImpresiones.Items.Add("Lista de precios");
             CBImpresiones.Items.Add("Ticket");
