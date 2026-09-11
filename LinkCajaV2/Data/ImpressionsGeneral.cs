@@ -228,12 +228,11 @@ namespace LinkCajaV2.Data
                                 // Línea divisoria ligeramente más marcada para los títulos
                                 headerCol.Item().PaddingTop(5).Height(1.5f).Background(Colors.Grey.Darken1);
                             });
+                           
                             foreach (var item in ListArticulos)
                             {
-                                // Reemplazamos el método del cuadro por una fila limpia de texto continuo
                                 listCol.Item().Column(itemCol =>
                                 {
-                                    // 1. Renglón con la información del artículo
                                     itemCol.Item().Row(row =>
                                     {
                                         row.RelativeItem().AlignCenter().Text(item.Codigo).Style(EstiloArticulo);
@@ -242,10 +241,11 @@ namespace LinkCajaV2.Data
                                         row.ConstantItem(80).AlignRight().Text(item.Precio.ToString("C2")).Style(EstiloPrecio);
                                     });
 
-                                    // 2. Línea divisoria horizontal (delgada y de un gris sutil para que se vea elegante)
+                                    // Línea divisoria
                                     itemCol.Item().PaddingTop(5).Height(1).Background(Colors.Grey.Lighten2);
                                 });
                             }
+
                         });
 
                         // Pie de página
@@ -857,32 +857,61 @@ namespace LinkCajaV2.Data
         {
             string Cod = CodigodeColor(ConfigBox.ColorLine);
             container
-                .Width(ConfigBox.Width) // Ajusta este valor para tener más o menos cuadros por fila
+                .Width(ConfigBox.Width) 
                 .Border(0.5f)
                 .BorderColor(Colors.Black)
                 .Padding(5)
                 .Column(col =>
                 {
-                    // 1. Nombre del artículo (Sin Height fijo)
-                    col.Item().Row(row =>
+                    // Si es arriba 
+                    if (ConfigBox.PosicionPrecio == "Arriba")
                     {
-                        row.RelativeItem()
+                        //  Precio (Arriba)
+                        col.Item()
                            .AlignCenter()
-                           .Text(nombre)
-                           .Style(EstiloArticulo);
-                    });
+                           .Text(precio.ToString("C2"))
+                           .Style(EstiloPrecio);
 
-                    // 2. Línea divisoria
-                    col.Item()
-                       .PaddingVertical(2)
-                       .LineHorizontal((float)ConfigBox.HightLine)
-                       .LineColor(Cod);
+                        //  Línea divisoria
+                        col.Item()
+                           .PaddingVertical(2)
+                           .LineHorizontal((float)ConfigBox.HightLine)
+                           .LineColor(Cod);
 
-                    // 3. Precio (Abajo)
-                    col.Item()
-                       .AlignCenter()
-                       .Text(precio.ToString("C2"))
-                       .Style(EstiloPrecio);
+                        //  Nombre del artículo (Abajo)
+                        col.Item().Row(row =>
+                        {
+                            row.RelativeItem()
+                               .AlignCenter()
+                               .Text(nombre)
+                               .Style(EstiloArticulo);
+                        });
+                    }
+                    else
+                    {
+                        // Este es el original 
+
+                        // 1. Nombre del artículo (Arriba)
+                        col.Item().Row(row =>
+                        {
+                            row.RelativeItem()
+                               .AlignCenter()
+                               .Text(nombre)
+                               .Style(EstiloArticulo);
+                        });
+
+                        // 2. Línea divisoria
+                        col.Item()
+                           .PaddingVertical(2)
+                           .LineHorizontal((float)ConfigBox.HightLine)
+                           .LineColor(Cod);
+
+                        // 3. Precio (Abajo)
+                        col.Item()
+                           .AlignCenter()
+                           .Text(precio.ToString("C2"))
+                           .Style(EstiloPrecio);
+                    }
                 });
         }
         public void GenerarTicket(VentaModel venta)

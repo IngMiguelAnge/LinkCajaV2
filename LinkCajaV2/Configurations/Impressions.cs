@@ -16,27 +16,23 @@ namespace LinkCajaV2.Configurations
     public partial class Impressions : System.Windows.Forms.Form
     {
         List<ListConfigImpressionsModel> ConfigImpressions;
+
         public Impressions()
         {
             InitializeComponent();
         }
+
         public void Iniciar()
         {
-            CBPagina.Items.Add("Seleccione");
-            if (CBImpresiones.Text != "Ticket")
-                CBPagina.Items.Add("A4");
-            else
-                CBPagina.Items.Add("mm");
-            CBPagina.SelectedIndex = 0;
-
             CBModificar.Items.Add("Seleccione");
             CBModificar.Items.Add("Titulo");
             CBModificar.Items.Add("Fecha");
+
             if (CBImpresiones.Text != "Ticket")
             {
                 CBModificar.Items.Add("Articulos");
                 CBModificar.Items.Add("Precios");
-                if(CBImpresiones.Text != "Lista de precios")
+                if (CBImpresiones.Text != "Lista de precios")
                     CBModificar.Items.Add("Recuadro");
             }
             else
@@ -62,11 +58,11 @@ namespace LinkCajaV2.Configurations
             listaColores.Add(new OpcionComboModel() { Texto = "Azul", Valor = "Blue" });
             listaColores.Add(new OpcionComboModel() { Texto = "Verde", Valor = "Green" });
 
-            // Configuramos el ComboBox
             CBColorLetra.DisplayMember = "Texto";
             CBColorLetra.ValueMember = "Valor";
             CBColorLetra.DataSource = listaColores;
             CBColorLetra.SelectedIndex = 0;
+
             if (CBImpresiones.Text != "Ticket")
             {
                 List<OpcionComboModel> listaDirecciones = new List<OpcionComboModel>();
@@ -74,7 +70,6 @@ namespace LinkCajaV2.Configurations
                 listaDirecciones.Add(new OpcionComboModel() { Texto = "Izquierda", Valor = "AlignLeft" });
                 listaDirecciones.Add(new OpcionComboModel() { Texto = "Centro", Valor = "AlignCenter" });
                 listaDirecciones.Add(new OpcionComboModel() { Texto = "Derecha", Valor = "AlignRight" });
-
 
                 CBAlineacion.DisplayMember = "Texto";
                 CBAlineacion.ValueMember = "Valor";
@@ -87,6 +82,7 @@ namespace LinkCajaV2.Configurations
                 CBColorLinea.SelectedIndex = 0;
             }
         }
+
         private void Impressions_Load(object sender, EventArgs e)
         {
             CBImpresiones.Items.Add("Seleccione");
@@ -96,13 +92,9 @@ namespace LinkCajaV2.Configurations
             CBImpresiones.SelectedIndex = 0;
         }
 
+        // Dejé este método vacío por si el diseñador visual todavía lo está llamando, así no truena
         private void CBPagina_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GBMPagina.Visible = false;
-            if (CBPagina.Text == "mm")
-            {
-                GBMPagina.Visible = true;
-            }
         }
 
         private void CBModificar_SelectedIndexChanged(object sender, EventArgs e)
@@ -111,6 +103,8 @@ namespace LinkCajaV2.Configurations
             GBLetras.Visible = false;
             GBLinea.Visible = false;
             GBUnidos.Visible = false;
+            lblPosicion.Visible = false;
+            cbPosicionPrecio.Visible = false;
 
             string Color = "Black";
             string FontStyle = "SemiBold";
@@ -129,7 +123,7 @@ namespace LinkCajaV2.Configurations
                 CBColorLetra.SelectedValue = Color;
                 FontStyle = ConfigImpressions.Find(x => x.Name == CBModificar.Text) != null ? ConfigImpressions.Find(x => x.Name == CBModificar.Text).FontStyle : "SemiBold";
                 CBEstilo.SelectedItem = FontStyle;
-                if(CBModificar.Text == "Articulos" && CBImpresiones.Text == "Etiquetas")
+                if (CBModificar.Text == "Articulos" && CBImpresiones.Text == "Etiquetas")
                 {
                     lblCaracteres.Visible = true;
                     nudCaracteres.Visible = true;
@@ -140,21 +134,22 @@ namespace LinkCajaV2.Configurations
                     nudCaracteres.Visible = false;
                 }
             }
-            if (CBModificar.Text == "Recuadro")
+            if (CBModificar.Text == "Precios" && CBImpresiones.Text == "Etiquetas")
             {
-                GBCuadros.Visible = true;
-                GBLinea.Visible = true;
-                GBUnidos.Visible = true;
+                lblPosicion.Visible = true;
+                cbPosicionPrecio.Visible = true;
             }
         }
 
         private void CBImpresiones_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CBImprimir.Visible = false;
+            cbTicketAutomatico.Visible = false;
+            lblPosicion.Visible = false;
+            cbPosicionPrecio.Visible = false;
+            GBMPagina.Visible = false;
+
             CBModificar.Items.Clear();
             CBModificar.Text = string.Empty;
-            CBPagina.Items.Clear();
-            CBPagina.Text = string.Empty;
             CBEstilo.Items.Clear();
             CBEstilo.Text = string.Empty;
             CBColorLetra.DataSource = null;
@@ -163,6 +158,7 @@ namespace LinkCajaV2.Configurations
             CBAlineacion.Items.Clear();
             CBColorLinea.DataSource = null;
             CBColorLinea.Items.Clear();
+
             switch (CBImpresiones.Text)
             {
                 case "Lista de precios":
@@ -175,22 +171,25 @@ namespace LinkCajaV2.Configurations
                     NUDHightLine.Value = ConfigBox.HightLine;
                     NUDAncho.Value = ConfigBox.Width;
                     NUDALMilimetros.Value = ConfigBox.HightPage;
-                    CBPagina.SelectedItem = ConfigBox.Page;
                     NUDAMilimetros.Value = ConfigBox.WidthPage;
                     ConfigImpressions = obj.GetConfigImpressions("Lista de precios").Result;
                     break;
+
                 case "Ticket":
                     MessageBox.Show("Esta opción requerira de una impresora POS como predeterminada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    //Si es para impresora osc recordar altura 0 ancho 58
                     Iniciar();
-                    CBImprimir.Visible = true;
+                    cbTicketAutomatico.Visible = true;
                     AppRepository obj2 = new AppRepository();
                     ConfigPageModel ConfigPage = obj2.GetConfigPage().Result;
                     NUDALMilimetros.Value = ConfigPage.HightPage;
-                    CBPagina.SelectedItem = ConfigPage.Page;
                     NUDAMilimetros.Value = ConfigPage.WidthPage;
+                    cbTicketAutomatico.Checked = ConfigPage.TicketAutomatico;
                     ConfigImpressions = obj2.GetConfigImpressions("Ticket").Result;
+                 
+
+                    GBMPagina.Visible = true; 
                     break;
+
                 case "Etiquetas":
                     Iniciar();
                     AppRepository obj3 = new AppRepository();
@@ -201,15 +200,21 @@ namespace LinkCajaV2.Configurations
                     NUDHightLine.Value = ConfigBox2.HightLine;
                     NUDAncho.Value = ConfigBox2.Width;
                     NUDALMilimetros.Value = ConfigBox2.HightPage;
-                    CBPagina.SelectedItem = ConfigBox2.Page;
                     NUDAMilimetros.Value = ConfigBox2.WidthPage;
                     ConfigImpressions = obj3.GetConfigImpressions("Etiquetas").Result;
+
+                    if (cbPosicionPrecio.Items.Count > 0)
+                    {
+                        cbPosicionPrecio.Text = ConfigBox2.PosicionPrecio;
+                    }
+                    GBMPagina.Visible = true;
                     break;
+
                 default:
                     GBCuadros.Visible = false;
                     GBLetras.Visible = false;
                     GBLinea.Visible = false;
-                    CBImprimir.Visible = false;
+                    cbTicketAutomatico.Visible = false;
                     break;
             }
         }
@@ -235,7 +240,8 @@ namespace LinkCajaV2.Configurations
                 articulos.Add(new PrinterPricesModel() { Articulo = "Whisky", Categoria = "Bebidas", Precio = 100.00m });
                 articulos.Add(new PrinterPricesModel() { Articulo = "Ron", Categoria = "Bebidas", Precio = 80.00m });
                 ImpressionsGeneral im = new ImpressionsGeneral();
-                if(CBImpresiones.Text == "Lista de precios")
+
+                if (CBImpresiones.Text == "Lista de precios")
                     im.ImpresionListaPrecios(articulos);
                 else
                     im.ImpresionEtiquetas(articulos);
@@ -253,12 +259,12 @@ namespace LinkCajaV2.Configurations
                 {
                     Company = Empresa,
                     Copias = 0,
-                    Imprimir = CBImprimir.Checked,
+                    Imprimir = cbTicketAutomatico.Checked,
                     Recibido = 100,
                     IdTicket = 0,
                     Cliente = "Publico General",
                     BoxName = "Caja de prueba",
-                    Title= "TKT" + Empresa.BillingName.Trim() + "-" + DateTime.Now.Year.ToString() + "-0",
+                    Title = "TKT" + Empresa.BillingName.Trim() + "-" + DateTime.Now.Year.ToString() + "-0",
                     Articles = new BindingList<ArticlesSalesModel>()
                     {
                           new ArticlesSalesModel() { IdArticle=1,IdPresentation=1, Code = "1234", Name = "Coca-Cola", Stock = 1, Presentation = "Lata", Price = 10, Decimals = 0, Image = null},
@@ -267,10 +273,9 @@ namespace LinkCajaV2.Configurations
                           new ArticlesSalesModel() { IdArticle=4,IdPresentation=1, Code = "3456", Name = "Sprite", Stock = 1, Presentation = "Botella", Price = 25, Decimals = 0, Image = null},
                           new ArticlesSalesModel() { IdArticle=5,IdPresentation=1, Code = "7890", Name = "Piña", Stock = 1, Presentation = "Pieza", Price = 5, Decimals = 0, Image = null},
                     }
-                    
                 };
                 ImpressionsGeneral im = new ImpressionsGeneral();
-                im.GenerarTicketEscPos(Venta);//GenerarTicket(Venta);
+                im.GenerarTicketEscPos(Venta);
             }
         }
 
@@ -281,33 +286,37 @@ namespace LinkCajaV2.Configurations
                 MessageBox.Show("Seleccione una impresión", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            if (CBPagina.Text == "Seleccione")
+
+           
+            string tipoDeHojaAsignado = CBImpresiones.Text == "Lista de precios" ? "A4" : "mm";
+
+            if (tipoDeHojaAsignado == "mm")
             {
-                MessageBox.Show("Seleccione un tamaño de página", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-            if (CBPagina.Text == "mm")
-            {
-                if (NUDALMilimetros.Value < 0 || NUDAMilimetros.Value < 0)
+                if (NUDALMilimetros.Value <= 0 || NUDAMilimetros.Value <= 0)
                 {
                     MessageBox.Show("Ingrese un valor válido para el tamaño de página en milímetros", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
             }
+
             ImpressionsModel objImpresion = new ImpressionsModel()
             {
                 Name = CBImpresiones.Text,
-                Page = CBPagina.Text,
-                WidthPage = CBPagina.Text == "mm" ? NUDAMilimetros.Value : 0,
-                HightPage = CBPagina.Text == "mm" ? NUDALMilimetros.Value : 0
+                Page = tipoDeHojaAsignado,
+                WidthPage = tipoDeHojaAsignado == "mm" ? NUDAMilimetros.Value : 0,
+                HightPage = tipoDeHojaAsignado == "mm" ? NUDALMilimetros.Value : 0,
+                TicketAutomatico = cbTicketAutomatico.Checked //lee el checkbox
             };
+
             AppRepository obj = new AppRepository();
             bool result = await obj.SaveImpressions(objImpresion);
+
             if (result == false)
             {
                 MessageBox.Show("Error al guardar la configuración de página", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
             if (CBModificar.Text != "Seleccione")
             {
                 switch (CBModificar.Text)
@@ -321,9 +330,11 @@ namespace LinkCajaV2.Configurations
                             Width = Convert.ToInt32(NUDAncho.Value),
                             HightLine = NUDHightLine.Value,
                             ColorLine = CBColorLinea.SelectedValue.ToString()
+                           
                         };
                         result = await obj.SaveConfigBox(objBox);
                         break;
+
                     default:
                         ConfigImpressionsModel objConfig = new ConfigImpressionsModel()
                         {
@@ -334,9 +345,25 @@ namespace LinkCajaV2.Configurations
                             Caracters = Convert.ToInt32(nudCaracteres.Value)
                         };
                         result = await obj.SaveConfigImpressions(objConfig);
+
+                        if (CBModificar.Text == "Precios" && CBImpresiones.Text == "Etiquetas")
+                        {
+                            ConfigBoxModel objBoxPrecios = new ConfigBoxModel()
+                            {
+                                Name = "BoxPrecios",
+                                Spacing = Convert.ToInt32(NUDEspacio.Value),
+                                Align = CBAlineacion.SelectedValue != null ? CBAlineacion.SelectedValue.ToString() : "",
+                                Width = Convert.ToInt32(NUDAncho.Value),
+                                HightLine = NUDHightLine.Value,
+                                ColorLine = CBColorLinea.SelectedValue != null ? CBColorLinea.SelectedValue.ToString() : "",
+                                PosicionPrecio = cbPosicionPrecio.Text
+                            };
+                            await obj.SaveConfigBox(objBoxPrecios);
+                        }
                         break;
                 }
             }
+
             if (result == false)
             {
                 MessageBox.Show("Error al guardar la configuración de impresión", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -347,6 +374,5 @@ namespace LinkCajaV2.Configurations
                 MessageBox.Show("Configuración guardada correctamente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
     }
 }

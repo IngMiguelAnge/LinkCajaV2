@@ -80,6 +80,7 @@ namespace LinkCajaV2.Sales
             }
             HardwareID hardwareID = new HardwareID();
             string Hard = hardwareID.ObtenerHardwareID();
+           
             var box = obj.GetBoxsbyHardwareID(Hard).Result;
             if (box == null || box.Status == false)
             {
@@ -683,9 +684,9 @@ namespace LinkCajaV2.Sales
             VentaModel venta = new VentaModel
             {
                 Articles = bindingList,
-                Copias = NUDCopias.Value,
+                Copias = 1,
                 Company = Empresa,
-                Imprimir = CBImprimir.Checked,
+                Imprimir = false,
                 Recibido = Recibido,
                 IdTicket = 0,
                 Cliente = NombreClienteActual,

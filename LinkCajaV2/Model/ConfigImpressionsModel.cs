@@ -8,5 +8,6 @@
         public string FontStyle { get; set; }
         public string FontColor { get; set; }
         public int Caracters { get; set; }
+        public bool TicketAutomatico { get; set; }
     }
 }

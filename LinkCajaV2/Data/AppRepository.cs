@@ -1207,6 +1207,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Width", obj.Width));
                         cmd.Parameters.Add(new SqlParameter("@HightLine", obj.HightLine));
                         cmd.Parameters.Add(new SqlParameter("@ColorLine", obj.ColorLine));
+                        cmd.Parameters.Add(new SqlParameter("@PosicionPrecio", obj.PosicionPrecio));//Posicion de impresion 
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;
@@ -1231,6 +1232,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Page", obj.Page));
                         cmd.Parameters.Add(new SqlParameter("@WidthPage", obj.WidthPage));
                         cmd.Parameters.Add(new SqlParameter("@HightPage", obj.HightPage));
+                        cmd.Parameters.Add(new SqlParameter("@TicketAutomatico", obj.TicketAutomatico));//Ticket Auto 
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;
@@ -1351,6 +1353,7 @@ namespace LinkCajaV2.Data
                 ColorLine = (string)reader["ColorLine"],
                 WidthPage = (decimal)reader["WidthPage"],
                 HightPage = (decimal)reader["HightPage"],
+                PosicionPrecio = reader["PosicionPrecio"] != DBNull.Value ? reader["PosicionPrecio"].ToString() : "Abajo"
             };
         }
         private ConfigPageModel MapToConfigPage(SqlDataReader reader)

@@ -14,5 +14,6 @@ namespace LinkCajaV2.Model
         public int Width { get; set; }
         public decimal HightLine { get; set; }
         public string ColorLine { get; set; }
+        public string PosicionPrecio { get; set; }
     }
 }

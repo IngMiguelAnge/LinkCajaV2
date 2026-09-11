@@ -10,5 +10,7 @@
         public string ColorLine { get; set; }
         public decimal WidthPage { get; set; }
         public decimal HightPage { get; set; }
+        public bool TicketAutomatico { get; set; }
+        public string PosicionPrecio { get; set; }
     }
 }
