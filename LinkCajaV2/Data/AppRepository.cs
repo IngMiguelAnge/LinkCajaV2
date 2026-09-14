@@ -1283,7 +1283,7 @@ namespace LinkCajaV2.Data
                 Caracters = (int)reader["Caracters"],
             };
         }
-        public async Task<ConfigPageModel> GetConfigBox()
+        public async Task<ConfigPageModel> GetConfigBox(string TipoImpresion)
         {
             ConfigPageModel Result = new ConfigPageModel();
             List<ConfigPageModel> list = new List<ConfigPageModel>();
@@ -1294,6 +1294,7 @@ namespace LinkCajaV2.Data
                     using (SqlCommand cmd = new SqlCommand("GetConfigBox", sql))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@ImpressionName", TipoImpresion));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
@@ -3322,6 +3323,17 @@ namespace LinkCajaV2.Data
                 Name = (string)reader["Name"],
                 Value = (string)reader["Value"],
                 Status = (bool)reader["Status"]
+
+                //Id = 0,
+
+                //// Leemos la columna Name
+                //Name = reader["Name"] != DBNull.Value ? reader["Name"].ToString() : "",
+
+                //// El SP devuelve "IdTypePay", pero el ComboBox de C# lo necesita en la propiedad "Value"
+                //Value = reader["IdTypePay"] != DBNull.Value ? reader["IdTypePay"].ToString() : "",
+
+                //// Como el SP ya trae el WHERE Status = 1, asumimos que es true
+                //Status = true
             };
         }
 

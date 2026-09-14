@@ -681,12 +681,15 @@ namespace LinkCajaV2.Sales
                     return; // Seguridad extra 
             }
 
+            AppRepository repoConfig = new AppRepository();
+            ConfigPageModel configuracionImpresion = repoConfig.GetConfigPage().Result;
+            bool imprimirTicketAutomatico = configuracionImpresion != null && configuracionImpresion.TicketAutomatico;
             VentaModel venta = new VentaModel
             {
                 Articles = bindingList,
                 Copias = 1,
                 Company = Empresa,
-                Imprimir = false,
+                Imprimir = imprimirTicketAutomatico,
                 Recibido = Recibido,
                 IdTicket = 0,
                 Cliente = NombreClienteActual,
@@ -780,7 +783,17 @@ namespace LinkCajaV2.Sales
                 });
             }
             ImpressionsGeneral im = new ImpressionsGeneral();
-            im.GenerarTicketEscPos(venta); //GenerarTicket(venta);
+
+            if (venta.Imprimir)
+            {
+                im.GenerarTicketEscPos(venta);
+            }
+            else
+            {
+                im.GenerarTicket(venta);
+            }
+            //ImpressionsGeneral im = new ImpressionsGeneral();
+            //im.GenerarTicketEscPos(venta); //GenerarTicket(venta);
             //Descomentar cuando este lo de facturacion
             //BillingMethods Facturacion = new BillingMethods();
             //string mensaje = string.Empty;

@@ -98,7 +98,7 @@
             this.CBImpresiones.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBImpresiones.FormattingEnabled = true;
             this.CBImpresiones.Location = new System.Drawing.Point(23, 88);
-            this.CBImpresiones.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CBImpresiones.Margin = new System.Windows.Forms.Padding(2);
             this.CBImpresiones.Name = "CBImpresiones";
             this.CBImpresiones.Size = new System.Drawing.Size(175, 28);
             this.CBImpresiones.TabIndex = 1;
@@ -120,7 +120,7 @@
             // 
             this.NUDSizeLetra.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NUDSizeLetra.Location = new System.Drawing.Point(17, 49);
-            this.NUDSizeLetra.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.NUDSizeLetra.Margin = new System.Windows.Forms.Padding(2);
             this.NUDSizeLetra.Maximum = new decimal(new int[] {
             50,
             0,
@@ -148,7 +148,7 @@
             this.CBEstilo.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBEstilo.FormattingEnabled = true;
             this.CBEstilo.Location = new System.Drawing.Point(17, 104);
-            this.CBEstilo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CBEstilo.Margin = new System.Windows.Forms.Padding(2);
             this.CBEstilo.Name = "CBEstilo";
             this.CBEstilo.Size = new System.Drawing.Size(168, 28);
             this.CBEstilo.TabIndex = 8;
@@ -171,7 +171,7 @@
             this.CBColorLetra.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBColorLetra.FormattingEnabled = true;
             this.CBColorLetra.Location = new System.Drawing.Point(17, 159);
-            this.CBColorLetra.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CBColorLetra.Margin = new System.Windows.Forms.Padding(2);
             this.CBColorLetra.Name = "CBColorLetra";
             this.CBColorLetra.Size = new System.Drawing.Size(168, 28);
             this.CBColorLetra.TabIndex = 10;
@@ -194,7 +194,7 @@
             this.CBModificar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBModificar.FormattingEnabled = true;
             this.CBModificar.Location = new System.Drawing.Point(23, 143);
-            this.CBModificar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CBModificar.Margin = new System.Windows.Forms.Padding(2);
             this.CBModificar.Name = "CBModificar";
             this.CBModificar.Size = new System.Drawing.Size(175, 28);
             this.CBModificar.TabIndex = 12;
@@ -216,7 +216,7 @@
             // 
             this.NUDEspacio.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NUDEspacio.Location = new System.Drawing.Point(17, 49);
-            this.NUDEspacio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.NUDEspacio.Margin = new System.Windows.Forms.Padding(2);
             this.NUDEspacio.Maximum = new decimal(new int[] {
             50,
             0,
@@ -244,7 +244,7 @@
             this.CBAlineacion.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBAlineacion.FormattingEnabled = true;
             this.CBAlineacion.Location = new System.Drawing.Point(17, 104);
-            this.CBAlineacion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CBAlineacion.Margin = new System.Windows.Forms.Padding(2);
             this.CBAlineacion.Name = "CBAlineacion";
             this.CBAlineacion.Size = new System.Drawing.Size(168, 28);
             this.CBAlineacion.TabIndex = 16;
@@ -265,7 +265,7 @@
             // 
             this.NUDAncho.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NUDAncho.Location = new System.Drawing.Point(17, 159);
-            this.NUDAncho.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.NUDAncho.Margin = new System.Windows.Forms.Padding(2);
             this.NUDAncho.Maximum = new decimal(new int[] {
             300,
             0,
@@ -281,7 +281,7 @@
             this.CBColorLinea.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBColorLinea.FormattingEnabled = true;
             this.CBColorLinea.Location = new System.Drawing.Point(17, 104);
-            this.CBColorLinea.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CBColorLinea.Margin = new System.Windows.Forms.Padding(2);
             this.CBColorLinea.Name = "CBColorLinea";
             this.CBColorLinea.Size = new System.Drawing.Size(168, 28);
             this.CBColorLinea.TabIndex = 20;
@@ -307,7 +307,7 @@
             this.BtnGuardar.ForeColor = System.Drawing.Color.White;
             this.BtnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("BtnGuardar.Image")));
             this.BtnGuardar.Location = new System.Drawing.Point(331, 346);
-            this.BtnGuardar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BtnGuardar.Margin = new System.Windows.Forms.Padding(2);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(133, 31);
             this.BtnGuardar.TabIndex = 21;
@@ -333,7 +333,7 @@
             this.NUDHightLine.DecimalPlaces = 2;
             this.NUDHightLine.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NUDHightLine.Location = new System.Drawing.Point(17, 49);
-            this.NUDHightLine.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.NUDHightLine.Margin = new System.Windows.Forms.Padding(2);
             this.NUDHightLine.Name = "NUDHightLine";
             this.NUDHightLine.Size = new System.Drawing.Size(167, 27);
             this.NUDHightLine.TabIndex = 23;
@@ -354,7 +354,7 @@
             // 
             this.NUDAMilimetros.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NUDAMilimetros.Location = new System.Drawing.Point(20, 49);
-            this.NUDAMilimetros.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.NUDAMilimetros.Margin = new System.Windows.Forms.Padding(2);
             this.NUDAMilimetros.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -380,7 +380,7 @@
             // 
             this.NUDALMilimetros.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NUDALMilimetros.Location = new System.Drawing.Point(20, 110);
-            this.NUDALMilimetros.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.NUDALMilimetros.Margin = new System.Windows.Forms.Padding(2);
             this.NUDALMilimetros.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -400,13 +400,13 @@
             this.GBMPagina.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GBMPagina.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.GBMPagina.Location = new System.Drawing.Point(233, 65);
-            this.GBMPagina.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GBMPagina.Margin = new System.Windows.Forms.Padding(2);
             this.GBMPagina.Name = "GBMPagina";
-            this.GBMPagina.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GBMPagina.Padding = new System.Windows.Forms.Padding(2);
             this.GBMPagina.Size = new System.Drawing.Size(233, 179);
             this.GBMPagina.TabIndex = 28;
             this.GBMPagina.TabStop = false;
-            this.GBMPagina.Text = "Medidas de página";
+            this.GBMPagina.Text = "Medidas de etiqueta ";
             this.GBMPagina.Visible = false;
             // 
             // GBLetras
@@ -423,9 +423,9 @@
             this.GBLetras.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GBLetras.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.GBLetras.Location = new System.Drawing.Point(231, 49);
-            this.GBLetras.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GBLetras.Margin = new System.Windows.Forms.Padding(2);
             this.GBLetras.Name = "GBLetras";
-            this.GBLetras.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GBLetras.Padding = new System.Windows.Forms.Padding(2);
             this.GBLetras.Size = new System.Drawing.Size(233, 259);
             this.GBLetras.TabIndex = 29;
             this.GBLetras.TabStop = false;
@@ -448,7 +448,7 @@
             // 
             this.nudCaracteres.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudCaracteres.Location = new System.Drawing.Point(17, 207);
-            this.nudCaracteres.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudCaracteres.Margin = new System.Windows.Forms.Padding(2);
             this.nudCaracteres.Maximum = new decimal(new int[] {
             500,
             0,
@@ -479,9 +479,9 @@
             this.GBCuadros.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GBCuadros.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.GBCuadros.Location = new System.Drawing.Point(0, 0);
-            this.GBCuadros.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GBCuadros.Margin = new System.Windows.Forms.Padding(2);
             this.GBCuadros.Name = "GBCuadros";
-            this.GBCuadros.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GBCuadros.Padding = new System.Windows.Forms.Padding(2);
             this.GBCuadros.Size = new System.Drawing.Size(233, 195);
             this.GBCuadros.TabIndex = 30;
             this.GBCuadros.TabStop = false;
@@ -497,9 +497,9 @@
             this.GBLinea.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GBLinea.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.GBLinea.Location = new System.Drawing.Point(0, 0);
-            this.GBLinea.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GBLinea.Margin = new System.Windows.Forms.Padding(2);
             this.GBLinea.Name = "GBLinea";
-            this.GBLinea.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GBLinea.Padding = new System.Windows.Forms.Padding(2);
             this.GBLinea.Size = new System.Drawing.Size(233, 179);
             this.GBLinea.TabIndex = 31;
             this.GBLinea.TabStop = false;
@@ -514,7 +514,7 @@
             this.btnImprimir.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImprimir.Image = ((System.Drawing.Image)(resources.GetObject("btnImprimir.Image")));
             this.btnImprimir.Location = new System.Drawing.Point(185, 346);
-            this.btnImprimir.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnImprimir.Margin = new System.Windows.Forms.Padding(2);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(133, 31);
             this.btnImprimir.TabIndex = 32;
@@ -532,7 +532,7 @@
             this.cbTicketAutomatico.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbTicketAutomatico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.cbTicketAutomatico.Location = new System.Drawing.Point(23, 351);
-            this.cbTicketAutomatico.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbTicketAutomatico.Margin = new System.Windows.Forms.Padding(2);
             this.cbTicketAutomatico.Name = "cbTicketAutomatico";
             this.cbTicketAutomatico.Size = new System.Drawing.Size(157, 23);
             this.cbTicketAutomatico.TabIndex = 28;
@@ -557,9 +557,9 @@
             this.GBUnidos.Controls.Add(this.GBCuadros);
             this.GBUnidos.Controls.Add(this.GBLinea);
             this.GBUnidos.Location = new System.Drawing.Point(233, 65);
-            this.GBUnidos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GBUnidos.Margin = new System.Windows.Forms.Padding(2);
             this.GBUnidos.Name = "GBUnidos";
-            this.GBUnidos.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GBUnidos.Padding = new System.Windows.Forms.Padding(2);
             this.GBUnidos.Size = new System.Drawing.Size(233, 196);
             this.GBUnidos.TabIndex = 34;
             this.GBUnidos.TabStop = false;
@@ -610,7 +610,7 @@
             this.Controls.Add(this.CBImpresiones);
             this.Controls.Add(this.lblImpresiones);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Impressions";

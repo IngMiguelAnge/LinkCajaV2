@@ -27,7 +27,7 @@ namespace LinkCajaV2.Data
             try
             {
                 AppRepository obj = new AppRepository();
-                ConfigBox = obj.GetConfigBox().Result;
+                ConfigBox = obj.GetConfigBox("Lista de precios").Result;
                 ConfigImpressions = obj.GetConfigImpressions("Lista de articulos agotados").Result;
 
                 // 2. Configurar licencia y ruta
@@ -149,7 +149,7 @@ namespace LinkCajaV2.Data
             try
             {
                 AppRepository obj = new AppRepository();
-                ConfigBox = obj.GetConfigBox().Result;
+                ConfigBox = obj.GetConfigBox("Lista de precios").Result;
                 ConfigImpressions = obj.GetConfigImpressions("Lista de precios").Result;
 
                 // 2. Configurar licencia y ruta
@@ -270,19 +270,22 @@ namespace LinkCajaV2.Data
             try
             {
                 AppRepository obj = new AppRepository();
-                ConfigBox = obj.GetConfigBox().Result;
+                ConfigBox = obj.GetConfigBox("Etiquetas").Result;
                 ConfigImpressions = obj.GetConfigImpressions("Etiquetas").Result;
                 // 2. Configurar licencia y ruta
                 QuestPDF.Settings.License = LicenseType.Community;
                 string nombreArchivo = "Etiquetas.pdf";
                 string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory + "\\Impresiones", nombreArchivo);
 
+
                 // 3. Crear el documento
                 Document.Create(container =>
                 {
                     container.Page(page =>
                     {
-                        if (ConfigBox.Page == "A4")
+                        bool esA4 = ConfigBox.Page == "A4";
+
+                        if (esA4)
                         {
                             page.Size(PageSizes.A4);
                             page.Margin(1, Unit.Centimetre);
@@ -291,8 +294,21 @@ namespace LinkCajaV2.Data
                         {
                             const float MM = 2.8346f;
                             page.Size((float)ConfigBox.WidthPage * MM, (float)ConfigBox.HightPage * MM);//88mm X 250mm
-                            page.Margin(2f * MM);
+                                                                                                        // Reducimos el margen a 0 o al mínimo para evitar conflictos de espacio en etiquetas pequeñas
+                            page.Margin(0);
                         }
+                        //if (ConfigBox.Page == "A4")
+                        //{
+                        //    page.Size(PageSizes.A4);
+                        //    page.Margin(1, Unit.Centimetre);
+                        //}
+                        //else
+                        //{
+                        //    const float MM = 2.8346f;
+                        //    page.Size((float)ConfigBox.WidthPage * MM, (float)ConfigBox.HightPage * MM);//88mm X 250mm
+                        //    page.Margin(0);
+                        //    //page.Margin(2f * MM);
+                        //}
 
                         page.PageColor(Colors.White);
 
@@ -307,7 +323,9 @@ namespace LinkCajaV2.Data
                         string FechaFontStyle = ConfigImpressions.Find(x => x.Name == "Fecha") != null ? ConfigImpressions.Find(x => x.Name == "Fecha").FontStyle : "SemiBold";
                         var EstiloFecha = ObtenerEstiloPersonalizado(FechaFontStyle, FechaFontsize, FechaColor);
                         // Cabecera del documento
-                        page.Header().Row(row =>
+                       if (esA4)
+                        {
+                            page.Header().Row(row =>
                         {
                             row.RelativeItem().Column(col =>
                             {
@@ -315,9 +333,16 @@ namespace LinkCajaV2.Data
                                 col.Item().Text("Generado el: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm")).Style(EstiloFecha);
                             });
                         });
+                        }
+
+                        var areaContenido = page.Content();
+                        if (esA4)
+                        {
+                            areaContenido = areaContenido.PaddingVertical(10);
+                        }
 
                         // Contenido en Cuadrícula (Fluye de izquierda a derecha)
-                        page.Content().PaddingVertical(10).Inlined(inlined =>
+                        areaContenido.Inlined(inlined =>
                         {
                             inlined.Spacing(ConfigBox.Spacing); // Espacio entre recuadros
                             switch (ConfigBox.Align)
@@ -340,7 +365,7 @@ namespace LinkCajaV2.Data
                             ArticuloColor = CodigodeColor(ArticuloColor);
                             int ArticuloCaracter = ConfigImpressions.Find(x => x.Name == "Articulos") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Articulos").Caracters) : 500;
 
-                            string ArticuloFontStyle = ConfigImpressions.Find(x => x.Name == "Articulo") != null ? ConfigImpressions.Find(x => x.Name == "Articulos").FontStyle : "SemiBold";
+                            string ArticuloFontStyle = ConfigImpressions.Find(x => x.Name == "Articulos") != null ? ConfigImpressions.Find(x => x.Name == "Articulos").FontStyle : "SemiBold";
                             var EstiloArticulo = ObtenerEstiloPersonalizado(ArticuloFontStyle, ArticuloFontsize, ArticuloColor);
 
                             int PrecioFontsize = ConfigImpressions.Find(x => x.Name == "Precios") != null ? Convert.ToInt32(ConfigImpressions.Find(x => x.Name == "Precios").FontSize) : 16;
@@ -357,11 +382,14 @@ namespace LinkCajaV2.Data
                         });
 
                         // Pie de página
-                        page.Footer().AlignCenter().Text(x =>
+                        if (esA4)
+                        {
+                            page.Footer().AlignCenter().Text(x =>
                         {
                             x.Span("Página ");
                             x.CurrentPageNumber();
                         });
+                        }
                     });
                 })
                 .GeneratePdf(rutaCompleta);
@@ -382,7 +410,7 @@ namespace LinkCajaV2.Data
             try
             {
                 AppRepository obj = new AppRepository();
-                ConfigBox = obj.GetConfigBox().Result;
+                ConfigBox = obj.GetConfigBox("Lista de precios").Result;
                 ConfigImpressions = obj.GetConfigImpressions("Lista de articulos agotados").Result;
 
                 QuestPDF.Settings.License = LicenseType.Community;
@@ -548,7 +576,7 @@ namespace LinkCajaV2.Data
             {
                 AppRepository obj = new AppRepository();
            
-                ConfigBox = obj.GetConfigBox().Result;
+                ConfigBox = obj.GetConfigBox("Lista de precios").Result;
 
                 ConfigImpressions = obj.GetConfigImpressions("Reporte de Gastos").Result ?? obj.GetConfigImpressions("Lista de articulos agotados").Result;
 
@@ -683,7 +711,7 @@ namespace LinkCajaV2.Data
             try
             {
                 AppRepository obj = new AppRepository();
-                var ConfigBox = obj.GetConfigBox().Result;
+                var ConfigBox = obj.GetConfigBox("Lista de precios").Result;
 
                 // Puedes cambiar "Reporte de ventas" por el nombre de configuración que uses para colores si tienes otro
                 var ConfigImpressions = obj.GetConfigImpressions("Reporte de ventas").Result;
@@ -855,12 +883,14 @@ namespace LinkCajaV2.Data
         }
         private void DibujarCuadroArticulo(QuestPDF.Infrastructure.IContainer container, string nombre, decimal precio, TextStyle EstiloArticulo, TextStyle EstiloPrecio)
         {
+            float padding = (ConfigBox.Page == "A4") ? 5f : 1f;
             string Cod = CodigodeColor(ConfigBox.ColorLine);
             container
-                .Width(ConfigBox.Width) 
+                .Width((float)ConfigBox.Width, Unit.Millimetre)
+                .Height((float)ConfigBox.HightPage, Unit.Millimetre)
                 .Border(0.5f)
                 .BorderColor(Colors.Black)
-                .Padding(5)
+                .Padding(padding)
                 .Column(col =>
                 {
 
@@ -918,6 +948,7 @@ namespace LinkCajaV2.Data
         }
         public void GenerarTicket(VentaModel venta)
         {
+        
             QuestPDF.Settings.License = LicenseType.Community;
 
             try
@@ -936,6 +967,7 @@ namespace LinkCajaV2.Data
 
                 // Base fija: Encabezado, totales, textos y QR (~85mm) + 6mm por cada producto
                 float altoEstimadoMm = 85f + (venta.Articles.Count * 6f);
+               
 
                 float mmToPt = 2.83465f;
                 float anchoPuntos = anchoTicketMm * mmToPt;
@@ -1081,15 +1113,14 @@ namespace LinkCajaV2.Data
 
                 documento.GeneratePdf(rutaCompleta);
 
-                if (venta.Imprimir)
-                {
-                    for (int i = 0; i <= venta.Copias; i++)
-                        ImprimirSilencioso(rutaCompleta);
-                }
-                else
-                {
-                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(rutaCompleta) { UseShellExecute = true });
-                }
+          
+                System.Diagnostics.Process.Start(
+                    new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = rutaCompleta,
+                        UseShellExecute = true
+                    });
+
             }
             catch (Exception ex)
             {
@@ -1104,9 +1135,25 @@ namespace LinkCajaV2.Data
             pdf.PrintSettings.PrintController = new System.Drawing.Printing.StandardPrintController();
             pdf.Print();
         }
+        //Este es para el checkBox
+        public void ProcesarTicket(VentaModel venta)
+        {
+            if (venta.Imprimir)
+            {
+                // Ticket automático activado
+                GenerarTicketEscPos(venta);
+            }
+            else
+            {
+                // Ticket automático desactivado
+                // Generar PDF y mostrarlo
+                GenerarTicket(venta);
+            }
+        }
 
         public void GenerarTicketEscPos(VentaModel venta)
         {
+           
             try
             {
                 PrinterSettings settings = new PrinterSettings();
@@ -1196,9 +1243,10 @@ namespace LinkCajaV2.Data
                     // Enviar impresión directa al spooler de Windows
                     byte[] buffer = ms.ToArray();
                     bool imprimio = true;
-                    for (int i = 0; i < (venta.Imprimir ? venta.Copias + 1 : 0); i++)
+                    //for (int i = 0; i < (venta.Imprimir ? venta.Copias + 1 : 0); i++)
+                    for (int i = 0; i < venta.Copias; i++)
                     {
-                       if(RawPrinterHelper.SendBytesToPrinter(nombreImpresora, buffer) == false)
+                       if(RawPrinterHelper.SendBytesToPrinter(nombreImpresora, buffer))
                         {
                             imprimio = false;
                             break;                         

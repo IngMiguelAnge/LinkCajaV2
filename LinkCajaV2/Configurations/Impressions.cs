@@ -93,10 +93,8 @@ namespace LinkCajaV2.Configurations
             CBImpresiones.SelectedIndex = 0;
         }
 
-        // lo deje vacio por si truena 
-        private void CBPagina_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
+       
+        
 
         private void CBModificar_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -106,12 +104,12 @@ namespace LinkCajaV2.Configurations
             GBUnidos.Visible = false;
             lblPosicion.Visible = false;
             cbPosicionPrecio.Visible = false;
+            GBMPagina.Visible = false;
 
             string Color = "Black";
             string FontStyle = "SemiBold";
 
-            if (CBModificar.Text != "Seleccione" &&
-               CBModificar.Text != "Recuadro" &&
+            if (CBModificar.Text != "Seleccione" && CBModificar.Text != "Recuadro" &&
                CBModificar.Text != string.Empty)
             {
                 GBUnidos.Visible = true;
@@ -133,6 +131,29 @@ namespace LinkCajaV2.Configurations
                 {
                     lblCaracteres.Visible = false;
                     nudCaracteres.Visible = false;
+                }
+            }
+            if (CBModificar.Text == "Recuadro" && CBImpresiones.Text == "Etiquetas")
+            {
+                GBMPagina.Visible = true;
+                GBCuadros.Visible = true;
+                GBLinea.Visible = true;
+              
+                AppRepository obj = new AppRepository();
+                ConfigPageModel boxConfig = obj.GetConfigBox("Etiquetas").Result;
+                if (boxConfig != null)
+                {
+                    //Medidas de la etiqueta 
+                    NUDAncho.Value = boxConfig.Width;
+                    NUDHightLine.Value = boxConfig.HightLine;
+
+                    // Configuración visual del recuadro
+                    NUDEspacio.Value = boxConfig.Spacing;
+                    CBColorLinea.SelectedValue = boxConfig.ColorLine;
+                    CBAlineacion.SelectedValue = boxConfig.Align;
+
+                    NUDAMilimetros.Value = boxConfig.WidthPage;
+                    NUDALMilimetros.Value = boxConfig.HightPage;
                 }
             }
             if (CBModificar.Text == "Precios" && CBImpresiones.Text == "Etiquetas")
@@ -160,12 +181,21 @@ namespace LinkCajaV2.Configurations
             CBColorLinea.DataSource = null;
             CBColorLinea.Items.Clear();
 
+            //Consulto ya directo el estado de el check box 
+            AppRepository objGlobal = new AppRepository();
+            ConfigPageModel ConfigGlobal = objGlobal.GetConfigPage().Result;
+            if (ConfigGlobal != null)
+            {
+                cbTicketAutomatico.Checked = ConfigGlobal.TicketAutomatico;
+            }
+
             switch (CBImpresiones.Text)
             {
                 case "Lista de precios":
                     Iniciar();
                     AppRepository obj = new AppRepository();
-                    ConfigPageModel ConfigBox = obj.GetConfigBox().Result;
+                    ConfigPageModel ConfigBox = obj.GetConfigBox("Lista de precios").Result;
+                    GBMPagina.Text = "Medidas de página";
                     CBColorLinea.SelectedValue = ConfigBox.ColorLine;
                     CBAlineacion.SelectedValue = ConfigBox.Align;
                     NUDEspacio.Value = ConfigBox.Spacing;
@@ -180,11 +210,11 @@ namespace LinkCajaV2.Configurations
                     MessageBox.Show("Esta opción requerira de una impresora POS como predeterminada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     Iniciar();
                     cbTicketAutomatico.Visible = true;
+                    GBMPagina.Text = "Medidas del ticket";
                     AppRepository obj2 = new AppRepository();
                     ConfigPageModel ConfigPage = obj2.GetConfigPage().Result;
                     NUDALMilimetros.Value = ConfigPage.HightPage;
-                    NUDAMilimetros.Value = ConfigPage.WidthPage;
-                    cbTicketAutomatico.Checked = ConfigPage.TicketAutomatico;
+                    NUDAMilimetros.Value = ConfigPage.WidthPage; 
                     ConfigImpressions = obj2.GetConfigImpressions("Ticket").Result;
                  
 
@@ -194,7 +224,8 @@ namespace LinkCajaV2.Configurations
                 case "Etiquetas":
                     Iniciar();
                     AppRepository obj3 = new AppRepository();
-                    ConfigPageModel ConfigBox2 = obj3.GetConfigBox().Result;
+                    ConfigPageModel ConfigBox2 = obj3.GetConfigBox("Etiquetas").Result;
+                    GBMPagina.Text = "Medidas de etiqueta";
                     CBColorLinea.SelectedValue = ConfigBox2.ColorLine;
                     CBAlineacion.SelectedValue = ConfigBox2.Align;
                     NUDEspacio.Value = ConfigBox2.Spacing;
@@ -206,9 +237,9 @@ namespace LinkCajaV2.Configurations
 
                     if (cbPosicionPrecio.Items.Count > 0)
                     {
-                        cbPosicionPrecio.Text = ConfigBox2.Abajo ? "Abajo" : "Arriba";
+                        cbPosicionPrecio.Text = ConfigBox2 != null && ConfigBox2.Abajo ? "Abajo" : "Arriba";
                     }
-                    GBMPagina.Visible = true;
+                    GBMPagina.Visible = false;
                     break;
 
                 default:
@@ -276,7 +307,8 @@ namespace LinkCajaV2.Configurations
                     }
                 };
                 ImpressionsGeneral im = new ImpressionsGeneral();
-                im.GenerarTicketEscPos(Venta);
+                im.ProcesarTicket(Venta);
+
             }
         }
 
@@ -288,24 +320,57 @@ namespace LinkCajaV2.Configurations
                 return;
             }
 
-           
-            string tipoDeHojaAsignado = CBImpresiones.Text == "Lista de precios" ? "A4" : "mm";
 
-            if (tipoDeHojaAsignado == "mm")
+          
+            string tipoDeHojaAsignado = CBImpresiones.Text == "Ticket" ? "mm" : "A4";
+
+
+            if ((CBImpresiones.Text == "Etiquetas" || CBImpresiones.Text == "Ticket") && (NUDALMilimetros.Value <= 0 || NUDAMilimetros.Value <= 0))
             {
-                if (NUDALMilimetros.Value <= 0 || NUDAMilimetros.Value <= 0)
+                MessageBox.Show(
+                    "Las medidas de ancho y alto deben ser mayores a 0 milímetros.",
+                    "Validación de medidas",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation
+                );
+
+                return;
+            }
+         
+            if (CBImpresiones.Text == "Etiquetas")
+            {
+                if (NUDAMilimetros.Value > 210)
                 {
-                    MessageBox.Show("Ingrese un valor válido para el tamaño de página en milímetros", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(
+                        "El ancho de la etiqueta no puede ser mayor a 210 mm, " +
+                        "porque las etiquetas se imprimen sobre una hoja A4.",
+                        "Error de Medidas",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+                if (NUDALMilimetros.Value > 297)
+                {
+                    MessageBox.Show(
+                        "El alto de la etiqueta no puede ser mayor a 297 mm, " +
+                        "porque las etiquetas se imprimen sobre una hoja A4.",
+                        "Error de Medidas",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
                     return;
                 }
             }
+            
 
             ImpressionsModel objImpresion = new ImpressionsModel()
             {
                 Name = CBImpresiones.Text,
                 Page = tipoDeHojaAsignado,
-                WidthPage = tipoDeHojaAsignado == "mm" ? NUDAMilimetros.Value : 0,
-                HightPage = tipoDeHojaAsignado == "mm" ? NUDALMilimetros.Value : 0,
+                WidthPage = CBImpresiones.Text == "Lista de precios"? 0: NUDAMilimetros.Value,
+                HightPage = CBImpresiones.Text == "Lista de precios"? 0: NUDALMilimetros.Value,
                 TicketAutomatico = cbTicketAutomatico.Checked //lee el checkbox
             };
 
@@ -327,10 +392,10 @@ namespace LinkCajaV2.Configurations
                         {
                             Name = "BoxPrecios",
                             Spacing = Convert.ToInt32(NUDEspacio.Value),
-                            Align = CBAlineacion.SelectedValue.ToString(),
-                            Width = Convert.ToInt32(NUDAncho.Value),
+                            Align = CBAlineacion.SelectedValue != null ? CBAlineacion.SelectedValue.ToString() : "",
+                            Width = CBImpresiones.Text == "Etiquetas"? Convert.ToInt32(NUDAMilimetros.Value): Convert.ToInt32(NUDAncho.Value),
                             HightLine = NUDHightLine.Value,
-                            ColorLine = CBColorLinea.SelectedValue.ToString(),
+                            ColorLine = CBColorLinea.SelectedValue != null ? CBColorLinea.SelectedValue.ToString() : "",
                             Abajo = cbPosicionPrecio.Text == "Abajo"
 
                         };
@@ -355,7 +420,7 @@ namespace LinkCajaV2.Configurations
                                 Name = "BoxPrecios",
                                 Spacing = Convert.ToInt32(NUDEspacio.Value),
                                 Align = CBAlineacion.SelectedValue != null ? CBAlineacion.SelectedValue.ToString() : "",
-                                Width = Convert.ToInt32(NUDAncho.Value),
+                                Width = CBImpresiones.Text == "Etiquetas" ? Convert.ToInt32(NUDAMilimetros.Value) : Convert.ToInt32(NUDAncho.Value),
                                 HightLine = NUDHightLine.Value,
                                 ColorLine = CBColorLinea.SelectedValue != null ? CBColorLinea.SelectedValue.ToString() : "",
                                 Abajo = cbPosicionPrecio.Text == "Abajo"
