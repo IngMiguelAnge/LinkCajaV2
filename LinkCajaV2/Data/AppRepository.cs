@@ -19,8 +19,8 @@ namespace LinkCajaV2.Data
         public string Connection { get; set; }
         public AppRepository(bool isUnitOfWork = false)
         {
-            Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
-            //Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            //Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
         }
         public void Dispose()
         {
@@ -1205,6 +1205,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Spacing", obj.Spacing));
                         cmd.Parameters.Add(new SqlParameter("@Align", obj.Align));
                         cmd.Parameters.Add(new SqlParameter("@Width", obj.Width));
+                        cmd.Parameters.Add(new SqlParameter("@Higth", obj.Higth));
                         cmd.Parameters.Add(new SqlParameter("@HightLine", obj.HightLine));
                         cmd.Parameters.Add(new SqlParameter("@ColorLine", obj.ColorLine));
                         cmd.Parameters.Add(new SqlParameter("@Abajo", obj.Abajo));
@@ -1232,7 +1233,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Page", obj.Page));
                         cmd.Parameters.Add(new SqlParameter("@WidthPage", obj.WidthPage));
                         cmd.Parameters.Add(new SqlParameter("@HightPage", obj.HightPage));
-                        cmd.Parameters.Add(new SqlParameter("@TicketAutomatico", obj.TicketAutomatico));//Ticket Auto 
+                        cmd.Parameters.Add(new SqlParameter("@Automatico", obj.Automatico));
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;
@@ -1350,6 +1351,7 @@ namespace LinkCajaV2.Data
                 Spacing = (int)reader["Spacing"],
                 Align = (string)reader["Align"],
                 Width = (int)reader["Width"],
+                Higth = (int)reader["Higth"],
                 HightLine = (decimal)reader["HightLine"],
                 ColorLine = (string)reader["ColorLine"],
                 WidthPage = (decimal)reader["WidthPage"],
@@ -1369,7 +1371,7 @@ namespace LinkCajaV2.Data
                 ColorLine = string.Empty,
                 WidthPage = (decimal)reader["WidthPage"],
                 HightPage = (decimal)reader["HightPage"],
-                TicketAutomatico = reader["TicketAutomatico"] != DBNull.Value ? Convert.ToBoolean(reader["TicketAutomatico"]) : false
+                Automatico = reader["Automatico"] != DBNull.Value ? Convert.ToBoolean(reader["Automatico"]) : false
             };
         }
         #endregion

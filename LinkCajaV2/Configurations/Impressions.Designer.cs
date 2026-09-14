@@ -85,10 +85,9 @@
             this.lblImpresiones.AutoSize = true;
             this.lblImpresiones.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblImpresiones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblImpresiones.Location = new System.Drawing.Point(23, 65);
-            this.lblImpresiones.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblImpresiones.Location = new System.Drawing.Point(34, 100);
             this.lblImpresiones.Name = "lblImpresiones";
-            this.lblImpresiones.Size = new System.Drawing.Size(128, 15);
+            this.lblImpresiones.Size = new System.Drawing.Size(198, 25);
             this.lblImpresiones.TabIndex = 0;
             this.lblImpresiones.Text = "Configurar Impresión:";
             // 
@@ -97,10 +96,9 @@
             this.CBImpresiones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBImpresiones.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBImpresiones.FormattingEnabled = true;
-            this.CBImpresiones.Location = new System.Drawing.Point(23, 88);
-            this.CBImpresiones.Margin = new System.Windows.Forms.Padding(2);
+            this.CBImpresiones.Location = new System.Drawing.Point(34, 135);
             this.CBImpresiones.Name = "CBImpresiones";
-            this.CBImpresiones.Size = new System.Drawing.Size(175, 28);
+            this.CBImpresiones.Size = new System.Drawing.Size(260, 38);
             this.CBImpresiones.TabIndex = 1;
             this.CBImpresiones.SelectedIndexChanged += new System.EventHandler(this.CBImpresiones_SelectedIndexChanged);
             // 
@@ -109,25 +107,23 @@
             this.lblSizeLetra.AutoSize = true;
             this.lblSizeLetra.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSizeLetra.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblSizeLetra.Location = new System.Drawing.Point(13, 29);
-            this.lblSizeLetra.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSizeLetra.Location = new System.Drawing.Point(20, 45);
             this.lblSizeLetra.Name = "lblSizeLetra";
-            this.lblSizeLetra.Size = new System.Drawing.Size(99, 15);
+            this.lblSizeLetra.Size = new System.Drawing.Size(154, 25);
             this.lblSizeLetra.TabIndex = 5;
             this.lblSizeLetra.Text = "Tamaño de letra:";
             // 
             // NUDSizeLetra
             // 
             this.NUDSizeLetra.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NUDSizeLetra.Location = new System.Drawing.Point(17, 49);
-            this.NUDSizeLetra.Margin = new System.Windows.Forms.Padding(2);
+            this.NUDSizeLetra.Location = new System.Drawing.Point(26, 75);
             this.NUDSizeLetra.Maximum = new decimal(new int[] {
             50,
             0,
             0,
             0});
             this.NUDSizeLetra.Name = "NUDSizeLetra";
-            this.NUDSizeLetra.Size = new System.Drawing.Size(167, 27);
+            this.NUDSizeLetra.Size = new System.Drawing.Size(250, 37);
             this.NUDSizeLetra.TabIndex = 6;
             // 
             // lblEstiloLetra
@@ -135,10 +131,9 @@
             this.lblEstiloLetra.AutoSize = true;
             this.lblEstiloLetra.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEstiloLetra.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblEstiloLetra.Location = new System.Drawing.Point(13, 84);
-            this.lblEstiloLetra.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblEstiloLetra.Location = new System.Drawing.Point(20, 129);
             this.lblEstiloLetra.Name = "lblEstiloLetra";
-            this.lblEstiloLetra.Size = new System.Drawing.Size(85, 15);
+            this.lblEstiloLetra.Size = new System.Drawing.Size(133, 25);
             this.lblEstiloLetra.TabIndex = 7;
             this.lblEstiloLetra.Text = "Estilo de letra:";
             // 
@@ -147,10 +142,9 @@
             this.CBEstilo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBEstilo.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBEstilo.FormattingEnabled = true;
-            this.CBEstilo.Location = new System.Drawing.Point(17, 104);
-            this.CBEstilo.Margin = new System.Windows.Forms.Padding(2);
+            this.CBEstilo.Location = new System.Drawing.Point(26, 160);
             this.CBEstilo.Name = "CBEstilo";
-            this.CBEstilo.Size = new System.Drawing.Size(168, 28);
+            this.CBEstilo.Size = new System.Drawing.Size(250, 38);
             this.CBEstilo.TabIndex = 8;
             // 
             // lblColorLetra
@@ -158,10 +152,9 @@
             this.lblColorLetra.AutoSize = true;
             this.lblColorLetra.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblColorLetra.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblColorLetra.Location = new System.Drawing.Point(13, 140);
-            this.lblColorLetra.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblColorLetra.Location = new System.Drawing.Point(20, 215);
             this.lblColorLetra.Name = "lblColorLetra";
-            this.lblColorLetra.Size = new System.Drawing.Size(85, 15);
+            this.lblColorLetra.Size = new System.Drawing.Size(132, 25);
             this.lblColorLetra.TabIndex = 9;
             this.lblColorLetra.Text = "Color de letra:";
             // 
@@ -170,10 +163,9 @@
             this.CBColorLetra.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBColorLetra.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBColorLetra.FormattingEnabled = true;
-            this.CBColorLetra.Location = new System.Drawing.Point(17, 159);
-            this.CBColorLetra.Margin = new System.Windows.Forms.Padding(2);
+            this.CBColorLetra.Location = new System.Drawing.Point(26, 245);
             this.CBColorLetra.Name = "CBColorLetra";
-            this.CBColorLetra.Size = new System.Drawing.Size(168, 28);
+            this.CBColorLetra.Size = new System.Drawing.Size(250, 38);
             this.CBColorLetra.TabIndex = 10;
             // 
             // lblModificar
@@ -181,10 +173,9 @@
             this.lblModificar.AutoSize = true;
             this.lblModificar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblModificar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblModificar.Location = new System.Drawing.Point(23, 120);
-            this.lblModificar.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblModificar.Location = new System.Drawing.Point(34, 185);
             this.lblModificar.Name = "lblModificar";
-            this.lblModificar.Size = new System.Drawing.Size(63, 15);
+            this.lblModificar.Size = new System.Drawing.Size(100, 25);
             this.lblModificar.TabIndex = 11;
             this.lblModificar.Text = "Modificar:";
             // 
@@ -193,10 +184,9 @@
             this.CBModificar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBModificar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBModificar.FormattingEnabled = true;
-            this.CBModificar.Location = new System.Drawing.Point(23, 143);
-            this.CBModificar.Margin = new System.Windows.Forms.Padding(2);
+            this.CBModificar.Location = new System.Drawing.Point(34, 220);
             this.CBModificar.Name = "CBModificar";
-            this.CBModificar.Size = new System.Drawing.Size(175, 28);
+            this.CBModificar.Size = new System.Drawing.Size(260, 38);
             this.CBModificar.TabIndex = 12;
             this.CBModificar.SelectedIndexChanged += new System.EventHandler(this.CBModificar_SelectedIndexChanged);
             // 
@@ -205,25 +195,23 @@
             this.lblEspacio.AutoSize = true;
             this.lblEspacio.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEspacio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblEspacio.Location = new System.Drawing.Point(13, 29);
-            this.lblEspacio.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblEspacio.Location = new System.Drawing.Point(20, 45);
             this.lblEspacio.Name = "lblEspacio";
-            this.lblEspacio.Size = new System.Drawing.Size(142, 15);
+            this.lblEspacio.Size = new System.Drawing.Size(220, 25);
             this.lblEspacio.TabIndex = 13;
             this.lblEspacio.Text = "Espacio entre recuadros:";
             // 
             // NUDEspacio
             // 
             this.NUDEspacio.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NUDEspacio.Location = new System.Drawing.Point(17, 49);
-            this.NUDEspacio.Margin = new System.Windows.Forms.Padding(2);
+            this.NUDEspacio.Location = new System.Drawing.Point(26, 75);
             this.NUDEspacio.Maximum = new decimal(new int[] {
             50,
             0,
             0,
             0});
             this.NUDEspacio.Name = "NUDEspacio";
-            this.NUDEspacio.Size = new System.Drawing.Size(167, 27);
+            this.NUDEspacio.Size = new System.Drawing.Size(250, 37);
             this.NUDEspacio.TabIndex = 14;
             // 
             // lblAlineacion
@@ -231,10 +219,9 @@
             this.lblAlineacion.AutoSize = true;
             this.lblAlineacion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAlineacion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblAlineacion.Location = new System.Drawing.Point(13, 84);
-            this.lblAlineacion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblAlineacion.Location = new System.Drawing.Point(20, 129);
             this.lblAlineacion.Name = "lblAlineacion";
-            this.lblAlineacion.Size = new System.Drawing.Size(67, 15);
+            this.lblAlineacion.Size = new System.Drawing.Size(107, 25);
             this.lblAlineacion.TabIndex = 15;
             this.lblAlineacion.Text = "Alineación:";
             // 
@@ -243,10 +230,9 @@
             this.CBAlineacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBAlineacion.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBAlineacion.FormattingEnabled = true;
-            this.CBAlineacion.Location = new System.Drawing.Point(17, 104);
-            this.CBAlineacion.Margin = new System.Windows.Forms.Padding(2);
+            this.CBAlineacion.Location = new System.Drawing.Point(26, 160);
             this.CBAlineacion.Name = "CBAlineacion";
-            this.CBAlineacion.Size = new System.Drawing.Size(168, 28);
+            this.CBAlineacion.Size = new System.Drawing.Size(250, 38);
             this.CBAlineacion.TabIndex = 16;
             // 
             // lblAncho
@@ -254,25 +240,23 @@
             this.lblAncho.AutoSize = true;
             this.lblAncho.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAncho.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblAncho.Location = new System.Drawing.Point(13, 140);
-            this.lblAncho.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblAncho.Location = new System.Drawing.Point(20, 215);
             this.lblAncho.Name = "lblAncho";
-            this.lblAncho.Size = new System.Drawing.Size(115, 15);
+            this.lblAncho.Size = new System.Drawing.Size(179, 25);
             this.lblAncho.TabIndex = 17;
             this.lblAncho.Text = "Ancho de recuadro:";
             // 
             // NUDAncho
             // 
             this.NUDAncho.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NUDAncho.Location = new System.Drawing.Point(17, 159);
-            this.NUDAncho.Margin = new System.Windows.Forms.Padding(2);
+            this.NUDAncho.Location = new System.Drawing.Point(26, 245);
             this.NUDAncho.Maximum = new decimal(new int[] {
             300,
             0,
             0,
             0});
             this.NUDAncho.Name = "NUDAncho";
-            this.NUDAncho.Size = new System.Drawing.Size(167, 27);
+            this.NUDAncho.Size = new System.Drawing.Size(250, 37);
             this.NUDAncho.TabIndex = 18;
             // 
             // CBColorLinea
@@ -280,10 +264,9 @@
             this.CBColorLinea.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBColorLinea.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBColorLinea.FormattingEnabled = true;
-            this.CBColorLinea.Location = new System.Drawing.Point(17, 104);
-            this.CBColorLinea.Margin = new System.Windows.Forms.Padding(2);
+            this.CBColorLinea.Location = new System.Drawing.Point(26, 160);
             this.CBColorLinea.Name = "CBColorLinea";
-            this.CBColorLinea.Size = new System.Drawing.Size(168, 28);
+            this.CBColorLinea.Size = new System.Drawing.Size(250, 38);
             this.CBColorLinea.TabIndex = 20;
             // 
             // lblColorLinea
@@ -291,10 +274,9 @@
             this.lblColorLinea.AutoSize = true;
             this.lblColorLinea.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblColorLinea.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblColorLinea.Location = new System.Drawing.Point(13, 84);
-            this.lblColorLinea.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblColorLinea.Location = new System.Drawing.Point(20, 129);
             this.lblColorLinea.Name = "lblColorLinea";
-            this.lblColorLinea.Size = new System.Drawing.Size(85, 15);
+            this.lblColorLinea.Size = new System.Drawing.Size(134, 25);
             this.lblColorLinea.TabIndex = 19;
             this.lblColorLinea.Text = "Color de linea:";
             // 
@@ -306,10 +288,9 @@
             this.BtnGuardar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnGuardar.ForeColor = System.Drawing.Color.White;
             this.BtnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("BtnGuardar.Image")));
-            this.BtnGuardar.Location = new System.Drawing.Point(331, 346);
-            this.BtnGuardar.Margin = new System.Windows.Forms.Padding(2);
+            this.BtnGuardar.Location = new System.Drawing.Point(496, 532);
             this.BtnGuardar.Name = "BtnGuardar";
-            this.BtnGuardar.Size = new System.Drawing.Size(133, 31);
+            this.BtnGuardar.Size = new System.Drawing.Size(200, 48);
             this.BtnGuardar.TabIndex = 21;
             this.BtnGuardar.Text = "  GUARDAR";
             this.BtnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -321,10 +302,9 @@
             this.lblAlturalinea.AutoSize = true;
             this.lblAlturalinea.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAlturalinea.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblAlturalinea.Location = new System.Drawing.Point(13, 29);
-            this.lblAlturalinea.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblAlturalinea.Location = new System.Drawing.Point(20, 45);
             this.lblAlturalinea.Name = "lblAlturalinea";
-            this.lblAlturalinea.Size = new System.Drawing.Size(90, 15);
+            this.lblAlturalinea.Size = new System.Drawing.Size(142, 25);
             this.lblAlturalinea.TabIndex = 22;
             this.lblAlturalinea.Text = "Altura de linea:";
             // 
@@ -332,10 +312,9 @@
             // 
             this.NUDHightLine.DecimalPlaces = 2;
             this.NUDHightLine.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NUDHightLine.Location = new System.Drawing.Point(17, 49);
-            this.NUDHightLine.Margin = new System.Windows.Forms.Padding(2);
+            this.NUDHightLine.Location = new System.Drawing.Point(26, 75);
             this.NUDHightLine.Name = "NUDHightLine";
-            this.NUDHightLine.Size = new System.Drawing.Size(167, 27);
+            this.NUDHightLine.Size = new System.Drawing.Size(250, 37);
             this.NUDHightLine.TabIndex = 23;
             // 
             // lblAMilimetros
@@ -343,25 +322,23 @@
             this.lblAMilimetros.AutoSize = true;
             this.lblAMilimetros.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAMilimetros.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblAMilimetros.Location = new System.Drawing.Point(17, 29);
-            this.lblAMilimetros.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblAMilimetros.Location = new System.Drawing.Point(26, 45);
             this.lblAMilimetros.Name = "lblAMilimetros";
-            this.lblAMilimetros.Size = new System.Drawing.Size(45, 15);
+            this.lblAMilimetros.Size = new System.Drawing.Size(72, 25);
             this.lblAMilimetros.TabIndex = 24;
             this.lblAMilimetros.Text = "Ancho:";
             // 
             // NUDAMilimetros
             // 
             this.NUDAMilimetros.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NUDAMilimetros.Location = new System.Drawing.Point(20, 49);
-            this.NUDAMilimetros.Margin = new System.Windows.Forms.Padding(2);
+            this.NUDAMilimetros.Location = new System.Drawing.Point(30, 75);
             this.NUDAMilimetros.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
             this.NUDAMilimetros.Name = "NUDAMilimetros";
-            this.NUDAMilimetros.Size = new System.Drawing.Size(167, 27);
+            this.NUDAMilimetros.Size = new System.Drawing.Size(250, 37);
             this.NUDAMilimetros.TabIndex = 25;
             // 
             // lblAMilemetros
@@ -369,25 +346,23 @@
             this.lblAMilemetros.AutoSize = true;
             this.lblAMilemetros.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAMilemetros.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblAMilemetros.Location = new System.Drawing.Point(17, 91);
-            this.lblAMilemetros.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblAMilemetros.Location = new System.Drawing.Point(26, 140);
             this.lblAMilemetros.Name = "lblAMilemetros";
-            this.lblAMilemetros.Size = new System.Drawing.Size(33, 15);
+            this.lblAMilemetros.Size = new System.Drawing.Size(53, 25);
             this.lblAMilemetros.TabIndex = 26;
             this.lblAMilemetros.Text = "Alto:";
             // 
             // NUDALMilimetros
             // 
             this.NUDALMilimetros.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NUDALMilimetros.Location = new System.Drawing.Point(20, 110);
-            this.NUDALMilimetros.Margin = new System.Windows.Forms.Padding(2);
+            this.NUDALMilimetros.Location = new System.Drawing.Point(30, 169);
             this.NUDALMilimetros.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
             this.NUDALMilimetros.Name = "NUDALMilimetros";
-            this.NUDALMilimetros.Size = new System.Drawing.Size(167, 27);
+            this.NUDALMilimetros.Size = new System.Drawing.Size(250, 37);
             this.NUDALMilimetros.TabIndex = 27;
             // 
             // GBMPagina
@@ -399,11 +374,9 @@
             this.GBMPagina.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.GBMPagina.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GBMPagina.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.GBMPagina.Location = new System.Drawing.Point(233, 65);
-            this.GBMPagina.Margin = new System.Windows.Forms.Padding(2);
+            this.GBMPagina.Location = new System.Drawing.Point(350, 100);
             this.GBMPagina.Name = "GBMPagina";
-            this.GBMPagina.Padding = new System.Windows.Forms.Padding(2);
-            this.GBMPagina.Size = new System.Drawing.Size(233, 179);
+            this.GBMPagina.Size = new System.Drawing.Size(350, 275);
             this.GBMPagina.TabIndex = 28;
             this.GBMPagina.TabStop = false;
             this.GBMPagina.Text = "Medidas de etiqueta ";
@@ -422,11 +395,9 @@
             this.GBLetras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.GBLetras.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GBLetras.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.GBLetras.Location = new System.Drawing.Point(231, 49);
-            this.GBLetras.Margin = new System.Windows.Forms.Padding(2);
+            this.GBLetras.Location = new System.Drawing.Point(346, 75);
             this.GBLetras.Name = "GBLetras";
-            this.GBLetras.Padding = new System.Windows.Forms.Padding(2);
-            this.GBLetras.Size = new System.Drawing.Size(233, 259);
+            this.GBLetras.Size = new System.Drawing.Size(350, 398);
             this.GBLetras.TabIndex = 29;
             this.GBLetras.TabStop = false;
             this.GBLetras.Text = "Estilo de letras";
@@ -437,18 +408,16 @@
             this.lblCaracteres.AutoSize = true;
             this.lblCaracteres.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCaracteres.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblCaracteres.Location = new System.Drawing.Point(13, 189);
-            this.lblCaracteres.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCaracteres.Location = new System.Drawing.Point(20, 291);
             this.lblCaracteres.Name = "lblCaracteres";
-            this.lblCaracteres.Size = new System.Drawing.Size(136, 15);
+            this.lblCaracteres.Size = new System.Drawing.Size(211, 25);
             this.lblCaracteres.TabIndex = 37;
             this.lblCaracteres.Text = "Cantidad de caracteres:";
             // 
             // nudCaracteres
             // 
             this.nudCaracteres.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudCaracteres.Location = new System.Drawing.Point(17, 207);
-            this.nudCaracteres.Margin = new System.Windows.Forms.Padding(2);
+            this.nudCaracteres.Location = new System.Drawing.Point(26, 318);
             this.nudCaracteres.Maximum = new decimal(new int[] {
             500,
             0,
@@ -460,7 +429,7 @@
             0,
             0});
             this.nudCaracteres.Name = "nudCaracteres";
-            this.nudCaracteres.Size = new System.Drawing.Size(167, 27);
+            this.nudCaracteres.Size = new System.Drawing.Size(250, 37);
             this.nudCaracteres.TabIndex = 36;
             this.nudCaracteres.Value = new decimal(new int[] {
             500,
@@ -479,10 +448,8 @@
             this.GBCuadros.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GBCuadros.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.GBCuadros.Location = new System.Drawing.Point(0, 0);
-            this.GBCuadros.Margin = new System.Windows.Forms.Padding(2);
             this.GBCuadros.Name = "GBCuadros";
-            this.GBCuadros.Padding = new System.Windows.Forms.Padding(2);
-            this.GBCuadros.Size = new System.Drawing.Size(233, 195);
+            this.GBCuadros.Size = new System.Drawing.Size(350, 300);
             this.GBCuadros.TabIndex = 30;
             this.GBCuadros.TabStop = false;
             this.GBCuadros.Text = "Estilo de cuadros";
@@ -497,10 +464,8 @@
             this.GBLinea.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GBLinea.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.GBLinea.Location = new System.Drawing.Point(0, 0);
-            this.GBLinea.Margin = new System.Windows.Forms.Padding(2);
             this.GBLinea.Name = "GBLinea";
-            this.GBLinea.Padding = new System.Windows.Forms.Padding(2);
-            this.GBLinea.Size = new System.Drawing.Size(233, 179);
+            this.GBLinea.Size = new System.Drawing.Size(350, 275);
             this.GBLinea.TabIndex = 31;
             this.GBLinea.TabStop = false;
             this.GBLinea.Text = "Estilo de linea";
@@ -513,10 +478,9 @@
             this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImprimir.Image = ((System.Drawing.Image)(resources.GetObject("btnImprimir.Image")));
-            this.btnImprimir.Location = new System.Drawing.Point(185, 346);
-            this.btnImprimir.Margin = new System.Windows.Forms.Padding(2);
+            this.btnImprimir.Location = new System.Drawing.Point(278, 532);
             this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(133, 31);
+            this.btnImprimir.Size = new System.Drawing.Size(200, 48);
             this.btnImprimir.TabIndex = 32;
             this.btnImprimir.Text = "Imprimir";
             this.btnImprimir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -531,24 +495,23 @@
             this.cbTicketAutomatico.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbTicketAutomatico.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbTicketAutomatico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.cbTicketAutomatico.Location = new System.Drawing.Point(23, 351);
-            this.cbTicketAutomatico.Margin = new System.Windows.Forms.Padding(2);
+            this.cbTicketAutomatico.Location = new System.Drawing.Point(39, 394);
             this.cbTicketAutomatico.Name = "cbTicketAutomatico";
-            this.cbTicketAutomatico.Size = new System.Drawing.Size(157, 23);
+            this.cbTicketAutomatico.Size = new System.Drawing.Size(223, 32);
             this.cbTicketAutomatico.TabIndex = 28;
             this.cbTicketAutomatico.Text = "¿Ticket automático?";
             this.cbTicketAutomatico.UseVisualStyleBackColor = true;
             this.cbTicketAutomatico.Visible = false;
+            this.cbTicketAutomatico.CheckedChanged += new System.EventHandler(this.cbTicketAutomatico_CheckedChanged);
             // 
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.lblTitulo.Location = new System.Drawing.Point(20, 16);
-            this.lblTitulo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTitulo.Location = new System.Drawing.Point(30, 25);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(334, 32);
+            this.lblTitulo.Size = new System.Drawing.Size(487, 48);
             this.lblTitulo.TabIndex = 33;
             this.lblTitulo.Text = "Configuración de impresión";
             // 
@@ -556,11 +519,9 @@
             // 
             this.GBUnidos.Controls.Add(this.GBCuadros);
             this.GBUnidos.Controls.Add(this.GBLinea);
-            this.GBUnidos.Location = new System.Drawing.Point(233, 65);
-            this.GBUnidos.Margin = new System.Windows.Forms.Padding(2);
+            this.GBUnidos.Location = new System.Drawing.Point(350, 100);
             this.GBUnidos.Name = "GBUnidos";
-            this.GBUnidos.Padding = new System.Windows.Forms.Padding(2);
-            this.GBUnidos.Size = new System.Drawing.Size(233, 196);
+            this.GBUnidos.Size = new System.Drawing.Size(350, 302);
             this.GBUnidos.TabIndex = 34;
             this.GBUnidos.TabStop = false;
             // 
@@ -569,10 +530,9 @@
             this.lblPosicion.AutoSize = true;
             this.lblPosicion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPosicion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblPosicion.Location = new System.Drawing.Point(23, 181);
-            this.lblPosicion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPosicion.Location = new System.Drawing.Point(34, 278);
             this.lblPosicion.Name = "lblPosicion";
-            this.lblPosicion.Size = new System.Drawing.Size(113, 15);
+            this.lblPosicion.Size = new System.Drawing.Size(176, 25);
             this.lblPosicion.TabIndex = 35;
             this.lblPosicion.Text = "Posición del precio:";
             // 
@@ -584,18 +544,17 @@
             this.cbPosicionPrecio.Items.AddRange(new object[] {
             "Arriba",
             "Abajo"});
-            this.cbPosicionPrecio.Location = new System.Drawing.Point(26, 205);
-            this.cbPosicionPrecio.Margin = new System.Windows.Forms.Padding(2);
+            this.cbPosicionPrecio.Location = new System.Drawing.Point(39, 315);
             this.cbPosicionPrecio.Name = "cbPosicionPrecio";
-            this.cbPosicionPrecio.Size = new System.Drawing.Size(175, 28);
+            this.cbPosicionPrecio.Size = new System.Drawing.Size(260, 38);
             this.cbPosicionPrecio.TabIndex = 36;
             // 
             // Impressions
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(511, 385);
+            this.ClientSize = new System.Drawing.Size(766, 592);
             this.Controls.Add(this.cbPosicionPrecio);
             this.Controls.Add(this.lblPosicion);
             this.Controls.Add(this.GBLetras);
@@ -610,7 +569,6 @@
             this.Controls.Add(this.CBImpresiones);
             this.Controls.Add(this.lblImpresiones);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Impressions";

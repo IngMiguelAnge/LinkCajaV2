@@ -883,11 +883,13 @@ namespace LinkCajaV2.Data
         }
         private void DibujarCuadroArticulo(QuestPDF.Infrastructure.IContainer container, string nombre, decimal precio, TextStyle EstiloArticulo, TextStyle EstiloPrecio)
         {
+                //      .Width((float)ConfigBox.Width, Unit.Millimetre)
+                //.Height((float)ConfigBox.HightPage, Unit.Millimetre)
             float padding = (ConfigBox.Page == "A4") ? 5f : 1f;
             string Cod = CodigodeColor(ConfigBox.ColorLine);
             container
                 .Width((float)ConfigBox.Width, Unit.Millimetre)
-                .Height((float)ConfigBox.HightPage, Unit.Millimetre)
+                .Height((float)ConfigBox.Higth, Unit.Millimetre)
                 .Border(0.5f)
                 .BorderColor(Colors.Black)
                 .Padding(padding)
@@ -1143,12 +1145,7 @@ namespace LinkCajaV2.Data
                 // Ticket automático activado
                 GenerarTicketEscPos(venta);
             }
-            else
-            {
-                // Ticket automático desactivado
-                // Generar PDF y mostrarlo
-                GenerarTicket(venta);
-            }
+          
         }
 
         public void GenerarTicketEscPos(VentaModel venta)

@@ -7,6 +7,6 @@
         public decimal WidthPage { get; set; }
         public decimal HightPage { get; set; }
         public int Caracters { get; set; }
-        public bool TicketAutomatico { get; set; }
+        public bool Automatico { get; set; }
     }
 }

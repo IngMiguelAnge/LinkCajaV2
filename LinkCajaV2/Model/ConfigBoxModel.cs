@@ -12,6 +12,7 @@ namespace LinkCajaV2.Model
         public int Spacing { get; set; }
         public string Align { get; set; }
         public int Width { get; set; }
+        public int Higth { get; set; }
         public decimal HightLine { get; set; }
         public string ColorLine { get; set; }
      

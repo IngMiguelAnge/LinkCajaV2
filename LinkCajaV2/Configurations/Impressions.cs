@@ -152,8 +152,8 @@ namespace LinkCajaV2.Configurations
                     CBColorLinea.SelectedValue = boxConfig.ColorLine;
                     CBAlineacion.SelectedValue = boxConfig.Align;
 
-                    NUDAMilimetros.Value = boxConfig.WidthPage;
-                    NUDALMilimetros.Value = boxConfig.HightPage;
+                    NUDAMilimetros.Value = boxConfig.Width;
+                    NUDALMilimetros.Value = boxConfig.Higth;
                 }
             }
             if (CBModificar.Text == "Precios" && CBImpresiones.Text == "Etiquetas")
@@ -165,7 +165,7 @@ namespace LinkCajaV2.Configurations
 
         private void CBImpresiones_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cbTicketAutomatico.Visible = true;
+            cbTicketAutomatico.Visible = false;
             lblPosicion.Visible = false;
             cbPosicionPrecio.Visible = false;
             GBMPagina.Visible = false;
@@ -186,7 +186,7 @@ namespace LinkCajaV2.Configurations
             ConfigPageModel ConfigGlobal = objGlobal.GetConfigPage().Result;
             if (ConfigGlobal != null)
             {
-                cbTicketAutomatico.Checked = ConfigGlobal.TicketAutomatico;
+                cbTicketAutomatico.Checked = ConfigGlobal.Automatico;
             }
 
             switch (CBImpresiones.Text)
@@ -207,7 +207,6 @@ namespace LinkCajaV2.Configurations
                     break;
 
                 case "Ticket":
-                    MessageBox.Show("Esta opción requerira de una impresora POS como predeterminada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     Iniciar();
                     cbTicketAutomatico.Visible = true;
                     GBMPagina.Text = "Medidas del ticket";
@@ -216,8 +215,8 @@ namespace LinkCajaV2.Configurations
                     NUDALMilimetros.Value = ConfigPage.HightPage;
                     NUDAMilimetros.Value = ConfigPage.WidthPage; 
                     ConfigImpressions = obj2.GetConfigImpressions("Ticket").Result;
-                 
 
+                    cbTicketAutomatico.Visible = true;
                     GBMPagina.Visible = true; 
                     break;
 
@@ -230,9 +229,8 @@ namespace LinkCajaV2.Configurations
                     CBAlineacion.SelectedValue = ConfigBox2.Align;
                     NUDEspacio.Value = ConfigBox2.Spacing;
                     NUDHightLine.Value = ConfigBox2.HightLine;
-                    NUDAncho.Value = ConfigBox2.Width;
-                    NUDALMilimetros.Value = ConfigBox2.HightPage;
-                    NUDAMilimetros.Value = ConfigBox2.WidthPage;
+                    NUDALMilimetros.Value = ConfigBox2.Higth;
+                    NUDAMilimetros.Value = ConfigBox2.Width;
                     ConfigImpressions = obj3.GetConfigImpressions("Etiquetas").Result;
 
                     if (cbPosicionPrecio.Items.Count > 0)
@@ -320,30 +318,14 @@ namespace LinkCajaV2.Configurations
                 return;
             }
 
-
-          
             string tipoDeHojaAsignado = CBImpresiones.Text == "Ticket" ? "mm" : "A4";
 
-
-            if ((CBImpresiones.Text == "Etiquetas" || CBImpresiones.Text == "Ticket") && (NUDALMilimetros.Value <= 0 || NUDAMilimetros.Value <= 0))
-            {
-                MessageBox.Show(
-                    "Las medidas de ancho y alto deben ser mayores a 0 milímetros.",
-                    "Validación de medidas",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Exclamation
-                );
-
-                return;
-            }
-         
             if (CBImpresiones.Text == "Etiquetas")
             {
                 if (NUDAMilimetros.Value > 210)
                 {
                     MessageBox.Show(
-                        "El ancho de la etiqueta no puede ser mayor a 210 mm, " +
-                        "porque las etiquetas se imprimen sobre una hoja A4.",
+                        "El ancho de la etiqueta no puede ser mayor a 210 mm",
                         "Error de Medidas",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
@@ -354,8 +336,7 @@ namespace LinkCajaV2.Configurations
                 if (NUDALMilimetros.Value > 297)
                 {
                     MessageBox.Show(
-                        "El alto de la etiqueta no puede ser mayor a 297 mm, " +
-                        "porque las etiquetas se imprimen sobre una hoja A4.",
+                        "El alto de la etiqueta no puede ser mayor a 297 mm",
                         "Error de Medidas",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
@@ -371,7 +352,7 @@ namespace LinkCajaV2.Configurations
                 Page = tipoDeHojaAsignado,
                 WidthPage = CBImpresiones.Text == "Lista de precios"? 0: NUDAMilimetros.Value,
                 HightPage = CBImpresiones.Text == "Lista de precios"? 0: NUDALMilimetros.Value,
-                TicketAutomatico = cbTicketAutomatico.Checked //lee el checkbox
+                Automatico = cbTicketAutomatico.Checked //lee el checkbox
             };
 
             AppRepository obj = new AppRepository();
@@ -394,6 +375,7 @@ namespace LinkCajaV2.Configurations
                             Spacing = Convert.ToInt32(NUDEspacio.Value),
                             Align = CBAlineacion.SelectedValue != null ? CBAlineacion.SelectedValue.ToString() : "",
                             Width = CBImpresiones.Text == "Etiquetas"? Convert.ToInt32(NUDAMilimetros.Value): Convert.ToInt32(NUDAncho.Value),
+                            Higth = CBImpresiones.Text == "Etiquetas" ? Convert.ToInt32(NUDALMilimetros.Value) : 0,
                             HightLine = NUDHightLine.Value,
                             ColorLine = CBColorLinea.SelectedValue != null ? CBColorLinea.SelectedValue.ToString() : "",
                             Abajo = cbPosicionPrecio.Text == "Abajo"
@@ -421,9 +403,10 @@ namespace LinkCajaV2.Configurations
                                 Spacing = Convert.ToInt32(NUDEspacio.Value),
                                 Align = CBAlineacion.SelectedValue != null ? CBAlineacion.SelectedValue.ToString() : "",
                                 Width = CBImpresiones.Text == "Etiquetas" ? Convert.ToInt32(NUDAMilimetros.Value) : Convert.ToInt32(NUDAncho.Value),
+                                Higth = CBImpresiones.Text == "Etiquetas" ? Convert.ToInt32(NUDALMilimetros.Value) : 0,
                                 HightLine = NUDHightLine.Value,
                                 ColorLine = CBColorLinea.SelectedValue != null ? CBColorLinea.SelectedValue.ToString() : "",
-                                Abajo = cbPosicionPrecio.Text == "Abajo"
+                                Abajo = cbPosicionPrecio.Text == "Abajo" ? true : false
                             };
                             await obj.SaveConfigBox(objBoxPrecios);
                         }
@@ -439,6 +422,14 @@ namespace LinkCajaV2.Configurations
             else
             {
                 MessageBox.Show("Configuración guardada correctamente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void cbTicketAutomatico_CheckedChanged(object sender, EventArgs e)
+        {
+            if(cbTicketAutomatico.Checked)
+            {
+                MessageBox.Show("Esta opción requerira de una impresora POS como predeterminada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }

@@ -630,7 +630,6 @@ namespace LinkCajaV2.Sales
                 return;
             }
 
-
             decimal TotalReal = bindingList.Sum(x => x.Total);
             string TipoPago = "01";
             decimal Recibido = 0;
@@ -683,7 +682,7 @@ namespace LinkCajaV2.Sales
 
             AppRepository repoConfig = new AppRepository();
             ConfigPageModel configuracionImpresion = repoConfig.GetConfigPage().Result;
-            bool imprimirTicketAutomatico = configuracionImpresion != null && configuracionImpresion.TicketAutomatico;
+            bool imprimirTicketAutomatico = configuracionImpresion != null && configuracionImpresion.Automatico;
             VentaModel venta = new VentaModel
             {
                 Articles = bindingList,
@@ -787,10 +786,6 @@ namespace LinkCajaV2.Sales
             if (venta.Imprimir)
             {
                 im.GenerarTicketEscPos(venta);
-            }
-            else
-            {
-                im.GenerarTicket(venta);
             }
             //ImpressionsGeneral im = new ImpressionsGeneral();
             //im.GenerarTicketEscPos(venta); //GenerarTicket(venta);
