@@ -83,7 +83,6 @@ namespace LinkCajaV2.Reports
             {
                 string cliente = txtCliente.Text.Trim();
                 string cajero = txtCajero.Text.Trim();
-                //var Tickets = await obj.GetTickets((int)NUDTicket.Value, dtDesde.Value, dtHasta.Value, fechaCreacion, txtReferencia.Text.Trim());
                 var Tickets = await obj.GetTickets((int)NUDTicket.Value, dtDesde.Value,dtHasta.Value, fechaCreacion,txtReferencia.Text.Trim(),cliente,cajero);
                 var listaFinal = Tickets?.ToList() ?? new List<ListTicketModel>();
                 dgvTickets.DataSource = new BindingList<ListTicketModel>(listaFinal);
@@ -232,7 +231,7 @@ namespace LinkCajaV2.Reports
             {
                 Name = "Imprimir",
                 HeaderText = "Acción",
-                Text = "Reimprimir  Ticket",
+                Text = "Reimprimir",
                 UseColumnTextForButtonValue = true,
                 Width = 100,
                 FlatStyle = FlatStyle.Flat
@@ -306,26 +305,7 @@ namespace LinkCajaV2.Reports
 
             dgvTickets.AllowUserToAddRows = false;
         }
-        private void CBBuscar_CheckedChanged(object sender, EventArgs e)
-        {
-            if (CBFecha.Checked)
-            {
-                RBCreacion.Visible = true;
-                RBModificacion.Visible = true;
-                NUDTicket.Enabled = false;
-                NUDTicket.Value = 0;
-                dtHasta.Enabled = true;
-                dtDesde.Enabled = true;
-            }
-            else
-            {
-                RBCreacion.Visible = false;
-                RBModificacion.Visible = false;
-                dtDesde.Enabled = false;
-                dtHasta.Enabled = false;
-                NUDTicket.Enabled = true;
-            }
-        }
+      
         private void Tickets_Load(object sender, EventArgs e)
         {
             if (IdTypeUser == 2)//Vendedor
