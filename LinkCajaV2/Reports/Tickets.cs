@@ -11,6 +11,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Media.Media3D;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LinkCajaV2.Reports
@@ -80,7 +81,10 @@ namespace LinkCajaV2.Reports
 
             try
             {
-                var Tickets = await obj.GetTickets((int)NUDTicket.Value, dtDesde.Value, dtHasta.Value, fechaCreacion, txtReferencia.Text.Trim());
+                string cliente = txtCliente.Text.Trim();
+                string cajero = txtCajero.Text.Trim();
+                //var Tickets = await obj.GetTickets((int)NUDTicket.Value, dtDesde.Value, dtHasta.Value, fechaCreacion, txtReferencia.Text.Trim());
+                var Tickets = await obj.GetTickets((int)NUDTicket.Value, dtDesde.Value,dtHasta.Value, fechaCreacion,txtReferencia.Text.Trim(),cliente,cajero);
                 var listaFinal = Tickets?.ToList() ?? new List<ListTicketModel>();
                 dgvTickets.DataSource = new BindingList<ListTicketModel>(listaFinal);
                 decimal totalGeneral = listaFinal.Where(x=> x.Status == "Activo").Sum(item => item.Total);
@@ -223,6 +227,25 @@ namespace LinkCajaV2.Reports
                 Width = 90,
                 FlatStyle = FlatStyle.Flat
             };
+
+            DataGridViewButtonColumn btnImprimir = new DataGridViewButtonColumn
+            {
+                Name = "Imprimir",
+                HeaderText = "Acción",
+                Text = "Reimprimir  Ticket",
+                UseColumnTextForButtonValue = true,
+                Width = 100,
+                FlatStyle = FlatStyle.Flat
+            };
+
+            btnImprimir.DefaultCellStyle.BackColor =
+                Color.FromArgb(245, 245, 245);
+
+            btnImprimir.DefaultCellStyle.ForeColor =
+                Color.FromArgb(108, 117, 125);
+
+            dgvTickets.Columns.Add(btnImprimir);
+
             btnVer.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
             btnVer.DefaultCellStyle.ForeColor = Color.FromArgb(108, 117, 125);
             dgvTickets.Columns.Add(btnVer);
@@ -327,9 +350,15 @@ namespace LinkCajaV2.Reports
         {
             if (e.RowIndex < 0) return;
             if (_procesandoAccion) return;
-            if (dgvTickets.Columns[e.ColumnIndex].Name != "Ver" && dgvTickets.Columns[e.ColumnIndex].Name != "Cancelar"
-                && dgvTickets.Columns[e.ColumnIndex].Name != "Enviar" && dgvTickets.Columns[e.ColumnIndex].Name != "CheckFacture" 
-                && dgvTickets.Columns[e.ColumnIndex].Name != "VerFolio") return;
+            if (dgvTickets.Columns[e.ColumnIndex].Name != "Ver" &&
+            dgvTickets.Columns[e.ColumnIndex].Name != "Cancelar" &&
+            dgvTickets.Columns[e.ColumnIndex].Name != "Enviar" &&
+            dgvTickets.Columns[e.ColumnIndex].Name != "CheckFacture" &&
+            dgvTickets.Columns[e.ColumnIndex].Name != "VerFolio" &&
+            dgvTickets.Columns[e.ColumnIndex].Name != "Imprimir")
+            {
+                return;
+            }
             try
             {
                 _procesandoAccion = true;
@@ -379,6 +408,96 @@ namespace LinkCajaV2.Reports
                         itemsForm.ShowDialog();
                         Buscar();
                         break;
+                    //////////////
+                    case "Imprimir":
+                        {
+                            ConfigPageModel configImpresion = await obj.GetConfigPage();
+
+                            if (configImpresion == null || !configImpresion.Automatico)
+                            {
+                                MessageBox.Show(
+                                    "Tienes que activar la opción de ticket automático para reimprimir el ticket.",
+                                    "Impresión desactivada",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+
+                                return;
+                            }
+
+                            var detalles = await obj.GetDetailsTicket(IdTicket);
+
+                            if (detalles == null || detalles.Count == 0)
+                            {
+                                MessageBox.Show(
+                                    "No se encontraron productos para este ticket.",
+                                    "Ticket sin productos",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+
+                                return;
+                            }
+
+                            ClientsModel cliente =
+                                await obj.GetClientsbyId(Ticket.IdClient);
+
+                            BoxModel caja =
+                                await obj.GetBoxsbyId(Ticket.IdBox);
+
+                            BindingList<ArticlesSalesModel> articulos =
+                                new BindingList<ArticlesSalesModel>();
+
+                            foreach (var detalle in detalles)
+                            {
+                                articulos.Add(new ArticlesSalesModel
+                                {
+                                    IdArticle = detalle.IdArticle,
+                                    Code = detalle.Code,
+                                    Name = detalle.Name,
+                                    Stock = detalle.StockSold,
+                                    Price = detalle.PriceSold
+                                });
+                            }
+
+                            VentaModel ventaImprimir = new VentaModel
+                            {
+                                Articles = articulos,
+                                Copias = 1,
+                                Company = Empresa,
+                                Imprimir = true,
+
+                                IdTicket = Ticket.Id,
+
+                                Cliente = cliente != null
+                                    ? cliente.Name
+                                    : "Publico General",
+
+                                BoxName = caja != null
+                                    ? caja.Name
+                                    : "",
+
+                                Total = Ticket.Total,
+                                CostoEnvio = Ticket.CostoEnvio,
+
+                                Recibido = Ticket.Total + Ticket.CostoEnvio,
+                                FechaVenta = Ticket.CreateDate,
+                                EsReimpresion = true,
+                                FechaReimpresion = DateTime.Now,
+
+                                Title =
+                                    "TEST-TKT-MINO-" +
+                                    Ticket.CreateDate.Year.ToString() +
+                                    "-" +
+                                    Ticket.Id.ToString()
+                            };
+
+                            ImpressionsGeneral im = new ImpressionsGeneral();
+
+                            im.ProcesarTicket(ventaImprimir);
+
+                            break;
+                        }
+
+                    /////
                     case "Cancelar":
                         DateTime Created = Convert.ToDateTime(dgvTickets.Rows[e.RowIndex].Cells["Created"].Value);
                         string Status = Convert.ToString(dgvTickets.Rows[e.RowIndex].Cells["Status"].Value);

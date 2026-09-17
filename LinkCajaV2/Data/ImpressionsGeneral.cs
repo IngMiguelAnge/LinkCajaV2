@@ -1182,7 +1182,9 @@ namespace LinkCajaV2.Data
                     EscribirTexto(ms, $"RFC: {venta.Company.RFC}\n", encoding);
                     EscribirTexto(ms, $"{venta.Company.Address}\n", encoding);
                     EscribirTexto(ms, $"CLIENTE: {venta.Cliente}\n", encoding);
-                    EscribirTexto(ms, $"{DateTime.Now:dd/MM/yyyy HH:mm}\n", encoding);
+                    //EscribirTexto(ms, $"{DateTime.Now:dd/MM/yyyy HH:mm}\n", encoding);
+                    DateTime fechaTicket = venta.FechaVenta != default(DateTime)? venta.FechaVenta: DateTime.Now;
+                    EscribirTexto( ms,  $"{fechaTicket:dd/MM/yyyy HH:mm}\n", encoding);
                     EscribirTexto(ms, "--------------------------------\n", encoding); // 32 guiones
 
                     // 2. Encabezado de la Tabla
@@ -1227,6 +1229,13 @@ namespace LinkCajaV2.Data
 
                     // 5. Pie y Código QR en ESC/POS
                     ms.Write(alignCenter, 0, alignCenter.Length);
+                    if (venta.EsReimpresion)
+                    {
+                        ms.Write(fontBoldOn, 0, fontBoldOn.Length);
+
+                        EscribirTexto( ms,"\n*** REIMPRESION ***\n",encoding);ms.Write(fontBoldOff, 0, fontBoldOff.Length);
+                        EscribirTexto(ms, $"Reimpreso: {venta.FechaReimpresion:dd/MM/yyyy HH:mm}\n",encoding);
+                    }
                     EscribirTexto(ms, "\n¡Gracias por su compra!\n\n", encoding);
 
                     // Imprimir Código QR mediante comandos ESC/POS nativos (Soportado en POS-58)

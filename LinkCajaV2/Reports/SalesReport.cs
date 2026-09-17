@@ -39,17 +39,18 @@ namespace LinkCajaV2.Reports
                 cbProveedor.SelectedIndex = 0;
 
                 // Llenar el ComboBox de Categorias
-                var ListCategorias = obj.GetCategories("").Result.ToList();
-                var CategoriasOrdenadas = ListCategorias.OrderBy(x => x.Nombre).ToList();
-                CategoriasOrdenadas.Insert(0, new ListCategoriesModel { Id = 0, Nombre = "Seleccione" });
+                //var ListCategorias = obj.GetCategories("").Result.ToList();
+                //var CategoriasOrdenadas = ListCategorias.OrderBy(x => x.Nombre).ToList();
+                //CategoriasOrdenadas.Insert(0, new ListCategoriesModel { Id = 0, Nombre = "Seleccione" });
+                var ListCategorias = obj.GetCategoriesActives().Result.OrderBy(x => x.Name).ToList();
+                ListCategorias.Insert(0, new CategorieModel{Id = 0,Name = "Seleccione",Status = true});
 
-                cbCategoria.Items.Clear(); 
-                cbCategoria.DisplayMember = "Nombre";
+                cbCategoria.Items.Clear();
+                cbCategoria.DisplayMember = "Name";
                 cbCategoria.ValueMember = "Id";
-                cbCategoria.DataSource = CategoriasOrdenadas;
+                cbCategoria.DataSource = ListCategorias;
                 cbCategoria.SelectedIndex = 0;
 
-               
             }
             catch (Exception ex)
             {

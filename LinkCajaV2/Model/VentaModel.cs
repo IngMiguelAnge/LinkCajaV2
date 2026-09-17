@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace LinkCajaV2.Model
 {
@@ -15,6 +16,9 @@ namespace LinkCajaV2.Model
         public decimal Total { get; set; }
         public string Title { get; set; }
         public decimal CostoEnvio { get; set; }
+        public DateTime FechaVenta { get; set; }
+        public bool EsReimpresion { get; set; }
+        public DateTime FechaReimpresion { get; set; }
 
     }
 }

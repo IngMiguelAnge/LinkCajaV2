@@ -19,8 +19,8 @@ namespace LinkCajaV2.Data
         public string Connection { get; set; }
         public AppRepository(bool isUnitOfWork = false)
         {
-            //Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
-            Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            //Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
         }
         public void Dispose()
         {
@@ -933,7 +933,7 @@ namespace LinkCajaV2.Data
             };
         }
         public async Task<List<ListTicketModel>> GetTickets(int IdTicket, DateTime Desde,
-            DateTime Hasta, bool FechaCreacion , string Folio = "")
+            DateTime Hasta, bool FechaCreacion , string Folio = "", string Cliente = "", string Cajero = "")
         {
             List<ListTicketModel> list = new List<ListTicketModel>();
             try
@@ -948,6 +948,8 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Hasta", Hasta));
                         cmd.Parameters.Add(new SqlParameter("@FechaCreacion", FechaCreacion));
                         cmd.Parameters.Add(new SqlParameter("@Folio", Folio));
+                        cmd.Parameters.Add(new SqlParameter("@Cliente", Cliente));
+                        cmd.Parameters.Add(new SqlParameter("@Cajero", Cajero));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
@@ -3321,21 +3323,21 @@ namespace LinkCajaV2.Data
         {
             return new TypePayModel()
             {
-                Id = (int)reader["Id"],
-                Name = (string)reader["Name"],
-                Value = (string)reader["Value"],
-                Status = (bool)reader["Status"]
+                //Id = (int)reader["Id"],
+                //Name = (string)reader["Name"],
+                //Value = (string)reader["Value"],
+                //Status = (bool)reader["Status"]
 
-                //Id = 0,
+                Id = 0,
 
-                //// Leemos la columna Name
-                //Name = reader["Name"] != DBNull.Value ? reader["Name"].ToString() : "",
+                // Leemos la columna Name
+                Name = reader["Name"] != DBNull.Value ? reader["Name"].ToString() : "",
 
-                //// El SP devuelve "IdTypePay", pero el ComboBox de C# lo necesita en la propiedad "Value"
-                //Value = reader["IdTypePay"] != DBNull.Value ? reader["IdTypePay"].ToString() : "",
+                // El SP devuelve "IdTypePay", pero el ComboBox de C# lo necesita en la propiedad "Value"
+                Value = reader["IdTypePay"] != DBNull.Value ? reader["IdTypePay"].ToString() : "",
 
-                //// Como el SP ya trae el WHERE Status = 1, asumimos que es true
-                //Status = true
+                // Como el SP ya trae el WHERE Status = 1, asumimos que es true
+                Status = true
             };
         }
 

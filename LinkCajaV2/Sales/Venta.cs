@@ -724,6 +724,8 @@ namespace LinkCajaV2.Sales
                 return;
             }
             venta.IdTicket = Ticket.Id;
+            venta.FechaVenta = Ticket.CreateDate;
+            venta.EsReimpresion = false;
             DetailsTicketModel Details = new DetailsTicketModel();
             BillingDetails billing = new BillingDetails();
             //No se deja a que el cliente elija el nombre por que si lo cambia ya no se encontrara en las facturas emitas

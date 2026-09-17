@@ -395,6 +395,12 @@ namespace LinkCajaV2.Configurations
                         };
                         result = await obj.SaveConfigImpressions(objConfig);
 
+                        if (result)
+                        {
+                            ConfigImpressions =
+                                await obj.GetConfigImpressions(CBImpresiones.Text);
+                        }
+
                         if (CBModificar.Text == "Precios" && CBImpresiones.Text == "Etiquetas")
                         {
                             ConfigBoxModel objBoxPrecios = new ConfigBoxModel()
