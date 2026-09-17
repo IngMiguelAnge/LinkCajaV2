@@ -188,6 +188,11 @@
             this.dgvProveedores.RowTemplate.Height = 28;
             this.dgvProveedores.Size = new System.Drawing.Size(585, 202);
             this.dgvProveedores.TabIndex = 14;
+            this.dgvProveedores.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProveedores_CellContentClick);
+            this.dgvProveedores.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvProveedores_CellPainting);
+            this.dgvProveedores.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvProveedores_CellValidating);
+            this.dgvProveedores.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProveedores_CellValueChanged);
+            this.dgvProveedores.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvProveedores_EditingControlShowing);
             // 
             // btnGuardar
             // 
