@@ -596,7 +596,7 @@
             this.btnResumen.Padding = new System.Windows.Forms.Padding(15, 0, 10, 0);
             this.btnResumen.Size = new System.Drawing.Size(207, 80);
             this.btnResumen.TabIndex = 7;
-            this.btnResumen.Text = "Resumen de ventas y entradas/salidas";
+            this.btnResumen.Text = "Productos vendidos";
             this.btnResumen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnResumen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnResumen.UseVisualStyleBackColor = false;
