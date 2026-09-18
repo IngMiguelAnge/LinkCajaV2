@@ -15,10 +15,7 @@ namespace LinkCajaV2.Configurations
 {
     public partial class CashFund : System.Windows.Forms.Form
     {
-        public int IdUsuarioActual { get; set; }
-        public string NameUserActual { get; set; }
-        public int IdTypeUserActual { get; set; }
-
+       
         public CashFund()
         {
             InitializeComponent();
@@ -27,8 +24,9 @@ namespace LinkCajaV2.Configurations
         }
 
         // Tabla actualizada 
-        public void CrearGridView()
+        public void CrearGridCortes()
         {
+            dgvFondoCaja.DataSource = null;
             dgvFondoCaja.Columns.Clear();
             dgvFondoCaja.AutoGenerateColumns = false;
             dgvFondoCaja.ReadOnly = true;
@@ -36,9 +34,7 @@ namespace LinkCajaV2.Configurations
             dgvFondoCaja.RowHeadersVisible = false; 
             
 
-            // Columnas Ocultas 
-            dgvFondoCaja.Columns.Add(new DataGridViewTextBoxColumn { Name = "Id", DataPropertyName = "Id", Visible = false });
-            dgvFondoCaja.Columns.Add(new DataGridViewTextBoxColumn { Name = "IdBox", DataPropertyName = "IdBox", Visible = false });
+     
 
             // Columnas Visibles
             dgvFondoCaja.Columns.Add(new DataGridViewTextBoxColumn { Name = "Caja", HeaderText = "Turno / Caja", DataPropertyName = "Caja" });
@@ -90,7 +86,97 @@ namespace LinkCajaV2.Configurations
             //dgvFondoCaja.Columns.Add(btnIngresos);
         }
 
-        
+        public void CrearGridResumenEntradas(bool esResumen)
+        {
+            dgvFondoCaja.DataSource = null;
+            dgvFondoCaja.Columns.Clear();
+            dgvFondoCaja.AutoGenerateColumns = false;
+            dgvFondoCaja.ReadOnly = true;
+            dgvFondoCaja.AllowUserToAddRows = false;
+            dgvFondoCaja.RowHeadersVisible = false;
+
+            // CONCEPTO
+            dgvFondoCaja.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Concepto",
+                HeaderText = "Concepto",
+                DataPropertyName = "Concepto",
+                ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                Width = esResumen ? 350 : 150
+            });
+
+            // Si no es resumen agregamos las columnas de entradas y salidas
+
+            if (!esResumen)
+            {
+                // Columna oculta para mostrar el motivo
+                dgvFondoCaja.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "VerConcepto",
+                    HeaderText = "Ver Concepto",
+                    DataPropertyName = "VerConcepto",
+                    ReadOnly = true,
+                    Visible = false,
+                    Width = 300
+                });
+
+                // ARTICULO
+                dgvFondoCaja.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Articulo",
+                    HeaderText = "Articulo",
+                    DataPropertyName = "Articulo",
+                    ReadOnly = true,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                });
+
+                // FECHA
+                dgvFondoCaja.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Fecha",
+                    HeaderText = "Fecha",
+                    DataPropertyName = "Fecha",
+                    ReadOnly = true,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                    Width = 220
+                });
+            }
+
+            // MONTO
+            dgvFondoCaja.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Monto",
+                HeaderText = "Monto",
+                DataPropertyName = "Monto",
+                ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                Width = 110
+            });
+
+            // ACCIÓN AL FINAL
+            if (!esResumen)
+            {
+                DataGridViewButtonColumn btnVer = new DataGridViewButtonColumn
+                {
+                    Name = "Ver",
+                    HeaderText = "Acción",
+                    Text = "Ver motivo",
+                    UseColumnTextForButtonValue = true,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                    Width = 110,
+                    FlatStyle = FlatStyle.Flat
+                };
+
+                btnVer.DefaultCellStyle.BackColor =
+                    Color.FromArgb(245, 245, 245);
+
+                btnVer.DefaultCellStyle.ForeColor =
+                    Color.FromArgb(108, 117, 125);
+
+                dgvFondoCaja.Columns.Add(btnVer);
+            }
+        }
         private async void Buscar()
         {
             progressBar1.Style = ProgressBarStyle.Marquee;
@@ -98,38 +184,146 @@ namespace LinkCajaV2.Configurations
             btnBuscar.Enabled = false;
             btnNuevo.Enabled = false;
 
-            // Tabla 
-            CrearGridView();
-
             try
             {
                 AppRepository obj = new AppRepository();
 
-                int cajaSeleccionada = 0;
-
-                if (CBcaja.SelectedValue != null) int.TryParse(CBcaja.SelectedValue.ToString(), out cajaSeleccionada);
-           
-                var lista = await Task.Run(() => obj.GetCashFund(dtDesde.Value, dtHasta.Value, cajaSeleccionada));
-
-                if (lista == null || lista.Count == 0)
+                switch (CBoptions.Text)
                 {
-                    dgvFondoCaja.DataSource = null;
-                    MessageBox.Show("No se encontraron cortes.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
+                   
+                    // CORTES
+                  
+                    case "Ver corte":
+                        {
+                            CrearGridCortes();
 
-                // Llenamos la tabla 
-                dgvFondoCaja.DataSource = lista;
+                            int cajaSeleccionada = 0;
+
+                            if (CBcaja.SelectedValue != null)
+                            {
+                                int.TryParse(
+                                    CBcaja.SelectedValue.ToString(),
+                                    out cajaSeleccionada
+                                );
+                            }
+
+                            var lista = await Task.Run(() =>
+                                obj.GetCashFund(
+                                    dtDesde.Value,
+                                    dtHasta.Value,
+                                    cajaSeleccionada
+                                )
+                            );
+
+                            if (lista == null || lista.Count == 0)
+                            {
+                                dgvFondoCaja.DataSource = null;
+
+                                MessageBox.Show(
+                                    "No se encontraron cortes.",
+                                    "Información",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information
+                                );
+
+                                return;
+                            }
+
+                            dgvFondoCaja.DataSource = lista;
+
+                            break;
+                        }
+
+                   
+                    // RESUMEN
+                 
+                    case "Ver resumen":
+                        {
+                            CrearGridResumenEntradas(true);
+
+                            var detalles = await obj.GetCashDrop(
+                                dtDesde.Value,
+                                dtHasta.Value,
+                                false
+                            );
+
+                            var listaFinal = detalles?
+                                .OrderBy(x => x.Fecha)
+                                .ToList()
+                                ?? new List<CashDropModel>();
+
+                            if (listaFinal.Count == 0)
+                            {
+                                dgvFondoCaja.DataSource = null;
+
+                                MessageBox.Show(
+                                    "No se encontraron datos para el resumen.",
+                                    "Información",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information
+                                );
+
+                                return;
+                            }
+
+                            dgvFondoCaja.DataSource = listaFinal;
+
+                            break;
+                        }
+
+              
+                    // ENTRADAS Y SALIDAS
+              
+                    case "Ver entradas y salidas":
+                        {
+                            CrearGridResumenEntradas(false);
+
+                            var detalles = await obj.GetCashDrop(
+                                dtDesde.Value,
+                                dtHasta.Value,
+                                true
+                            );
+
+                            var listaFinal = detalles?
+                                .OrderBy(x => x.Fecha)
+                                .ToList()
+                                ?? new List<CashDropModel>();
+
+                            if (listaFinal.Count == 0)
+                            {
+                                dgvFondoCaja.DataSource = null;
+
+                                MessageBox.Show(
+                                    "No se encontraron entradas o salidas.",
+                                    "Información",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information
+                                );
+
+                                return;
+                            }
+
+                            dgvFondoCaja.DataSource = listaFinal;
+
+                            break;
+                        }
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
             finally
             {
                 progressBar1.Style = ProgressBarStyle.Blocks;
                 progressBar1.Value = 0;
                 progressBar1.MarqueeAnimationSpeed = 0;
+
                 btnBuscar.Enabled = true;
                 btnNuevo.Enabled = true;
             }
@@ -137,6 +331,12 @@ namespace LinkCajaV2.Configurations
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            if (CBoptions.Text == "Seleccione")
+            {
+                MessageBox.Show("Seleccione una opción.","Aviso",   MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                CBoptions.Focus();
+                return;
+            }
             Buscar();
         }
 
@@ -149,32 +349,36 @@ namespace LinkCajaV2.Configurations
 
         private void dgvFondoCaja_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
-            int Id = (int)dgvFondoCaja.Rows[e.RowIndex].Cells["Id"].Value;
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+            string columna = dgvFondoCaja.Columns[e.ColumnIndex].Name;
 
-            switch (dgvFondoCaja.Columns[e.ColumnIndex].Name)
+            switch (columna)
             {
+            
+                // VER CORTE
+            
                 case "btnEditar":
-                    Fund fund = new Fund();
-                    fund.Id = Id;
-                    fund.IdBox = (int)dgvFondoCaja.Rows[e.RowIndex].Cells["IdBox"].Value;
-                    fund.ShowDialog();
-                    Buscar();
-                    break;
-                case "btnRetiros":
-                    RetirementConcept r = new RetirementConcept();
-                    r.IdCashfund = Id;
-                    r.Closse = true;
-                    r.Retire = true;
-                    r.Show();
-                    break;
-                case "btnIngresos":
-                    RetirementConcept ing = new RetirementConcept();
-                    ing.IdCashfund = Id;
-                    ing.Closse = true;
-                    ing.Retire = false;
-                    ing.Show();
-                    break;
+                    {
+                        ListCashFundModel fila =dgvFondoCaja.Rows[e.RowIndex].DataBoundItem as ListCashFundModel;
+                        if (fila == null)return;
+                        Fund fund = new Fund();
+                        fund.Id = fila.Id;
+                        fund.IdBox = fila.IdBox;
+                        fund.ShowDialog();
+                        Buscar();
+                        break;
+                    }
+
+            
+                // VER  ENTRADAS / SALIDAS
+      
+                case "Ver":
+                    {
+                        string concepto = Convert.ToString( dgvFondoCaja.Rows[e.RowIndex].Cells["VerConcepto"].Value);
+
+                        MessageBox.Show( concepto,"Concepto",MessageBoxButtons.OK, MessageBoxIcon.Information );
+                        break;
+                    }
             }
         }
 
@@ -249,23 +453,33 @@ namespace LinkCajaV2.Configurations
 
             CBcaja.Visible = false;
             lblNombre.Visible = false;
+            BtnImpresion.Visible = false;
         }
 
         private void CBoptions_SelectedIndexChanged(object sender, EventArgs e)
         {
+            dgvFondoCaja.DataSource = null;
             switch (CBoptions.Text)
             {
                 case "Seleccione":
-                    {
+                    {                                                                                                                                                                                               
                         CBcaja.Visible = false;
                         lblNombre.Visible = false;
+                        BtnImpresion.Visible = false;
+
+                        dgvFondoCaja.DataSource = null;
+                        dgvFondoCaja.Columns.Clear();
+
                         break;
                     }
                 case "Ver corte":
                     {
-                        
+
                         CBcaja.Visible = true;
                         lblNombre.Visible = true;
+                        BtnImpresion.Visible = true;
+
+                        CrearGridCortes();
 
                         break;
                     }
@@ -274,18 +488,9 @@ namespace LinkCajaV2.Configurations
                     {
                         CBcaja.Visible = false;
                         lblNombre.Visible = false;
+                        BtnImpresion.Visible = false;
 
-                        CashDrop c = new CashDrop();
-
-                        c.IdUsuario = IdUsuarioActual;
-                        c.NameUser = NameUserActual;
-                        c.IdTypeUser = IdTypeUserActual;
-                        c.ModoVista = "Ver Resumen";
-
-                        c.ShowDialog();
-
-                        // Al cerrar regresa a corte 
-                        CBoptions.SelectedIndex = 0;
+                        CrearGridResumenEntradas(true);
 
                         break;
                     }
@@ -294,20 +499,9 @@ namespace LinkCajaV2.Configurations
                     {
                         CBcaja.Visible = false;
                         lblNombre.Visible = false;
+                        BtnImpresion.Visible = false;
 
-                        CashDrop c = new CashDrop();
-
-                        c.IdUsuario = IdUsuarioActual;
-                        c.NameUser = NameUserActual;
-                        c.IdTypeUser = IdTypeUserActual;
-
-
-                        c.ModoVista = "Ver Entradas y Salidas";
-
-                        c.ShowDialog();
-
-                       
-                        CBoptions.SelectedIndex = 0;
+                        CrearGridResumenEntradas(false);
 
                         break;
                     }
