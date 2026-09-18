@@ -466,6 +466,7 @@ namespace LinkCajaV2.Configurations
                         CBcaja.Visible = false;
                         lblNombre.Visible = false;
                         BtnImpresion.Visible = false;
+                        btnNuevo.Visible = false;
 
                         dgvFondoCaja.DataSource = null;
                         dgvFondoCaja.Columns.Clear();
@@ -478,7 +479,7 @@ namespace LinkCajaV2.Configurations
                         CBcaja.Visible = true;
                         lblNombre.Visible = true;
                         BtnImpresion.Visible = true;
-
+                        btnNuevo.Visible = true;
                         CrearGridCortes();
 
                         break;
@@ -489,6 +490,7 @@ namespace LinkCajaV2.Configurations
                         CBcaja.Visible = false;
                         lblNombre.Visible = false;
                         BtnImpresion.Visible = false;
+                        btnNuevo.Visible = false;
 
                         CrearGridResumenEntradas(true);
 
@@ -500,6 +502,7 @@ namespace LinkCajaV2.Configurations
                         CBcaja.Visible = false;
                         lblNombre.Visible = false;
                         BtnImpresion.Visible = false;
+                        btnNuevo.Visible = false;
 
                         CrearGridResumenEntradas(false);
 
