@@ -2,6 +2,7 @@
 using LinkCajaV2.Data;
 using LinkCajaV2.Items;
 using LinkCajaV2.Model;
+using LinkCajaV2.Reports;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,10 +15,15 @@ namespace LinkCajaV2.Configurations
 {
     public partial class CashFund : System.Windows.Forms.Form
     {
+        public int IdUsuarioActual { get; set; }
+        public string NameUserActual { get; set; }
+        public int IdTypeUserActual { get; set; }
+
         public CashFund()
         {
             InitializeComponent();
             CargarCombos();
+            CargarOpciones();
         }
 
         // Tabla actualizada 
@@ -101,7 +107,7 @@ namespace LinkCajaV2.Configurations
 
                 int cajaSeleccionada = 0;
 
-                if (caja.SelectedValue != null) int.TryParse(caja.SelectedValue.ToString(), out cajaSeleccionada);
+                if (CBcaja.SelectedValue != null) int.TryParse(CBcaja.SelectedValue.ToString(), out cajaSeleccionada);
            
                 var lista = await Task.Run(() => obj.GetCashFund(dtDesde.Value, dtHasta.Value, cajaSeleccionada));
 
@@ -186,7 +192,7 @@ namespace LinkCajaV2.Configurations
                 DateTime hasta = dtHasta.Value;
 
                 int cajaSeleccionada = 0;
-                if (caja.SelectedValue != null) int.TryParse(caja.SelectedValue.ToString(), out cajaSeleccionada);
+                if (CBcaja.SelectedValue != null) int.TryParse(CBcaja.SelectedValue.ToString(), out cajaSeleccionada);
 
                 AppRepository obj = new AppRepository();
                 var listaCortes = await Task.Run(() => obj.GetCashFund(desde, hasta, cajaSeleccionada));
@@ -219,9 +225,9 @@ namespace LinkCajaV2.Configurations
                 if (listaCajas != null)
                 {
                     listaCajas.Insert(0, new ListBoxModel { Id = 0, Nombre = "TODAS LAS CAJAS" });
-                    caja.DataSource = listaCajas;
-                    caja.DisplayMember = "Nombre";
-                    caja.ValueMember = "Id";
+                    CBcaja.DataSource = listaCajas;
+                    CBcaja.DisplayMember = "Nombre";
+                    CBcaja.ValueMember = "Id";
                 }
             }
             catch (Exception ex)
@@ -229,5 +235,83 @@ namespace LinkCajaV2.Configurations
                 MessageBox.Show("Error al cargar los filtros: " + ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void CargarOpciones()
+        {
+            CBoptions.Items.Clear();
+            CBoptions.Items.Add("Seleccione");
+            CBoptions.Items.Add("Ver corte");
+            CBoptions.Items.Add("Ver resumen");
+            CBoptions.Items.Add("Ver entradas y salidas");
+
+            CBoptions.DropDownStyle = ComboBoxStyle.DropDownList;
+            CBoptions.SelectedIndex = 0;
+
+            CBcaja.Visible = false;
+            lblNombre.Visible = false;
+        }
+
+        private void CBoptions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (CBoptions.Text)
+            {
+                case "Seleccione":
+                    {
+                        CBcaja.Visible = false;
+                        lblNombre.Visible = false;
+                        break;
+                    }
+                case "Ver corte":
+                    {
+                        
+                        CBcaja.Visible = true;
+                        lblNombre.Visible = true;
+
+                        break;
+                    }
+
+                case "Ver resumen":
+                    {
+                        CBcaja.Visible = false;
+                        lblNombre.Visible = false;
+
+                        CashDrop c = new CashDrop();
+
+                        c.IdUsuario = IdUsuarioActual;
+                        c.NameUser = NameUserActual;
+                        c.IdTypeUser = IdTypeUserActual;
+                        c.ModoVista = "Ver Resumen";
+
+                        c.ShowDialog();
+
+                        // Al cerrar regresa a corte 
+                        CBoptions.SelectedIndex = 0;
+
+                        break;
+                    }
+
+                case "Ver entradas y salidas":
+                    {
+                        CBcaja.Visible = false;
+                        lblNombre.Visible = false;
+
+                        CashDrop c = new CashDrop();
+
+                        c.IdUsuario = IdUsuarioActual;
+                        c.NameUser = NameUserActual;
+                        c.IdTypeUser = IdTypeUserActual;
+
+
+                        c.ModoVista = "Ver Entradas y Salidas";
+
+                        c.ShowDialog();
+
+                       
+                        CBoptions.SelectedIndex = 0;
+
+                        break;
+                    }
+            }
     }
+  }
 }

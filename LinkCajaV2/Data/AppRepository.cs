@@ -19,8 +19,8 @@ namespace LinkCajaV2.Data
         public string Connection { get; set; }
         public AppRepository(bool isUnitOfWork = false)
         {
-            //Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
-            Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+            //Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
         }
         public void Dispose()
         {
@@ -933,7 +933,7 @@ namespace LinkCajaV2.Data
             };
         }
         public async Task<List<ListTicketModel>> GetTickets(int IdTicket, DateTime Desde,
-            DateTime Hasta, bool FechaCreacion , string Folio = "", string Cliente = "", string Cajero = "")
+            DateTime Hasta, bool FechaCreacion , string Folio = "", int IdCliente = 0, int IdCajero = 0)
         {
             List<ListTicketModel> list = new List<ListTicketModel>();
             try
@@ -948,8 +948,8 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Hasta", Hasta));
                         cmd.Parameters.Add(new SqlParameter("@FechaCreacion", FechaCreacion));
                         cmd.Parameters.Add(new SqlParameter("@Folio", Folio));
-                        cmd.Parameters.Add(new SqlParameter("@Cliente", Cliente));
-                        cmd.Parameters.Add(new SqlParameter("@Cajero", Cajero));
+                        cmd.Parameters.Add(new SqlParameter("@IdCliente", IdCliente));
+                        cmd.Parameters.Add(new SqlParameter("@IdCajero", IdCajero));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
@@ -1169,7 +1169,7 @@ namespace LinkCajaV2.Data
 
         #endregion
         #region ConfigImpressions
-        public async Task<bool> SaveConfigImpressions(ConfigImpressionsModel obj)
+        public async Task<bool> SaveConfigImpressions(ConfigImpressionsModel obj, string Tipo)
         {
             try
             {
@@ -1183,6 +1183,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@FontStyle", obj.FontStyle));
                         cmd.Parameters.Add(new SqlParameter("@FontColor", obj.FontColor));
                         cmd.Parameters.Add(new SqlParameter("@Caracters", obj.Caracters));
+                        cmd.Parameters.Add(new SqlParameter("@Tipo", Tipo));
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;

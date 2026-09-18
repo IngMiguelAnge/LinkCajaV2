@@ -22,6 +22,7 @@ namespace LinkCajaV2.Reports
         public int IdUsuario { get; set; }
         public string NameUser { get; set; }
         public int IdTypeUser { get; set; }
+        public string ModoVista { get; set; } = "Ver Resumen";
         public CashDrop()
         {
             InitializeComponent();
@@ -93,7 +94,10 @@ namespace LinkCajaV2.Reports
         }
         private void CashDrop_Load(object sender, EventArgs e)
         {
-            CBResumen.SelectedIndex = 0;
+            //CBResumen.SelectedIndex = 0;
+            CBResumen.Text = ModoVista;
+            CrearGridView();
+            CargarDatos();
             AppRepository obj = new AppRepository();
             var ListPresentation = obj.GetPresentations().Result;
             ListPresentation.Insert(0, new ListPresentationsModel { Id = 0, Name = "Seleccione", Presentation = string.Empty, Decimals = 0 });
@@ -277,12 +281,12 @@ namespace LinkCajaV2.Reports
 
         private void CashDrop_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Menu m = new Menu();
-            m.IdUsuario = IdUsuario;
-            m.NameUser = NameUser;
-            m.IdTypeUser = IdTypeUser;
-            m.Show();
-            this.Hide();
+            //Menu m = new Menu();
+            //m.IdUsuario = IdUsuario;
+            //m.NameUser = NameUser;
+            //m.IdTypeUser = IdTypeUser;
+            //m.Show();
+            //this.Hide();
         }
 
         //private void cbGraficas_SelectedIndexChanged(object sender, EventArgs e)

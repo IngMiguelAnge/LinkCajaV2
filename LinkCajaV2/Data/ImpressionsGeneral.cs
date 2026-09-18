@@ -1233,8 +1233,8 @@ namespace LinkCajaV2.Data
                     {
                         ms.Write(fontBoldOn, 0, fontBoldOn.Length);
 
-                        EscribirTexto( ms,"\n*** REIMPRESION ***\n",encoding);ms.Write(fontBoldOff, 0, fontBoldOff.Length);
-                        EscribirTexto(ms, $"Reimpreso: {venta.FechaReimpresion:dd/MM/yyyy HH:mm}\n",encoding);
+                        EscribirTexto( ms, "\n*** COPIA ***\n", encoding);ms.Write(fontBoldOff, 0, fontBoldOff.Length);
+                        EscribirTexto( ms, $"Fecha de copia: {venta.FechaReimpresion:dd/MM/yyyy HH:mm}\n", encoding);
                     }
                     EscribirTexto(ms, "\n¡Gracias por su compra!\n\n", encoding);
 

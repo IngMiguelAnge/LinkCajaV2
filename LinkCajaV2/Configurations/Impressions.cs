@@ -393,7 +393,7 @@ namespace LinkCajaV2.Configurations
                             FontStyle = CBEstilo.SelectedItem.ToString(),
                             Caracters = Convert.ToInt32(nudCaracteres.Value)
                         };
-                        result = await obj.SaveConfigImpressions(objConfig);
+                        result = await obj.SaveConfigImpressions(objConfig, CBImpresiones.Text);
 
                         if (result)
                         {

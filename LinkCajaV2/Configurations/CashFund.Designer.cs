@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CashFund));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.dtHasta = new System.Windows.Forms.DateTimePicker();
             this.lblHasta = new System.Windows.Forms.Label();
@@ -50,8 +50,10 @@
             this.lblCategoria = new System.Windows.Forms.Label();
             this.cbProveedor = new System.Windows.Forms.ComboBox();
             this.lblProveedor = new System.Windows.Forms.Label();
-            this.caja = new System.Windows.Forms.ComboBox();
+            this.CBcaja = new System.Windows.Forms.ComboBox();
             this.BtnImpresion = new System.Windows.Forms.Button();
+            this.CBoptions = new System.Windows.Forms.ComboBox();
+            this.lblOpciones = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFondoCaja)).BeginInit();
             this.SuspendLayout();
@@ -64,11 +66,11 @@
             this.btnNuevo.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevo.ForeColor = System.Drawing.Color.White;
             this.btnNuevo.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevo.Image")));
-            this.btnNuevo.Location = new System.Drawing.Point(831, 180);
-            this.btnNuevo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnNuevo.Location = new System.Drawing.Point(554, 117);
+            this.btnNuevo.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(120, 41);
-            this.btnNuevo.TabIndex = 0;
+            this.btnNuevo.Size = new System.Drawing.Size(80, 27);
+            this.btnNuevo.TabIndex = 7;
             this.btnNuevo.Text = "Nuevo";
             this.btnNuevo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNuevo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -78,10 +80,10 @@
             // dtHasta
             // 
             this.dtHasta.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtHasta.Location = new System.Drawing.Point(461, 100);
-            this.dtHasta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dtHasta.Location = new System.Drawing.Point(307, 65);
+            this.dtHasta.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.dtHasta.Name = "dtHasta";
-            this.dtHasta.Size = new System.Drawing.Size(422, 37);
+            this.dtHasta.Size = new System.Drawing.Size(283, 27);
             this.dtHasta.TabIndex = 3;
             // 
             // lblHasta
@@ -89,9 +91,10 @@
             this.lblHasta.AutoSize = true;
             this.lblHasta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHasta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblHasta.Location = new System.Drawing.Point(457, 58);
+            this.lblHasta.Location = new System.Drawing.Point(305, 38);
+            this.lblHasta.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblHasta.Name = "lblHasta";
-            this.lblHasta.Size = new System.Drawing.Size(66, 25);
+            this.lblHasta.Size = new System.Drawing.Size(41, 15);
             this.lblHasta.TabIndex = 2;
             this.lblHasta.Text = "Hasta:";
             // 
@@ -100,19 +103,20 @@
             this.lblDesde.AutoSize = true;
             this.lblDesde.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDesde.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblDesde.Location = new System.Drawing.Point(10, 58);
+            this.lblDesde.Location = new System.Drawing.Point(7, 38);
+            this.lblDesde.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDesde.Name = "lblDesde";
-            this.lblDesde.Size = new System.Drawing.Size(69, 25);
+            this.lblDesde.Size = new System.Drawing.Size(45, 15);
             this.lblDesde.TabIndex = 0;
             this.lblDesde.Text = "Desde:";
             // 
             // dtDesde
             // 
             this.dtDesde.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtDesde.Location = new System.Drawing.Point(14, 100);
-            this.dtDesde.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dtDesde.Location = new System.Drawing.Point(9, 65);
+            this.dtDesde.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.dtDesde.Name = "dtDesde";
-            this.dtDesde.Size = new System.Drawing.Size(420, 37);
+            this.dtDesde.Size = new System.Drawing.Size(281, 27);
             this.dtDesde.TabIndex = 1;
             // 
             // btnBuscar
@@ -123,11 +127,11 @@
             this.btnBuscar.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.Location = new System.Drawing.Point(704, 180);
-            this.btnBuscar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnBuscar.Location = new System.Drawing.Point(469, 117);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(120, 41);
-            this.btnBuscar.TabIndex = 5;
+            this.btnBuscar.Size = new System.Drawing.Size(80, 27);
+            this.btnBuscar.TabIndex = 6;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBuscar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -143,19 +147,19 @@
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.groupBox1.Location = new System.Drawing.Point(15, 226);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Location = new System.Drawing.Point(10, 147);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(1455, 448);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.groupBox1.Size = new System.Drawing.Size(970, 291);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cortes";
             // 
             // dgvFondoCaja
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
-            this.dgvFondoCaja.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.dgvFondoCaja.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvFondoCaja.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -163,42 +167,42 @@
             this.dgvFondoCaja.BackgroundColor = System.Drawing.Color.White;
             this.dgvFondoCaja.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvFondoCaja.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvFondoCaja.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvFondoCaja.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvFondoCaja.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvFondoCaja.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(159)))), ((int)(((byte)(230)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvFondoCaja.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvFondoCaja.EnableHeadersVisualStyles = false;
-            this.dgvFondoCaja.Location = new System.Drawing.Point(3, 36);
-            this.dgvFondoCaja.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgvFondoCaja.Location = new System.Drawing.Point(2, 23);
+            this.dgvFondoCaja.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.dgvFondoCaja.Name = "dgvFondoCaja";
             this.dgvFondoCaja.RowHeadersVisible = false;
             this.dgvFondoCaja.RowHeadersWidth = 62;
             this.dgvFondoCaja.RowTemplate.Height = 28;
-            this.dgvFondoCaja.Size = new System.Drawing.Size(1448, 409);
+            this.dgvFondoCaja.Size = new System.Drawing.Size(965, 266);
             this.dgvFondoCaja.TabIndex = 8;
             this.dgvFondoCaja.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFondoCaja_CellContentClick);
             // 
             // progressBar1
             // 
             this.progressBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.progressBar1.Location = new System.Drawing.Point(15, 200);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.progressBar1.Location = new System.Drawing.Point(10, 130);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.progressBar1.MarqueeAnimationSpeed = 0;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(520, 6);
+            this.progressBar1.Size = new System.Drawing.Size(347, 4);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar1.TabIndex = 6;
             // 
@@ -207,9 +211,10 @@
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.lblTitulo.Location = new System.Drawing.Point(14, 6);
+            this.lblTitulo.Location = new System.Drawing.Point(9, 4);
+            this.lblTitulo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(392, 48);
+            this.lblTitulo.Size = new System.Drawing.Size(269, 32);
             this.lblTitulo.TabIndex = 25;
             this.lblTitulo.Text = "Lista de Cortes de caja";
             // 
@@ -221,13 +226,14 @@
             this.BtnGastosReport.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnGastosReport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.BtnGastosReport.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.BtnGastosReport.Location = new System.Drawing.Point(1000, 179);
-            this.BtnGastosReport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BtnGastosReport.Location = new System.Drawing.Point(667, 116);
+            this.BtnGastosReport.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.BtnGastosReport.Name = "BtnGastosReport";
-            this.BtnGastosReport.Size = new System.Drawing.Size(151, 41);
+            this.BtnGastosReport.Size = new System.Drawing.Size(101, 27);
             this.BtnGastosReport.TabIndex = 26;
             this.BtnGastosReport.Text = "Reporte Gastos";
             this.BtnGastosReport.UseVisualStyleBackColor = false;
+            this.BtnGastosReport.Visible = false;
             this.BtnGastosReport.Click += new System.EventHandler(this.BtnGastosReport_Click);
             // 
             // IdUsuario
@@ -235,7 +241,7 @@
             this.IdUsuario.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IdUsuario.Location = new System.Drawing.Point(1058, 80);
             this.IdUsuario.Name = "IdUsuario";
-            this.IdUsuario.Size = new System.Drawing.Size(209, 37);
+            this.IdUsuario.Size = new System.Drawing.Size(209, 27);
             this.IdUsuario.TabIndex = 42;
             // 
             // IdCaja
@@ -244,7 +250,7 @@
             this.IdCaja.Location = new System.Drawing.Point(817, 80);
             this.IdCaja.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.IdCaja.Name = "IdCaja";
-            this.IdCaja.Size = new System.Drawing.Size(209, 37);
+            this.IdCaja.Size = new System.Drawing.Size(209, 27);
             this.IdCaja.TabIndex = 41;
             // 
             // lblNombre
@@ -252,9 +258,10 @@
             this.lblNombre.AutoSize = true;
             this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblNombre.Location = new System.Drawing.Point(897, 68);
+            this.lblNombre.Location = new System.Drawing.Point(804, 43);
+            this.lblNombre.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(53, 25);
+            this.lblNombre.Size = new System.Drawing.Size(32, 15);
             this.lblNombre.TabIndex = 43;
             this.lblNombre.Text = "Caja:";
             // 
@@ -265,7 +272,7 @@
             this.cbCategoria.FormattingEnabled = true;
             this.cbCategoria.Location = new System.Drawing.Point(699, 272);
             this.cbCategoria.Name = "cbCategoria";
-            this.cbCategoria.Size = new System.Drawing.Size(250, 38);
+            this.cbCategoria.Size = new System.Drawing.Size(250, 28);
             this.cbCategoria.TabIndex = 46;
             // 
             // lblCategoria
@@ -286,7 +293,7 @@
             this.cbProveedor.FormattingEnabled = true;
             this.cbProveedor.Location = new System.Drawing.Point(420, 272);
             this.cbProveedor.Name = "cbProveedor";
-            this.cbProveedor.Size = new System.Drawing.Size(250, 38);
+            this.cbProveedor.Size = new System.Drawing.Size(250, 28);
             this.cbProveedor.TabIndex = 45;
             // 
             // lblProveedor
@@ -300,16 +307,16 @@
             this.lblProveedor.TabIndex = 47;
             this.lblProveedor.Text = "Proveedor:";
             // 
-            // caja
+            // CBcaja
             // 
-            this.caja.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.caja.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.caja.FormattingEnabled = true;
-            this.caja.Location = new System.Drawing.Point(901, 100);
-            this.caja.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.caja.Name = "caja";
-            this.caja.Size = new System.Drawing.Size(281, 38);
-            this.caja.TabIndex = 45;
+            this.CBcaja.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBcaja.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CBcaja.FormattingEnabled = true;
+            this.CBcaja.Location = new System.Drawing.Point(807, 64);
+            this.CBcaja.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.CBcaja.Name = "CBcaja";
+            this.CBcaja.Size = new System.Drawing.Size(189, 28);
+            this.CBcaja.TabIndex = 4;
             // 
             // BtnImpresion
             // 
@@ -320,24 +327,53 @@
             this.BtnImpresion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.BtnImpresion.Image = ((System.Drawing.Image)(resources.GetObject("BtnImpresion.Image")));
             this.BtnImpresion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnImpresion.Location = new System.Drawing.Point(562, 182);
-            this.BtnImpresion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BtnImpresion.Location = new System.Drawing.Point(375, 118);
+            this.BtnImpresion.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.BtnImpresion.Name = "BtnImpresion";
-            this.BtnImpresion.Size = new System.Drawing.Size(135, 38);
-            this.BtnImpresion.TabIndex = 47;
+            this.BtnImpresion.Size = new System.Drawing.Size(90, 25);
+            this.BtnImpresion.TabIndex = 5;
             this.BtnImpresion.Text = "  Imprimir";
             this.BtnImpresion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnImpresion.UseVisualStyleBackColor = false;
             this.BtnImpresion.Click += new System.EventHandler(this.BtnImpresion_Click);
             // 
+            // CBoptions
+            // 
+            this.CBoptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBoptions.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CBoptions.FormattingEnabled = true;
+            this.CBoptions.Items.AddRange(new object[] {
+            "Ver Resumen",
+            "Ver Entradas/Salidas"});
+            this.CBoptions.Location = new System.Drawing.Point(609, 64);
+            this.CBoptions.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.CBoptions.Name = "CBoptions";
+            this.CBoptions.Size = new System.Drawing.Size(183, 28);
+            this.CBoptions.TabIndex = 3;
+            this.CBoptions.SelectedIndexChanged += new System.EventHandler(this.CBoptions_SelectedIndexChanged);
+            // 
+            // lblOpciones
+            // 
+            this.lblOpciones.AutoSize = true;
+            this.lblOpciones.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOpciones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblOpciones.Location = new System.Drawing.Point(606, 45);
+            this.lblOpciones.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblOpciones.Name = "lblOpciones";
+            this.lblOpciones.Size = new System.Drawing.Size(61, 15);
+            this.lblOpciones.TabIndex = 48;
+            this.lblOpciones.Text = "Opciones:";
+            // 
             // CashFund
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1536, 688);
+            this.ClientSize = new System.Drawing.Size(1024, 447);
+            this.Controls.Add(this.CBoptions);
+            this.Controls.Add(this.lblOpciones);
             this.Controls.Add(this.BtnImpresion);
-            this.Controls.Add(this.caja);
+            this.Controls.Add(this.CBcaja);
             this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.BtnGastosReport);
             this.Controls.Add(this.lblTitulo);
@@ -349,7 +385,7 @@
             this.Controls.Add(this.lblDesde);
             this.Controls.Add(this.dtDesde);
             this.Controls.Add(this.btnNuevo);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CashFund";
@@ -383,7 +419,9 @@
         private System.Windows.Forms.Label lblCategoria;
         private System.Windows.Forms.ComboBox cbProveedor;
         private System.Windows.Forms.Label lblProveedor;
-        private System.Windows.Forms.ComboBox caja;
+        private System.Windows.Forms.ComboBox CBcaja;
         private System.Windows.Forms.Button BtnImpresion;
+        private System.Windows.Forms.ComboBox CBoptions;
+        private System.Windows.Forms.Label lblOpciones;
     }
 }

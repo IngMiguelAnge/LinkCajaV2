@@ -70,9 +70,9 @@
             this.panelLateral.Controls.Add(this.lblPanelTituloApp);
             this.panelLateral.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelLateral.Location = new System.Drawing.Point(0, 0);
-            this.panelLateral.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panelLateral.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panelLateral.Name = "panelLateral";
-            this.panelLateral.Size = new System.Drawing.Size(264, 790);
+            this.panelLateral.Size = new System.Drawing.Size(176, 514);
             this.panelLateral.TabIndex = 0;
             // 
             // BtnPanelSalir
@@ -83,10 +83,10 @@
             this.BtnPanelSalir.ForeColor = System.Drawing.Color.White;
             this.BtnPanelSalir.Image = ((System.Drawing.Image)(resources.GetObject("BtnPanelSalir.Image")));
             this.BtnPanelSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnPanelSalir.Location = new System.Drawing.Point(14, 502);
-            this.BtnPanelSalir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BtnPanelSalir.Location = new System.Drawing.Point(9, 326);
+            this.BtnPanelSalir.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.BtnPanelSalir.Name = "BtnPanelSalir";
-            this.BtnPanelSalir.Size = new System.Drawing.Size(238, 45);
+            this.BtnPanelSalir.Size = new System.Drawing.Size(159, 29);
             this.BtnPanelSalir.TabIndex = 5;
             this.BtnPanelSalir.Text = "Salir";
             this.BtnPanelSalir.Click += new System.EventHandler(this.BtnPanelSalir_Click);
@@ -99,10 +99,10 @@
             this.btnPanelMenu.ForeColor = System.Drawing.Color.White;
             this.btnPanelMenu.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelMenu.Image")));
             this.btnPanelMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelMenu.Location = new System.Drawing.Point(11, 121);
-            this.btnPanelMenu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnPanelMenu.Location = new System.Drawing.Point(7, 79);
+            this.btnPanelMenu.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.btnPanelMenu.Name = "btnPanelMenu";
-            this.btnPanelMenu.Size = new System.Drawing.Size(246, 82);
+            this.btnPanelMenu.Size = new System.Drawing.Size(164, 53);
             this.btnPanelMenu.TabIndex = 26;
             this.btnPanelMenu.Text = "Menu";
             this.btnPanelMenu.Click += new System.EventHandler(this.btnPanelMenu_Click);
@@ -115,10 +115,10 @@
             this.btnPanelCorte.ForeColor = System.Drawing.Color.White;
             this.btnPanelCorte.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelCorte.Image")));
             this.btnPanelCorte.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelCorte.Location = new System.Drawing.Point(9, 430);
-            this.btnPanelCorte.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnPanelCorte.Location = new System.Drawing.Point(6, 280);
+            this.btnPanelCorte.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.btnPanelCorte.Name = "btnPanelCorte";
-            this.btnPanelCorte.Size = new System.Drawing.Size(249, 45);
+            this.btnPanelCorte.Size = new System.Drawing.Size(166, 29);
             this.btnPanelCorte.TabIndex = 7;
             this.btnPanelCorte.Text = "Resumen";
             this.btnPanelCorte.Click += new System.EventHandler(this.btnPanelCorte_Click);
@@ -131,10 +131,10 @@
             this.btnPanelEmpresa.ForeColor = System.Drawing.Color.White;
             this.btnPanelEmpresa.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelEmpresa.Image")));
             this.btnPanelEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelEmpresa.Location = new System.Drawing.Point(12, 365);
-            this.btnPanelEmpresa.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnPanelEmpresa.Location = new System.Drawing.Point(8, 237);
+            this.btnPanelEmpresa.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.btnPanelEmpresa.Name = "btnPanelEmpresa";
-            this.btnPanelEmpresa.Size = new System.Drawing.Size(249, 45);
+            this.btnPanelEmpresa.Size = new System.Drawing.Size(166, 29);
             this.btnPanelEmpresa.TabIndex = 0;
             this.btnPanelEmpresa.Text = "Mi Empresa";
             this.btnPanelEmpresa.Click += new System.EventHandler(this.btnPanelEmpresa_Click);
@@ -147,10 +147,10 @@
             this.btnPanelArticulos.ForeColor = System.Drawing.Color.White;
             this.btnPanelArticulos.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelArticulos.Image")));
             this.btnPanelArticulos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelArticulos.Location = new System.Drawing.Point(14, 296);
-            this.btnPanelArticulos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnPanelArticulos.Location = new System.Drawing.Point(9, 192);
+            this.btnPanelArticulos.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.btnPanelArticulos.Name = "btnPanelArticulos";
-            this.btnPanelArticulos.Size = new System.Drawing.Size(248, 45);
+            this.btnPanelArticulos.Size = new System.Drawing.Size(165, 29);
             this.btnPanelArticulos.TabIndex = 1;
             this.btnPanelArticulos.Text = "Articulos";
             this.btnPanelArticulos.Click += new System.EventHandler(this.btnPanelArticulos_Click);
@@ -163,10 +163,10 @@
             this.btnPanelVentas.ForeColor = System.Drawing.Color.White;
             this.btnPanelVentas.Image = ((System.Drawing.Image)(resources.GetObject("btnPanelVentas.Image")));
             this.btnPanelVentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPanelVentas.Location = new System.Drawing.Point(12, 208);
-            this.btnPanelVentas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnPanelVentas.Location = new System.Drawing.Point(8, 135);
+            this.btnPanelVentas.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.btnPanelVentas.Name = "btnPanelVentas";
-            this.btnPanelVentas.Size = new System.Drawing.Size(249, 82);
+            this.btnPanelVentas.Size = new System.Drawing.Size(166, 53);
             this.btnPanelVentas.TabIndex = 2;
             this.btnPanelVentas.Text = " Ventas";
             this.btnPanelVentas.Click += new System.EventHandler(this.btnPanelVentas_Click);
@@ -175,9 +175,10 @@
             // 
             this.lblPanelTituloApp.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.lblPanelTituloApp.ForeColor = System.Drawing.Color.White;
-            this.lblPanelTituloApp.Location = new System.Drawing.Point(22, 20);
+            this.lblPanelTituloApp.Location = new System.Drawing.Point(15, 13);
+            this.lblPanelTituloApp.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPanelTituloApp.Name = "lblPanelTituloApp";
-            this.lblPanelTituloApp.Size = new System.Drawing.Size(220, 88);
+            this.lblPanelTituloApp.Size = new System.Drawing.Size(147, 57);
             this.lblPanelTituloApp.TabIndex = 4;
             this.lblPanelTituloApp.Text = "PUNTO DE VENTA";
             // 
@@ -185,10 +186,10 @@
             // 
             this.dtHasta.CalendarFont = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtHasta.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtHasta.Location = new System.Drawing.Point(490, 125);
-            this.dtHasta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dtHasta.Location = new System.Drawing.Point(327, 81);
+            this.dtHasta.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.dtHasta.Name = "dtHasta";
-            this.dtHasta.Size = new System.Drawing.Size(419, 37);
+            this.dtHasta.Size = new System.Drawing.Size(281, 27);
             this.dtHasta.TabIndex = 3;
             // 
             // lblHasta
@@ -196,9 +197,10 @@
             this.lblHasta.AutoSize = true;
             this.lblHasta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHasta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblHasta.Location = new System.Drawing.Point(486, 84);
+            this.lblHasta.Location = new System.Drawing.Point(324, 55);
+            this.lblHasta.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblHasta.Name = "lblHasta";
-            this.lblHasta.Size = new System.Drawing.Size(66, 25);
+            this.lblHasta.Size = new System.Drawing.Size(41, 15);
             this.lblHasta.TabIndex = 2;
             this.lblHasta.Text = "Hasta:";
             // 
@@ -207,9 +209,10 @@
             this.lblDesde.AutoSize = true;
             this.lblDesde.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDesde.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblDesde.Location = new System.Drawing.Point(26, 84);
+            this.lblDesde.Location = new System.Drawing.Point(17, 55);
+            this.lblDesde.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDesde.Name = "lblDesde";
-            this.lblDesde.Size = new System.Drawing.Size(69, 25);
+            this.lblDesde.Size = new System.Drawing.Size(45, 15);
             this.lblDesde.TabIndex = 0;
             this.lblDesde.Text = "Desde:";
             // 
@@ -217,10 +220,10 @@
             // 
             this.dtDesde.CalendarFont = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtDesde.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtDesde.Location = new System.Drawing.Point(32, 125);
-            this.dtDesde.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dtDesde.Location = new System.Drawing.Point(21, 81);
+            this.dtDesde.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.dtDesde.Name = "dtDesde";
-            this.dtDesde.Size = new System.Drawing.Size(426, 37);
+            this.dtDesde.Size = new System.Drawing.Size(285, 27);
             this.dtDesde.TabIndex = 1;
             // 
             // gbDatos
@@ -232,11 +235,11 @@
             this.gbDatos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gbDatos.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbDatos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.gbDatos.Location = new System.Drawing.Point(32, 270);
-            this.gbDatos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gbDatos.Location = new System.Drawing.Point(21, 176);
+            this.gbDatos.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.gbDatos.Name = "gbDatos";
-            this.gbDatos.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gbDatos.Size = new System.Drawing.Size(2369, 496);
+            this.gbDatos.Padding = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.gbDatos.Size = new System.Drawing.Size(1579, 322);
             this.gbDatos.TabIndex = 4;
             this.gbDatos.TabStop = false;
             this.gbDatos.Text = "Resumen del sistema";
@@ -267,12 +270,12 @@
             this.dgvCorte.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvCorte.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCorte.EnableHeadersVisualStyles = false;
-            this.dgvCorte.Location = new System.Drawing.Point(3, 34);
-            this.dgvCorte.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgvCorte.Location = new System.Drawing.Point(2, 23);
+            this.dgvCorte.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.dgvCorte.Name = "dgvCorte";
             this.dgvCorte.RowHeadersWidth = 62;
             this.dgvCorte.RowTemplate.Height = 28;
-            this.dgvCorte.Size = new System.Drawing.Size(2363, 460);
+            this.dgvCorte.Size = new System.Drawing.Size(1575, 298);
             this.dgvCorte.TabIndex = 0;
             this.dgvCorte.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCorte_CellContentClick);
             // 
@@ -284,10 +287,10 @@
             this.btnBuscar.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.Location = new System.Drawing.Point(1240, 121);
-            this.btnBuscar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnBuscar.Location = new System.Drawing.Point(827, 79);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(120, 41);
+            this.btnBuscar.Size = new System.Drawing.Size(80, 27);
             this.btnBuscar.TabIndex = 8;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -299,9 +302,10 @@
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.lblTitulo.Location = new System.Drawing.Point(26, 9);
+            this.lblTitulo.Location = new System.Drawing.Point(17, 6);
+            this.lblTitulo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(174, 48);
+            this.lblTitulo.Size = new System.Drawing.Size(118, 32);
             this.lblTitulo.TabIndex = 25;
             this.lblTitulo.Text = "Resumen";
             // 
@@ -310,9 +314,10 @@
             this.lblOpciones.AutoSize = true;
             this.lblOpciones.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOpciones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblOpciones.Location = new System.Drawing.Point(924, 96);
+            this.lblOpciones.Location = new System.Drawing.Point(616, 62);
+            this.lblOpciones.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblOpciones.Name = "lblOpciones";
-            this.lblOpciones.Size = new System.Drawing.Size(96, 25);
+            this.lblOpciones.Size = new System.Drawing.Size(61, 15);
             this.lblOpciones.TabIndex = 6;
             this.lblOpciones.Text = "Opciones:";
             // 
@@ -324,10 +329,10 @@
             this.CBResumen.Items.AddRange(new object[] {
             "Ver Resumen",
             "Ver Entradas/Salidas"});
-            this.CBResumen.Location = new System.Drawing.Point(929, 124);
-            this.CBResumen.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CBResumen.Location = new System.Drawing.Point(619, 81);
+            this.CBResumen.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.CBResumen.Name = "CBResumen";
-            this.CBResumen.Size = new System.Drawing.Size(272, 38);
+            this.CBResumen.Size = new System.Drawing.Size(183, 28);
             this.CBResumen.TabIndex = 7;
             // 
             // PanelPrincipal
@@ -345,10 +350,10 @@
             this.PanelPrincipal.Controls.Add(this.dtDesde);
             this.PanelPrincipal.Controls.Add(this.lblOpciones);
             this.PanelPrincipal.Controls.Add(this.gbDatos);
-            this.PanelPrincipal.Location = new System.Drawing.Point(270, 0);
-            this.PanelPrincipal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.PanelPrincipal.Location = new System.Drawing.Point(180, 0);
+            this.PanelPrincipal.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.PanelPrincipal.Name = "PanelPrincipal";
-            this.PanelPrincipal.Size = new System.Drawing.Size(1847, 772);
+            this.PanelPrincipal.Size = new System.Drawing.Size(1231, 502);
             this.PanelPrincipal.TabIndex = 36;
             // 
             // BtnGrafica
@@ -359,10 +364,10 @@
             this.BtnGrafica.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnGrafica.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
             this.BtnGrafica.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.BtnGrafica.Location = new System.Drawing.Point(35, 195);
-            this.BtnGrafica.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BtnGrafica.Location = new System.Drawing.Point(23, 127);
+            this.BtnGrafica.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.BtnGrafica.Name = "BtnGrafica";
-            this.BtnGrafica.Size = new System.Drawing.Size(119, 41);
+            this.BtnGrafica.Size = new System.Drawing.Size(79, 27);
             this.BtnGrafica.TabIndex = 11;
             this.BtnGrafica.Text = "Ver Reporte";
             this.BtnGrafica.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -371,16 +376,17 @@
             // 
             // CashDrop
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1858, 790);
+            this.ClientSize = new System.Drawing.Size(1239, 514);
             this.Controls.Add(this.PanelPrincipal);
             this.Controls.Add(this.panelLateral);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.Name = "CashDrop";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CashDrop_FormClosed);

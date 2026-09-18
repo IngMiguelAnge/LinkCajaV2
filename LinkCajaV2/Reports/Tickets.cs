@@ -81,9 +81,9 @@ namespace LinkCajaV2.Reports
 
             try
             {
-                string cliente = txtCliente.Text.Trim();
-                string cajero = txtCajero.Text.Trim();
-                var Tickets = await obj.GetTickets((int)NUDTicket.Value, dtDesde.Value,dtHasta.Value, fechaCreacion,txtReferencia.Text.Trim(),cliente,cajero);
+                int idCliente = cbCliente.SelectedIndex > 0 ? Convert.ToInt32(cbCliente.SelectedValue):0;
+                int idCajero = cbCajero.SelectedIndex > 0 ? Convert.ToInt32(cbCajero.SelectedValue):0;
+                var Tickets = await obj.GetTickets((int)NUDTicket.Value, dtDesde.Value,dtHasta.Value, fechaCreacion,txtReferencia.Text.Trim(), idCliente, idCajero);
                 var listaFinal = Tickets?.ToList() ?? new List<ListTicketModel>();
                 dgvTickets.DataSource = new BindingList<ListTicketModel>(listaFinal);
                 decimal totalGeneral = listaFinal.Where(x=> x.Status == "Activo").Sum(item => item.Total);
@@ -304,9 +304,10 @@ namespace LinkCajaV2.Reports
             dgvTickets.Columns.Add(btnEstatusFactura);
 
             dgvTickets.AllowUserToAddRows = false;
+
         }
       
-        private void Tickets_Load(object sender, EventArgs e)
+        private async void Tickets_Load(object sender, EventArgs e)
         {
             if (IdTypeUser == 2)//Vendedor
             {
@@ -325,7 +326,26 @@ namespace LinkCajaV2.Reports
             RBModificacion.Checked = false;
             AppRepository obj = new AppRepository();
             Empresa = obj.GetCompany().Result;
+
+            var clientes = await obj.GetClients("");
+            var clientesActivos = clientes  .Where(x => x.Estatus == "Activo") .OrderBy(x => x.Nombre) .ToList();
+            clientesActivos.Insert(0, new ListClientsModel {  Id = 0, Nombre = "Seleccione" });
+            cbCliente.DataSource = clientesActivos;
+            cbCliente.DisplayMember = "Nombre";
+            cbCliente.ValueMember = "Id";
+            cbCliente.SelectedIndex = 0;
+
+            UserModel filtroUsuario = new UserModel{ User = "", Name = "",IdTypeUser = 0 };
+            var usuarios = await obj.GetUsers(filtroUsuario);
+            var usuariosActivos = usuarios .Where(x => x.Estatus == "Activo").OrderBy(x => x.Nombre).ToList();
+            usuariosActivos.Insert(0, new ListUserModel {  Id = 0,Nombre = "Seleccione"});
+            cbCajero.DataSource = usuariosActivos;
+            cbCajero.DisplayMember = "Nombre";
+            cbCajero.ValueMember = "Id";
+            cbCajero.SelectedIndex = 0;
+
         }
+
         private async void dgvTickets_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -391,6 +411,19 @@ namespace LinkCajaV2.Reports
                     //////////////
                     case "Imprimir":
                         {
+                            //No se permiten reimprimir si es cancelado 
+                            if (Cancelado == "Cancelado")
+                            {
+                                MessageBox.Show(
+                                    "No se puede reimprimir un ticket cancelado.",
+                                    "Reimpresión no permitida",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning
+                                );
+
+                                return;
+                            }
+
                             ConfigPageModel configImpresion = await obj.GetConfigPage();
 
                             if (configImpresion == null || !configImpresion.Automatico)
