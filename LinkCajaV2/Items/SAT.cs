@@ -37,13 +37,14 @@ namespace LinkCajaV2.Items
             SearchSAT ss = new SearchSAT();
             var sugerenciasFuzzy = ss.BuscarSugerenciasFuzzy(txtDescripcion.Text);
             CBClaves.DataSource = null;
+            CBClaves.Items.Clear();
             if (sugerenciasFuzzy.Count > 0)
             {
-                sugerenciasFuzzy.Insert(0, new CodeSatModel { Id = "0", Descripcion = "Seleccione", Similares = "" });
-                CBClaves.Items.Clear();
+                var listaOrdenada = sugerenciasFuzzy.OrderBy(x => x.Descripcion).ToList();
+                listaOrdenada.Insert(0, new CodeSatModel { Id = "0", Descripcion = "Seleccione", Similares = "" });
                 CBClaves.DisplayMember = "Descripcion";
                 CBClaves.ValueMember = "Id";
-                CBClaves.DataSource = sugerenciasFuzzy.OrderBy(X=> X.Descripcion).ToList();
+                CBClaves.DataSource = listaOrdenada;
                 CBClaves.SelectedIndex = 0;
             }
             else
