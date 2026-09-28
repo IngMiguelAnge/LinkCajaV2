@@ -22,5 +22,8 @@ namespace LinkCajaV2.Model
         public int Decimals { get; set; }
         public byte[] Image { get; set; }
         public bool Medicine { get; set; }
+        public bool IsBundle { get; set; }
+        public int IdBundle { get; set; }
+        public int AvailableBundle { get; set; }
     }
 }

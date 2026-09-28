@@ -81,9 +81,9 @@ namespace LinkCajaV2.Reports
 
             try
             {
-                int idCliente = cbCliente.SelectedIndex > 0 ? Convert.ToInt32(cbCliente.SelectedValue):0;
-                int idCajero = cbCajero.SelectedIndex > 0 ? Convert.ToInt32(cbCajero.SelectedValue):0;
-                var Tickets = await obj.GetTickets((int)NUDTicket.Value, dtDesde.Value,dtHasta.Value, fechaCreacion,txtReferencia.Text.Trim(), idCliente, idCajero);
+                string cliente = cbCliente.SelectedIndex > 0? cbCliente.Text: "";
+                string cajero = cbCajero.SelectedIndex > 0? cbCajero.Text: "";
+                var Tickets = await obj.GetTickets((int)NUDTicket.Value, dtDesde.Value,dtHasta.Value,fechaCreacion,txtReferencia.Text.Trim(),cliente,cajero);           
                 var listaFinal = Tickets?.ToList() ?? new List<ListTicketModel>();
                 dgvTickets.DataSource = new BindingList<ListTicketModel>(listaFinal);
                 decimal totalGeneral = listaFinal.Where(x=> x.Status == "Activo").Sum(item => item.Total);
@@ -343,7 +343,7 @@ namespace LinkCajaV2.Reports
             cbCajero.DisplayMember = "Nombre";
             cbCajero.ValueMember = "Id";
             cbCajero.SelectedIndex = 0;
-
+            Buscar();
         }
 
         private async void dgvTickets_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -401,17 +401,19 @@ namespace LinkCajaV2.Reports
                         }
                         break;
                     case "Ver":
-                        ItemsTicket itemsForm = new ItemsTicket();
-                        itemsForm.IdTicket = IdTicket;
-                        itemsForm.Year = Ticket.CreateDate.Year;
-                        itemsForm.Send = Send;
+                        ItemsTicket itemsForm = new ItemsTicket
+                        {
+                            IdTicket = IdTicket,
+                            Year = Ticket.CreateDate.Year,
+                            Send = Send
+                        };
                         itemsForm.ShowDialog();
                         Buscar();
                         break;
                     //////////////
                     case "Imprimir":
                         {
-                            //No se permiten reimprimir si es cancelado 
+                            // No se permiten reimprimir tickets cancelados
                             if (Cancelado == "Cancelado")
                             {
                                 MessageBox.Show(
@@ -424,92 +426,112 @@ namespace LinkCajaV2.Reports
                                 return;
                             }
 
-                            ConfigPageModel configImpresion = await obj.GetConfigPage();
+                            ConfigPageModel configImpresion =
+                                await obj.GetConfigPage();
 
-                            if (configImpresion == null || !configImpresion.Automatico)
+                            if (configImpresion == null ||
+                                !configImpresion.Automatico)
                             {
                                 MessageBox.Show(
                                     "Tienes que activar la opción de ticket automático para reimprimir el ticket.",
                                     "Impresión desactivada",
                                     MessageBoxButtons.OK,
-                                    MessageBoxIcon.Warning);
+                                    MessageBoxIcon.Warning
+                                );
 
                                 return;
-                            }
+                            }                 
+                            //  NORMALES
+                          
+                            var detalles = await obj.GetDetailsTicket(IdTicket);                          
+                            // BUNDLES                         
+                            var bundles =await obj.GetBundleTicketDetails(IdTicket);
+                            bool sinArticulos =detalles == null ||detalles.Count == 0;
+                            bool sinBundles = bundles == null || bundles.Count == 0;
 
-                            var detalles = await obj.GetDetailsTicket(IdTicket);
-
-                            if (detalles == null || detalles.Count == 0)
+                            if (sinArticulos && sinBundles)
                             {
-                                MessageBox.Show(
-                                    "No se encontraron productos para este ticket.",
-                                    "Ticket sin productos",
+                                MessageBox.Show("No se encontraron productos para este ticket.","Ticket sin productos",
                                     MessageBoxButtons.OK,
-                                    MessageBoxIcon.Warning);
+                                    MessageBoxIcon.Warning
+                                );
 
                                 return;
                             }
 
-                            ClientsModel cliente =
-                                await obj.GetClientsbyId(Ticket.IdClient);
-
-                            BoxModel caja =
-                                await obj.GetBoxsbyId(Ticket.IdBox);
-
-                            BindingList<ArticlesSalesModel> articulos =
-                                new BindingList<ArticlesSalesModel>();
-
-                            foreach (var detalle in detalles)
+                            ClientsModel cliente = await obj.GetClientsbyId(Ticket.IdClient);
+                            BoxModel caja = await obj.GetBoxsbyId(Ticket.IdBox);
+                            BindingList<ArticlesSalesModel> articulos =new BindingList<ArticlesSalesModel>();                    
+                            if (detalles != null)
                             {
-                                articulos.Add(new ArticlesSalesModel
+                                foreach (var detalle in detalles)
                                 {
-                                    IdArticle = detalle.IdArticle,
-                                    Code = detalle.Code,
-                                    Name = detalle.Name,
-                                    Stock = detalle.StockSold,
-                                    Price = detalle.PriceSold
-                                });
+                                   articulos.Add( new ArticlesSalesModel
+                                        {
+                                           IdArticle =detalle.IdArticle,
+                                            Code = detalle.Code,
+                                            Name =detalle.Name,
+                                            Stock = detalle.StockSold,
+                                            Price =detalle.PriceSold,
+                                            IsBundle = false
+                                        }
+                                    );
+                                }
                             }
 
-                            VentaModel ventaImprimir = new VentaModel
-                            {
-                                Articles = articulos,
-                                Copias = 1,
-                                Company = Empresa,
-                                Imprimir = true,
+                                        //Bundles
+                           if (bundles != null)
+                           {
+                               foreach (var bundle in bundles)
+                               {
+                                   articulos.Add(
+                                       new ArticlesSalesModel
+                                       {
+                                           // No pertenece a Articles
+                                           IdArticle = 0,
+                                           IsBundle = true,
+                                           IdBundle =  bundle.IdBundle,
+                                           Code = bundle.Code,
+                                           Name = bundle.Name,
+                                           Stock = bundle.Quantity,
+                                           Price =bundle.PriceSold,
+                                           Presentation ="Paquete",
+                                           NamePresentation = "Paquete",
+                                           Decimals = 0
+                                       }
+                                    );
+                                }
+                            }
 
-                                IdTicket = Ticket.Id,
 
-                                Cliente = cliente != null
-                                    ? cliente.Name
-                                    : "Publico General",
+                            VentaModel ventaImprimir =
+                                new VentaModel
+                                {
+                                    Articles = articulos,
+                                    Copias = 1,
+                                    Company = Empresa,
+                                    Imprimir = true,
+                                    IdTicket = Ticket.Id,
+                                    Cliente = cliente != null ? cliente.Name: "Publico General",
+                                    BoxName =caja != null ? caja.Name: "",
+                                    Total =Ticket.Total,
+                                    CostoEnvio =Ticket.CostoEnvio,
+                                    Recibido =
+                                    Ticket.Total +Ticket.CostoEnvio,
+                                    FechaVenta =Ticket.CreateDate,
+                                    EsReimpresion = true,
+                                    FechaReimpresion =DateTime.Now,
 
-                                BoxName = caja != null
-                                    ? caja.Name
-                                    : "",
-
-                                Total = Ticket.Total,
-                                CostoEnvio = Ticket.CostoEnvio,
-
-                                Recibido = Ticket.Total + Ticket.CostoEnvio,
-                                FechaVenta = Ticket.CreateDate,
-                                EsReimpresion = true,
-                                FechaReimpresion = DateTime.Now,
-
-                                Title =
-                                    "TEST-TKT-MINO-" +
-                                    Ticket.CreateDate.Year.ToString() +
-                                    "-" +
-                                    Ticket.Id.ToString()
-                            };
-
+                                    Title = "TEST-TKT-MINO-" +
+                                     Ticket.CreateDate.Year.ToString() +"-" + Ticket.Id.ToString()
+                                };
+                          
                             ImpressionsGeneral im = new ImpressionsGeneral();
 
                             im.ProcesarTicket(ventaImprimir);
 
                             break;
                         }
-
                     /////
                     case "Cancelar":
                         DateTime Created = Convert.ToDateTime(dgvTickets.Rows[e.RowIndex].Cells["Created"].Value);
@@ -582,29 +604,70 @@ namespace LinkCajaV2.Reports
                             //        MessageBox.Show("Portal:"+MensajeFacturacion, "Cancelación Cancelada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             //        return;
                             //    }
-                            //}
-
+                            //
+                            var Bundles = await obj.GetBundleTicketDetails(IdTicket);
                             var Details = await obj.GetDetailsTicket(IdTicket);
                             bool nosend = false;
-                            decimal sumaTotal = Details.Where(x => x.SendBack == true).Sum(d => d.TotalSold);
-                            foreach (var detail in Details)
+                            decimal sumaTotal = 0;                  
+                            // primero checamos buncles
+                           
+                            if (Bundles != null)
                             {
-                                if (detail.SendBack)
+                                foreach (var bundle in Bundles)
                                 {
-                                    if (await obj.ReturnArticle(detail.Id, n.NoteText) == false)
+                                    bool bundleDevuelto = await obj.ReturnBundle(bundle.Id);
+
+                                    if (!bundleDevuelto)
                                     {
-                                        MessageBox.Show($"Error al devolver el articulo {detail.Name}.", "Error de Devolución", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        break;
+                                        MessageBox.Show( $"Error al devolver el paquete {bundle.Name}.","Error de Devolución",
+                                        MessageBoxButtons.OK,MessageBoxIcon.Error);
+                                        return;
+                                    }
+                                    sumaTotal += bundle.TotalSold;
+                                }
+                            }                     
+                            // despues articulos normales
+                            
+                            if (Details != null)
+                            {
+                                sumaTotal += Details .Where(x => x.SendBack == true).Sum(d => d.TotalSold);
+
+                                foreach (var detail in Details)
+                                {
+                                    if (detail.SendBack)
+                                    {
+                                        if (await obj.ReturnArticle( detail.Id,n.NoteText) == false)
+                                        {
+                                            MessageBox.Show(
+                                                $"Error al devolver el articulo {detail.Name}.", "Error de Devolución", MessageBoxButtons.OK,MessageBoxIcon.Error);
+
+                                            return;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        nosend = true;
                                     }
                                 }
-                                else nosend = true;
                             }
+
+
+                        
+                            // si hay articulos de no devolucion
+                         
                             if (nosend)
                             {
-                                await obj.CancelTicket(IdTicket, "Se cancela ticket pero este producto no se devolvera a inventario es un producto que no acepta devoluciones, motivo de cancelación: " + n.NoteText);
-                            }                            
-                             
-                            MessageBox.Show($"Ticket cancelado exitosamente. Total ha devolver: {sumaTotal:C2}", "Cancelación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                await obj.CancelTicket(
+                                    IdTicket, "Se cancela ticket pero este producto no se devolvera a inventario es un producto que no acepta devoluciones, motivo de cancelación: "+ n.NoteText);
+                            }
+
+                            MessageBox.Show(
+                                $"Ticket cancelado exitosamente. Total ha devolver: {sumaTotal:C2}",
+                                "Cancelación Exitosa",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information
+                            );
+
                             Buscar();
                         }
                         catch (Exception ex)
@@ -612,6 +675,7 @@ namespace LinkCajaV2.Reports
                             MessageBox.Show($"Error al cargar los articulos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         break;
+                        
                     case "Enviar":
                         if (Send == "Enviado")
                         {

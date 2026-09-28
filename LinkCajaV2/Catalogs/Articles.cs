@@ -472,5 +472,11 @@ namespace LinkCajaV2.Catalogs
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Bundles b = new Bundles();
+            b.ShowDialog();
+           
+        }
     }
 }

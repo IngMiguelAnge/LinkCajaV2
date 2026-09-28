@@ -280,7 +280,11 @@
     <Compile Include="Items\TransferPay.Designer.cs">
       <DependentUpon>TransferPay.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\BundleTicketDetailModel.cs" />
+    <Compile Include="Model\BundleTicketItemModel.cs" />
+    <Compile Include="Model\BundleTicketModel.cs" />
     <Compile Include="Model\ClienteModel.cs" />
+    <Compile Include="Model\ListBundleModel.cs" />
     <Compile Include="Model\TypePayModel.cs" />
     <Compile Include="Reports\ReporteGastosExtras.cs">
       <SubType>Form</SubType>
@@ -300,17 +304,17 @@
     <Compile Include="Catalogs\PricesSuppliers.Designer.cs">
       <DependentUpon>PricesSuppliers.cs</DependentUpon>
     </Compile>
-    <Compile Include="Catalogs\Recipe.cs">
+    <Compile Include="Catalogs\Bundle.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Catalogs\Recipe.Designer.cs">
-      <DependentUpon>Recipe.cs</DependentUpon>
+    <Compile Include="Catalogs\Bundle.Designer.cs">
+      <DependentUpon>Bundle.cs</DependentUpon>
     </Compile>
-    <Compile Include="Catalogs\Recipes.cs">
+    <Compile Include="Catalogs\Bundles.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Catalogs\Recipes.Designer.cs">
-      <DependentUpon>Recipes.cs</DependentUpon>
+    <Compile Include="Catalogs\Bundles.Designer.cs">
+      <DependentUpon>Bundles.cs</DependentUpon>
     </Compile>
     <Compile Include="Catalogs\RetirementConcept.cs">
       <SubType>Form</SubType>
@@ -607,11 +611,11 @@
     <EmbeddedResource Include="Catalogs\PricesSuppliers.resx">
       <DependentUpon>PricesSuppliers.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Catalogs\Recipe.resx">
-      <DependentUpon>Recipe.cs</DependentUpon>
+    <EmbeddedResource Include="Catalogs\Bundle.resx">
+      <DependentUpon>Bundle.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Catalogs\Recipes.resx">
-      <DependentUpon>Recipes.cs</DependentUpon>
+    <EmbeddedResource Include="Catalogs\Bundles.resx">
+      <DependentUpon>Bundles.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\RetirementConcept.resx">
       <DependentUpon>RetirementConcept.cs</DependentUpon>

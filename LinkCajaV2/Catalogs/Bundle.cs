@@ -13,12 +13,14 @@ using System.Windows.Forms;
 
 namespace LinkCajaV2.Catalogs
 {
-    public partial class Recipe : System.Windows.Forms.Form
+
+    public partial class Bundle : System.Windows.Forms.Form
     {
         private SoundPlayer lectorSonido;
         public int Id { get; set; }
         private bool isLoaded = false;
-        public Recipe()
+        private decimal _precioMinimoRecomendado = 0m;
+        public Bundle()
         {
             InitializeComponent();
             nudPrecio.TextChanged += (s, e) => CalcularPrecioPorGramo();
@@ -85,8 +87,9 @@ namespace LinkCajaV2.Catalogs
                 }
             }
         }
-        private async void Recipe_Load(object sender, EventArgs e)
+        private async void Bundle_Load(object sender, EventArgs e)
         {
+            
             string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sounds", "beep.wav");
             lectorSonido = new SoundPlayer(ruta);
             AppRepository obj = new AppRepository();
@@ -100,6 +103,7 @@ namespace LinkCajaV2.Catalogs
             CrearGridView();
             if (Id == 0)
             {
+                chkActivo.Checked = true;
                 isLoaded = true;
                 return;
             }
@@ -114,12 +118,9 @@ namespace LinkCajaV2.Catalogs
                     PBProducto.SizeMode = PictureBoxSizeMode.Zoom;
                 }
             }
-            txtCodigoBusqueda.Text = Recipe.Code.Replace("Rec-", "");
-            cbPresentacion.SelectedValue = Recipe.IdPresentation;
-            nudExistencias.Value = Recipe.Stock;
+            txtCodigo.Text = Recipe.Code;
             nudPrecio.Value = Recipe.Price;
-            nudCada.Value = Recipe.SuggestedStock;
-
+            chkActivo.Checked = Recipe.Status;
             var lista = await Task.Run(() => obj.GetItemsRecipe(Id));
 
             if (lista != null)
@@ -130,97 +131,134 @@ namespace LinkCajaV2.Catalogs
                 ActualizarTotalGeneral();
             }
 
-            CambiarPresentacion();
-            var presActual = ListPresentation.FirstOrDefault(l => l.Id == Recipe.IdPresentation);
-            if (presActual?.Decimals > 1)
-            {
-                lblCostoGramo.Visible = true;
-                CalcularPrecioPorGramo();
-            }
-            else
-            {
-                lblCostoGramo.Visible = false;
-            }
-            isLoaded = true;
+        
         }
         public async void AgregarArticulo(int id, string codigo)
         {
             AppRepository obj = new AppRepository();
-            // Usamos await para no congelar la pantalla
-            //var Articulo = await obj.GetArticleActive(id, codigo);
 
-            //if (Articulo == null)
-            //{
-            //    MessageBox.Show("Código no válido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
+            // Buscar artículo activo por Id o código
+            var Articulo = await obj.GetArticleActive(id, codigo);
 
-            // Obtenemos la lista que ya está conectada al Grid
-            var bindingList = (BindingList<ItemsRecipeModel>)dgvArticulos.DataSource;
+            if (Articulo == null)
+            {
+                MessageBox.Show(
+                    "Código no válido o artículo inactivo.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
 
-            // Si la lista no existe (porque es el primer artículo), la inicializamos
+                return;
+            }
+
+            // Obtener la lista enlazada al grid
+            var bindingList =
+                dgvArticulos.DataSource as BindingList<ItemsRecipeModel>;
+
             if (bindingList == null)
             {
                 bindingList = new BindingList<ItemsRecipeModel>();
                 dgvArticulos.DataSource = bindingList;
             }
 
-            //var Presentacion = await obj.GetPresentationbyId(Articulo.IdPresentation);
-            //decimal Cantidad = NUDCantidad.Value;
-            //decimal PrecioFinal = Articulo.Price;
+            // Obtener presentación del artículo
+            var Presentacion =
+                await obj.GetPresentationbyId(Articulo.IdPresentation);
 
-            // Lógica para productos a granel
-            //if (Presentacion.Decimals > 0)
-            //{
-            //    Decimals d = new Decimals();
-            //    if (d.ShowDialog() == DialogResult.OK)
-            //    {
-            //        Cantidad = d.Kilos;
-            //        // Calculamos el precio por gramo (como número, no como string)
-            //        if (Articulo.SuggestedStock > 0)
-            //            PrecioFinal = Articulo.Price / (Articulo.SuggestedStock * 1000);
-            //    }
-            //    else return; // Si cancela el diálogo de kilos, no agregamos nada
-            //}
+            if (Presentacion == null)
+            {
+                MessageBox.Show(
+                    "No se encontró la presentación del artículo.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
 
-            // Buscamos si el artículo ya está en nuestra LISTA de objetos
-            //var itemExistente = bindingList.FirstOrDefault(x => x.Code == Articulo.Code);
+                return;
+            }
 
-            //if (itemExistente != null)
-            //{
-            //    // Si existe, solo actualizamos el objeto. 
-            //    // El "Total" se recalcula solo por la propiedad que hicimos en el modelo.
-            //    itemExistente.Stock += Cantidad;
-            //    dgvArticulos.Refresh(); // Refresca el dibujo del grid
-            //}
-            //else
-            //{
-            //    // Si es nuevo, lo agregamos a la lista
-            //    bindingList.Add(new ItemsRecipeModel
-            //    {
-            //        IdArticle = Articulo.Id,
-            //        Code = Articulo.Code,
-            //        Name = Articulo.Name,
-            //        Stock = Cantidad,
-            //        Presentation = Articulo.Presentation,
-            //        Price = PrecioFinal,
-            //        Decimals = Presentacion.Decimals,
-            //        Image = Articulo.Image
-            //    });
-            //}
+            // Cantidad indicada para el paquete
+            decimal cantidad = NUDCantidad.Value;
 
-            // Actualizamos la imagen del producto
-            //if (Articulo.Image != null)
-            //{
-            //    using (MemoryStream ms = new MemoryStream(Articulo.Image))
-            //    {
-            //        PBSeleccion.Image = Image.FromStream(ms);
-            //        PBSeleccion.SizeMode = PictureBoxSizeMode.Zoom;
-            //    }
-            //}
+            if (cantidad <= 0)
+            {
+                MessageBox.Show(
+                    "Ingrese una cantidad mayor a cero.",
+                    "Aviso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
 
-            // Recalculamos el total general usando el método centralizado
+                return;
+            }
+
+            // Precio unitario
+            decimal precioFinal = Articulo.Price;
+
+            // Si maneja decimales/granel
+            if (Presentacion.Decimals > 0)
+            {
+                if (Articulo.SuggestedStock > 0)
+                {
+                    precioFinal =
+                        Articulo.Price /
+                        (Articulo.SuggestedStock * 1000);
+                }
+            }
+
+            // Revisar si el SKU ya está en el paquete
+            var itemExistente =
+                bindingList.FirstOrDefault(
+                    x => x.IdArticle == Articulo.Id
+                );
+
+            if (itemExistente != null)
+            {
+                // Aumentar cantidad
+                itemExistente.Stock += cantidad;
+
+                dgvArticulos.Refresh();
+            }
+            else
+            {
+                // Agregar nuevo componente
+                bindingList.Add(new ItemsRecipeModel
+                {
+                    IdArticle = Articulo.Id,
+                    Code = Articulo.Code,
+                    Name = Articulo.Name,
+                    Stock = cantidad,
+                    Presentation = Presentacion.Name,
+                    Price = precioFinal,
+                    Decimals = Presentacion.Decimals,
+                    Image = Articulo.Image
+                });
+            }
+
+            // Mostrar imagen del último artículo agregado
+            if (Articulo.Image != null)
+            {
+                using (MemoryStream ms =
+                    new MemoryStream(Articulo.Image))
+                {
+                    PBSeleccion.Image = Image.FromStream(ms);
+                    PBSeleccion.SizeMode =
+                        PictureBoxSizeMode.Zoom;
+                }
+            }
+            else
+            {
+                PBSeleccion.Image = null;
+            }
+
+            // Actualizar precio lista base
             ActualizarTotalGeneral();
+
+            // Limpiar para el siguiente artículo
+            NUDCantidad.Value = 1;
+            txtCodigoBusqueda.Clear();
+            txtCodigoBusqueda.Focus();
         }
         public string CalcularPrecioPorGramo(decimal Precio, decimal Cada)
         {
@@ -239,6 +277,11 @@ namespace LinkCajaV2.Catalogs
         {
             dgvArticulos.Columns.Clear();
             dgvArticulos.AutoGenerateColumns = false;
+            dgvArticulos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvArticulos.RowHeadersVisible = false;
+            dgvArticulos.AllowUserToAddRows = false;
+            dgvArticulos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvArticulos.MultiSelect = false;
             dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Id",
@@ -269,7 +312,7 @@ namespace LinkCajaV2.Catalogs
                 Name = "Cantidad",
                 HeaderText = "Cantidad",
                 DataPropertyName = "Stock",
-                ReadOnly = false, // Aquí permites la edición
+                ReadOnly = true, // Aquí permites la edición
                 Width = 80
             });
             dgvArticulos.Columns.Add(new DataGridViewTextBoxColumn
@@ -305,10 +348,49 @@ namespace LinkCajaV2.Catalogs
                 HeaderText = "Acción",
                 Text = "Quitar",
                 UseColumnTextForButtonValue = true, // Para que todos los botones digan "Quitar"
-                Width = 80
+                Width = 80,
+                FlatStyle = FlatStyle.Flat
             };
+
+            //Boton
+            btnEliminar.DefaultCellStyle.BackColor =Color.FromArgb(245, 245, 245);
+            btnEliminar.DefaultCellStyle.ForeColor = Color.FromArgb(0, 102, 204);
+            btnEliminar.DefaultCellStyle.SelectionBackColor = Color.FromArgb(245, 245, 245);
+            btnEliminar.DefaultCellStyle.SelectionForeColor =Color.FromArgb(0, 102, 204);
+            btnEliminar.DefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnEliminar.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvArticulos.Columns.Add(btnEliminar);
+
+            // TAMAÑO DE COLUMNAS
+            dgvArticulos.Columns["Codigo"].Width = 100;
+            dgvArticulos.Columns["Nombre"].Width = 260;
+            dgvArticulos.Columns["Cantidad"].Width = 90;
+            dgvArticulos.Columns["Presentacion"].Width = 120;
+            dgvArticulos.Columns["Precio"].Width = 100;
+            dgvArticulos.Columns["Total"].Width = 100;
+            dgvArticulos.Columns["Quitar"].Width = 90;           
+            // CONFIGURACIÓN GENERAL         
+            dgvArticulos.EnableHeadersVisualStyles = false;
             dgvArticulos.AllowUserToAddRows = false;
+            dgvArticulos.RowHeadersVisible = false;
+            dgvArticulos.BackgroundColor = Color.White;
+            dgvArticulos.BorderStyle = BorderStyle.FixedSingle;
+            dgvArticulos.GridColor = Color.FromArgb(220, 220, 220);
+            dgvArticulos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvArticulos.RowTemplate.Height = 32;
+            // HEADER
+            dgvArticulos.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 112, 192);
+            dgvArticulos.ColumnHeadersDefaultCellStyle.ForeColor =Color.White;
+            dgvArticulos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            dgvArticulos.ColumnHeadersDefaultCellStyle.Alignment =DataGridViewContentAlignment.MiddleLeft;
+            dgvArticulos.ColumnHeadersHeight = 36;
+            // FILAS         
+            dgvArticulos.DefaultCellStyle.BackColor =Color.White;
+            dgvArticulos.DefaultCellStyle.ForeColor =Color.FromArgb(0, 102, 204);
+            dgvArticulos.DefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         
+            // FILA SELECCIONADA
+            dgvArticulos.DefaultCellStyle.SelectionBackColor =Color.FromArgb(230, 240, 250);
+            dgvArticulos.DefaultCellStyle.SelectionForeColor =Color.FromArgb(0, 102, 204);
         }
         private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
         {
@@ -475,27 +557,38 @@ namespace LinkCajaV2.Catalogs
         }
         private void ActualizarTotalGeneral()
         {
-            var bindingList = (BindingList<ItemsRecipeModel>)dgvArticulos.DataSource;
-            if (bindingList != null)
+            var bindingList =dgvArticulos.DataSource as BindingList<ItemsRecipeModel>;
+
+            if (bindingList != null && bindingList.Count > 0)
             {
-                decimal totalGeneral = bindingList.Sum(item => item.Total);
-                lblTotal.Text = $"Se recomienda venderlo en {totalGeneral:C2}";
+                decimal totalGeneral =bindingList.Sum(item => item.Total);
+                // Guardamos el precio mínimo recomendado
+                _precioMinimoRecomendado = totalGeneral;
+
+                lblTotal.Text = $"Se tiene que vender mínimo en: {_precioMinimoRecomendado:C2}";
             }
             else
             {
-                lblTotal.Text = "Se recomienda venderlo en $0.00";
+                _precioMinimoRecomendado = 0m;
+
+                lblTotal.Text ="Se tiene que vender mínimo en: $0.00";
             }
         }
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCodigo.Text) || string.IsNullOrEmpty(txtDescripcion.Text) ||
-               string.IsNullOrEmpty(txtNombre.Text) || (int)cbPresentacion.SelectedValue == 0 ||
-              dgvArticulos.RowCount <= 0 || nudExistencias.Value <= 0 || nudPrecio.Value <= 0 ||
-              nudCada.Value <= 0)
+            if (string.IsNullOrWhiteSpace(txtCodigo.Text) ||string.IsNullOrWhiteSpace(txtNombre.Text) ||dgvArticulos.RowCount <= 0 ||nudPrecio.Value <= 0)
             {
-                MessageBox.Show("Datos incompletos revise la información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                MessageBox.Show( "Datos incompletos. Revise la información.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return;
+
             }
+            //if (string.IsNullOrEmpty(txtCodigo.Text) || string.IsNullOrEmpty(txtDescripcion.Text) ||
+            //   string.IsNullOrEmpty(txtNombre.Text) || (int)cbPresentacion.SelectedValue == 0 ||
+            //  dgvArticulos.RowCount <= 0 || nudExistencias.Value <= 0 || nudPrecio.Value <= 0 ||
+            //  nudCada.Value <= 0)
+            //{
+            //    MessageBox.Show("Datos incompletos revise la información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
 
             AppRepository obj = new AppRepository();
             var exist = obj.GetRecipeByIdorCode(0, txtCodigo.Text).Result;
@@ -504,6 +597,25 @@ namespace LinkCajaV2.Catalogs
                 MessageBox.Show("Ya se encuentra el codigo en uso", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (nudPrecio.Value < _precioMinimoRecomendado)
+            {
+                DialogResult respuesta = MessageBox.Show(
+                    $"El precio de venta ingresado ({nudPrecio.Value:C2}) " +
+                    $"es menor al precio mínimo recomendado ({_precioMinimoRecomendado:C2}).\n\n" +
+                    "Vender este paquete a un precio menor puede reducir el margen de ganancia " +
+                    "respecto a la venta individual de sus componentes.\n\n" +
+                    "¿Desea continuar de todos modos?",
+                    "Advertencia de precio",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+
+                if (respuesta == DialogResult.No)
+                {
+                    nudPrecio.Focus();
+                    return;
+                }
+            }
             RecipeModel Receta = new RecipeModel()
             {
                 Id = Id,
@@ -511,10 +623,11 @@ namespace LinkCajaV2.Catalogs
                 Description = txtDescripcion.Text,
                 Image = PBProducto.Image != null ? ImageToByteArray() : null,
                 Code = txtCodigo.Text,
-                Stock = nudExistencias.Value,
-                IdPresentation = (int)cbPresentacion.SelectedValue,
+                Stock = 0,
+                IdPresentation = 0,
                 Price = nudPrecio.Value,
-                SuggestedStock = nudCada.Value,
+                SuggestedStock = 0,
+                Status = chkActivo.Checked
             };
             Receta.Id = obj.SaveRecipe(Receta).Result;
             if (Receta.Id > 0)

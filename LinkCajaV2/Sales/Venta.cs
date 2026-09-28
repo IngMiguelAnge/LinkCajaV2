@@ -294,7 +294,28 @@ namespace LinkCajaV2.Sales
         public async void AgregarArticulo(int id, string codigo)
         {
             AppRepository obj = new AppRepository();
+          
+            //  revisar si el código es un Bundle 
+            if (id == 0 && !string.IsNullOrWhiteSpace(codigo))
+            {
+                var bundles = await obj.GetBundles(codigo.Trim(),string.Empty );
+                var bundle = bundles.FirstOrDefault( x => x.Code.Equals( codigo.Trim(),StringComparison.OrdinalIgnoreCase));
+                if (bundle != null)
+                {
+                    if (bundle.Status != "Activo")
+                    {
+                        MessageBox.Show("El paquete no está activo.","Paquete inactivo", MessageBoxButtons.OK,MessageBoxIcon.Warning );
 
+                        return;
+                    }
+
+                    AgregarBundle(bundle);
+                    return;
+                }
+            }
+
+          
+            // SI NO ES BUNDLE  flujo normal         
             // Usamos await en lugar de .Result para evitar bloqueos
             var articulo = await obj.GetArticleActive(id, codigo);
 
@@ -414,6 +435,147 @@ namespace LinkCajaV2.Sales
                 dgvArticulos.FirstDisplayedScrollingRowIndex = fila.Index;
             }
         }
+
+        private void AgregarBundle(ListBundleModel bundle)
+        {
+            var bindingList =
+                dgvArticulos.DataSource as BindingList<ArticlesSalesModel>;
+
+            if (bindingList == null)
+            {
+                bindingList = new BindingList<ArticlesSalesModel>();
+                dgvArticulos.DataSource = bindingList;
+            }
+
+            decimal cantidadEntrante = NUDCantidad.Value;
+
+            // Los paquetes únicamente se venden completos
+            if (cantidadEntrante <= 0 || cantidadEntrante % 1 != 0)
+            {
+                MessageBox.Show(
+                    "La cantidad del paquete debe ser un número entero mayor a 0.",
+                    "Cantidad no válida",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+
+                return;
+            }
+
+            int cantidadPaquetes = Convert.ToInt32(cantidadEntrante);
+
+            if (bundle.Available <= 0)
+            {
+                MessageBox.Show(
+                    "No hay existencias suficientes de los componentes para vender este paquete.",
+                    "Paquete sin disponibilidad",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+
+                return;
+            }
+
+            // Buscar si el Bundle ya está en el carrito
+            var existente = bindingList.FirstOrDefault(
+                x => x.IsBundle && x.IdBundle == bundle.Id
+            );
+
+            if (existente != null)
+            {
+                decimal nuevaCantidad =
+                    existente.Stock + cantidadPaquetes;
+
+                if (nuevaCantidad > bundle.Available)
+                {
+                    MessageBox.Show(
+                        $"Solo hay {bundle.Available} paquete(s) disponibles.",
+                        "Stock insuficiente",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
+                    return;
+                }
+
+                existente.Stock = nuevaCantidad;
+                existente.AvailableBundle = bundle.Available;
+
+                bindingList.ResetBindings();
+            }
+            else
+            {
+                if (cantidadPaquetes > bundle.Available)
+                {
+                    MessageBox.Show(
+                        $"Solo hay {bundle.Available} paquete(s) disponibles.",
+                        "Stock insuficiente",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
+                    return;
+                }
+
+                bindingList.Add(new ArticlesSalesModel
+                {
+                    // No pertenece a Articles
+                    IdArticle = 0,
+
+                    // Datos del Bundle
+                    IsBundle = true,
+                    IdBundle = bundle.Id,
+                    AvailableBundle = bundle.Available,
+
+                    Code = bundle.Code,
+                    Name = bundle.Name,
+
+                    Stock = cantidadPaquetes,
+                    Price = bundle.OfferPrice,
+
+                    // Por ahora valores neutros.
+                    // Los ajustaremos al integrar el pago/facturación.
+                    IdPresentation = 0,
+                    NamePresentation = "Paquete",
+                    Presentation = "Paquete",
+                    Decimals = 0,
+                    CodeSAT = string.Empty,
+                    UnitSAT = string.Empty,
+                    Medicine = false,
+                    Image = null
+                });
+            }
+
+            ActualizarTotalGeneral();
+
+            // Limpiamos estilos anteriores
+            foreach (DataGridViewRow row in dgvArticulos.Rows)
+            {
+                row.DefaultCellStyle.BackColor = Color.White;
+            }
+
+            var fila = dgvArticulos.Rows
+                .Cast<DataGridViewRow>()
+                .FirstOrDefault(
+                    r => Convert.ToString(
+                        r.Cells["Codigo"].Value
+                    ) == bundle.Code
+                );
+
+            if (fila != null)
+            {
+                fila.DefaultCellStyle.BackColor = Color.PaleGreen;
+                dgvArticulos.ClearSelection();
+                dgvArticulos.FirstDisplayedScrollingRowIndex =
+                    fila.Index;
+            }
+
+            NUDCantidad.Value = 1;
+        }
+
+
+
+
         private void ActualizarTotalGeneral()
         {
             var bindingList = (BindingList<ArticlesSalesModel>)dgvArticulos.DataSource;
@@ -503,10 +665,37 @@ namespace LinkCajaV2.Sales
 
             AppRepository obj = new AppRepository();
             var id = Convert.ToInt32(dgvArticulos.Rows[e.RowIndex].Cells["Id"].Value);
+            var item =dgvArticulos.Rows[e.RowIndex].DataBoundItem as ArticlesSalesModel;
+             if (item == null)return;
             var codigo = dgvArticulos.Rows[e.RowIndex].Cells["Codigo"].Value?.ToString() ?? string.Empty;
+
             var articulo = await obj.GetArticleActive(id, codigo);
             // 2. Manejo del punto inicial (".5" -> "0.5")
             string valor = dgvArticulos.Rows[e.RowIndex].Cells["Cantidad"].Value?.ToString() ?? "0";
+            if (!decimal.TryParse(valor, out decimal cantidad))return;
+            // SI ES BUNDLE
+            if (item.IsBundle)
+            {
+                if (cantidad % 1 != 0)
+                {
+                    MessageBox.Show( "Los paquetes solo pueden venderse en cantidades enteras.", "Cantidad no válida",MessageBoxButtons.OK,MessageBoxIcon.Warning ); 
+                    dgvArticulos.Rows[e.RowIndex] .Cells["Cantidad"].Value = 1;
+                    return;
+                }
+
+                if (cantidad > item.AvailableBundle)
+                {
+                    MessageBox.Show( $"Solo hay {item.AvailableBundle} paquete(s) disponibles.","Stock insuficiente", MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    dgvArticulos.Rows[e.RowIndex].Cells["Cantidad"].Value = 1;
+                    return;
+                }
+
+                dgvArticulos.InvalidateRow(e.RowIndex);
+                ActualizarTotalGeneral();
+
+                return;
+            }
+
             if (Convert.ToDecimal(valor) > articulo.Stock)
             {
                 MessageBox.Show($"Stock insuficiente.", "Error de stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -747,41 +936,128 @@ namespace LinkCajaV2.Sales
             billing.concepts = new List<conceptsfacture>();
             foreach (var item in venta.Articles)
             {
+               
+                // Paquete 
+                if (item.IsBundle)
+                {
+                    // 1. Guardamos la venta comercial del paquete
+                    BundleTicketModel bundleTicket = new BundleTicketModel
+                    {
+                        IdTicket = Ticket.Id,
+                        IdBundle = item.IdBundle,
+                        Quantity = item.Stock,
+                        PriceSold = item.Price,
+                        TotalSold = item.Total,
+                        Status = true
+                    };
+
+                    int idBundleTicket =
+                        await obj.SaveBundleTicket(bundleTicket);
+
+                    if (idBundleTicket <= 0)
+                    {
+                        MessageBox.Show(
+                            $"No se pudo guardar el paquete {item.Name}.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+
+                        return;
+                    }
+
+                    //  hijos de el paquete 
+                    var componentes =
+                        await obj.GetItemsRecipe(item.IdBundle);
+
+                    if (componentes == null ||
+                        componentes.Count == 0)
+                    {
+                        MessageBox.Show(
+                            $"El paquete {item.Name} no tiene componentes configurados.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+
+                        return;
+                    }
+
+                    // descontamos 
+                    foreach (var componente in componentes)
+                    {
+                        decimal cantidadUsada =
+                            componente.Stock * item.Stock;
+
+                        BundleTicketItemModel bundleItem =
+                            new BundleTicketItemModel
+                            {
+                                IdBundleTicket = idBundleTicket,
+                                IdArticle = componente.IdArticle,
+
+                                // cantidad de un paquete 
+                                UseStock = componente.Stock,
+
+                                // Cantidad total que salio
+                                QuantityUsed = cantidadUsada,
+
+                                Status = true
+                            };
+
+                        bool guardado =await obj.SaveBundleTicketItem(bundleItem);
+
+                        if (!guardado)
+                        {
+                            MessageBox.Show($"No hay stock suficiente para el componente {componente.Name}.","Stock insuficiente",  MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
+                    
+                    // El Bundle no pasa a SaveDetailsTicket.
+                    // Ya terminó su procesamiento.
+                    continue;
+                }
+
+             
+                // articulo nromal 
+               
                 Details.Id = 0;
                 Details.IdTicket = Ticket.Id;
                 Details.IdArticle = item.IdArticle;
                 Details.IdPresentation = item.IdPresentation;
-                Details.StockSold = item.Stock;//Cantidad vendida
-                Details.PriceSold = item.Price;//Valor unitario
+                Details.StockSold = item.Stock;
+                Details.PriceSold = item.Price;
                 Details.TotalSold = item.Total;
-                Details.Rate = item.Medicine == false ? "0.160000" : "0.000000";
-                Details.Amount = item.Medicine == false ? item.Total * 0.16m : 0m;
+                Details.Rate =item.Medicine == false? "0.160000": "0.000000";
+
+                Details.Amount =item.Medicine == false ? item.Total * 0.16m: 0m;
+
                 await obj.SaveDetailsTicket(Details);
-                List<taxes> Listtaxes = new List<taxes>();
-                Listtaxes.Add(new taxes
-                {
-                    tax_type = "traslado",
-                    @base = item.Total,
-                    tax = "002",
-                    type_factor = "Tasa",
-                    rate = item.Medicine == false ? "0.160000" : "0.000000",
-                    amount = item.Medicine == false ? item.Total * 0.16m : 0m
-                });
-                billing.concepts.Add(
-                new conceptsfacture
-                {
-                    clave_prod_serv = item.CodeSAT,
-                    no_identificacion = item.IdArticle.ToString(),
-                    quantity = item.Stock,
-                    clave_unidad = item.UnitSAT,
-                    unit = item.NamePresentation,
-                    description = item.Name,
-                    unit_value = item.Price,
-                    amount = item.Total,
-                    discount = null,
-                    object_tax = "02",
-                    taxes = Listtaxes
-                });
+
+               
+                List<taxes> Listtaxes =
+                    new List<taxes>();
+
+                Listtaxes.Add(new taxes { tax_type = "traslado",   @base = item.Total,tax = "002", type_factor = "Tasa", rate = item.Medicine == false ? "0.160000" : "0.000000", amount =item.Medicine == false ? item.Total * 0.16m: 0m });
+
+                billing.concepts.Add( new conceptsfacture
+                    {
+                        clave_prod_serv = item.CodeSAT,
+                        no_identificacion =
+                            item.IdArticle.ToString(),
+
+                        quantity = item.Stock,
+                        clave_unidad = item.UnitSAT,
+                        unit = item.NamePresentation,
+                        description = item.Name,
+                        unit_value = item.Price,
+                        amount = item.Total,
+                        discount = null,
+                        object_tax = "02",
+                        taxes = Listtaxes
+                    }
+                );
             }
             ImpressionsGeneral im = new ImpressionsGeneral();
 

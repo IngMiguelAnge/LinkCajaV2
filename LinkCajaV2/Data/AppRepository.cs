@@ -933,7 +933,7 @@ namespace LinkCajaV2.Data
             };
         }
         public async Task<List<ListTicketModel>> GetTickets(int IdTicket, DateTime Desde,
-            DateTime Hasta, bool FechaCreacion , string Folio = "", int IdCliente = 0, int IdCajero = 0)
+            DateTime Hasta, bool FechaCreacion , string Folio = "", string Cliente = "",string Cajero = "")
         {
             List<ListTicketModel> list = new List<ListTicketModel>();
             try
@@ -948,8 +948,8 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Hasta", Hasta));
                         cmd.Parameters.Add(new SqlParameter("@FechaCreacion", FechaCreacion));
                         cmd.Parameters.Add(new SqlParameter("@Folio", Folio));
-                        cmd.Parameters.Add(new SqlParameter("@IdCliente", IdCliente));
-                        cmd.Parameters.Add(new SqlParameter("@IdCajero", IdCajero));
+                        cmd.Parameters.Add(new SqlParameter("@Cliente", Cliente));
+                        cmd.Parameters.Add(new SqlParameter("@Cajero", Cajero));
                         await sql.OpenAsync().ConfigureAwait(false);
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
@@ -1659,6 +1659,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@IdPresentation", obj.IdPresentation));
                         cmd.Parameters.Add(new SqlParameter("@Price", obj.Price));
                         cmd.Parameters.Add(new SqlParameter("@SuggestedStock", obj.SuggestedStock));
+                        cmd.Parameters.Add( new SqlParameter("@Status", obj.Status));
                         SqlParameter outputParam = new SqlParameter("@VResp", System.Data.SqlDbType.Int)
                         {
                             Direction = System.Data.ParameterDirection.Output
@@ -3324,25 +3325,238 @@ namespace LinkCajaV2.Data
         {
             return new TypePayModel()
             {
-                Id = (int)reader["Id"],
-                Name = (string)reader["Name"],
-                Value = (string)reader["Value"],
-                Status = (bool)reader["Status"]
+                //Id = (int)reader["Id"],
+                //Name = (string)reader["Name"],
+                //Value = (string)reader["Value"],
+                //Status = (bool)reader["Status"]
 
-                //Id = 0,
+                Id = 0,
 
-                //// Leemos la columna Name
-                //Name = reader["Name"] != DBNull.Value ? reader["Name"].ToString() : "",
+                // Leemos la columna Name
+                Name = reader["Name"] != DBNull.Value ? reader["Name"].ToString() : "",
 
-                //// El SP devuelve "IdTypePay", pero el ComboBox de C# lo necesita en la propiedad "Value"
-                //Value = reader["IdTypePay"] != DBNull.Value ? reader["IdTypePay"].ToString() : "",
+                // El SP devuelve "IdTypePay", pero el ComboBox de C# lo necesita en la propiedad "Value"
+                Value = reader["IdTypePay"] != DBNull.Value ? reader["IdTypePay"].ToString() : "",
 
-                //// Como el SP ya trae el WHERE Status = 1, asumimos que es true
-                //Status = true
+                // Como el SP ya trae el WHERE Status = 1, asumimos que es true
+                Status = true
             };
         }
 
         #endregion
+        #region Bundles
+        public async Task<List<ListBundleModel>> GetBundles(string Code,string Name)
+        {
+            List<ListBundleModel> list =
+                new List<ListBundleModel>();
 
+            try
+            {
+                using (SqlConnection sql =new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetBundles", sql))
+                    {
+                        cmd.CommandType =System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add( new SqlParameter("@Code", Code ?? string.Empty  ) );
+                        cmd.Parameters.Add(new SqlParameter( "@Name",Name ?? string.Empty ));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while(await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(MapToListBundle(reader));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return list;
+        }
+
+        private ListBundleModel MapToListBundle(SqlDataReader reader)
+        {
+            return new ListBundleModel
+            {
+                Id = (int)reader["Id"],
+                Code = (string)reader["Code"],
+                Name = (string)reader["Name"],
+                BasePrice = (decimal)reader["BasePrice"],
+                OfferPrice = (decimal)reader["OfferPrice"],
+                Available = Convert.ToInt32(reader["Available"]),
+                Status = (string)reader["Status"]
+
+            };
+        }
+        public async Task<bool> UpdateBundleStatus(int Id, bool Status)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("UpdateBundleStatus", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                        cmd.Parameters.Add(new SqlParameter("@Status", Status));
+
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<int> SaveBundleTicket(BundleTicketModel obj)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd =
+                        new SqlCommand("SaveBundleTicket", sql))
+                    {
+                        cmd.CommandType =System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@IdTicket", obj.IdTicket) );
+                        cmd.Parameters.Add(new SqlParameter( "@IdBundle",obj.IdBundle ));
+                        cmd.Parameters.Add(new SqlParameter("@Quantity", obj.Quantity ));
+                        cmd.Parameters.Add(new SqlParameter("@PriceSold", obj.PriceSold) );
+                        cmd.Parameters.Add(new SqlParameter("@TotalSold",obj.TotalSold ));
+                        SqlParameter outputParam =new SqlParameter("@VResp", System.Data.SqlDbType.Int)
+                            {
+                                Direction =
+                                    System.Data.ParameterDirection.Output
+                            };
+
+                        cmd.Parameters.Add(outputParam); await sql.OpenAsync().ConfigureAwait(false);await cmd.ExecuteNonQueryAsync() .ConfigureAwait(false);return outputParam.Value != DBNull.Value ? Convert.ToInt32(outputParam.Value): 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+        public async Task<bool> SaveBundleTicketItem(BundleTicketItemModel obj)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SaveBundleTicketItem", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add( new SqlParameter("@IdBundleTicket", obj.IdBundleTicket) );
+                        cmd.Parameters.Add(  new SqlParameter("@IdArticle", obj.IdArticle));
+                        cmd.Parameters.Add( new SqlParameter("@UseStock", obj.UseStock) );
+                        cmd.Parameters.Add( new SqlParameter("@QuantityUsed", obj.QuantityUsed)     );
+                        SqlParameter outputParam =
+                            new SqlParameter(  "@VResp", System.Data.SqlDbType.Int)
+                            {
+                                Direction = System.Data.ParameterDirection.Output
+                            };
+
+                        cmd.Parameters.Add(outputParam);
+                        await sql.OpenAsync();
+                        await cmd.ExecuteNonQueryAsync();
+                        return outputParam.Value != DBNull.Value && Convert.ToInt32(outputParam.Value) == 1;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<List<BundleTicketDetailModel>>
+    GetBundleTicketDetails(int IdTicket)
+        {
+            List<BundleTicketDetailModel> list =
+                new List<BundleTicketDetailModel>();
+
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd =
+                        new SqlCommand("GetBundleTicketDetails", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add( new SqlParameter("@IdTicket", IdTicket));
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        using (var reader =await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+                        {
+                            while (await reader.ReadAsync().ConfigureAwait(false))
+                            {
+                                list.Add(new BundleTicketDetailModel
+                                {
+                                    Id = Convert.ToInt32(reader["Id"]),
+                                    IdBundle = Convert.ToInt32(reader["IdBundle"]),
+                                    Code =Convert.ToString(reader["Code"]),
+                                    Name =Convert.ToString(reader["Name"]),
+                                    Quantity =Convert.ToDecimal(reader["Quantity"]),
+                                    PriceSold =Convert.ToDecimal(reader["PriceSold"]),
+                                    TotalSold =Convert.ToDecimal(reader["TotalSold"]),
+                                    CreateDate = Convert.ToDateTime(reader["CreateDate"]),
+                                    Status = Convert.ToBoolean(reader["Status"])
+
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return list;
+            }
+
+            return list;
+        }
+        public async Task<bool> ReturnBundle(int IdBundleTicket)
+        {
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(Connection))
+                {
+                    using (SqlCommand cmd =
+                        new SqlCommand("ReturnBundle", sql))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add( new SqlParameter("@IdBundleTicket", IdBundleTicket));
+
+                        SqlParameter vRespParam =
+                            new SqlParameter("@VResp",System.Data.SqlDbType.Int)
+                            {
+                                Direction = System.Data.ParameterDirection.Output
+                            };
+
+                        cmd.Parameters.Add(vRespParam);
+                        await sql.OpenAsync().ConfigureAwait(false);
+
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+
+                        return
+                            vRespParam.Value != DBNull.Value &&Convert.ToInt32(vRespParam.Value) == 1;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        #endregion
     }
 }

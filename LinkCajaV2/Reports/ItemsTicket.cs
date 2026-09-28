@@ -27,23 +27,68 @@ namespace LinkCajaV2.Reports
         public async Task CargarDatos()
         {
             AppRepository obj = new AppRepository();
+
             try
-            {
+            {        
                 var articulos = await obj.GetDetailsTicket(IdTicket);
-                var listaFinal = articulos?.ToList() ?? new List<ListDetailsTicketModel>();
-                dgvArticulos.DataSource = new BindingList<ListDetailsTicketModel>(listaFinal);
-                if (listaFinal.Where(x => x.Status != "DEVUELTO").Count() == 0)
+                var listaFinal =articulos?.ToList() ?? new List<ListDetailsTicketModel>();
+                var bundles = await obj.GetBundleTicketDetails(IdTicket);//Bundles
+                if (bundles != null)
                 {
-                        BillingMethods Facturacion = new BillingMethods();
-                        string MensajeFacturacion = string.Empty;
-                        RespuestaFactureModel CancelarFactura = await Facturacion.CancelarFactura("TKT-TEST-MINO-" + Year.ToString() + "-" + IdTicket.ToString());
-                        MensajeFacturacion = "Portal de facturación:" + CancelarFactura.Data.message;
-                        MessageBox.Show("Todos los artículos del ticket han sido devueltos, por lo que el ticket se encuentra cancelado." + MensajeFacturacion, "Ticket Cancelado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    foreach (var bundle in bundles)
+                    {
+                        listaFinal.Add(
+                            new ListDetailsTicketModel
+                            {
+                                // Este Id pertenece a BundleTicket,                      
+                                Id = bundle.Id,
+                                // Un Bundle no pertenece a Articles
+                                IdArticle = 0,
+                                Code = bundle.Code,
+                                Name = bundle.Name,
+                                Stock =  $"{bundle.Quantity:0.###} Paquete",
+                                StockSold = bundle.Quantity,
+                                PriceSold = bundle.PriceSold,
+                                TotalSold = bundle.TotalSold,
+                                CreateDate =bundle.CreateDate,
+                                Status =bundle.Status? "VENDIDO": "DEVUELTO",     
+                                SendBack = false,//pendiente 
+                                Note = ""
+                            }
+                        );
+                    }
+                }
+       
+                dgvArticulos.DataSource =
+                    new BindingList<ListDetailsTicketModel>(listaFinal);
+            
+                bool hayProductosActivos =
+                    listaFinal.Any( x => x.Status != "DEVUELTO" );
+                if (!hayProductosActivos)
+                {
+                    BillingMethods Facturacion = new BillingMethods();
+
+                    string MensajeFacturacion = string.Empty;
+
+                    RespuestaFactureModel CancelarFactura = await Facturacion.CancelarFactura( "TKT-TEST-MINO-" +Year.ToString() + "-" +IdTicket.ToString());
+                    MensajeFacturacion = "Portal de facturación:" +CancelarFactura.Data.message;
+                    MessageBox.Show(
+                        "Todos los artículos del ticket han sido devueltos, por lo que el ticket se encuentra cancelado."
+                        + MensajeFacturacion,
+                        "Ticket Cancelado",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar los articulos: {ex.Message}", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    $"Error al cargar los articulos: {ex.Message}",
+                    "Error de Conexión",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
         private async void ItemsTicket_Load(object sender, EventArgs e)
