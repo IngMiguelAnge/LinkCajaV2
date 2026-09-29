@@ -1,4 +1,5 @@
 ﻿using LinkCajaV2.Data;
+using LinkCajaV2.Items;
 using LinkCajaV2.Model;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace LinkCajaV2.Catalogs
         private void Box_Load(object sender, EventArgs e)
         {
             AppRepository obj = new AppRepository();
+            btnAssetsVisuales.Enabled = false;
             KeysModel ListKeys = obj.GetKeys().Result.FirstOrDefault();
             if (ListKeys == null)
             {
@@ -142,11 +144,19 @@ namespace LinkCajaV2.Catalogs
             if (CBRuleta.SelectedIndex == 1)
             {
                 nudCantidad.Enabled = true;
+                btnAssetsVisuales.Enabled = true;
             }
             else
             {
                 nudCantidad.Enabled = false;
+                btnAssetsVisuales.Enabled = false;
             }
+        }
+
+        private void btnAssetsVisuales_Click(object sender, EventArgs e)
+        {
+            VisualAssetsForm v = new VisualAssetsForm();
+            v.ShowDialog();
         }
     }
 }

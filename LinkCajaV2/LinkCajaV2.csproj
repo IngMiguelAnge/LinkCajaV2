@@ -96,6 +96,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="ExCSS, Version=4.2.3.0, Culture=neutral, PublicKeyToken=bdbe16be9b936b9a, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExCSS.4.2.3\lib\net48\ExCSS.dll</HintPath>
+    </Reference>
     <Reference Include="GMap.NET.Core, Version=2.1.7.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
       <HintPath>..\packages\GMap.NET.Core.2.1.7\lib\net48\GMap.NET.Core.dll</HintPath>
     </Reference>
@@ -162,6 +165,9 @@
     <Reference Include="Spire.Pdf, Version=12.4.0.0, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
       <HintPath>..\packages\FreeSpire.PDF.12.4.0\lib\net48\Spire.Pdf.dll</HintPath>
     </Reference>
+    <Reference Include="Svg, Version=3.4.0.0, Culture=neutral, PublicKeyToken=12a0bac221edeae2, processorArchitecture=MSIL">
+      <HintPath>..\packages\Svg.3.4.8\lib\net472\Svg.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
     </Reference>
@@ -213,6 +219,7 @@
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.6.3\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.ValueTuple" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -280,8 +287,15 @@
     <Compile Include="Items\TransferPay.Designer.cs">
       <DependentUpon>TransferPay.cs</DependentUpon>
     </Compile>
+    <Compile Include="Items\VisualAssetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Items\VisualAssetsForm.Designer.cs">
+      <DependentUpon>VisualAssetsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\ClienteModel.cs" />
     <Compile Include="Model\TypePayModel.cs" />
+    <Compile Include="Model\VisualAssetModel.cs" />
     <Compile Include="Reports\ReporteGastosExtras.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -597,6 +611,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Items\TransferPay.resx">
       <DependentUpon>TransferPay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Items\VisualAssetsForm.resx">
+      <DependentUpon>VisualAssetsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ReporteGastosExtras.resx">
       <DependentUpon>ReporteGastosExtras.cs</DependentUpon>

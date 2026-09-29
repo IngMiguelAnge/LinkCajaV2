@@ -19,7 +19,7 @@ namespace LinkCajaV2.Data
         public string Connection { get; set; }
         public AppRepository(bool isUnitOfWork = false)
         {
-           // Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+           //Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
            Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
         }
         public void Dispose()
@@ -3340,6 +3340,100 @@ namespace LinkCajaV2.Data
                 //// Como el SP ya trae el WHERE Status = 1, asumimos que es true
                 //Status = true
             };
+        }
+
+        #endregion
+        #region VisualAssets
+        public async Task<List<VisualAssetModel>> GetVisualAssets(string assetKey = "")
+        {
+            List<VisualAssetModel> lista = new List<VisualAssetModel>();
+
+            using (SqlConnection cn = new SqlConnection(Connection))
+            {
+                await cn.OpenAsync();
+
+                using (SqlCommand cmd = new SqlCommand("GetVisualAssets", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue( "@AssetKey", string.IsNullOrWhiteSpace(assetKey) ? "" : assetKey );
+
+                    using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await dr.ReadAsync())
+                        {
+                            VisualAssetModel item = new VisualAssetModel
+                            {
+                                Id = Convert.ToInt32(dr["Id"]),
+                                AssetKey = dr["AssetKey"].ToString(),
+                                FilePath = dr["FilePath"] == DBNull.Value ? null : dr["FilePath"].ToString(),
+                                FileName = dr["FileName"] == DBNull.Value ? null: dr["FileName"].ToString(),
+                                Extension = dr["Extension"] == DBNull.Value? null: dr["Extension"].ToString(),
+                                FileSize = dr["FileSize"] == DBNull.Value ? (long?)null: Convert.ToInt64(dr["FileSize"]),
+                                Width = dr["Width"] == DBNull.Value  ? (int?)null : Convert.ToInt32(dr["Width"]),
+                                Height = dr["Height"] == DBNull.Value ? (int?)null: Convert.ToInt32(dr["Height"]),
+                                Status = Convert.ToBoolean(dr["Status"]),
+                                CreateDate = Convert.ToDateTime(dr["CreateDate"]),
+                                LastModification = Convert.ToDateTime(dr["LastModification"])
+                            };
+
+                            lista.Add(item);
+                        }
+                    }
+                }
+            }
+
+            return lista;
+        }
+
+        public async Task<bool> SaveVisualAsset(VisualAssetModel asset)
+        {
+            using (SqlConnection cn = new SqlConnection(Connection))
+            {
+                await cn.OpenAsync();
+
+                using (SqlCommand cmd = new SqlCommand("SaveVisualAsset", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@AssetKey", asset.AssetKey);
+                    cmd.Parameters.AddWithValue("@FilePath", asset.FilePath ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@FileName", asset.FileName ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Extension", asset.Extension ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@FileSize", asset.FileSize ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Width", asset.Width ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Height", asset.Height ?? (object)DBNull.Value);
+
+                    SqlParameter vResp = new SqlParameter("@VResp", SqlDbType.Int)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+
+                    cmd.Parameters.Add(vResp);
+                    await cmd.ExecuteNonQueryAsync();
+                    return Convert.ToInt32(vResp.Value) == 1;
+                }
+            }
+        }
+        public async Task<bool> ResetVisualAsset(string assetKey)
+        {
+            using (SqlConnection cn = new SqlConnection(Connection))
+            {
+                await cn.OpenAsync();
+
+                using (SqlCommand cmd = new SqlCommand("ResetVisualAsset", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@AssetKey", assetKey);
+
+                    SqlParameter vResp = new SqlParameter("@VResp", SqlDbType.Int)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+
+                    cmd.Parameters.Add(vResp);
+                    await cmd.ExecuteNonQueryAsync();
+                    return Convert.ToInt32(vResp.Value) == 1;
+                }
+            }
         }
 
         #endregion

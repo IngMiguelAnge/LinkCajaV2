@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinkCajaV2.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Svg;
 
 namespace LinkCajaV2.Items
 {
@@ -19,45 +21,112 @@ namespace LinkCajaV2.Items
             InitializeComponent();
         }
 
-        private void Resultado_Load(object sender, EventArgs e)
+        private async void Resultado_Load(object sender, EventArgs e)
         {
             try
             {
-                string imagen = string.Empty;
+                string assetKey;
+                string imagenPredeterminada;
+
                 if (Premio != "Sin premio")
                 {
-                    imagen = "Felicidades";
-                    txtDescripcion.Text = "Felicidades a ganado: " + Premio;
-                }                   
+                    assetKey = "GANADOR";
+                    imagenPredeterminada = "Felicidades.png";
+                    txtDescripcion.Text ="Felicidades a ganado: " + Premio;
+                }
                 else
                 {
-                    imagen = "Perdiste";
-                    txtDescripcion.Text = "Suerte para la proxima";
+                    assetKey = "NO_GANADOR";
+                    imagenPredeterminada = "Perdiste.png";
+                    txtDescripcion.Text ="Suerte para la proxima";
                 }
-                  
-             
-                string rutaImagen = Path.Combine(Application.StartupPath, "Icons", imagen+".png");
 
-                // Verificamos si el archivo realmente existe para que no truene el programa
+                AppRepository obj = new AppRepository();
+
+                var lista = await obj.GetVisualAssets(assetKey);
+                var asset = lista.FirstOrDefault();
+                string rutaImagen = string.Empty;
+
+                if (asset != null &&
+                    !string.IsNullOrWhiteSpace(asset.FilePath))
+                {
+                    string rutaPersonalizada = Path.Combine(Application.StartupPath, asset.FilePath);
+
+                    if (File.Exists(rutaPersonalizada))
+                    {
+                        rutaImagen = rutaPersonalizada;
+                    }
+                }
+                if (string.IsNullOrWhiteSpace(rutaImagen))
+                {
+                    rutaImagen = Path.Combine(
+                        Application.StartupPath,
+                        "Icons",
+                        imagenPredeterminada
+                    );
+                }
+   
                 if (File.Exists(rutaImagen))
                 {
-                    pictureBox1.Image = Image.FromFile(rutaImagen);
-                    pictureBox1.SizeMode = PictureBoxSizeMode.Zoom; // Para que se adapte bien al tamaño
+                    if (pictureBox1.Image != null)
+                    {
+                        pictureBox1.Image.Dispose();
+                        pictureBox1.Image = null;
+                    }
+
+                    string extension =Path.GetExtension(rutaImagen).ToLower();
+
+                    if (extension == ".svg")
+                    {
+                        pictureBox1.Image = CargarSvgComoBitmap(rutaImagen);
+                    }
+                    else
+                    {
+                        pictureBox1.Image =CargarImagenSinBloquear(rutaImagen);
+                    }
+
+                    pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
                 }
                 else
                 {
-                    MessageBox.Show("No se encontró la imagen en: " + rutaImagen, "Error de ruta");
+                    MessageBox.Show(
+                        "No se encontró la imagen en: " + rutaImagen,
+                        "Error de ruta",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar la imagen: " + ex.Message);
+                MessageBox.Show(
+                    "Error al cargar la imagen: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
 
+        private Image CargarSvgComoBitmap(string ruta)
+        {
+            SvgDocument documento = SvgDocument.Open(ruta);
+
+            return documento.Draw();
+        }
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+        private Image CargarImagenSinBloquear(string ruta)
+        {
+            using (FileStream fs = new FileStream(ruta, FileMode.Open, FileAccess.Read))
+            {
+                using (Image img = Image.FromStream(fs))
+                {
+                    return new Bitmap(img);
+                }
+            }
         }
     }
 }
