@@ -287,12 +287,6 @@
     <Compile Include="Items\TransferPay.Designer.cs">
       <DependentUpon>TransferPay.cs</DependentUpon>
     </Compile>
-    <Compile Include="Items\VisualAssetsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Items\VisualAssetsForm.Designer.cs">
-      <DependentUpon>VisualAssetsForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Model\ClienteModel.cs" />
     <Compile Include="Model\TypePayModel.cs" />
     <Compile Include="Model\VisualAssetModel.cs" />
@@ -611,9 +605,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Items\TransferPay.resx">
       <DependentUpon>TransferPay.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Items\VisualAssetsForm.resx">
-      <DependentUpon>VisualAssetsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ReporteGastosExtras.resx">
       <DependentUpon>ReporteGastosExtras.cs</DependentUpon>
