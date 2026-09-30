@@ -67,27 +67,35 @@ namespace LinkCajaV2.Catalogs
                 MessageBox.Show("El artículo no está activo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
+        
             var presentacion = await obj.GetPresentationbyId(articulo.IdPresentation);
-            decimal cantidadEntrante = 0;
+
+            decimal cantidadMaxima = 0;
+            decimal cantidadPorGiro = 0;
+
             Decimals d = new Decimals();
+
+            d.EsConfiguracionPremio = true;
             d.Presentation = presentacion.Presentation;
             d.Nombre = presentacion.Name;
-            presentacion.Decimals = presentacion.Decimals;
-            if (d.ShowDialog() == DialogResult.OK) // Asumiendo que devuelve OK
+            d.Decimales = presentacion.Decimals;
+
+            if (d.ShowDialog() == DialogResult.OK)
             {
-                cantidadEntrante = d.Kilos;
+                cantidadMaxima = d.Kilos;
+                cantidadPorGiro = d.CantidadPorGiro;
             }
             else
             {
-                return; // Si el usuario cancela, no agregamos el artículo
+                return;
             }
 
             PrizeModel p = new PrizeModel()
             {
                 Id = id,
                 IdArticle = idarticle,
-                Stock = cantidadEntrante
+                Stock = cantidadMaxima,
+                QuantityPerSpin = cantidadPorGiro
             };
             bool result = obj.SavePrize(p).Result;
             if (result)
@@ -117,7 +125,7 @@ namespace LinkCajaV2.Catalogs
                     article.IsVenta = true;
                     if (article.ShowDialog() == DialogResult.OK)
                     {
-                        AgregarArticulo(Id, article.IdSeleccionado);
+                        await AgregarArticulo(Id, article.IdSeleccionado);
                     }
                     await BuscarPremios();
                     break;
@@ -128,11 +136,20 @@ namespace LinkCajaV2.Catalogs
                     break;
             }
         }
+
         private void AgregarBotones()
         {
             // 1. Limpieza de seguridad: si ya existen por una búsqueda previa, los borramos
             if (dgvPremios.Columns["btnEditar"] != null) dgvPremios.Columns.Remove("btnEditar");
             if (dgvPremios.Columns["btnCambiar"] != null) dgvPremios.Columns.Remove("btnCambiar");
+            if (dgvPremios.Columns["QuantityPerSpin"] != null)
+            {
+                dgvPremios.Columns["QuantityPerSpin"].HeaderText = "Premios por giro";
+            }
+            if (dgvPremios.Columns["Cantidad"] != null)
+            {
+                dgvPremios.Columns["Cantidad"].HeaderText = "Disponibles";
+            }
             DataGridViewButtonColumn btnEditar = new DataGridViewButtonColumn();
             btnEditar.Name = "btnEditar";
             btnEditar.HeaderText = "Acción";

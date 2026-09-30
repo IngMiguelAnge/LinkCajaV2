@@ -1,6 +1,7 @@
 ﻿using LinkCajaV2.Catalogs;
 using LinkCajaV2.Configurations;
 using LinkCajaV2.Model;
+using OxyPlot;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Policy;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Windows.Documents;
 
 namespace LinkCajaV2.Data
@@ -92,6 +94,7 @@ namespace LinkCajaV2.Data
                 Nombre = (string)reader["Article"],
                 Cantidad = (string)reader["Stock"],
                 Estatus = (string)reader["Status"],
+                QuantityPerSpin = (decimal)reader["QuantityPerSpin"],
             };
         }
         private PrizeModel MapToPrizeModel(SqlDataReader reader)
@@ -101,6 +104,7 @@ namespace LinkCajaV2.Data
                 Id = (int)reader["Id"],
                 IdArticle = (int)reader["IdArticle"],
                 Stock = (decimal)reader["Stock"],
+                QuantityPerSpin = (decimal)reader["QuantityPerSpin"],
                 Status = (bool)reader["Status"],
             };
         }
@@ -116,6 +120,7 @@ namespace LinkCajaV2.Data
                         cmd.Parameters.Add(new SqlParameter("@Id", Prize.Id));
                         cmd.Parameters.Add(new SqlParameter("@IdArticle", Prize.IdArticle));
                         cmd.Parameters.Add(new SqlParameter("@Stock", Prize.Stock));
+                        cmd.Parameters.AddWithValue( "@QuantityPerSpin",Prize.QuantityPerSpin);
                         await sql.OpenAsync().ConfigureAwait(false);
                         await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
                         return true;
@@ -3413,30 +3418,35 @@ namespace LinkCajaV2.Data
                 }
             }
         }
-        public async Task<bool> ResetVisualAsset(string assetKey)
+        public async Task<bool> DiscountPrizeStock(int idPrize)
         {
-            using (SqlConnection cn = new SqlConnection(Connection))
+            try
             {
-                await cn.OpenAsync();
-
-                using (SqlCommand cmd = new SqlCommand("ResetVisualAsset", cn))
+                using (SqlConnection sql = new SqlConnection(Connection))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@AssetKey", assetKey);
-
-                    SqlParameter vResp = new SqlParameter("@VResp", SqlDbType.Int)
+                    using (SqlCommand cmd = new SqlCommand("DiscountPrizeStock", sql))
                     {
-                        Direction = ParameterDirection.Output
-                    };
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@IdPrize", idPrize) );
 
-                    cmd.Parameters.Add(vResp);
-                    await cmd.ExecuteNonQueryAsync();
-                    return Convert.ToInt32(vResp.Value) == 1;
+                        SqlParameter vResp = new SqlParameter( "@VResp", System.Data.SqlDbType.Int  );
+                        vResp.Direction = System.Data.ParameterDirection.Output;
+                        cmd.Parameters.Add(vResp);
+                        await sql.OpenAsync().ConfigureAwait(false);
+                        await cmd.ExecuteNonQueryAsync() .ConfigureAwait(false);
+                        int resultado = Convert.ToInt32(vResp.Value);
+                        return resultado == 1;
+                    }
                 }
             }
+            catch (Exception)
+            {
+                return false;
+            }
         }
+    }
 
         #endregion
 
-    }
+    
 }

@@ -7,5 +7,6 @@
         public string Nombre {  get; set; }
         public string Cantidad { get; set; }
         public string Estatus {  get; set; }
+        public decimal QuantityPerSpin { get; set; }
     }
 }

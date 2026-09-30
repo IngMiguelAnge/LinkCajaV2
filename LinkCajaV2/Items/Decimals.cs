@@ -10,6 +10,9 @@ namespace LinkCajaV2.Items
         public string Presentation { get; set; }
         public string Nombre { get; set; }
         bool primerIngreso = true;
+        public decimal MaximoPremios { get; set; }
+        public decimal CantidadPorGiro { get; set; }
+        public bool EsConfiguracionPremio { get; set; }
         public Decimals()
         {
             InitializeComponent();
@@ -28,7 +31,52 @@ namespace LinkCajaV2.Items
 
         private void BtnConfirmar_Click(object sender, EventArgs e)
         {
-            Kilos = NUDKilos.Value;
+            if (EsConfiguracionPremio)
+            {
+                if (NUDKilos.Value <= 0)
+                {
+                    MessageBox.Show(
+                        "El máximo disponible para regalar debe ser mayor a 0.",
+                        "Información",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
+                    return;
+                }
+
+                if (NUDCantidadGiro.Value <= 0)
+                {
+                    MessageBox.Show(
+                        "La cantidad por giro debe ser mayor a 0.",
+                        "Información",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
+                    return;
+                }
+
+                if (NUDCantidadGiro.Value > NUDKilos.Value)
+                {
+                    MessageBox.Show(
+                        "La cantidad por giro no puede ser mayor al máximo disponible.",
+                        "Información",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
+                    return;
+                }
+
+                Kilos = NUDKilos.Value;
+                CantidadPorGiro = NUDCantidadGiro.Value;
+            }
+            else
+            {
+                Kilos = NUDKilos.Value;
+            }
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -86,9 +134,33 @@ namespace LinkCajaV2.Items
 
         private void Decimals_Load(object sender, EventArgs e)
         {
+            if (EsConfiguracionPremio)
+            {
+                lblMensaje1.Text = "Configure el premio";
+                lblMensaje2.Text = "Máximo disponible a regalar:";
+
+                lblCantidadGiro.Visible = true;
+                NUDCantidadGiro.Visible = true;
+
+                NUDKilos.DecimalPlaces = 0;
+                NUDKilos.Increment = 1M;
+                NUDKilos.Maximum = 1000000;
+
+                NUDCantidadGiro.DecimalPlaces = 0;
+                NUDCantidadGiro.Increment = 1M;
+                NUDCantidadGiro.Minimum = 1;
+                NUDCantidadGiro.Maximum = 1000000;
+
+                return;
+            }
+
+            lblCantidadGiro.Visible = false;
+            NUDCantidadGiro.Visible = false;
+
             lblMensaje1.Text = "Este articulo se vende por " + Nombre;
             lblMensaje2.Text = Presentation;
-            if(Decimales < 3)
+
+            if (Decimales < 3)
             {
                 NUDKilos.DecimalPlaces = 0;
                 NUDKilos.Increment = 1M;

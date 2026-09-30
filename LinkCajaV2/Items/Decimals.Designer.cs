@@ -34,7 +34,10 @@
             this.BtnConfirmar = new System.Windows.Forms.Button();
             this.lblMensaje3 = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.NUDCantidadGiro = new System.Windows.Forms.NumericUpDown();
+            this.lblCantidadGiro = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NUDKilos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDCantidadGiro)).BeginInit();
             this.SuspendLayout();
             // 
             // lblMensaje1
@@ -42,9 +45,10 @@
             this.lblMensaje1.AutoSize = true;
             this.lblMensaje1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMensaje1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblMensaje1.Location = new System.Drawing.Point(12, 20);
+            this.lblMensaje1.Location = new System.Drawing.Point(8, 13);
+            this.lblMensaje1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMensaje1.Name = "lblMensaje1";
-            this.lblMensaje1.Size = new System.Drawing.Size(260, 25);
+            this.lblMensaje1.Size = new System.Drawing.Size(171, 15);
             this.lblMensaje1.TabIndex = 0;
             this.lblMensaje1.Text = "Este articulo se vende por kilos,";
             // 
@@ -53,9 +57,10 @@
             this.lblMensaje2.AutoSize = true;
             this.lblMensaje2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMensaje2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblMensaje2.Location = new System.Drawing.Point(17, 99);
+            this.lblMensaje2.Location = new System.Drawing.Point(15, 70);
+            this.lblMensaje2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMensaje2.Name = "lblMensaje2";
-            this.lblMensaje2.Size = new System.Drawing.Size(53, 25);
+            this.lblMensaje2.Size = new System.Drawing.Size(35, 15);
             this.lblMensaje2.TabIndex = 1;
             this.lblMensaje2.Text = "Kilos:";
             // 
@@ -68,14 +73,15 @@
             0,
             0,
             196608});
-            this.NUDKilos.Location = new System.Drawing.Point(22, 138);
+            this.NUDKilos.Location = new System.Drawing.Point(15, 90);
+            this.NUDKilos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.NUDKilos.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
             this.NUDKilos.Name = "NUDKilos";
-            this.NUDKilos.Size = new System.Drawing.Size(250, 37);
+            this.NUDKilos.Size = new System.Drawing.Size(167, 27);
             this.NUDKilos.TabIndex = 2;
             this.NUDKilos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NUDKilos_KeyDown);
             this.NUDKilos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NUDKilos_KeyPress);
@@ -87,9 +93,10 @@
             this.BtnConfirmar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnConfirmar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnConfirmar.ForeColor = System.Drawing.Color.White;
-            this.BtnConfirmar.Location = new System.Drawing.Point(200, 211);
+            this.BtnConfirmar.Location = new System.Drawing.Point(140, 194);
+            this.BtnConfirmar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.BtnConfirmar.Name = "BtnConfirmar";
-            this.BtnConfirmar.Size = new System.Drawing.Size(162, 49);
+            this.BtnConfirmar.Size = new System.Drawing.Size(108, 32);
             this.BtnConfirmar.TabIndex = 3;
             this.BtnConfirmar.Text = "CONFIRMAR";
             this.BtnConfirmar.UseVisualStyleBackColor = false;
@@ -100,9 +107,10 @@
             this.lblMensaje3.AutoSize = true;
             this.lblMensaje3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMensaje3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblMensaje3.Location = new System.Drawing.Point(12, 53);
+            this.lblMensaje3.Location = new System.Drawing.Point(8, 34);
+            this.lblMensaje3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMensaje3.Name = "lblMensaje3";
-            this.lblMensaje3.Size = new System.Drawing.Size(296, 25);
+            this.lblMensaje3.Size = new System.Drawing.Size(195, 15);
             this.lblMensaje3.TabIndex = 4;
             this.lblMensaje3.Text = "Favor de poner la cantidad a vender";
             // 
@@ -115,23 +123,58 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.btnCancelar.Location = new System.Drawing.Point(12, 211);
+            this.btnCancelar.Location = new System.Drawing.Point(15, 194);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(162, 49);
+            this.btnCancelar.Size = new System.Drawing.Size(108, 32);
             this.btnCancelar.TabIndex = 5;
             this.btnCancelar.Text = "CANCELAR";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // NUDCantidadGiro
+            // 
+            this.NUDCantidadGiro.DecimalPlaces = 3;
+            this.NUDCantidadGiro.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NUDCantidadGiro.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            196608});
+            this.NUDCantidadGiro.Location = new System.Drawing.Point(15, 148);
+            this.NUDCantidadGiro.Margin = new System.Windows.Forms.Padding(2);
+            this.NUDCantidadGiro.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.NUDCantidadGiro.Name = "NUDCantidadGiro";
+            this.NUDCantidadGiro.Size = new System.Drawing.Size(167, 27);
+            this.NUDCantidadGiro.TabIndex = 6;
+            // 
+            // lblCantidadGiro
+            // 
+            this.lblCantidadGiro.AutoSize = true;
+            this.lblCantidadGiro.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCantidadGiro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblCantidadGiro.Location = new System.Drawing.Point(15, 129);
+            this.lblCantidadGiro.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCantidadGiro.Name = "lblCantidadGiro";
+            this.lblCantidadGiro.Size = new System.Drawing.Size(98, 15);
+            this.lblCantidadGiro.TabIndex = 7;
+            this.lblCantidadGiro.Text = "Premios por giro:";
+            // 
             // Decimals
             // 
             this.AcceptButton = this.BtnConfirmar;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnCancelar;
-            this.ClientSize = new System.Drawing.Size(414, 293);
+            this.ClientSize = new System.Drawing.Size(286, 249);
             this.ControlBox = false;
+            this.Controls.Add(this.lblCantidadGiro);
+            this.Controls.Add(this.NUDCantidadGiro);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.lblMensaje3);
             this.Controls.Add(this.BtnConfirmar);
@@ -139,12 +182,14 @@
             this.Controls.Add(this.lblMensaje2);
             this.Controls.Add(this.lblMensaje1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Decimals";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Decimals_Load);
             ((System.ComponentModel.ISupportInitialize)(this.NUDKilos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDCantidadGiro)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,5 +203,7 @@
         private System.Windows.Forms.Button BtnConfirmar;
         private System.Windows.Forms.Label lblMensaje3;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.NumericUpDown NUDCantidadGiro;
+        private System.Windows.Forms.Label lblCantidadGiro;
     }
 }

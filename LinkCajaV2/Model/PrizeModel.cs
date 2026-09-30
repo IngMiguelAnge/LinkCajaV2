@@ -6,5 +6,6 @@
         public int IdArticle { get; set; }
         public decimal Stock { get; set; }
         public bool Status {  get; set; }
+        public decimal QuantityPerSpin { get; set; }
     }
 }

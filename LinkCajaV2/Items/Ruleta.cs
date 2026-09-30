@@ -12,7 +12,7 @@ namespace LinkCajaV2.Items
 {
     public partial class Ruleta : Form
     {
-        public List<PrizeModel> listaPremios {  get; set; }
+        public List<PrizeModel> listaPremios { get; set; }
         private Timer timerRuleta;
         private Random random = new Random();
 
@@ -25,7 +25,7 @@ namespace LinkCajaV2.Items
         private string[] premios;
 
         // Colores para los sectores
-        private Color[] colores; 
+        private Color[] colores;
         public Ruleta()
         {
             InitializeComponent();
@@ -47,7 +47,7 @@ namespace LinkCajaV2.Items
             // Configurar el Timer para la animación
             timerRuleta = new Timer();
             timerRuleta.Interval = 15; // ~60 FPS
-            timerRuleta.Tick += TimeRuleta_Tick;         
+            timerRuleta.Tick += TimeRuleta_Tick;
         }
         private void GenerarColoresDinamicos()
         {
@@ -64,7 +64,8 @@ namespace LinkCajaV2.Items
             float v2 = (l < 0.5f) ? (l * (1f + s)) : ((l + s) - (s * l));
             float v1 = 2f * l - v2;
 
-            Func<float, float, float, byte> aColor = (v_1, v_2, v_h) => {
+            Func<float, float, float, byte> aColor = (v_1, v_2, v_h) =>
+            {
                 if (v_h < 0f) v_h += 1f;
                 if (v_h > 1f) v_h -= 1f;
                 if ((6f * v_h) < 1f) return (byte)((v_1 + (v_2 - v_1) * 6f * v_h) * 255);
@@ -80,8 +81,8 @@ namespace LinkCajaV2.Items
             );
         }
         private void Ruleta_Load(object sender, EventArgs e)
-        {                
-             List<string> premiosBase = listaPremios.Select(x => "Premio " +  x.Id.ToString()).ToList();
+        {
+            List<string> premiosBase = listaPremios.Select(x => "Premio " + x.Id.ToString()).ToList();
 
             // 2. Mezclamos los "Sin premio" de forma aleatoria
             List<string> listaFinal = IntercalarSinPremioAleatorio(premiosBase);
@@ -213,58 +214,121 @@ namespace LinkCajaV2.Items
             g.DrawPolygon(Pens.White, flecha);
         }
 
-        private void CalcularPremioGanador()
+        private async void CalcularPremioGanador()
         {
-            // La flecha está apuntando arriba (-90 grados en el plano cartesiano estándar)
-            // Calculamos qué sector quedó exactamente debajo de la flecha
             float anguloFlecha = 270f;
-            float anguloGanador = (anguloFlecha - anguloActual + 360) % 360;
-
+            float anguloGanador =(anguloFlecha - anguloActual + 360) % 360;
             float arcoSector = 360f / premios.Length;
-            int indiceGanador = (int)(anguloGanador / arcoSector);
+            int indiceGanador =  (int)(anguloGanador / arcoSector);
+            indiceGanador =  Math.Min(indiceGanador, premios.Length - 1);
+            string premioObtenido =premios[indiceGanador];
 
-            // Seguridad por si el redondeo da un índice fuera de rango
-            indiceGanador = Math.Min(indiceGanador, premios.Length - 1);
-
-            string premioObtenido = premios[indiceGanador];
             Resultado r = new Resultado();
-            var Idpremio = premioObtenido.Split(' ');
-            AppRepository obj = new AppRepository();
-            if (Idpremio[1] == "premio")
-                r.Premio  = "Sin premio";
-            else
+
+            // PERDIÓ
+            if (premioObtenido == "Sin premio")
             {
-             PrizeModel detalles = listaPremios.Where(x => x.Id == Convert.ToInt32(Idpremio[1])).First();
-             List<ListPrizesModel> detalles2= obj.GetPrizes(detalles.Id,string.Empty).Result;
-                r.Premio = detalles2.First().Nombre+ " " + detalles2.First().Cantidad;
-                TransactionHistoryModel t = new TransactionHistoryModel();
-                t.IdArticles = detalles2.First().IdArticle;
-                t.Stock = detalles.Stock < 0 ? detalles.Stock * -1 : detalles.Stock;
-                t.Concept = "Premio";
-                var Article = obj.GetStock(t.IdArticles).Result;
-                StockModel Stock = new StockModel()
-                {
-                    Id = t.IdArticles,
-                    Stock = Article.Stock - t.Stock,
-                    StockMin = Article.StockMin,
-                    IdPresentation = Article.IdPresentation,
-                    Price = Article.Price,
-                    SuggestedStock = Article.SuggestedStock,
-                    Margen = Article.Margen
-                };
-                var result = obj.SaveStock(Stock).Result;
-                if (result)
-                {
-                    var re = obj.SaveTransactionHistory(t).Result;
-                }
-                else
-                {
-                    MessageBox.Show("Error al guardar la información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }            
+                r.Premio = "Sin premio";
+                r.Show();
+                this.Close();
+                return;
             }
+
+            // GANÓ
+            int idPremio = Convert.ToInt32( premioObtenido.Replace("Premio ", "") );
+            AppRepository obj = new AppRepository();
+            PrizeModel detalles = listaPremios.First(x => x.Id == idPremio  );
+
+            List<ListPrizesModel> detalles2 = await obj.GetPrizes(  detalles.Id, string.Empty );
+
+            if (detalles2 == null ||detalles2.Count == 0)
+            {
+                MessageBox.Show(
+                    "No se encontró la información del premio.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return;
+            }
+
+            var premio = detalles2.First();
+            // Texto que verá Resultado
+            r.Premio = premio.Nombre +  " x " + detalles.QuantityPerSpin;   
+            var article =  await obj.GetStock( detalles.IdArticle);
+            if (article == null)
+            {
+                MessageBox.Show(
+                    "No se encontró el stock del artículo.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return;
+            }
+
+            if (article.Stock <
+                detalles.QuantityPerSpin)
+            {
+                MessageBox.Show(
+                    "No existe stock suficiente para entregar el premio.",
+                    "Stock insuficiente",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+
+                return;
+            }
+
+            StockModel stock =
+                new StockModel()
+                {
+                    Id = detalles.IdArticle,
+                    Stock = article.Stock - detalles.QuantityPerSpin,
+                    StockMin = article.StockMin,
+                    IdPresentation = article.IdPresentation,
+                    Price = article.Price,
+                    SuggestedStock = article.SuggestedStock,
+                    Margen = article.Margen
+                };
+
+            bool stockGuardado = await obj.SaveStock(stock);
+
+            if (!stockGuardado)
+            {
+                MessageBox.Show(
+                    "No se pudo actualizar el stock del artículo.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return;
+            }
+
+            TransactionHistoryModel t =new TransactionHistoryModel();
+            t.IdArticles = detalles.IdArticle;
+            t.Stock = detalles.QuantityPerSpin;
+            t.Concept ="Premio";
+
+            await obj.SaveTransactionHistory(t);
+            bool premioActualizado = await obj.DiscountPrizeStock(  detalles.Id  );
+            if (!premioActualizado)
+            {
+                MessageBox.Show(
+                    "No se pudo actualizar la cantidad disponible del premio.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return;
+            }
+
             r.Show();
-            MessageBox.Show("Stock guardado correctamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             this.Close();
         }
     }
