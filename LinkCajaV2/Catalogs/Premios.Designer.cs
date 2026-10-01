@@ -49,19 +49,21 @@
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.lblTitulo.Location = new System.Drawing.Point(33, 23);
+            this.lblTitulo.Location = new System.Drawing.Point(22, 15);
+            this.lblTitulo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(294, 48);
+            this.lblTitulo.Size = new System.Drawing.Size(201, 32);
             this.lblTitulo.TabIndex = 34;
             this.lblTitulo.Text = "Lista de Premios";
             // 
             // progressBar1
             // 
             this.progressBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.progressBar1.Location = new System.Drawing.Point(46, 193);
+            this.progressBar1.Location = new System.Drawing.Point(31, 125);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.progressBar1.MarqueeAnimationSpeed = 0;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(520, 6);
+            this.progressBar1.Size = new System.Drawing.Size(347, 4);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar1.TabIndex = 39;
             // 
@@ -74,9 +76,11 @@
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(110)))), ((int)(((byte)(203)))));
-            this.groupBox1.Location = new System.Drawing.Point(46, 239);
+            this.groupBox1.Location = new System.Drawing.Point(31, 155);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(886, 424);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(885, 413);
             this.groupBox1.TabIndex = 40;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Premios";
@@ -108,12 +112,13 @@
             this.dgvPremios.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvPremios.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvPremios.EnableHeadersVisualStyles = false;
-            this.dgvPremios.Location = new System.Drawing.Point(3, 35);
+            this.dgvPremios.Location = new System.Drawing.Point(2, 24);
+            this.dgvPremios.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvPremios.Name = "dgvPremios";
             this.dgvPremios.ReadOnly = true;
             this.dgvPremios.RowHeadersWidth = 62;
             this.dgvPremios.RowTemplate.Height = 28;
-            this.dgvPremios.Size = new System.Drawing.Size(880, 386);
+            this.dgvPremios.Size = new System.Drawing.Size(881, 387);
             this.dgvPremios.TabIndex = 9;
             this.dgvPremios.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPremios_CellContentClick);
             // 
@@ -124,9 +129,10 @@
             this.BtnBuscar.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnBuscar.ForeColor = System.Drawing.Color.White;
             this.BtnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("BtnBuscar.Image")));
-            this.BtnBuscar.Location = new System.Drawing.Point(359, 122);
+            this.BtnBuscar.Location = new System.Drawing.Point(239, 79);
+            this.BtnBuscar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.BtnBuscar.Name = "BtnBuscar";
-            this.BtnBuscar.Size = new System.Drawing.Size(120, 41);
+            this.BtnBuscar.Size = new System.Drawing.Size(80, 27);
             this.BtnBuscar.TabIndex = 37;
             this.BtnBuscar.Text = "Buscar";
             this.BtnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -141,9 +147,10 @@
             this.btnNuevo.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevo.ForeColor = System.Drawing.Color.White;
             this.btnNuevo.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevo.Image")));
-            this.btnNuevo.Location = new System.Drawing.Point(490, 122);
+            this.btnNuevo.Location = new System.Drawing.Point(327, 79);
+            this.btnNuevo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(120, 41);
+            this.btnNuevo.Size = new System.Drawing.Size(80, 27);
             this.btnNuevo.TabIndex = 38;
             this.btnNuevo.Text = "Nuevo";
             this.btnNuevo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -154,9 +161,10 @@
             // txtNombre
             // 
             this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(49, 126);
+            this.txtNombre.Location = new System.Drawing.Point(33, 82);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(272, 37);
+            this.txtNombre.Size = new System.Drawing.Size(183, 27);
             this.txtNombre.TabIndex = 36;
             // 
             // lblNombre
@@ -164,18 +172,19 @@
             this.lblNombre.AutoSize = true;
             this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblNombre.Location = new System.Drawing.Point(44, 91);
+            this.lblNombre.Location = new System.Drawing.Point(29, 59);
+            this.lblNombre.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(86, 25);
+            this.lblNombre.Size = new System.Drawing.Size(56, 15);
             this.lblNombre.TabIndex = 35;
             this.lblNombre.Text = "Nombre:";
             // 
             // Premios
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(970, 687);
+            this.ClientSize = new System.Drawing.Size(941, 584);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.groupBox1);
@@ -184,6 +193,7 @@
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.lblNombre);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Premios";

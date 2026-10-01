@@ -142,14 +142,19 @@ namespace LinkCajaV2.Catalogs
             // 1. Limpieza de seguridad: si ya existen por una búsqueda previa, los borramos
             if (dgvPremios.Columns["btnEditar"] != null) dgvPremios.Columns.Remove("btnEditar");
             if (dgvPremios.Columns["btnCambiar"] != null) dgvPremios.Columns.Remove("btnCambiar");
-            if (dgvPremios.Columns["QuantityPerSpin"] != null)
-            {
-                dgvPremios.Columns["QuantityPerSpin"].HeaderText = "Premios por giro";
-            }
             if (dgvPremios.Columns["Cantidad"] != null)
             {
                 dgvPremios.Columns["Cantidad"].HeaderText = "Disponibles";
             }
+            if (dgvPremios.Columns["QuantityPerSpin"] != null)
+            {
+                dgvPremios.Columns["QuantityPerSpin"].HeaderText = "Premios por giro";
+            }
+            if (dgvPremios.Columns["QuantityPerSpin"] != null &&dgvPremios.Columns["Estatus"] != null)
+            {
+                dgvPremios.Columns["QuantityPerSpin"].DisplayIndex = dgvPremios.Columns["Estatus"].DisplayIndex;
+            }
+
             DataGridViewButtonColumn btnEditar = new DataGridViewButtonColumn();
             btnEditar.Name = "btnEditar";
             btnEditar.HeaderText = "Acción";
