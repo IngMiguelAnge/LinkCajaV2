@@ -21,8 +21,8 @@ namespace LinkCajaV2.Data
         public string Connection { get; set; }
         public AppRepository(bool isUnitOfWork = false)
         {
-           Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
-           //Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+           //Connection = "Data Source=.\\SQLEXPRESS;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
+           Connection = "Data Source=.;Initial Catalog=LinkCaja;User ID=sa;Password=admin123;TrustServerCertificate=True;";
         }
         public void Dispose()
         {
@@ -95,6 +95,7 @@ namespace LinkCajaV2.Data
                 Cantidad = (string)reader["Stock"],
                 Estatus = (string)reader["Status"],
                 QuantityPerSpin = (decimal)reader["QuantityPerSpin"],
+                Presentation = (string)reader["Presentation"]
             };
         }
         private PrizeModel MapToPrizeModel(SqlDataReader reader)
@@ -598,7 +599,22 @@ namespace LinkCajaV2.Data
                 Articulo = (string)reader["Articulo"],
                 Fecha = (DateTime)reader["Fecha"],
                 VerConcepto = (string)reader["VerConcepto"],
+                Presentation = ExisteColumna(reader, "Presentation") &&reader["Presentation"] != DBNull.Value ? reader["Presentation"].ToString(): ""
             };
+        }
+        private bool ExisteColumna(SqlDataReader reader, string nombreColumna)
+        {
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                if (reader.GetName(i).Equals(
+                    nombreColumna,
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
         #endregion
         #region CashFund
@@ -3444,6 +3460,7 @@ namespace LinkCajaV2.Data
                 return false;
             }
         }
+
     }
 
         #endregion

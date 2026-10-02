@@ -38,7 +38,7 @@
             // 
             // Ruleta
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(865, 628);
@@ -49,6 +49,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Ruleta_Load);
+            this.Shown += new System.EventHandler(this.Ruleta_Shown);
             this.ResumeLayout(false);
 
         }

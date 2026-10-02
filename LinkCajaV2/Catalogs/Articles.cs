@@ -1,4 +1,5 @@
 ﻿using LinkCajaV2.Configuraciones;
+using LinkCajaV2.Configurations;
 using LinkCajaV2.Data;
 using LinkCajaV2.Items;
 using LinkCajaV2.Model;
@@ -23,6 +24,7 @@ namespace LinkCajaV2.Catalogs
         public bool IsReceta { get; set; } = false;
         public int IdSeleccionado { get; set; }
         private List<ListArticlesModel> ListaImprimir { get; set; }
+        private List<ListArticlesModel> ListaImpresionMultiple = new List<ListArticlesModel>();
         public bool Impresion = false;
         ConfigPageModel ConfigBox;
         List<ListConfigImpressionsModel> ConfigImpressions;
@@ -232,6 +234,28 @@ namespace LinkCajaV2.Catalogs
             }
             if (IsVenta==false && IsReceta == false)
             {
+                DataGridViewCheckBoxColumn chkSeleccionar = new DataGridViewCheckBoxColumn();
+
+                //Check de impresion multiple 
+                dgvArticulos.ReadOnly = false;
+
+                foreach (DataGridViewColumn columna in dgvArticulos.Columns)
+                {
+                    if (columna.Name != "chkSeleccionar")
+                    {
+                        columna.ReadOnly = true;
+                    }
+                }
+
+                chkSeleccionar.Name = "chkSeleccionar";
+                chkSeleccionar.HeaderText = "Seleccionar";
+                chkSeleccionar.Width = 75;
+                chkSeleccionar.TrueValue = true;
+                chkSeleccionar.FalseValue = false;
+                dgvArticulos.Columns.Add(chkSeleccionar);
+                chkSeleccionar.DisplayIndex = 0;
+
+                //Boton editar 
                 DataGridViewButtonColumn btnEditar = new DataGridViewButtonColumn();
                 btnEditar.Name = "btnEditar";
                 btnEditar.HeaderText = "Acción";
@@ -291,6 +315,8 @@ namespace LinkCajaV2.Catalogs
             }
             if (IsVenta || IsReceta)
             {
+                btnEnviar.Visible = false;
+                btnImpresionMultiple.Visible = false;
                 lblOpciones.Visible = false;
                 btnNuevo.Visible = false;
                 BtnImpresion.Visible = false;
@@ -472,5 +498,67 @@ namespace LinkCajaV2.Catalogs
             }
         }
 
+        private void btnEnviar_Click(object sender, EventArgs e)
+        {
+            dgvArticulos.EndEdit();
+            int agregados = 0;
+
+            foreach (DataGridViewRow row in dgvArticulos.Rows)
+            {
+                if (row.IsNewRow)
+                    continue;
+                bool seleccionado = Convert.ToBoolean( row.Cells["chkSeleccionar"].Value ?? false );
+                if (!seleccionado) continue;
+                ListArticlesModel articulo = row.DataBoundItem as ListArticlesModel;
+                if (articulo == null) continue;
+                // Evitar artículos duplicados
+                if (!ListaImpresionMultiple.Any(x => x.Id == articulo.Id))
+                {
+                    ListaImpresionMultiple.Add(articulo);
+                    agregados++;
+                }
+            }
+
+            if (agregados == 0)
+            {
+                MessageBox.Show(
+                    "Seleccione al menos un artículo que no haya sido agregado anteriormente.",
+                    "Información",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                return;
+            }
+
+            MessageBox.Show(
+                "Se agregaron " + agregados +
+                " artículo(s) a la impresión múltiple.\n\n" +
+                "Total acumulado: " + ListaImpresionMultiple.Count,
+                "Artículos agregados",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
+        }
+
+        private void btnImpresionMultiple_Click(object sender, EventArgs e)
+        {
+            if (ListaImpresionMultiple == null || ListaImpresionMultiple.Count == 0)
+            {
+                MessageBox.Show(
+                    "No hay artículos enviados para impresión múltiple.",
+                    "Información",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                return;
+            }
+
+            MassImpresions form = new MassImpresions();
+
+            form.ListaArticulos = ListaImpresionMultiple;
+            form.ShowDialog();
+        }
     }
 }

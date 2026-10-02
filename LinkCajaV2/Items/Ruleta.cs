@@ -254,8 +254,19 @@ namespace LinkCajaV2.Items
             }
 
             var premio = detalles2.First();
-            // Texto que verá Resultado
-            r.Premio = premio.Nombre +  " x " + detalles.QuantityPerSpin;   
+            string cantidadPremio;
+            if (premio.Presentation.ToLower().Contains("kg") ||premio.Presentation.ToLower().Contains("gr"))
+            {
+                cantidadPremio = detalles.QuantityPerSpin.ToString("N3");
+            }
+            else
+            {
+                cantidadPremio = detalles.QuantityPerSpin % 1 == 0
+                    ? ((int)detalles.QuantityPerSpin).ToString()
+                    : detalles.QuantityPerSpin.ToString("N3");
+            }
+            r.Premio = premio.Nombre+ " x " + cantidadPremio + " " + premio.Presentation;
+          
             var article =  await obj.GetStock( detalles.IdArticle);
             if (article == null)
             {
@@ -282,8 +293,7 @@ namespace LinkCajaV2.Items
                 return;
             }
 
-            StockModel stock =
-                new StockModel()
+            StockModel stock =new StockModel()
                 {
                     Id = detalles.IdArticle,
                     Stock = article.Stock - detalles.QuantityPerSpin,
@@ -327,9 +337,15 @@ namespace LinkCajaV2.Items
                 return;
             }
 
-            r.Show();
+            r.ShowDialog();
 
             this.Close();
+        }
+
+        private void Ruleta_Shown(object sender, EventArgs e)
+        {
+            this.BringToFront();
+            this.Activate();
         }
     }
 }

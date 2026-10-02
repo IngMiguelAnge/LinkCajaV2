@@ -72,6 +72,18 @@ namespace LinkCajaV2.Catalogs
                 MessageBox.Show("Datos incompletos revise la información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            if (cbCategoria.SelectedIndex <= 0 || cbCategoria.SelectedValue == null || Convert.ToInt32(cbCategoria.SelectedValue) == 0)
+            {
+                MessageBox.Show(
+                    "Seleccione una categoría para el artículo.",
+                    "Datos incompletos",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                cbCategoria.Focus();
+                return;
+            }
             AppRepository obj = new AppRepository();
 
             var exist = obj.GetArticle(0,txtCodigo.Text).Result;

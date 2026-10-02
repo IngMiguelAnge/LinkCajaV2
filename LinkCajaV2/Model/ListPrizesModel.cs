@@ -8,5 +8,7 @@
         public string Cantidad { get; set; }
         public string Estatus {  get; set; }
         public decimal QuantityPerSpin { get; set; }
+        public string Presentation { get; set; }
+
     }
 }

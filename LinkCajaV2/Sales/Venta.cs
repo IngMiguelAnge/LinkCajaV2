@@ -806,7 +806,7 @@ namespace LinkCajaV2.Sales
                 {
                     Ruleta r = new Ruleta();
                     r.listaPremios = listaPremios;
-                    r.Show();
+                    r.Show(this);
                 }
             }
 

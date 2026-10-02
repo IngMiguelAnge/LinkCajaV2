@@ -148,7 +148,7 @@ namespace LinkCajaV2.Configurations
             {
                 Name = "Monto",
                 HeaderText = "Monto",
-                DataPropertyName = "Monto",
+                DataPropertyName = esResumen ? "Monto": "MontoConPresentacion",
                 ReadOnly = true,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
                 Width = 110
