@@ -139,23 +139,44 @@ namespace LinkCajaV2.Catalogs
 
         private void AgregarBotones()
         {
-            // 1. Limpieza de seguridad: si ya existen por una búsqueda previa, los borramos
-            if (dgvPremios.Columns["btnEditar"] != null) dgvPremios.Columns.Remove("btnEditar");
-            if (dgvPremios.Columns["btnCambiar"] != null) dgvPremios.Columns.Remove("btnCambiar");
+            // Limpiar botones si ya existen
+            if (dgvPremios.Columns["btnEditar"] != null)
+                dgvPremios.Columns.Remove("btnEditar");
+
+            if (dgvPremios.Columns["btnCambiar"] != null)
+                dgvPremios.Columns.Remove("btnCambiar");
+          
             if (dgvPremios.Columns["Cantidad"] != null)
             {
                 dgvPremios.Columns["Cantidad"].HeaderText = "Disponibles";
-            }
+            }    
             if (dgvPremios.Columns["QuantityPerSpin"] != null)
             {
-                dgvPremios.Columns["QuantityPerSpin"].HeaderText = "Premios por giro";
-            }
-            if (dgvPremios.Columns["QuantityPerSpin"] != null &&dgvPremios.Columns["Estatus"] != null)
-            {
-                dgvPremios.Columns["QuantityPerSpin"].DisplayIndex = dgvPremios.Columns["Estatus"].DisplayIndex;
+                dgvPremios.Columns["QuantityPerSpin"].Visible = false;
             }
 
+            if (dgvPremios.Columns["Presentation"] != null)
+            {
+                dgvPremios.Columns["Presentation"].Visible = false;
+            }
+
+            if (dgvPremios.Columns["CantidadPorGiro"] != null)
+            {
+                dgvPremios.Columns["CantidadPorGiro"].HeaderText =
+                    "Premios por giro";
+            }
+
+            // Colocar Premios por giro antes de Estatus
+            if (dgvPremios.Columns["CantidadPorGiro"] != null &&
+                dgvPremios.Columns["Estatus"] != null)
+            {
+                dgvPremios.Columns["CantidadPorGiro"].DisplayIndex =
+                    dgvPremios.Columns["Estatus"].DisplayIndex;
+            }
+
+            // Botón Editar
             DataGridViewButtonColumn btnEditar = new DataGridViewButtonColumn();
+
             btnEditar.Name = "btnEditar";
             btnEditar.HeaderText = "Acción";
             btnEditar.Text = "Editar";
@@ -164,14 +185,17 @@ namespace LinkCajaV2.Catalogs
             btnEditar.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
             btnEditar.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
             dgvPremios.Columns.Add(btnEditar);
+
+            // Botón Cambiar Estatus
             DataGridViewButtonColumn btnCambiar = new DataGridViewButtonColumn();
+
             btnCambiar.Name = "btnCambiar";
             btnCambiar.HeaderText = "Acción";
             btnCambiar.Text = "Cambiar Estatus";
             btnCambiar.UseColumnTextForButtonValue = true;
             btnCambiar.FlatStyle = FlatStyle.Flat;
-            btnCambiar.DefaultCellStyle.BackColor = Color.FromArgb(240, 242, 245);
-            btnCambiar.DefaultCellStyle.ForeColor = Color.FromArgb(1, 110, 203);
+            btnCambiar.DefaultCellStyle.BackColor =Color.FromArgb(240, 242, 245);
+            btnCambiar.DefaultCellStyle.ForeColor =Color.FromArgb(1, 110, 203);
             dgvPremios.Columns.Add(btnCambiar);
         }
         private async void BtnBuscar_Click(object sender, EventArgs e)
